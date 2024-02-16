@@ -35,6 +35,7 @@ export class Order {
       city: { required: true, type: String },
       postalCode: { required: true, type: String },
       country: { required: true, type: String },
+      //time zone
     },
   })
   shippingDetails: ShippingDetails;
