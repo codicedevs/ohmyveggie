@@ -13,7 +13,7 @@ import { AdminProfileDto } from '../dtos/admin.profile.dto';
 import { UserDto } from '../dtos/user.dto';
 import { UsersService } from '../services/users.service';
 
-@Serialize(UserDto)
+@Serialize(UserDto)//interceptor
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}

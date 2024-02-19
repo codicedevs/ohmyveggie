@@ -19,7 +19,7 @@ import { UserDocument } from '../schemas/user.schema';
 import { AuthService } from '../services/auth.service';
 import { UsersService } from '../services/users.service';
 
-@Serialize(UserDto)
+@Serialize(UserDto)//interceptor
 @Controller('auth')
 export class AuthController {
   constructor(
