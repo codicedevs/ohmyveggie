@@ -9,7 +9,7 @@ export const connectDB = (
   const dbPassword = configService.get<string>('MONGODB_PASSWORD');
   const dbName = configService.get<string>('MONGODB_DATABASE_NAME');
 
-  const mongodbUri = `mongodb+srv://achrafdev:${dbPassword}@proshop.rbkt6.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+  const mongodbUri = process.env.MONGODB_URL;
 
   return {
     uri: mongodbUri,
@@ -30,11 +30,11 @@ export const sessionConfig = (MongoDBStore: any): SessionOptions => ({
   cookie:
     process.env.NODE_ENV === 'production'
       ? {
-          httpOnly: true,
-          sameSite: 'none',
-          secure: true,
-          maxAge: 3 * 24 * 60 * 60 * 1000,
-        }
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+        maxAge: 3 * 24 * 60 * 60 * 1000,
+      }
       : { maxAge: 3 * 24 * 60 * 60 * 1000 },
   store: new MongoDBStore({
     uri: process.env.MONGODB_URL,

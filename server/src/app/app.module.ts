@@ -11,12 +11,14 @@ import { OrderModule } from '../orders/order.module';
 import { AppController } from './controllers/app.controller';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 import { AppService } from './services/app.service';
+import { MongoChangeStreamError } from 'mongodb';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env'],
+ 
     }),
     MongooseModule.forRootAsync({
       inject: [ConfigService],
@@ -28,6 +30,7 @@ import { AppService } from './services/app.service';
     CartModule,
     OrderModule,
     CloudinaryModule,
+  
     // SeedsModule,
   ],
   controllers: [AppController],
