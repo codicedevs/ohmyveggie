@@ -19,18 +19,15 @@ async function bootstrap() {
   // Inicializa el servicio EventEmitterService
 
   // Conecta a la base de datos MongoDB
-  const client = new MongoClient('mongodb+srv://agustinmacazzaga:PZuJ288k4Kyn5vW5@ohmyveggie.4xaykot.mongodb.net/', { monitorCommands: true });
+  const client = new MongoClient(process.env.MONGODB_URL, { monitorCommands: true });
   await client.connect();
   const db = client.db('ohmyveggie');
   const collection = db.collection('prueba');
-
   // Establece un Change Stream en la colección
   const changeStream = collection.watch();
-
   // Escucha los cambios en la colección
   changeStream.on('change', (change: any) => {
     console.log('Cambio detectado en la base de datos:', change);
-    // Realiza acciones adicionales según sea necesario en respuesta al cambio
   });
 
   await app.listen(process.env.PORT);
