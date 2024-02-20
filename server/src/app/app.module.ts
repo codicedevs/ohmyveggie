@@ -11,7 +11,7 @@ import { OrderModule } from '../orders/order.module';
 import { AppController } from './controllers/app.controller';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 import { AppService } from './services/app.service';
-import { MongoChangeStreamError } from 'mongodb';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [

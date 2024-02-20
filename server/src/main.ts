@@ -6,6 +6,8 @@ import * as session from 'express-session';
 import { corsConfig, sessionConfig } from './utils/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
+import { MongoClient } from 'mongodb';
+
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 async function bootstrap() {
@@ -14,7 +16,23 @@ async function bootstrap() {
   app.enableCors(corsConfig());
   app.use(session(sessionConfig(MongoDBStore)));
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  // Inicializa el servicio EventEmitterService
 
-  await app.listen(process.env.PORT || 4000);
+  // Conecta a la base de datos MongoDB
+  const client = new MongoClient('mongodb+srv://agustinmacazzaga:PZuJ288k4Kyn5vW5@ohmyveggie.4xaykot.mongodb.net/', { monitorCommands: true });
+  await client.connect();
+  const db = client.db('ohmyveggie');
+  const collection = db.collection('prueba');
+
+  // Establece un Change Stream en la colección
+  const changeStream = collection.watch();
+
+  // Escucha los cambios en la colección
+  changeStream.on('change', (change: any) => {
+    console.log('Cambio detectado en la base de datos:', change);
+    // Realiza acciones adicionales según sea necesario en respuesta al cambio
+  });
+
+  await app.listen(process.env.PORT);
 }
 bootstrap();

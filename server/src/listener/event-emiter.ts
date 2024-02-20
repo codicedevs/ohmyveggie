@@ -4,7 +4,7 @@ import { MongoClient } from 'mongodb';
 import { EventEmitter2 } from '@nestjs/event-emitter'; // Importa EventEmitter2 de @nestjs/event-emitter
 
 @Injectable()
-export class MongoChangeStreamService {
+export class MongoEventEmitter {
     private client: MongoClient;
     private changeStream: any;
 
