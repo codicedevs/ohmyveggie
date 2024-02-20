@@ -5,8 +5,8 @@ import { ValidationPipe } from '@nestjs/common';
 import * as session from 'express-session';
 import { corsConfig, sessionConfig } from './utils/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
-
 import { MongoClient } from 'mongodb';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 const MongoDBStore = require('connect-mongodb-session')(session);
 
@@ -25,9 +25,12 @@ async function bootstrap() {
   const collection = db.collection('prueba');
   // Establece un Change Stream en la colección
   const changeStream = collection.watch();
+  const eventEmitter = app.get(EventEmitter2);
   // Escucha los cambios en la colección
   changeStream.on('change', (change: any) => {
     console.log('Cambio detectado en la base de datos:', change);
+    eventEmitter.emit('databaseChange', change);
+
   });
 
   await app.listen(process.env.PORT);

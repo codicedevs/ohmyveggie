@@ -20,6 +20,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
       envFilePath: ['.env'],
  
     }),
+    EventEmitterModule.forRoot(),
     MongooseModule.forRootAsync({
       inject: [ConfigService],
       useFactory: connectDB,

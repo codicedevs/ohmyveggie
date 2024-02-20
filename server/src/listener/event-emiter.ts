@@ -11,26 +11,14 @@ export class MongoEventEmitter {
     constructor(private readonly eventEmitter: EventEmitter2) { } // Inyecta EventEmitter2
 
     async connect() {
-        this.client = new MongoClient('mongodb+srv://agustinmacazzaga:PZuJ288k4Kyn5vW5@ohmyveggie.4xaykot.mongodb.net/', { monitorCommands: true });
+        this.client = new MongoClient(process.env.MONGODB_URL, { monitorCommands: true });
         await this.client.connect();
         const db = this.client.db('ohmyveggie');
         const collection = db.collection('prueba');
-
         // Establece un Change Stream en la colección
-        this.changeStream = collection.watch();
-
-        // Escucha los cambios y emite un evento
+       this.changeStream = collection.watch();
+        // Escucha los cambios en la colección
         this.changeStream.on('change', (change: any) => {
-            if (change) {
-                this.eventEmitter.emit('dataChanged', change); // Emitir el evento 'dataChanged' con el cambio
-                console.log(change)
-            }
+         this.eventEmitter.emit("change",change)
         });
-    }
-
-    async disconnect() {
-        if (this.client) {
-            await this.client.close();
-        }
-    }
-}
+    }}
