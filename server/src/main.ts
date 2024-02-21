@@ -20,7 +20,7 @@ async function bootstrap() {
   const client = new MongoClient(process.env.MONGODB_URL, { monitorCommands: true });
   await client.connect();
   const db = client.db(process.env.MONGODB_DATABASE_NAME);
-  const collection = db.collection('prueba')
+  const collection = db.collection('external-products')
   // Establece un Change Stream en la colección, escucha los cambios en la coleccion
   const changeStream = collection.watch();
   const eventEmitter = app.get(EventEmitter2);

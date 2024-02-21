@@ -56,6 +56,10 @@ export class Product {
   @Prop({ required: true, default: 0 })
   countInStock: number;
 
+  @Prop({ required: false, default: 0 })
+  starPosId: number;
+
+
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
