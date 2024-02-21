@@ -25,8 +25,8 @@ async function bootstrap() {
   const changeStream = collection.watch();
   const eventEmitter = app.get(EventEmitter2);
   changeStream.on('change', (change) => {
-    console.log('Cambio detectado en la base de datos:', change);
-    eventEmitter.emit('databaseChange', change);
+    //  console.log('Cambio detectado en la base de datos:');
+    eventEmitter.emit('CSVDATA', change);
   });
 
   await app.listen(process.env.PORT);
