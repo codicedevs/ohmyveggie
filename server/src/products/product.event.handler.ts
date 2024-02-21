@@ -1,9 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { OnEvent } from "@nestjs/event-emitter";
 import { Product } from "./schemas/product.schema";
+import { ProductsService } from "./services/products.service";
 
 @Injectable()
 export class ProductEventHandler {
+    constructor(private productsService: ProductsService) {}
     @OnEvent('CSVDATA')
     handleCsvDataReceived(csvData: any[]) {
         const product = transform(csvData)
@@ -18,6 +20,5 @@ const transform =  (rawProduct: any): Product => {
     product.countInStock =rawProduct.fullDocument.stock
     product.category = rawProduct.fullDocument.categoria_nombre
     product.price = rawProduct.fullDocument.precio_standard
-
     return product
 }

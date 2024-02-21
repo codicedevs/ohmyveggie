@@ -11,6 +11,7 @@ import { ProductEventHandler } from './product.event.handler';
       {
         name: Product.name,
         schema: ProductSchema,
+        collection:"internal-products"
       },
     ]),
   ],
