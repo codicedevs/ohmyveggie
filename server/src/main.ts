@@ -16,21 +16,17 @@ async function bootstrap() {
   app.enableCors(corsConfig());
   app.use(session(sessionConfig(MongoDBStore)));
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  // Inicializa el servicio EventEmitterService
-
   // Conecta a la base de datos MongoDB
   const client = new MongoClient(process.env.MONGODB_URL, { monitorCommands: true });
   await client.connect();
-  const db = client.db('ohmyveggie');
-  const collection = db.collection('prueba');
-  // Establece un Change Stream en la colección
+  const db = client.db(process.env.MONGODB_DATABASE_NAME);
+  const collection = db.collection('prueba')
+  // Establece un Change Stream en la colección, escucha los cambios en la coleccion
   const changeStream = collection.watch();
   const eventEmitter = app.get(EventEmitter2);
-  // Escucha los cambios en la colección
-  changeStream.on('change', (change: any) => {
+  changeStream.on('change', (change) => {
     console.log('Cambio detectado en la base de datos:', change);
     eventEmitter.emit('databaseChange', change);
-
   });
 
   await app.listen(process.env.PORT);
