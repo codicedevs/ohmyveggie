@@ -59,6 +59,7 @@ export class Product {
 
   @Prop({ required: false, default: 0 })
   externalId: UUID;
+ 
 
 
 }
