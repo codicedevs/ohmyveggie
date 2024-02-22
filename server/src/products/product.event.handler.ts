@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { OnEvent } from "@nestjs/event-emitter";
-import { Product } from "./schemas/product.schema";
 import { ProductsService } from "./services/products.service";
+import transform from "src/utils/transform";
 
 @Injectable()
 export class ProductEventHandler {
@@ -13,13 +13,4 @@ export class ProductEventHandler {
     }
 }
 
-const transform = (rawProduct: any): Product => {
-    const product = new Product()
-    product.externalId = rawProduct.id
-    product.name = rawProduct.nombre
-    product.brand = rawProduct.marca_nombre
-    product.countInStock = rawProduct.stock
-    product.category = rawProduct.categoria_nombre
-    product.price = rawProduct.precio
-    return product
-}
+
