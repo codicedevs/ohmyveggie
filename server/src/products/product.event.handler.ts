@@ -10,7 +10,6 @@ export class ProductEventHandler {
     async handleCsvDataReceived(csvData: any) {
         const product = transform(csvData.fullDocument)
         const result = await this.productsService.productModel.updateOne({ externalId: product.externalId }, product, { upsert: true })
-        console.log(result)
     }
 }
 
@@ -21,6 +20,6 @@ const transform = (rawProduct: any): Product => {
     product.brand = rawProduct.marca_nombre
     product.countInStock = rawProduct.stock
     product.category = rawProduct.categoria_nombre
-    product.price = rawProduct.precio_standard
+    product.price = rawProduct.precio
     return product
 }
