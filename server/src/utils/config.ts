@@ -8,7 +8,7 @@ export const connectDB = (
 ): MongooseModuleOptions => {
   const dbPassword = configService.get<string>('MONGODB_PASSWORD');
   const dbName = configService.get<string>('MONGODB_DATABASE_NAME');
-  const mongodbUri = process.env.MONGODB_URL;
+  const mongodbUri = process.env.MONGODB_URL+process.env.MONGODB_DATABASE_NAME;
 
   return {
     uri: mongodbUri,

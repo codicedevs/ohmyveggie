@@ -5,20 +5,22 @@ import { ProductsService } from "./services/products.service";
 
 @Injectable()
 export class ProductEventHandler {
-    constructor(private productsService: ProductsService) {}
+    constructor(private productsService: ProductsService) { }
     @OnEvent('CSVDATA')
-    handleCsvDataReceived(csvData: any[]) {
-        const product = transform(csvData)
+    async handleCsvDataReceived(csvData: any) {
+        const product = transform(csvData.fullDocument)
+        const result = await this.productsService.productModel.updateOne({ externalId: product.externalId }, product, { upsert: true })
+        console.log(result)
     }
 }
 
-const transform =  (rawProduct: any): Product => {
+const transform = (rawProduct: any): Product => {
     const product = new Product()
-    product.starPosId = rawProduct._id._data
-    product.name = rawProduct.fullDocument.nombre
-    product.brand = rawProduct.fullDocument.marca_nombre
-    product.countInStock =rawProduct.fullDocument.stock
-    product.category = rawProduct.fullDocument.categoria_nombre
-    product.price = rawProduct.fullDocument.precio_standard
+    product.externalId = rawProduct.id
+    product.name = rawProduct.nombre
+    product.brand = rawProduct.marca_nombre
+    product.countInStock = rawProduct.stock
+    product.category = rawProduct.categoria_nombre
+    product.price = rawProduct.precio_standard
     return product
 }

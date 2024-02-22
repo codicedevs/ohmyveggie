@@ -13,7 +13,7 @@ import { Product, ProductDocument } from '../schemas/product.schema';
 @Injectable()
 export class ProductsService {
   constructor(
-    @InjectModel(Product.name) private productModel: Model<ProductDocument>
+    @InjectModel(Product.name) public productModel: Model<ProductDocument>
   ) {}
 
   async findTopRated(): Promise<ProductDocument[]> {
