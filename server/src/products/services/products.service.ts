@@ -13,7 +13,7 @@ import { Product, ProductDocument } from '../schemas/product.schema';
 @Injectable()
 export class ProductsService {
   constructor(
-    @InjectModel(Product.name) private productModel: Model<ProductDocument>
+    @InjectModel(Product.name) public productModel: Model<ProductDocument>
   ) {}
 
   async findTopRated(): Promise<ProductDocument[]> {
@@ -78,12 +78,10 @@ export class ProductsService {
   ): Promise<ProductDocument> {
     const { name, price, description, image, brand, category, countInStock } =
       attrs;
-
     if (!Types.ObjectId.isValid(id))
       throw new BadRequestException('Invalid product ID.');
-
+    
     const product = await this.productModel.findById(id);
-
     if (!product) throw new NotFoundException('No product with given ID.');
 
     product.name = name;

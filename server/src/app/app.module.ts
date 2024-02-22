@@ -7,10 +7,10 @@ import { UsersModule } from 'src/users/users.module';
 import { CommandModule } from 'nestjs-command';
 import { CartModule } from 'src/cart/cart.module';
 import { OrderModule } from '../orders/order.module';
-// import { SeedsModule } from '../seeds/seeds.module';
 import { AppController } from './controllers/app.controller';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 import { AppService } from './services/app.service';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -18,6 +18,7 @@ import { AppService } from './services/app.service';
       isGlobal: true,
       envFilePath: ['.env'],
     }),
+    EventEmitterModule.forRoot(),
     MongooseModule.forRootAsync({
       inject: [ConfigService],
       useFactory: connectDB,
@@ -28,7 +29,6 @@ import { AppService } from './services/app.service';
     CartModule,
     OrderModule,
     CloudinaryModule,
-    // SeedsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

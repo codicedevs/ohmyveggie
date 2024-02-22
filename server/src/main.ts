@@ -5,6 +5,8 @@ import { ValidationPipe } from '@nestjs/common';
 import * as session from 'express-session';
 import { corsConfig, sessionConfig } from './utils/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { MongoClient } from 'mongodb';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 const MongoDBStore = require('connect-mongodb-session')(session);
 
@@ -14,6 +16,19 @@ async function bootstrap() {
   app.enableCors(corsConfig());
   app.use(session(sessionConfig(MongoDBStore)));
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  await app.listen(process.env.PORT || 4000);
+  // Conecta a la base de datos MongoDB
+  const client = new MongoClient(process.env.MONGODB_URL, { monitorCommands: true });
+  await client.connect();
+  const db = client.db(process.env.MONGODB_DATABASE_NAME);
+  const collection = db.collection('external-products')
+  // Establece un Change Stream en la colección, escucha los cambios en la coleccion
+  const changeStream = collection.watch();
+  const eventEmitter = app.get(EventEmitter2);
+  changeStream.on('change', (change) => {
+  //console.log('Cambio detectado en la base de datos:');
+    eventEmitter.emit('CSVDATA', change);
+  });
+
+  await app.listen(process.env.PORT);
 }
 bootstrap();

@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { User } from '../../users/schemas/user.schema';
+import { UUID } from 'mongodb';
 
 export type ProductDocument = Product & mongoose.Document;
 
@@ -55,6 +56,11 @@ export class Product {
 
   @Prop({ required: true, default: 0 })
   countInStock: number;
+
+  @Prop({ required: false, default: 0 })
+  externalId: UUID;
+
+
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

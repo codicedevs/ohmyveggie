@@ -77,6 +77,7 @@ export class Order {
 
   @Prop({ required: false })
   deliveredAt: string;
+  //agregar la fecha de creacion de la orden, va a ejecutarse cuando PRISMA haga efectivo el pago
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
