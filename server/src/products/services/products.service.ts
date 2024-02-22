@@ -19,7 +19,7 @@ export class ProductsService {
   async findTopRated(): Promise<ProductDocument[]> {
     const products = await this.productModel
       .find({})
-      .sort({ rating: -1 })
+      .sort({ rating: -1 })// esto no me sirve
       .limit(3);
 
     if (!products.length) throw new NotFoundException('No products found.');
