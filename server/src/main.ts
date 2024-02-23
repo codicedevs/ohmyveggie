@@ -5,8 +5,6 @@ import { ValidationPipe } from '@nestjs/common';
 import * as session from 'express-session';
 import { corsConfig, sessionConfig } from './utils/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { MongoClient } from 'mongodb';
-import { EventEmitter2 } from '@nestjs/event-emitter';
 import { attachTransformEventHandler } from './utils/transform';
 
 const MongoDBStore = require('connect-mongodb-session')(session);
@@ -19,7 +17,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   // Conecta a la base de datos MongoDB
   await attachTransformEventHandler()
-
   await app.listen(process.env.PORT);
 }
 bootstrap();

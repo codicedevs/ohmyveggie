@@ -1,4 +1,4 @@
-import { ChangeStreamDocument, ChangeStreamInsertDocument, Db, Document, MongoClient } from "mongodb"
+import {  ChangeStreamInsertDocument, Db, Document, MongoClient } from "mongodb"
 import { Product } from "src/products/schemas/product.schema"
 
 export const transform = (rawProduct: any): Product => {
@@ -15,9 +15,9 @@ export const transform = (rawProduct: any): Product => {
 async function transformEventHandler(db: Db, event: ChangeStreamInsertDocument<Document>) {
     const product = transform(event.fullDocument)
     const productCollection = db.collection('products')
-    return productCollection.updateOne({ externalId: product.externalId }, // Filtro para encontrar el documento a actualizar
-        { $set: product }, // Actualización del documento utilizando el operador $set
-        { upsert: true }) // Opción para insertar un nuevo documento si no se encuentra ninguno que coincida con el filtro)
+    return productCollection.updateOne({ externalId: product.externalId }, //Operadores de MongoDB
+        { $set: product }, 
+        { upsert: true }) 
 }
 
 export async function attachTransformEventHandler() {
