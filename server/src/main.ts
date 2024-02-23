@@ -24,9 +24,9 @@ async function bootstrap() {
   // Establece un Change Stream en la colección, escucha los cambios en la coleccion
   const changeStream = collection.watch();
   const eventEmitter = app.get(EventEmitter2);
-  changeStream.on('insert', (insert) => {
+  changeStream.on('change', (event) => {
   //console.log('Cambio detectado en la base de datos:');
-    eventEmitter.emit('CSVDATA', insert);
+    if(event.operationType==="insert") eventEmitter.emit('CSVDATA', event);
   });
 
   await app.listen(process.env.PORT);
