@@ -1,6 +1,7 @@
+import { ChangeStreamDocument, ChangeStreamInsertDocument, Db, Document, MongoClient } from "mongodb"
 import { Product } from "src/products/schemas/product.schema"
 
-const transform = (rawProduct: any): Product => {
+export const transform = (rawProduct: any): Product => {
     const product = new Product()
     product.externalId = rawProduct.id
     product.name = rawProduct.nombre
@@ -10,4 +11,26 @@ const transform = (rawProduct: any): Product => {
     product.price = rawProduct.precio
     return product
 }
-export default transform
+
+async function transformEventHandler(db: Db, event: ChangeStreamInsertDocument<Document>) {
+    const product = transform(event.fullDocument)
+    const productCollection = db.collection('products')
+    return productCollection.updateOne({ externalId: product.externalId }, // Filtro para encontrar el documento a actualizar
+        { $set: product }, // Actualización del documento utilizando el operador $set
+        { upsert: true }) // Opción para insertar un nuevo documento si no se encuentra ninguno que coincida con el filtro)
+}
+
+export async function attachTransformEventHandler() {
+    const client = new MongoClient(process.env.MONGODB_URL, { monitorCommands: true });
+    await client.connect();
+    const db = client.db(process.env.MONGODB_DATABASE_NAME);
+    const collection = db.collection('external-products')
+    // Establece un Change Stream en la colección, escucha los cambios en la coleccion
+    const changeStream = collection.watch();
+    changeStream.on('change', async (event) => {
+        if (event.operationType === "insert") {
+            await transformEventHandler(db, event)
+        }
+    });
+}
+

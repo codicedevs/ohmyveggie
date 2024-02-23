@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { OnEvent } from "@nestjs/event-emitter";
 import { ProductsService } from "./services/products.service";
-import transform from "src/utils/transform";
+import { transform } from "src/utils/transform";
 
 @Injectable()
 export class ProductEventHandler {
