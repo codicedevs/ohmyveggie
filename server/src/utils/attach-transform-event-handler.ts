@@ -1,4 +1,4 @@
-import {  ChangeStreamInsertDocument, Db, Document, MongoClient } from "mongodb"
+import { ChangeStreamInsertDocument, Db, Document, MongoClient } from "mongodb"
 import { Product } from "src/products/schemas/product.schema"
 
 export const transform = (rawProduct: any): Product => {
@@ -16,8 +16,8 @@ async function transformEventHandler(db: Db, event: ChangeStreamInsertDocument<D
     const product = transform(event.fullDocument)
     const productCollection = db.collection('products')
     return productCollection.updateOne({ externalId: product.externalId }, //Operadores de MongoDB
-        { $set: product }, 
-        { upsert: true }) 
+        { $set: product },
+        { upsert: true })
 }
 
 export async function attachTransformEventHandler() {
