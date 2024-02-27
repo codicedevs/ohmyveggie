@@ -13,25 +13,25 @@ export class PaymentController {
     return await this.paymentService.getToken();
   }
 
-  @Get("/partialRefaund")
+  @Get("/partial-refaund")
   async getPartialRefaund() {
     return await this.paymentService.partialRefaund()
   }
 
-  @Get("/totalRefaund")
+  @Get("/total-refaund")
   async getTotalRefaund() {
     return await this.paymentService.totalRefaund()
   }
 
-  @Post("/requestToken")
+  @Post("/request-token")
   async requestToken(formData: FormDataDto) {
     return await this.paymentService.requestToken(formData)
   }
-  @Post('/requestPayment')
+  @Post('/request-payment')
   async handlePaymentRequest(@Body() formData: FormDataHandlePaymentDto): Promise<any> {
-    return await this.paymentService.handlePaymentRequest(formData);
+    return await this.paymentService.paymentRequest(formData);
   }
-  @Post('/confirmPayment')
+  @Post('/confirm-payment')
   async confirmPayment(@Body() paymentData: any): Promise<any> {
     return await this.paymentService.confirmPayment(paymentData);
   }
