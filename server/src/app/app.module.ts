@@ -11,6 +11,7 @@ import { AppController } from './controllers/app.controller';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 import { AppService } from './services/app.service';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { PaymentModule } from 'src/payments/payments.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     CartModule,
     OrderModule,
     CloudinaryModule,
+    PaymentModule
   ],
   controllers: [AppController],
   providers: [AppService],

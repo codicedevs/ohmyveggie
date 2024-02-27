@@ -16,6 +16,8 @@ async function bootstrap() {
   app.use(session(sessionConfig(MongoDBStore)));
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   await attachTransformEventHandler() // Conecta a la base de datos MongoDB
-  await app.listen(process.env.PORT);
+  const port = +(process.env.PORT ?? 3001)
+  await app.listen(process.env.PORT ?? 3001);
+  console.log("Server listen in port " + port)
 }
 bootstrap();

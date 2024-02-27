@@ -1,7 +1,7 @@
-module.exports = {
-    tokenData: function(args) {
+export class tokenData {
+    constructor(args) {
 
-        this.getJSON = function() {
+        this.getJSON = function () {
 
             if (args.hasOwnProperty('token') && args.hasOwnProperty('security_code') && Object.keys(args).length <= 5) {
                 return args = {
@@ -14,10 +14,10 @@ module.exports = {
                         'Content-Type': args['Content-Type'],
                         'Cache-Control': args['Cache-Control']
                     }
-                }
+                };
             }
 
-            dataCompare = {
+          const  dataCompare = {
                 card_number: '',
                 card_expiration_month: '',
                 card_expiration_year: '',
@@ -26,9 +26,8 @@ module.exports = {
                 type: '',
                 number: ''
             };
-            Object.keys(dataCompare).map(function(objectKey, value) {
+            Object.keys(dataCompare).map(function (objectKey, value) {
                 if (objectKey in args) {
-
                 } else {
                     console.log("Error: el campo requerido " + objectKey + " no está definido o es incorrecto.");
                     return "Error: el campo requerido  " + objectKey + " no está definido o es incorrecto.";
@@ -57,37 +56,37 @@ module.exports = {
                     'Content-Type': args['Content-Type'],
                     'Cache-Control': args['Cache-Control']
                 }
-            }
+            };
         };
 
-        this.getCardNumber = function() {
+        this.getCardNumber = function () {
             return args.card_number;
         };
-        this.getCardExpirationMonth = function() {
+        this.getCardExpirationMonth = function () {
             return args.card_expiration_month;
         };
-        this.getCardExpirationYear = function() {
+        this.getCardExpirationYear = function () {
             return args.card_expiration_year;
         };
-        this.getSecurityCode = function() {
+        this.getSecurityCode = function () {
             return args.security_code;
         };
-        this.getCardHolderName = function() {
+        this.getCardHolderName = function () {
             return args.card_holder_name;
         };
-        this.getType = function() {
+        this.getType = function () {
             return args.type;
         };
-        this.getNumber = function() {
+        this.getNumber = function () {
             return args.number;
         };
-        this.getApiKey = function() {
+        this.getApiKey = function () {
             return args.apiKey;
         };
-        this.getContentType = function() {
+        this.getContentType = function () {
             return args['Content-Type'];
         };
-        this.getCacheControl = function() {
+        this.getCacheControl = function () {
             return args['Cache-Control'];
         };
     }
