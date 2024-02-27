@@ -18,6 +18,5 @@ async function bootstrap() {
   await attachTransformEventHandler() // Conecta a la base de datos MongoDB
   const port = +(process.env.PORT ?? 3001)
   await app.listen(process.env.PORT ?? 3001);
-  console.log("Server listen in port " + port)
 }
 bootstrap();

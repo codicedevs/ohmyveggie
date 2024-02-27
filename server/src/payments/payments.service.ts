@@ -3,13 +3,14 @@ import { Injectable } from '@nestjs/common';
 import axios from "axios"
 import { FormDataDto, FormDataHandlePaymentDto } from './dto/form.data.dto';
 var TokenDataModulo = require('./lib/token_data.js');
-var PaymentDataModulo = require ("./lib/payment_data.js")
+var PaymentDataModulo = require("./lib/payment_data.js")
 var sdkModulo = require("./lib/sdk")
+
 
 @Injectable()
 export class PaymentService {
 
-    async exampleGetToken(): Promise<string> {
+    async exampleGetToken(): Promise<any> {
         const args = {
             card_number: '4507990000004905',
             card_expiration_month: '08',
@@ -24,9 +25,10 @@ export class PaymentService {
         };
         const tokenData = new TokenDataModulo.tokenData(args);
         const argsToSend = tokenData.getJSON();
-        const data =
-            (await axios.post(process.env.PRISMA_ENDPOINT_DEVELOPER + "/tokens", argsToSend)).data
-        return data;
+
+        const data = await axios.post(process.env.PRISMA_ENDPOINT_DEVELOPER + "/tokens", argsToSend)
+        return data
+
     }
 
     async getToken() {
@@ -96,7 +98,7 @@ export class PaymentService {
         }
         const sdk = await new sdkModulo.sdk('developer', process.env.PRISMA_PUBLIC_API_KEY, args.apiKey);
         const paymentData = new PaymentDataModulo.paymentData(args);
-    
+
         const paymentResult = await sdk.payment(paymentData.getJSON());
         return paymentResult;
     }

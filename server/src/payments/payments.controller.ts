@@ -24,7 +24,7 @@ export class PaymentController {
   }
 
   @Post("/request-token")
-  async requestToken(formData: FormDataDto) {
+  async requestToken(@Body() formData: FormDataDto) {
     return await this.paymentService.requestToken(formData)
   }
   @Post('/request-payment')
