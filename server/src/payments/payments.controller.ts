@@ -1,28 +1,18 @@
 // payment.controller.ts
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { PaymentService } from './payments.service';
 import { FormDataDto, FormDataHandlePaymentDto } from './dto/form.data.dto';
+import sdk from './lib/sdk';
 
 
 @Controller('payments')
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) { }
 
-  @Get("/get-token")
+  @Get("/get-example-token")
   async getToken() {
-    return await this.paymentService.getToken();
+    return await this.paymentService.exampleGetToken();
   }
-
-  @Get("/partial-refaund")
-  async getPartialRefaund() {
-    return await this.paymentService.partialRefaund()
-  }
-
-  @Get("/total-refaund")
-  async getTotalRefaund() {
-    return await this.paymentService.totalRefaund()
-  }
-
   @Post("/request-token")
   async requestToken(@Body() formData: FormDataDto) {
     return await this.paymentService.requestToken(formData)
@@ -34,5 +24,15 @@ export class PaymentController {
   @Post('/confirm-payment')
   async confirmPayment(@Body() paymentData: any): Promise<any> {
     return await this.paymentService.confirmPayment(paymentData);
+  }
+  @Get(':user_id')
+  async getCardToken(@Param('user_id') userId: string): Promise<string> {
+    const token = await this.paymentService.exampleGetCardToken(userId, sdk);
+    return token;
+  }
+  @Post('request-tokenized')
+  async requestTokenized(@Body() formData: any): Promise<any> { // usar el dto
+    const response = await this.paymentService.requestTokenized(formData);
+    return response;
   }
 }

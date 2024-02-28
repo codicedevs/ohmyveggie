@@ -60,8 +60,6 @@ export class Product {
   @Prop({ required: false, default: 0 })
   externalId: UUID;
  
-
-
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
