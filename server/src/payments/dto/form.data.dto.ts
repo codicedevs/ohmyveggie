@@ -7,8 +7,6 @@ export class FormDataDto {
   type: string;
   number: string;
   apiKey: string;
-  contentType: string;// revisar
-  cacheControl: string;//revisar
 }
 
 export class FormDataHandlePaymentDto {
@@ -23,7 +21,7 @@ export class FormDataHandlePaymentDto {
   description: string;
   payment_type: string;
   apiKey: string;
-  'Content-Type': string;
   transactionId: any;
   apiKeyHidden: any;
+  'Content-Type': string;
 }

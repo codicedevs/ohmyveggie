@@ -14,25 +14,27 @@ export class PaymentController {
     return await this.paymentService.exampleGetToken();
   }
   @Post("/request-token")
-  async requestToken(@Body() formData: FormDataDto) {
+  async requestToken(@Body() formData: any) {
     return await this.paymentService.requestToken(formData)
   }
   @Post('/request-payment')
-  async handlePaymentRequest(@Body() formData: FormDataHandlePaymentDto): Promise<any> {
+  async handlePaymentRequest(@Body() formData: any): Promise<any> {
     return await this.paymentService.paymentRequest(formData);
   }
   @Post('/confirm-payment')
   async confirmPayment(@Body() paymentData: any): Promise<any> {
     return await this.paymentService.confirmPayment(paymentData);
   }
+  /*
   @Get(':user_id')
   async getCardToken(@Param('user_id') userId: string): Promise<string> {
     const token = await this.paymentService.exampleGetCardToken(userId, sdk);
     return token;
   }
   @Post('request-tokenized')
-  async requestTokenized(@Body() formData: any): Promise<any> { // usar el dto
+  async requestTokenized(@Body() formData: any): Promise<any> {
     const response = await this.paymentService.requestTokenized(formData);
     return response;
   }
+  */
 }
