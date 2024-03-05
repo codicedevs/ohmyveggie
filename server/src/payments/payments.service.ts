@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import axios from "axios"
+import { FormDto } from './dto/form.data.dto';
 var sdkModulo = require("./lib/sdk")
 
 @Injectable()
 export class PaymentService {
 
-    async paymentTokenRequest(form: any): Promise<any> {
+    async paymentTokenRequest(form: FormDto): Promise<any> {
         const url = 'https://developers-ventasonline.payway.com.ar/api/v2/tokens';
         const headers = {
             'Content-Type': 'application/json',
@@ -21,8 +22,8 @@ export class PaymentService {
             card_holder_birthday: form.card_holder_birthday,
             card_holder_door_number: form.card_holder_door_number,
             card_holder_identification: {
-                type: form.card_holder_identification_type,
-                number: form.card_holder_identification_number
+                type: form.card_holder_identification.type,
+                number: form.card_holder_identification.number
             },
             fraud_detection: {
                 device_unique_identifier: form.fraud_detection.device_unique_identifier

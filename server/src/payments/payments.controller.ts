@@ -1,6 +1,7 @@
 // payment.controller.ts
 import { Body, Controller, Post } from '@nestjs/common';
 import { PaymentService } from './payments.service';
+import { FormDto } from './dto/form.data.dto';
 
 
 
@@ -10,7 +11,7 @@ export class PaymentController {
 
 
   @Post("/token-request")
-  async requestToken(@Body() formData: any) { // pasar a DTO
+  async requestToken(@Body() formData: FormDto) { // pasar a DTO
     return await this.paymentService.paymentTokenRequest(formData)
   }
 
