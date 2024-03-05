@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import axios from "axios"
-import { FormDto } from './dto/form.data.dto';
+import {  ConfirmPaymentDTO, TokenRequestFormDto } from './dto/form.data.dto';
 var sdkModulo = require("./lib/sdk")
 
 @Injectable()
 export class PaymentService {
 
-    async paymentTokenRequest(form: FormDto): Promise<any> {
+    async paymentTokenRequest(form: TokenRequestFormDto): Promise<any> {
         const url = 'https://developers-ventasonline.payway.com.ar/api/v2/tokens';
         const headers = {
             'Content-Type': 'application/json',
@@ -37,24 +37,30 @@ export class PaymentService {
         }
     }
 
-    async confirm(paymentData: any): Promise<any> {
-        const stringDatos = paymentData.stringDatos;
-        const data = JSON.parse(stringDatos);
-        const paymentId = data.paymentId;
-        const args = {
-            data: {
-                amount: parseInt(data.amount)
-            },
-            headers: {
-                apikey: data.apiKeyHidden,
-                'Content-Type': 'application/json',
-                'Cache-Control': ''
-            }
+
+    async confirm(form: ConfirmPaymentDTO): Promise<any> {
+        const url = 'https://developers-ventasonline.payway.com.ar/api/v2/payments';
+        const headers = {
+            'Content-Type': 'application/json',
+            'apikey': '92b71cf711ca41f78362a7134f87ff65',
+            'X-Source': "eyJzZXJ2aWNlIjoicmVzdCIsImdyb3VwZXIiOiJwcnVlYmEiLCJkZXZlbG9wZXIiOiJwcnVlYmEifQ==",
         };
-        const sdk = await new sdkModulo.sdk('developer', process.env.PRISMA_PUBLIC_API_KEY, data.apiKeyHidden);
-        const paymentResult = await sdk.payment(args, paymentId);
-        return paymentResult
-
+        const dataForm = {
+            site_transaction_id: form.site_transaction_id,
+            token: form.token,
+            payment_method_id: form.payment_method_id,
+            bin: form.bin,
+            amount: form.amount,
+            currency: form.currency,
+            installments: form.installments,
+            payment_type: form.payment_type,
+            sub_payments: form.sub_payments
+        }
+        try {
+            const response = await axios.post(url, dataForm, { headers });
+            return response.data;
+        } catch (error) {
+            throw error.response.data;
+        }
     }
-
 }
