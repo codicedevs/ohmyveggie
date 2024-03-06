@@ -6,4 +6,11 @@ export const serverSetting = Object.freeze({
     DB_DATABASE: process.env.DB_DATABASE,
     DB_PASSWORD: process.env.DB_PASSWORD,
     DB_URL: process.env.DB_URL
+});
+
+export const jwtSetting = Object.freeze({
+    JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
+    JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
+   
   });
+  

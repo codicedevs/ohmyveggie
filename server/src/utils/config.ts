@@ -9,7 +9,7 @@ export const connectDB = (
 ): MongooseModuleOptions => {
   const dbPassword = configService.get<string>('DB_PASSWORD');
   const dbName = configService.get<string>('DB_NAME');
-  const mongodbUri = serverSetting.DB_URL+serverSetting.DB_DATABASE;
+  const mongodbUri = serverSetting.DB_URL + serverSetting.DB_DATABASE;
 
   return {
     uri: mongodbUri,
