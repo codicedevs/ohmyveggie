@@ -6,6 +6,7 @@ import * as session from 'express-session';
 import { corsConfig, sessionConfig } from './utils/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { attachTransformEventHandler } from './utils/attach-transform-event-handler';
+import { serverSetting } from './settings';
 
 const MongoDBStore = require('connect-mongodb-session')(session);
 
@@ -16,7 +17,6 @@ async function bootstrap() {
   app.use(session(sessionConfig(MongoDBStore)));
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   await attachTransformEventHandler() // Conecta a la base de datos MongoDB
-  const port = +(process.env.PORT ?? 3001)
-  await app.listen(process.env.PORT ?? 3001);
+  await app.listen(serverSetting.PORT);
 }
 bootstrap();

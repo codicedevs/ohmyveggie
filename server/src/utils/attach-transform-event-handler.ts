@@ -1,5 +1,6 @@
 import { ChangeStreamInsertDocument, Db, Document, MongoClient } from "mongodb"
 import { Product } from "src/products/schemas/product.schema"
+import { serverSetting } from "src/settings"
 
 export const transform = (rawProduct: any): Product => {
     const product = new Product()
@@ -21,9 +22,9 @@ async function transformEventHandler(db: Db, event: ChangeStreamInsertDocument<D
 }
 
 export async function attachTransformEventHandler() {
-    const client = new MongoClient(process.env.MONGODB_URL, { monitorCommands: true });
+    const client = new MongoClient(serverSetting.DB_URL, { monitorCommands: true });
     await client.connect();
-    const db = client.db(process.env.MONGODB_DATABASE_NAME);
+    const db = client.db(serverSetting.DB_DATABASE);
     const collection = db.collection('external-products')
     // Establece un Change Stream en la colección, escucha los cambios en la coleccion
     const changeStream = collection.watch();

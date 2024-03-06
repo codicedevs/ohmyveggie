@@ -45,7 +45,7 @@ export class TokenRequestFormDto {
   fraud_detection: FraudDetectionDto;
 }
 
-export class ConfirmPaymentDTO {
+export class ConfirmPaymenFormDTO {
   @IsString()
   site_transaction_id: string;
 

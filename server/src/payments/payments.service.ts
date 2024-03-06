@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import axios from "axios"
-import {  ConfirmPaymentDTO, TokenRequestFormDto } from './dto/form.data.dto';
-var sdkModulo = require("./lib/sdk")
+import {  ConfirmPaymenFormDTO, TokenRequestFormDto } from './dto/form.data.dto';
 
 @Injectable()
 export class PaymentService {
@@ -37,8 +36,7 @@ export class PaymentService {
         }
     }
 
-
-    async confirm(form: ConfirmPaymentDTO): Promise<any> {
+    async confirm(form: ConfirmPaymenFormDTO): Promise<any> {
         const url = 'https://developers-ventasonline.payway.com.ar/api/v2/payments';
         const headers = {
             'Content-Type': 'application/json',

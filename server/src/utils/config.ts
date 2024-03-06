@@ -2,13 +2,14 @@ import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.int
 import { ConfigService } from '@nestjs/config';
 import { MongooseModuleOptions } from '@nestjs/mongoose';
 import { SessionOptions } from 'express-session';
+import { serverSetting } from 'src/settings';
 
 export const connectDB = (
   configService: ConfigService
 ): MongooseModuleOptions => {
-  const dbPassword = configService.get<string>('MONGODB_PASSWORD');
-  const dbName = configService.get<string>('MONGODB_DATABASE_NAME');
-  const mongodbUri = process.env.MONGODB_URL+process.env.MONGODB_DATABASE_NAME;
+  const dbPassword = configService.get<string>('DB_PASSWORD');
+  const dbName = configService.get<string>('DB_NAME');
+  const mongodbUri = serverSetting.DB_URL+serverSetting.DB_DATABASE;
 
   return {
     uri: mongodbUri,
@@ -36,7 +37,7 @@ export const sessionConfig = (MongoDBStore: any): SessionOptions => ({
       }
       : { maxAge: 3 * 24 * 60 * 60 * 1000 },
   store: new MongoDBStore({
-    uri: process.env.MONGODB_URL,
+    uri: serverSetting.DB_URL,
     collection: 'sessions',
   }),
 });

@@ -1,7 +1,7 @@
 // payment.controller.ts
 import { Body, Controller, Post } from '@nestjs/common';
 import { PaymentService } from './payments.service';
-import {  ConfirmPaymentDTO, TokenRequestFormDto } from './dto/form.data.dto';
+import {  ConfirmPaymenFormDTO, TokenRequestFormDto } from './dto/form.data.dto';
 
 
 
@@ -16,7 +16,7 @@ export class PaymentController {
   }
 
   @Post('/confirm')
-  async confirm(@Body() paymentData: ConfirmPaymentDTO): Promise<any> {
+  async confirm(@Body() paymentData: ConfirmPaymenFormDTO): Promise<any> {
     return await this.paymentService.confirm(paymentData);
   }
 
