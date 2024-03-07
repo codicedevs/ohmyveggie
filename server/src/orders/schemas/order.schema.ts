@@ -16,7 +16,7 @@ export class Order {
       {
         name: { required: true, type: String },
         qty: { required: true, type: Number },
-        image: { required: true, type: String },
+        image: { required: false, type: String },
         price: { required: true, type: Number },
         productId: {
           type: mongoose.Schema.Types.ObjectId,

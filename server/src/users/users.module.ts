@@ -9,6 +9,7 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from '../strategies/local.strategy';
 import { JwtStrategy } from 'src/strategies/jwt.strategy';
 import { UsersController } from './controller/users.controller';
+import { jwtSetting } from 'src/settings';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { UsersController } from './controller/users.controller';
     ]),
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      secret: jwtSetting.JWT_ACCESS_SECRET,
       signOptions: { expiresIn: '1d' },
     }),
   ],
