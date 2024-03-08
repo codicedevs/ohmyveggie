@@ -1,5 +1,6 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import CartNew from '../components/CartNew';
 import {
   useCartActions,
   useLocalStorage,
@@ -27,12 +28,19 @@ const MainLayout: React.FC = ({ children }) => {
   }, [accessToken, getCurrentUser]);
 
   return (
-    <div className="app__container">
+    <>
+      <CartNew />
       <Header />
-      {children}
+        {children}
       <Footer />
-    </div>
+    </>
   );
 };
 
 export default MainLayout;
+
+{/*<div className="app__container">
+      <Header />
+      {children}
+      <Footer />
+  </div>*/}

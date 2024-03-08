@@ -56,7 +56,47 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
   };
 
   return (
-    <>
+    <section className="section-2">
+      <div className="div-block-23" />
+      <div className="div-block-24">
+        <h1 className="heading-3">{name}</h1>
+        <div className="div-block-26">Oferta</div>
+        <div className="text-block-8">${price}</div>
+        {
+          countInStock > 0 ?
+          <div className="text-block-9">Stock disponible</div>
+          :
+          <div className="text-block-9 agotado">Agotado</div>
+        }
+        
+        
+        <p className="paragraph-3">
+          {description}
+        </p>
+        { countInStock > 0 ?
+          <div className="div-block-25"
+          onClick={() => {
+            addToCart({
+              product: data,
+              qty,
+            });
+          }}
+          >
+            Añadir al carro
+          </div>
+          : null
+        }
+        <Link href="/" passHref>
+          <div className="div-block-25-back">Volver</div>
+        </Link>
+      </div>
+    </section>
+  );
+};
+
+export default ProductDetails;
+
+{/*<>
       <Link href="/" passHref>
         <div className="btn btn-light my-3">Go Back</div>
       </Link>
@@ -220,8 +260,4 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
           </Row>
         </>
       )}
-    </>
-  );
-};
-
-export default ProductDetails;
+    </> */}

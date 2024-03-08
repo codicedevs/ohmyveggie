@@ -12,9 +12,40 @@ const Item: React.FC<ProductInterface> = ({
   rating,
   numReviews,
   price,
+  countInStock
 }) => {
   return (
-    <Card className="my-3 p-3 rounded cursor-pointer" role="button">
+    <Link href={`/product/${_id}`} passHref>
+      <a className="link-block w-inline-block">
+        <>
+          <div className="picture">
+            <div className="offer">Oferta</div>
+            <img
+              src={image}
+              loading="lazy"
+
+            />
+            { countInStock > 0 &&
+              <div className="div-block-39">
+                <div className="stocklevel disponible">Disponible</div>
+              </div>
+              
+            }
+          </div>
+          <div className="productfooterwrapper">
+            <div className="title">{name}</div>
+            <div className="text-block-5">${price}</div>
+            <div className="addbutton">+</div>
+          </div>
+        </>
+      </a>
+    </Link>
+  );
+};
+
+export default Item;
+
+{/*<Card className="my-3 p-3 rounded cursor-pointer" role="button">
       <Link href={`/product/${_id}`} passHref>
         <Card.Img src={image} variant="top"></Card.Img>
       </Link>
@@ -36,8 +67,4 @@ const Item: React.FC<ProductInterface> = ({
           ${price}
         </Card.Text>
       </Card.Body>
-    </Card>
-  );
-};
-
-export default Item;
+    </Card> */}

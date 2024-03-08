@@ -31,6 +31,164 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
 
   return (
     <>
+      <div className="div-block-8">
+        <div className="div-block-16">
+          <img
+            src="images/logo2.png"
+            loading="lazy"
+            width={185}
+            alt=""
+            className="image-5"
+          />
+          <h1 className="heading">Comprá Online</h1>
+          <div className="div-block-9">
+            <img
+              src="images/searchIcon.png"
+              loading="lazy"
+              alt=""
+              className="image"
+            />
+            <div className="text-block-6">¿Qué estás buscando?</div>
+          </div>
+          <a href="#productos" className="link">
+            ¡Hacé tu pedido por la web y te lo enviamos a domicilio!
+          </a>
+          <div className="text-block-20">
+            Envíos adomicilio | Fisherton | Funes | Rosario
+          </div>
+        </div>
+      </div>
+
+      <section id="productos" className="section">
+        <div id="products" className="wrapperprods">
+          <div className="wrapperstyckymenu">
+            <div className="stickymenu">
+              <div className="div-block-14">
+                <div className="div-block-13">
+                  <div className="text-block-2">Marcas</div>
+                </div>
+                <div className="div-block-15" />
+              </div>
+              <ul role="list" className="list w-list-unstyled">
+                <li className="listitem">ALIF</li>
+                <li className="listitem">AnimalKind</li>
+                <li className="listitem">Arbanit</li>
+                <li className="listitem">Argendiet</li>
+                <li className="listitem">BIBA</li>
+                <li className="listitem">BRU</li>
+                <li className="listitem">Binfinit</li>
+              </ul>
+              <div className="div-block-14">
+                <div className="div-block-13">
+                  <div className="text-block-2">Categorías</div>
+                </div>
+                <div className="div-block-15" />
+              </div>
+              <ul role="list" className="list w-list-unstyled">
+                <li className="listitem">Promociones</li>
+                <li className="listitem">Secos</li>
+                <li className="listitem">Sin TACC</li>
+                <li className="listitem">Conservas</li>
+                <li className="listitem">Almacén</li>
+                <li className="listitem">Aderezos</li>
+                <li className="listitem">Sustitutos lácteos</li>
+              </ul>
+            </div>
+          </div>
+          <div className="div-block-17">
+            <div className="categorie">
+              <h2 className="heading-2">Productos destacados</h2>
+              <div className="text-block-3">La mejor elección para usted</div>
+            </div>
+            <div className="prods">
+
+              {loading ? (
+                <Loader />
+              ) : error ? (
+                <Message variant="danger">{error}</Message>
+              ) : (
+                <>
+
+                  {products.map(product => (
+                    <Item {...product} />
+                  ))}
+
+
+                  {/*<Paginate
+                    pages={pages}
+                    page={page}
+                    keyword={keyword ? keyword : ''}
+                  />*/}
+                </>
+              )}
+
+            </div>
+            <div className="categorie">
+              <h2 className="heading-2">Todos los productos</h2>
+              <div className="text-block-3">Le ofrecemos una gran variedad</div>
+            </div>
+            <div className="prods">
+
+              <a href="detalleproducto.html" className="link-block w-inline-block">
+                <div className="picture">
+                  <div className="offer">Oferta</div>
+                  <img
+                    src="images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979.png"
+                    loading="lazy"
+                    sizes="(max-width: 479px) 21vw, (max-width: 767px) 14vw, (max-width: 991px) 17vw, 16vw"
+                    srcSet="images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979-p-500.png 500w, images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979.png 768w"
+                    alt=""
+                    className="image-7"
+                  />
+                </div>
+                <div className="productfooterwrapper">
+                  <div className="title">Veggie burguer</div>
+                  <div className="text-block-5">$ 3.500,00 </div>
+                  <div className="addbutton">+</div>
+                </div>
+              </a>
+
+            </div>
+            <div className="div-block-28">
+              <div
+                data-delay={4000}
+                data-animation="slide"
+                className="slider w-slider"
+                data-autoplay="true"
+                data-easing="ease"
+                data-hide-arrows="false"
+                data-disable-swipe="false"
+                data-autoplay-limit={0}
+                data-nav-spacing={3}
+                data-duration={500}
+                data-infinite="true"
+              >
+                <div className="w-slider-mask">
+                  <div className="slide w-slide" />
+                  <div className="slide-2 w-slide" />
+                </div>
+                <div className="left-arrow w-slider-arrow-left">
+                  <div className="w-icon-slider-left" />
+                </div>
+                <div className="right-arrow w-slider-arrow-right">
+                  <div className="w-icon-slider-right" />
+                </div>
+                <div className="slide-nav w-slider-nav w-shadow w-round" />
+              </div>
+            </div>
+
+              <ProductCarousel />
+
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default Products;
+
+{/*<>
       {!keyword ? (
         <ProductCarousel />
       ) : (
@@ -39,7 +197,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
         </Link>
       )}
 
-      <h1>Latest products</h1>
+      <h1>Latest products xxx</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -61,8 +219,4 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
           />
         </>
       )}
-    </>
-  );
-};
-
-export default Products;
+            </>*/}
