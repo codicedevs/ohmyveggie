@@ -25,9 +25,14 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
     data: { products, pages, page },
   } = useTypedSelector(state => state.products);
 
+  console.log('keyword:', keyword);
+  console.log('products:', products);
+
+
   useEffect(() => {
     fetchProducts(keyword as string, parseInt(pageId as string));
   }, [fetchProducts, keyword, pageId]);
+  
 
   return (
     <>
@@ -149,35 +154,10 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
               </a>
 
             </div>
-            <div className="div-block-28">
-              <div
-                data-delay={4000}
-                data-animation="slide"
-                className="slider w-slider"
-                data-autoplay="true"
-                data-easing="ease"
-                data-hide-arrows="false"
-                data-disable-swipe="false"
-                data-autoplay-limit={0}
-                data-nav-spacing={3}
-                data-duration={500}
-                data-infinite="true"
-              >
-                <div className="w-slider-mask">
-                  <div className="slide w-slide" />
-                  <div className="slide-2 w-slide" />
-                </div>
-                <div className="left-arrow w-slider-arrow-left">
-                  <div className="w-icon-slider-left" />
-                </div>
-                <div className="right-arrow w-slider-arrow-right">
-                  <div className="w-icon-slider-right" />
-                </div>
-                <div className="slide-nav w-slider-nav w-shadow w-round" />
-              </div>
-            </div>
-
+            
+            <div className="categorie">
               <ProductCarousel />
+            </div>
 
           </div>
         </div>

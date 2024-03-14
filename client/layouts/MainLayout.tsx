@@ -31,6 +31,7 @@ const MainLayout: React.FC = ({ children }) => {
     <>
       <CartNew />
       <Header />
+      <CartNew /> 
         {children}
       <Footer />
     </>

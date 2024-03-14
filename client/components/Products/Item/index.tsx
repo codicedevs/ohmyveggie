@@ -29,7 +29,6 @@ const Item: React.FC<ProductInterface> = ({
               <div className="div-block-39">
                 <div className="stocklevel disponible">Disponible</div>
               </div>
-              
             }
           </div>
           <div className="productfooterwrapper">

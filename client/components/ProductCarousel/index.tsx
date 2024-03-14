@@ -1,57 +1,29 @@
 import React, { useEffect } from 'react';
-import Link from 'next/link';
-import { Carousel, Image } from 'react-bootstrap';
-import Loader from '../Loader';
-import Message from '../Message';
-import { useProductsActions, useTypedSelector } from '../../hooks';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader  
+import { Carousel } from 'react-responsive-carousel'; 
+
+
+
+
+
+//"../images/slide1.jpg"
 
 const ProductCarousel = () => {
 
   return (
 
-    <div
-      id="carouselExampleIndicators"
-      className="carousel slide"
-      data-ride="carousel"
-    >
-      <ol className="carousel-indicators">
-        <li
-          data-target="#carouselExampleIndicators"
-          data-slide-to={0}
-          className="active"
-        />
-        <li data-target="#carouselExampleIndicators" data-slide-to={1} />
-        <li data-target="#carouselExampleIndicators" data-slide-to={2} />
-      </ol>
-      <div className="carousel-inner">
-        <div className="carousel-item active">
-          <img className="d-block w-100" src="../public/images/slide2.jpg" alt="First slide" />
-        </div>
-        <div className="carousel-item">
-          <img className="d-block w-100" src="..." alt="Second slide" />
-        </div>
-
-      </div>
-      <a
-        className="carousel-control-prev"
-        href="#carouselExampleIndicators"
-        role="button"
-        data-slide="prev"
-      >
-        <span className="carousel-control-prev-icon" aria-hidden="true" />
-        <span className="sr-only">Previous</span>
-      </a>
-      <a
-        className="carousel-control-next"
-        href="#carouselExampleIndicators"
-        role="button"
-        data-slide="next"
-      >
-        <span className="carousel-control-next-icon" aria-hidden="true" />
-        <span className="sr-only">Next</span>
-      </a>
-    </div>
-
+    // <Carousel>
+    //   <div>
+    //     <img src="../images/slide1.jpg" />
+    //     <p className="legend">Legend 1</p>
+    //   </div>
+    //   <div>
+    //     <img src="../images/slide2.jpg" />
+    //     <p className="legend">Legend 2</p>
+    //   </div>
+      
+    // </Carousel>
+    <h1>Acá va el slider</h1>
 
   );
 };
