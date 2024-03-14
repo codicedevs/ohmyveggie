@@ -1,7 +1,14 @@
 import { useCartActions, useTypedSelector } from '../../hooks';
+import { v4 as randomID } from 'uuid';
+import Message from '../Message';
+import Loader from '../Loader';
+import { useRouter } from 'next/router';
 
 
-const CartNew: React.FC = () => {
+
+const CartNew: React.FC <{toggleCart: () => void}> = ( props ) => {
+
+    const router = useRouter();
     
     const {
       loading,
@@ -9,12 +16,21 @@ const CartNew: React.FC = () => {
       data: { cartItems },
     } = useTypedSelector(state => state.cart);
     const { data } = useTypedSelector(state => state.user);
-    const { addToCart, removeFromCart } = useCartActions();
+    const { addToCart, removeFromCart }  = useCartActions();
+
+    const onCheckoutHandler = () => {
+      const redirect = data ? '/shipping' : '/login';    //  acá redirecciona al hacer click en Comprar ahora en funcion de data
+      props.toggleCart();
+      router.push(redirect);
+    };
 
     console.log('cartsItems', cartItems);
 
     function addQtyProd(item: any) {  
-      if (item.qty + 1 > item.countInStock) { return }  
+      if (item.qty + 1 > item.countInStock) {
+        <Message variant="danger">'No puede comprar más de ' {item.countInStock} 'productos'</Message>
+        return
+       }  
       addToCart({
         qty: item.qty + 1,
         productId: item.productId,
@@ -56,6 +72,7 @@ const CartNew: React.FC = () => {
             <div
               data-w-id="8545fafe-abce-9b05-f732-86724d5fd31c"
               className="div-block-34"
+              onClick={props.toggleCart}
             >
               X
             </div>
@@ -93,10 +110,10 @@ const CartNew: React.FC = () => {
           </div>
 
           {cartItems.length > 0 ?
-            <div className="buybutton">
-              <a href="#" className="button w-button">
+            <div className="buybutton" onClick={onCheckoutHandler}>
+              <div className="button w-button">
                 Comprar ahora
-              </a>
+              </div>
             </div>
             : null
           }  

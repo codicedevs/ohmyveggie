@@ -4,6 +4,9 @@ import { ProductInterface } from '../../../interfaces';
 import Link from 'next/link';
 import { Card } from 'react-bootstrap';
 import Rating from '../../Rating';
+import { useCartActions, useTypedSelector } from '../../../hooks';
+import { v4 as randomID } from 'uuid';
+import Message from '../../Message';
 
 const Item: React.FC<ProductInterface> = ({
   _id,
@@ -14,6 +17,20 @@ const Item: React.FC<ProductInterface> = ({
   price,
   countInStock
 }) => {
+
+  const { addToCart } = useCartActions();
+
+  function addQtyProd() {  
+    if ( 1 > countInStock) {
+      <Message variant="danger">'Stock :' {countInStock}</Message>
+      return
+     }  
+    addToCart({
+      qty:  1,   // debería sumar 1 a la cant de prod en el carro
+      productId: _id,
+    })
+  }
+
   return (
     <Link href={`/product/${_id}`} passHref>
       <a className="link-block w-inline-block">
@@ -34,7 +51,7 @@ const Item: React.FC<ProductInterface> = ({
           <div className="productfooterwrapper">
             <div className="title">{name}</div>
             <div className="text-block-5">${price}</div>
-            <div className="addbutton">+</div>
+            <div className="addbutton" >+</div>
           </div>
         </>
       </a>
@@ -43,6 +60,8 @@ const Item: React.FC<ProductInterface> = ({
 };
 
 export default Item;
+
+//onClick= {() => addQtyProd(item)}
 
 {/*<Card className="my-3 p-3 rounded cursor-pointer" role="button">
       <Link href={`/product/${_id}`} passHref>

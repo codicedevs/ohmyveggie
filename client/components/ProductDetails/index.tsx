@@ -75,10 +75,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
         </p>
         { countInStock > 0 ?
           <div className="div-block-25"
-          onClick={() => {
+          
+          onClick={() => {   // va al carro, no tiene que ir - Modificar
             addToCart({
               product: data,
-              qty,
+              qty,  //----------------------------------> Verificar porque modifica el total de productos del carro <----------------------------
             });
           }}
           >

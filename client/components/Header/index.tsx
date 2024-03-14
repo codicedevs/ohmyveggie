@@ -1,18 +1,26 @@
 //importing components
+import { useState } from 'react';
 import Link from 'next/link';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { useTypedSelector, useUserActions } from '../../hooks';
 import SearchBox from '../SearchBox';
+import CartNew from '../CartNew';
 
 const Header = () => {
   const { data } = useTypedSelector(state => state.user);
   const { logout } = useUserActions();
+
+  const [isVisibleCart, setIsVisibleCart] = useState(false);
 
   const {
     loading,
     error,
     data: { cartItems },
   } = useTypedSelector(state => state.cart);
+
+  function toggleCart() {
+    setIsVisibleCart(!isVisibleCart);
+  }
 
   return (
     <header>
@@ -125,7 +133,7 @@ const Header = () => {
               alt=""
               className="image-4"
             />
-            <div className="div-block-31" >
+            <div className="div-block-31" onClick={toggleCart} >
               <img
                 src="images/shopLila.png"
                 loading="lazy"
@@ -139,6 +147,9 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      { isVisibleCart && <CartNew toggleCart={toggleCart}/> } 
+
     </header>
   );
 };

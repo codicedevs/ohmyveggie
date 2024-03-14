@@ -29,9 +29,7 @@ const MainLayout: React.FC = ({ children }) => {
 
   return (
     <>
-      <CartNew />
       <Header />
-      <CartNew /> 
         {children}
       <Footer />
     </>
