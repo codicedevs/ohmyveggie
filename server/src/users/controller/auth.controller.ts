@@ -18,6 +18,7 @@ import { UserDto } from '../dtos/user.dto';
 import { UserDocument } from '../schemas/user.schema';
 import { AuthService } from '../services/auth.service';
 import { UsersService } from '../services/users.service';
+import { RecoverPasswordDto } from '../dtos/recover.pass.dto';
 
 @Serialize(UserDto)//interceptor
 @Controller('auth')
@@ -72,7 +73,6 @@ export class AuthController {
     };
 
     session.user = loggedUser;
-
     return loggedUser;
   }
 
@@ -95,4 +95,17 @@ export class AuthController {
 
     return updatedUser;
   }
+    /**
+   * @param email
+   * @returns
+   */
+
+    @Post("recover-password")
+    async recoverPassword(@Body() recoverPassword: RecoverPasswordDto) {
+      const result = await this.authService.passwordRecovery(recoverPassword.email);
+      return {
+        message: "Password recovery initiated successfully",
+        data: result,
+      };
+    }
 }

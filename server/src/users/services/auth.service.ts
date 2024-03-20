@@ -7,12 +7,14 @@ import { UsersService } from './users.service';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { encryptPassword } from 'src/utils';
+import { EmailService } from 'src/email/email.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private emailService: EmailService
   ) { }
 
   async validateUser(email: string, password: string) {
@@ -52,4 +54,25 @@ export class AuthService {
 
     return user;
   }
+    /**
+   * Esta funcion en primera instancia chequea si el usuario existe mediante su correo
+   * Si existe crea un resetKey y un resetKeyTimeStamp, el segundo es una marca de tiempo para manejar la expiracion del primero
+   * Por ultimo tanto resetKey como resetKeyTimeStamp se almacenan como propiedades en el usuario
+   * Una vez creado resetkey y timeStamp se le envia al usuario por e mail el reset key para que pueda enviarlas
+   * @param email
+   * @returns
+   */
+
+    async passwordRecovery(email: string) {
+      const user = await this.usersService.findOne(email);
+      const resetKey = Math.floor(Math.random() * (99999 - 10000) + 10000);
+      const resetKeyTimeStamp = new Date().toISOString();
+      await this.usersService.update(user.id, {
+        resetKey: resetKey.toString(),
+        resetKeyTimeStamp: resetKeyTimeStamp,
+      });
+      await this.emailService.sendPasswordRecovery(user, resetKey);
+      const userUpdated = await this.usersService.findOne(email);
+      return { userUpdated, resetKey };
+    }
 }
