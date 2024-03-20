@@ -10,7 +10,7 @@ import { encryptPassword } from 'src/utils';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
   async createMany(users: Partial<UserDocument>[]): Promise<UserDocument[]> {
     const createdUsers = await this.userModel.insertMany(users);
@@ -76,6 +76,12 @@ export class UsersService {
 
     user.name = attrs.name || user.name;
     user.email = attrs.email || user.email;
+
+    // Verifica si resetKey y resetKeyTimestamp están presentes en la solicitud
+    if (attrs.resetKey && attrs.resetKeyTimeStamp) {
+      user.resetKey = attrs.resetKey;
+      user.resetKeyTimeStamp = attrs.resetKeyTimeStamp;
+    }
 
     if (attrs.password) {
       user.password = await encryptPassword(attrs.password);

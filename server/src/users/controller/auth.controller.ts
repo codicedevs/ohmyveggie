@@ -19,14 +19,15 @@ import { UserDocument } from '../schemas/user.schema';
 import { AuthService } from '../services/auth.service';
 import { UsersService } from '../services/users.service';
 import { RecoverPasswordDto } from '../dtos/recover.pass.dto';
+import { ResetPassDto } from '../dtos/reset.pass.dto';
 
-@Serialize(UserDto)//interceptor
+@Serialize(UserDto)//interceptor, intercepta las respuestas, ojo porque los mensajes de reset password y reset quedan filtrades
 @Controller('auth')
 export class AuthController {
   constructor(
     private authService: AuthService,
     private usersService: UsersService
-  ) {}
+  ) { }
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
@@ -95,17 +96,30 @@ export class AuthController {
 
     return updatedUser;
   }
-    /**
-   * @param email
-   * @returns
-   */
+  /**
+ * @param email
+ * @returns
+ */
 
-    @Post("recover-password")
-    async recoverPassword(@Body() recoverPassword: RecoverPasswordDto) {
-      const result = await this.authService.passwordRecovery(recoverPassword.email);
-      return {
-        message: "Password recovery initiated successfully",
-        data: result,
-      };
-    }
+  @Post("recover-password")
+  async recoverPassword(@Body() recoverPassword: RecoverPasswordDto) {
+    const result = await this.authService.passwordRecovery(recoverPassword.email);
+    return {
+      message: "Password recovery initiated successfully",
+      data: result,
+    };
+
+  }
+  /**
+* @param resetPass
+* @returns
+*/
+
+  @Post("reset-password")
+  async resetPassword(@Body() resetPass: ResetPassDto) {
+    await this.authService.resetPassword(resetPass);
+    return { message: "Password reset successful" };
+  }
 }
+
+
