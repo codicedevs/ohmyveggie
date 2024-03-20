@@ -93,7 +93,7 @@ export class AuthService {
     const user = await this.usersService.findOne(
       resetPassBody.email
     );
-    if (user.resetKey !== resetPassBody.resetKey) {
+    if (user.resetKey != resetPassBody.resetKey) {
       throw new UnauthorizedException({ message: "Reset Key Invalid" });
     }
     // Reset password key, tiene 12 hs de validez
