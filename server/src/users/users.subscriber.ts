@@ -4,7 +4,9 @@ import { User } from "./schemas/user.schema";
 import { EmailService } from "src/email/email.service";
 import { serverSetting } from "src/settings";
 
-
+/**
+ * este subscriber envia un correo electronico a un usuario que se registra, tambien podria hacerse desde el servicio cuando se crea un usuario
+ */
 @Injectable()
 export class UserSubscriber {
   constructor(private readonly emailService: EmailService) {
@@ -17,7 +19,6 @@ export class UserSubscriber {
     const db = client.db(serverSetting.DB_DATABASE);
     const collection = db.collection('users');
 
-    // Escucha los cambios en la colección
     const changeStream = collection.watch();
     changeStream.on('change', async (event: any) => {
       if (event.operationType === "insert") {

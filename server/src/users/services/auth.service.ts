@@ -68,7 +68,7 @@ export class AuthService {
       const resetKey = Math.floor(Math.random() * (99999 - 10000) + 10000);
       const resetKeyTimeStamp = new Date().toISOString();
       await this.usersService.update(user.id, {
-        resetKey: resetKey.toString(),
+        resetKey: resetKey,
         resetKeyTimeStamp: resetKeyTimeStamp,
       });
       await this.emailService.sendPasswordRecovery(user, resetKey);

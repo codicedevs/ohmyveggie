@@ -18,7 +18,7 @@ export class User {
   isAdmin: boolean;
 
   @Prop({ requiered: false })
-  resetKey: string
+  resetKey: number
 
   @Prop({ requiered: false })
   resetKeyTimeStamp: string
