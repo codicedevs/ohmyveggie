@@ -16,8 +16,71 @@ const Payment = () => {
     savePaymentMethod(paymentMethod);
   };
 
+  const payType = (e: any) => {
+    setPaymentMethod(e.target.value);
+  }
+
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 step3 />
+
+      <section className="section-3">
+
+          <div className="div-block-24">
+            <h1 className="heading-3">Método de Pago</h1>
+            <p>{paymentMethod}</p>
+            <Form onSubmit={onSubmitHandler}>
+
+            <form
+              id="email-form"
+              name="email-form"
+              data-name="Email Form"
+              method="get"
+              data-wf-page-id="65f872ed28150826d4601d71"
+              data-wf-element-id="fb62ff65-4573-b2d0-9df1-bee19b8724a5"
+            >
+              <div className="div-block-40">
+                <Form.Check
+                  className="py-3"
+                  type="radio"
+                  label="Tarjeta crédito/débito"
+                  id="PayPal"
+                  name="paymentMethod"
+                  value="PayPal"
+                  //checked
+                  //onChange={e => setPaymentMethod(e.target.value)}
+                  onClick={payType}
+                ></Form.Check>
+                <Form.Check
+                  className="py-3"
+                  type="radio"
+                  label="Efectivo"
+                  id="Cash"
+                  name="paymentMethod"
+                  value="Cash"
+                  //checked
+                  //onChange={e => setPaymentMethod(e.target.value)}
+                  onClick={payType}
+                ></Form.Check>
+              </div>
+            </form>
+
+            
+            <Button type="submit" variant="primary">
+              Continuar
+            </Button>
+        </Form>
+        </div>
+      </section>
+
+        
+    </FormContainer>
+  );
+};
+
+export default Payment;
+
+/* <FormContainer>
       <CheckoutSteps step1 step2 step3 />
 
       <h1>Payment Method</h1>
@@ -42,8 +105,4 @@ const Payment = () => {
           Continue
         </Button>
       </Form>
-    </FormContainer>
-  );
-};
-
-export default Payment;
+    </FormContainer>*/

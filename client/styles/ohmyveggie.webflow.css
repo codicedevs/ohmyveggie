@@ -21,6 +21,51 @@
   --color: #facbef;
 }
 
+.w-checkbox {
+  margin-bottom: 5px;
+  padding-left: 20px;
+  display: block;
+}
+
+.w-checkbox:before {
+  content: " ";
+  grid-area: 1 / 1 / 2 / 2;
+  display: table;
+}
+
+.w-checkbox:after {
+  content: " ";
+  clear: both;
+  grid-area: 1 / 1 / 2 / 2;
+  display: table;
+}
+
+.w-checkbox-input {
+  float: left;
+  margin: 4px 0 0 -20px;
+  line-height: normal;
+}
+
+.w-checkbox-input--inputType-custom {
+  width: 12px;
+  height: 12px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+.w-checkbox-input--inputType-custom.w--redirected-checked {
+  background-color: #3898ec;
+  background-image: url('https://d3e54v103j8qbb.cloudfront.net/static/custom-checkbox-checkmark.589d534424.svg');
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-color: #3898ec;
+}
+
+.w-checkbox-input--inputType-custom.w--redirected-focus {
+  box-shadow: 0 0 3px 1px #3898ec;
+}
+
 .div-block {
   background-color: var(--fucsia\<deleted\|variable-6bbdef0b-45ab-d661-3a46-0f98f4aeb982\>);
 }
@@ -82,11 +127,10 @@
 .div-block-8 {
   height: 87vh;
   background-color: var(--black);
-  background-image: linear-gradient(to bottom, var(--fucsia-transparente), var(--fucsia-transparente)), url('../public/images/hero3.jpg');
+  background-image: linear-gradient(to bottom, var(--fucsia-transparente), var(--fucsia-transparente)), url('../public/images/IMG_0811-min.jpg');
   background-position: 0 0, 50%;
-  background-repeat: repeat, repeat;
+  background-repeat: repeat, no-repeat;
   background-size: auto, cover;
-  background-attachment: scroll, scroll;
   justify-content: center;
   align-items: center;
   margin-top: 0;
@@ -604,6 +648,7 @@
 .div-block-23 {
   width: 40%;
   height: 50vh;
+  background-color: var(--orange);
   background-image: url('../public/images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979.png');
   background-position: 50%;
   background-repeat: no-repeat;
@@ -613,10 +658,11 @@
 }
 
 .div-block-24 {
-  width: 40%;
-  height: 50vh;
+  width: 50%;
+  height: auto;
   background-color: rgba(122, 118, 118, 0);
-  padding-right: 30px;
+  flex: 0 auto;
+  padding-right: 0;
   position: relative;
 }
 
@@ -640,20 +686,10 @@
 }
 
 .div-block-25 {
-  margin-right: 10px;
   background-color: var(--bosque-verde);
   color: #fcf9f9;
   border-radius: 6px;
-  padding: 9px;
-  font-family: Open Sans, sans-serif;
-  font-weight: 600;
-  display: inline-block;
-}
-
-.div-block-25-back {
-  background-color: rgb(204, 202, 202);
-  color: #181717;
-  border-radius: 6px;
+  margin-top: 20px;
   padding: 9px;
   font-family: Open Sans, sans-serif;
   font-weight: 600;
@@ -689,7 +725,7 @@
 }
 
 .div-block-27 {
-  width: 100%;   /*81.5%*/
+  width: 81.5%;
 }
 
 .image-7 {
@@ -923,6 +959,7 @@
   height: 7%;
   justify-content: center;
   align-items: center;
+  padding-bottom: 0;
   display: flex;
 }
 
@@ -1105,6 +1142,116 @@
   font-weight: 500;
 }
 
+.section-3 {
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+  padding-left: 7%;
+  padding-right: 7%;
+  display: flex;
+}
+
+.shiptxtfield {
+  border-radius: 6px;
+  font-family: Open Sans, sans-serif;
+}
+
+.checkbox {
+  font-family: Open Sans, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.div-block-40 {
+  border: 1px solid #aca9a9;
+  border-radius: 6px;
+  justify-content: space-around;
+  margin-top: 29px;
+  padding: 22px;
+  display: flex;
+}
+
+.section-4 {
+  padding: 50px 7%;
+}
+
+.column-5 {
+  height: auto;
+  padding-left: 0;
+}
+
+.txtorderitem {
+  height: auto;
+  background-color: rgba(218, 197, 197, 0);
+  border: 1px solid #adacac;
+  border-radius: 6px;
+  padding: 10px;
+  font-family: Open Sans, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.txtordersubitem {
+  height: 50px;
+  padding: 15px 15px 15px 10px;
+  font-family: Open Sans, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ordersummary {
+  border: 1px solid #adaaaa;
+  border-radius: 6px;
+  flex-flow: column;
+  padding: 10px;
+  display: block;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 150px;
+}
+
+.itemordersummary {
+  justify-content: space-between;
+  margin-bottom: 16px;
+  display: flex;
+}
+
+.txtitemordersummary {
+  font-family: Open Sans, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.column-6 {
+  padding-right: 0;
+}
+
+.columns-2 {
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  display: flex;
+}
+
+.deliveredpaid {
+  background-color: var(--locura);
+  opacity: 1;
+  color: #f8f7f7;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-family: Open Sans, sans-serif;
+  font-size: 16px;
+}
+
+.deliveredpaid.paid {
+  background-color: var(--locura);
+}
+
+.deliveredpaid.true {
+  background-color: var(--bosque-verde);
+}
+
 @media screen and (max-width: 991px) {
   .navbar {
     padding-left: 2%;
@@ -1121,10 +1268,10 @@
   }
 
   .div-block-8 {
-    background-image: linear-gradient(rgba(229, 191, 217, .6), rgba(229, 191, 217, .6)), url('../public/images/hero3.jpg');
+    background-image: linear-gradient(rgba(229, 191, 217, .6), rgba(229, 191, 217, .6)), url('../public/images/IMG_0811-min.jpg');
     background-position: 0 0, 50%;
-    background-repeat: repeat, repeat;
-    background-size: auto, auto;
+    background-repeat: repeat, no-repeat;
+    background-size: auto, cover;
     background-attachment: scroll, scroll;
   }
 
@@ -1260,11 +1407,11 @@
 
 @media screen and (max-width: 767px) {
   .div-block-8 {
-    background-image: linear-gradient(rgba(229, 188, 216, .6), rgba(229, 188, 216, .6)), url('../public/images/hero3.jpg');
-    background-position: 0 0, 50%;
-    background-repeat: repeat, repeat;
-    background-size: auto, auto;
-    background-attachment: scroll, scroll;
+    background-image: linear-gradient(rgba(229, 188, 216, .6), rgba(229, 188, 216, .6)), url('../public/images/IMG_0811-min.jpg'), url('../public/images/hero3.jpg');
+    background-position: 0 0, 100%, 50%;
+    background-repeat: repeat, no-repeat, repeat;
+    background-size: auto, cover, auto;
+    background-attachment: scroll, scroll, scroll;
   }
 
   .heading {
@@ -1387,11 +1534,11 @@
   }
 
   .div-block-8 {
-    background-image: linear-gradient(rgba(226, 186, 213, .6), rgba(226, 186, 213, .6)), url('../public/images/hero3.jpg');
-    background-position: 0 0, 50%;
-    background-repeat: repeat, repeat;
-    background-size: auto, auto;
-    background-attachment: scroll, scroll;
+    background-image: linear-gradient(rgba(226, 186, 213, .6), rgba(226, 186, 213, .6)), url('../public/images/IMG_0811-min.jpg'), url('../public/images/hero3.jpg');
+    background-position: 0 0, 100%, 50%;
+    background-repeat: repeat, no-repeat, repeat;
+    background-size: auto, cover, auto;
+    background-attachment: scroll, scroll, scroll;
   }
 
   .heading {

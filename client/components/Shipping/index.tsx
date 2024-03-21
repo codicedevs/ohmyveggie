@@ -38,13 +38,106 @@ const Shipping = () => {
       return null;
     }
 
+    setShippingAddress({     // Pais hardcodeado
+      ...shippingAddress,
+      postalCode: 'Argentina',
+    })
+
     saveShippingAddress(shippingAddress);
 
     router.push('/payment');
   };
 
   return (
+
     <FormContainer>
+      <CheckoutSteps step1 step2 />
+      <section className="section-3">
+        <div className="div-block-24">
+          <h1 className="heading-3">Envío</h1>
+          {message && (
+            <Message variant="danger">
+              {Array.isArray(message) ? message[0] : message}
+            </Message>
+          )}
+          <Form onSubmit={onSubmitHandler}>
+            <Form.Group controlId="address">
+              <Form.Control
+                className='shiptxtfield w-input'
+                type="text"
+                placeholder="Dirección"
+                value={shippingAddress.address}
+                onChange={e =>
+                  setShippingAddress({
+                    ...shippingAddress,
+                    address: e.target.value,
+                  })
+                }
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="city" className="py-3">
+              <Form.Control
+                className='shiptxtfield w-input'
+                type="text"
+                placeholder="Ciudad"
+                value={shippingAddress.city}
+                onChange={e =>
+                  setShippingAddress({ ...shippingAddress, city: e.target.value })
+                }
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="postalCode">
+              <Form.Control
+                className='shiptxtfield w-input'
+                type="text"
+                placeholder="Código postal"
+                value={shippingAddress.postalCode}
+                onChange={e =>
+                  setShippingAddress({
+                    ...shippingAddress,
+                    postalCode: e.target.value,
+                  })
+                }
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="zone">   {/* Falta crear en la db*/} 
+              <Form.Control
+                className='shiptxtfield w-input'
+                type="text"
+                placeholder="Zona"
+                /*value={shippingAddress.postalCode}
+                onChange={e =>
+                  setShippingAddress({
+                    ...shippingAddress,
+                    zone: e.target.value,
+                  })
+                }*/
+              ></Form.Control>
+            </Form.Group>
+
+            <Button type="submit" variant="primary">
+              Continuar
+            </Button>
+
+            <div style={{height: 50}}></div>
+
+          </Form>
+
+                 
+        </div>
+      </section>
+     
+    </FormContainer>
+  );
+};
+
+export default Shipping;
+
+
+/*<FormContainer>
       <CheckoutSteps step1 step2 />
       <h1>Shipping</h1>
 
@@ -116,8 +209,4 @@ const Shipping = () => {
           Continue
         </Button>
       </Form>
-    </FormContainer>
-  );
-};
-
-export default Shipping;
+    </FormContainer> */

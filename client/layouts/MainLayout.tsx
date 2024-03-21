@@ -28,11 +28,11 @@ const MainLayout: React.FC = ({ children }) => {
   }, [accessToken, getCurrentUser]);
 
   return (
-    <>
+    <div className='pagewrapper'>
       <Header />
         {children}
       <Footer />
-    </>
+    </div>
   );
 };
 

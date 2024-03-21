@@ -13,6 +13,7 @@ import {
   Card,
   Button,
   Form,
+  ToastContainer,
 } from 'react-bootstrap';
 import Rating from '../Rating';
 import Loader from '../Loader';
@@ -23,6 +24,7 @@ interface ProductDetailsProps {
   pageId: string | string[] | undefined;
 }
 
+
 const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
   const [qty, setQty] = useState(1);
   const [_rating, setRating] = useState(0);
@@ -32,13 +34,20 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
   const { addToCart } = useCartActions();
 
   const { loading, error, data } = useTypedSelector(state => state.product);
-  const { loading: cartLoading } = useTypedSelector(state => state.cart);
+  const { loading: cartLoading,data: cartData } = useTypedSelector(state => state.cart);
   const { data: user } = useTypedSelector(state => state.user);
   const {
     loading: loadingReview,
     error: errorReview,
     success: successReview,
   } = useTypedSelector(state => state.productCreateReview);
+
+  /*const {
+    loading,
+    error,
+    data: { cartItems },
+  } = useTypedSelector(state => state.cart);*/
+  console.log('Cart items :', cartData.cartItems, data);
 
   const { image, name, price, countInStock, description, rating, numReviews } =
     data;
@@ -54,6 +63,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
 
     createProductReview(pageId as string, { rating: _rating, comment });
   };
+
+  /*const addProdToCart() = {
+
+      //setQty( cartData.cartItems.length + 1)
+      addToCart({
+        product: data,
+        qty,  //----------------------------------> Verificar porque modifica el total de productos del carro <----------------------------
+      });
+  }*/
 
   return (
     <section className="section-2">
@@ -76,7 +94,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
         { countInStock > 0 ?
           <div className="div-block-25"
           
-          onClick={() => {   // va al carro, no tiene que ir - Modificar
+          onClick={() => {   // va al carro, no tiene que ir - Modificado en state/Cart/cart.actions.creators/addToCart
+            //let qutuy = qty;
+            //setQty( qutuy + 1)
+            //alert(qty);
+            
             addToCart({
               product: data,
               qty,  //----------------------------------> Verificar porque modifica el total de productos del carro <----------------------------

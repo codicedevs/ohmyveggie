@@ -89,14 +89,14 @@ const CartNew: React.FC <{toggleCart: () => void}> = ( props ) => {
                     <div className="morelessbutton" onClick= {() => subtractQtyProd(item)}>-</div>
                   </div>
                   <div className="productdetail">
-                    <img
+                    {/* <img
                       src={item.image} 
                       loading="lazy"
                       sizes="100vw"
                       srcSet="images/10619725EA-checkers515Wx515H-p-500.png 500w, images/10619725EA-checkers515Wx515H.png 515w"
                       alt={item.name}
                       className="image-9"
-                    />
+                    /> */}
                     <div className="producttext">
                       <div className="text-block-12">{item.name}</div>
                       <div className="text-block-13">${item.price}x{item.qty}</div>  

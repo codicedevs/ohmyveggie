@@ -19,6 +19,7 @@
     "react-paypal-button-v2": "^2.6.3",
     "react-redux": "^7.2.6",
     "react-responsive-carousel": "^3.2.23",
+    "react-toastify": "^10.0.5",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
