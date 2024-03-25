@@ -1,4 +1,5 @@
-import { ChangeStreamInsertDocument, Db, Document, MongoClient } from "mongodb"
+import { warn } from "console"
+import {  Db, Document, MongoClient } from "mongodb"
 import { Product } from "src/products/schemas/product.schema"
 import { serverSetting } from "src/settings"
 
@@ -13,8 +14,8 @@ export const transform = (rawProduct: any): Product => {
     return product
 }
 
-async function transformEventHandler(db: Db, event: ChangeStreamInsertDocument<Document>) {
-    const product = transform(event.fullDocument)
+async function transformEventHandler(db: Db, fullDocument: Document) {
+    const product = transform(fullDocument)
     const productCollection = db.collection('products')
     return productCollection.updateOne({ externalId: product.externalId }, //Operadores de MongoDB
         { $set: product },
@@ -29,8 +30,11 @@ export async function attachTransformEventHandler() {
     // Establece un Change Stream en la colección, escucha los cambios en la coleccion
     const changeStream = collection.watch();
     changeStream.on('change', async (event) => {
-        if (event.operationType === "insert") {
-            await transformEventHandler(db, event)
+        console.log('Evento recibido:', event);
+        if (event.operationType === "insert" || event.operationType === "replace") {
+            await transformEventHandler(db, event.fullDocument);
+        } else {
+            console.warn("no se recibio un full document", warn)
         }
     });
 }
