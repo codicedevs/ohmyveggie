@@ -5,14 +5,14 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { PaymentResult } from 'src/interfaces';
+import { PaginatedOrders, PaymentResult } from 'src/interfaces';
 import { Order, OrderDocument } from '../schemas/order.schema';
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectModel(Order.name) private orderModel: Model<OrderDocument>
-  ) {}
+  ) { }
 
   async create(
     orderAttrs: Partial<OrderDocument>,
@@ -49,6 +49,22 @@ export class OrdersService {
     const orders = await this.orderModel.find();
 
     return orders;
+  }
+
+  async findMany(
+    pageId?: string
+  ): Promise<PaginatedOrders> {
+    const pageSize = 2;
+    const page = parseInt(pageId) || 1;
+
+    const orders = await this.orderModel
+      .find()
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
+
+    if (!orders.length) throw new NotFoundException('No orders found.');
+
+    return { orders, page, pages: Math.ceil(pageSize) };
   }
 
   async findById(id: string): Promise<OrderDocument> {

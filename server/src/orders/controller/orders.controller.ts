@@ -5,6 +5,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Session,
   UseGuards,
 } from '@nestjs/common';
@@ -14,7 +15,7 @@ import { OrdersService } from '../services/orders.service';
 
 @Controller('orders')
 export class OrdersController {
-  constructor(private ordersService: OrdersService) {}
+  constructor(private ordersService: OrdersService) { }
 
   @UseGuards(AuthGuard)
   @Post()
@@ -27,6 +28,14 @@ export class OrdersController {
   async getOrders() {
     return this.ordersService.findAll();
   }
+
+  /* @UseGuards(AdminGuard)
+    @Get()
+    getPaginatedOrders(
+      @Query('pageId') pageId: string
+    ) {
+      return this.ordersService.findMany(pageId);
+    }*/
 
   @UseGuards(AuthGuard)
   @Get('myorders')
