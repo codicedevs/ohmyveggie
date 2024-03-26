@@ -1,3 +1,4 @@
+import { OrderDocument } from 'src/orders/schemas/order.schema';
 import { Product, ProductDocument } from 'src/products/schemas/product.schema';
 
 export interface ShippingDetails {
@@ -35,4 +36,10 @@ export interface PaginatedProducts {
   products: ProductDocument[];
   pages: number;
   page: number;
+}
+
+export interface PaginatedOrders {
+  orders: OrderDocument[];
+  pages: number;
+  page: number
 }
