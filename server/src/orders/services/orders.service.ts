@@ -80,6 +80,30 @@ export class OrdersService {
     return order;
   }
 
+  /**
+   * 
+   * @param day esta funcion entrega ordenes respecto del dia
+   * @returns 
+   */
+  async findByDay(day: Date) {
+    // Establece la fecha de inicio para el día dado (a las 00:00:00 horas)
+    const startOfDay = new Date(day);
+    startOfDay.setHours(0, 0, 0, 0);
+
+    // Establece la fecha de fin para el día dado (a las 23:59:59 horas)
+    const endOfDay = new Date(day);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const orders = await this.orderModel.find({
+      createdAt: {
+        $gte: startOfDay,
+        $lte: endOfDay
+      }
+    });
+
+    return orders;
+  }
+
   async updatePaid(
     id: string,
     paymentResult: PaymentResult

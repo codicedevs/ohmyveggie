@@ -18,7 +18,6 @@ import { ShippingDetails, shippingDetailsSchema } from './schemas/shipping.detai
         schema: shippingDetailsSchema
       },
 
-
     ]),
   ],
   controllers: [OrdersController],
