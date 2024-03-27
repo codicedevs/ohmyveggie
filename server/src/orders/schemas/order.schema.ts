@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose';
 import { OrderItem, PaymentResult, ShippingDetails } from 'src/interfaces';
 import { User } from 'src/users/schemas/user.schema';
 import { Zone } from '../enums/zone.enum';
+import { ShippingDetailsSchema } from './shipping.detail.schema';
 
 export type OrderDocument = Order & mongoose.Document;
 
@@ -29,17 +30,7 @@ export class Order {
   })
   orderItems: OrderItem[];
 
-  @Prop({
-    required: true,
-    type: {
-      address: { required: true, type: String },
-      city: { required: true, type: String },
-      postalCode: { required: true, type: String },
-      country: { required: true, type: String },
-      timeDeliver: { required: true, type: Date },
-      zoneDeliver: { required: true, enum: Zone }
-    },
-  })
+  @Prop({ required: true, type: ShippingDetailsSchema })
   shippingDetails: ShippingDetails;
 
   @Prop({ required: true })
