@@ -35,7 +35,7 @@ export class Order {
       city: { required: true, type: String },
       postalCode: { required: true, type: String },
       country: { required: true, type: String },
-      //time zone
+      deliverTime: { required: true, type: Date }
     },
   })
   shippingDetails: ShippingDetails;
@@ -77,7 +77,7 @@ export class Order {
 
   @Prop({ required: false })
   deliveredAt: string;
- 
+
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
