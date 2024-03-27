@@ -2,7 +2,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { OrderItem, PaymentResult, ShippingDetails } from 'src/interfaces';
 import { User } from 'src/users/schemas/user.schema';
-import { ShippingDetailsSchema } from './shipping.detail.schema';
+import { shippingDetailsSchema } from './shipping.detail.schema';
+
 
 export type OrderDocument = Order & mongoose.Document;
 
@@ -29,7 +30,7 @@ export class Order {
   })
   orderItems: OrderItem[];
 
-  @Prop({ required: true, type: ShippingDetailsSchema })
+  @Prop({ required: true, type: shippingDetailsSchema })
   shippingDetails: ShippingDetails;
 
   @Prop({ required: true })

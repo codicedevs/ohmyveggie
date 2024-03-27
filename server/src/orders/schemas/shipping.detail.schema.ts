@@ -24,4 +24,4 @@ export class ShippingDetails extends Document {
   zoneDeliver: Zone;*/
 }
 
-export const ShippingDetailsSchema = SchemaFactory.createForClass(ShippingDetails);
+export const shippingDetailsSchema= SchemaFactory.createForClass(ShippingDetails);
