@@ -82,22 +82,23 @@ export class OrdersService {
 
   /**
    * 
-   * @param day esta funcion entrega ordenes respecto del dia
+   * @param day esta funcion entrega ordenes buscadas respecto de la fecha en que fueron creadas
    * @returns 
    */
-  async findByDay(day: Date) {
-    // Establece la fecha de inicio para el día dado (a las 00:00:00 horas)
+  async findByDay(day: string) {
+    // Establecer el comienzo del día
     const startOfDay = new Date(day);
-    startOfDay.setHours(0, 0, 0, 0);
-
-    // Establece la fecha de fin para el día dado (a las 23:59:59 horas)
+    startOfDay.setUTCHours(0, 0, 0, 1)
+    // Establecer el final del día
     const endOfDay = new Date(day);
-    endOfDay.setHours(23, 59, 59, 999);
+    endOfDay.setUTCHours(23, 59, 59, 999);
 
+
+    // Buscar órdenes para el día especificado dentro del rango de tiempo establecido
     const orders = await this.orderModel.find({
       createdAt: {
-        $gte: startOfDay,
-        $lte: endOfDay
+        $gte: startOfDay, // Comienzo del día
+        $lte: endOfDay // Final del día
       }
     });
 
