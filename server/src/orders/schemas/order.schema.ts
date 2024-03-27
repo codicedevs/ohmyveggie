@@ -2,7 +2,6 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { OrderItem, PaymentResult, ShippingDetails } from 'src/interfaces';
 import { User } from 'src/users/schemas/user.schema';
-import { Zone } from '../enums/zone.enum';
 import { ShippingDetailsSchema } from './shipping.detail.schema';
 
 export type OrderDocument = Order & mongoose.Document;

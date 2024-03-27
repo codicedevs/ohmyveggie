@@ -8,8 +8,8 @@ export class ShippingDetails extends Document {
   @Prop({ required: true })
   address: string;
 
-  @Prop({ required: true })
-  city: string;
+  @Prop({ required: true,enum:Zone })
+  city: Zone;
 
   @Prop({ required: true })
   postalCode: string;
@@ -20,8 +20,8 @@ export class ShippingDetails extends Document {
   @Prop({ required: true })
   timeDeliver: Date;
 
-  @Prop({ required: true, enum: Zone })
-  zoneDeliver: Zone;
+  /*@Prop({ required: true, enum: Zone })
+  zoneDeliver: Zone;*/
 }
 
 export const ShippingDetailsSchema = SchemaFactory.createForClass(ShippingDetails);
