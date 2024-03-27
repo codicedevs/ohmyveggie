@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { OrderItem, PaymentResult, ShippingDetails } from 'src/interfaces';
 import { User } from 'src/users/schemas/user.schema';
+import { Zone } from '../enums/zone.enum';
 
 export type OrderDocument = Order & mongoose.Document;
 
@@ -35,7 +36,8 @@ export class Order {
       city: { required: true, type: String },
       postalCode: { required: true, type: String },
       country: { required: true, type: String },
-      deliverTime: { required: true, type: Date }
+      timeDeliver: { required: true, type: Date },
+      zoneDeliver: { required: true, enum: Zone }
     },
   })
   shippingDetails: ShippingDetails;
