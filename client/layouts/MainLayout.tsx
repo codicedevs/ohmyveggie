@@ -1,4 +1,5 @@
 import Header from '../components/Header';
+import HeaderNew from '../components/HeaderNew';
 import Footer from '../components/Footer';
 import CartNew from '../components/CartNew';
 import {
@@ -28,11 +29,11 @@ const MainLayout: React.FC = ({ children }) => {
   }, [accessToken, getCurrentUser]);
 
   return (
-    <div className='pagewrapper'>
-      <Header />
+    <>
+      <HeaderNew />
         {children}
       <Footer />
-    </div>
+    </>
   );
 };
 

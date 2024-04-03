@@ -8,26 +8,70 @@ const SearchBox = () => {
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    console.log('keyword', keyword);
     if (keyword.length > 0) {
-      router.push(`/search/${keyword.trim()}`);
+      router.push(`/search/${keyword.trim()}/#productos`);
     }
   };
 
   return (
-    <Form onSubmit={submitHandler} className="d-flex">
+    <Form onSubmit={submitHandler} style={{width: '80%'}} className="d-flex">
+      <div className="div-block-9">
+
+        <Form.Control
+          type="text"
+          name="q"
+          onChange={e => setKeyword(e.target.value)}
+          placeholder="Buscar productos..."
+          className="mr-sm-2 ml-sm-5"
+        ></Form.Control>
+
+        <Button type="submit" variant="light" style={{ marginLeft: '4px' }} >
+          <img
+            src="images/searchIcon.png"
+            loading="lazy"
+            alt=""
+            className="image"
+          />
+        </Button>
+      </div>
+    </Form>
+    
+  )  
+};
+
+export default SearchBox;
+
+/*<Form onSubmit={submitHandler} className="d-flex">
       <Form.Control
         type="text"
         name="q"
         onChange={e => setKeyword(e.target.value)}
-        placeholder="Search Products..."
+        placeholder="Buscar productos..."
         className="mr-sm-2 ml-sm-5"
       ></Form.Control>
       <Button type="submit" variant="outline-success" className="p-2 mx-2">
         Search
       </Button>
     </Form>
-  );
-};
+  ); */
 
-export default SearchBox;
+  /*<div className="div-block-9">
+      <Form.Control
+        type="text"
+        name="q"
+        onChange={e => setKeyword(e.target.value)}
+        placeholder="Buscar productos..."
+        //className="mr-sm-2 ml-sm-5"
+      ></Form.Control>
+      
+      <Button type="submit" variant="light" style={{marginLeft: '4px'}} >
+        <img
+          src="images/searchIcon.png"
+          loading="lazy"
+          alt=""
+          className="image"
+        />
+      </Button>
+
+    </div> */

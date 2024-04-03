@@ -33,20 +33,20 @@ const Item: React.FC<ProductInterface> = ({
 
   return (
     <Link href={`/product/${_id}`} passHref>
-      <a className="link-block w-inline-block">
+      <a className="prodlink-block w-inline-block">
         <>
           <div className="picture">
             <div className="offer">Oferta</div>
             <img
-              src={image}
+              src='/images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979-p-500.png'
               loading="lazy"
 
             />
-            { countInStock > 0 &&
+            {/* { countInStock > 0 &&
               <div className="div-block-39">
                 <div className="stocklevel disponible">Disponible</div>
               </div>
-            }
+            } */}
           </div>
           <div className="productfooterwrapper">
             <div className="title">{name}</div>

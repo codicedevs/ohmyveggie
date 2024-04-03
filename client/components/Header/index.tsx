@@ -23,65 +23,84 @@ const Header = () => {
   }
 
   return (
-    <header>
-      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
-        <Container>
-        <p>xxxxxxxxxxxxxx</p>
-          <Link href="/" passHref>
-            <Navbar.Brand>ElecShop</Navbar.Brand>
-          </Link>
+    <div className='header'>
+      <Navbar style={{height: '89px'}} variant="dark" expand="lg" collapseOnSelect>
+        
+        <Link href="/portfolio" >
+          <Nav.Link>
+            <img
+              src="../public/images/logo.png"
+              loading="lazy"
+              width={222}
+              sizes="(max-width: 479px) 54vw, 222px"
+              alt=""
+              srcSet="images/logo-p-500.png 500w, images/logo-p-800.png 800w, images/logo.png 830w"
+              className="image-3"
+            />
+          </Nav.Link>
+        </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <SearchBox />
             <Nav className="ms-auto">
-              <Link href="/cart" passHref>
-                <Nav.Link>
-                  <i className="fas fa-shopping-cart"></i> Cart
-                </Nav.Link>
-              </Link>
-              {data ? (
-                <NavDropdown title={data.name} id="username">
-                  <Link href="/profile" passHref>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </Link>
-                  <NavDropdown.Item onClick={() => logout()}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : (
-                <Link href="/login" passHref>
-                  <Nav.Link>
-                    <i className="fas fa-user"></i> Sign In
-                  </Nav.Link>
-                </Link>
-              )}
+              {/* <Link href="/cart" passHref>
+                <Nav.Link> */}
+              {/* <i className="fas fa-shopping-cart"></i> */}
+              <div className="buttonswrapper">
+                <div className="div-block-31" onClick={toggleCart} >
+                  <img
+                    src="images/shopLila.png"
+                    loading="lazy"
+                    data-w-id="2eff27b6-1120-3c74-74f7-fc6d34090150"
+                    alt=""
+                    className="image-4"
 
-              {data && data.isAdmin && (
-                <NavDropdown title="Admin" id="username">
-                  <Link href="/admin/users" passHref>
-                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  />
+                  <div className="div-block-30">{cartItems.reduce((acc, item) => acc + item.qty, 0)}</div>
+                </div>
+                {/* </Nav.Link>
+              </Link> */}
+                {data ? (
+                  <NavDropdown title={data.name} id="username">
+                    <Link href="/profile" passHref>
+                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                    </Link>
+                    <NavDropdown.Item onClick={() => logout()}>
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                ) : (
+                  <Link href="/login" passHref>
+                    <Nav.Link>
+                      <img
+                        src="images/loginLila.png"
+                        loading="lazy"
+                        data-w-id="5021ecdb-f327-aca9-730b-42c1c27b6526"
+                        alt=""
+                        className="image-4"
+                      /> Sign In
+                    </Nav.Link>
                   </Link>
-                  <Link href="/admin/products" passHref>
-                    <NavDropdown.Item>Products</NavDropdown.Item>
-                  </Link>
-                  <Link href="/admin/orders" passHref>
-                    <NavDropdown.Item>Orders</NavDropdown.Item>
-                  </Link>
-                </NavDropdown>
-              )}
+                )}
+
+                {data && data.isAdmin && (
+                  <NavDropdown title="Admin" id="username">
+                    <Link href="/admin/users" passHref>
+                      <NavDropdown.Item>Users</NavDropdown.Item>
+                    </Link>
+                    <Link href="/admin/products" passHref>
+                      <NavDropdown.Item>Products</NavDropdown.Item>
+                    </Link>
+                    <Link href="/admin/orders" passHref>
+                      <NavDropdown.Item>Orders</NavDropdown.Item>
+                    </Link>
+                  </NavDropdown>
+                )}
+              </div>
             </Nav>
           </Navbar.Collapse>
-        </Container>
       </Navbar>
-
-      <h2>
-        Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
-        items
-      </h2>
-      $
-      {cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}
-
-    </header>
+      
+    </div>
   );
 };
 

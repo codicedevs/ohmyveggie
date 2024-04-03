@@ -29,7 +29,7 @@ const Shipping = () => {
 
     if (
       address.length < 1 ||
-      country.length < 1 ||
+      // country.length < 1 ||
       city.length < 1 ||
       postalCode.length < 1
     ) {
@@ -40,13 +40,37 @@ const Shipping = () => {
 
     setShippingAddress({     // Pais hardcodeado
       ...shippingAddress,
-      postalCode: 'Argentina',
+      country: 'Argentina',
     })
 
     saveShippingAddress(shippingAddress);
 
     router.push('/payment');
   };
+
+  function addressCode (e: any)  {
+    let selectedCity = e.target.value;
+    setShippingAddress({ ...shippingAddress, city: selectedCity });
+    
+    //-- de acuerdo a la localidad setea el código
+    let zipCode = '2000';
+    if(selectedCity === 'funes') {
+      zipCode = '2132'
+    } else if (selectedCity === 'fisherton') {
+        zipCode = '2001'
+    }
+
+    console.log(zipCode, selectedCity, shippingAddress);
+
+    setShippingAddress({
+      ...shippingAddress,
+      postalCode: zipCode,
+    })
+  }
+
+  function handlerTimeZone(e: any) {
+
+  }
 
   return (
 
@@ -77,48 +101,39 @@ const Shipping = () => {
             </Form.Group>
 
             <Form.Group controlId="city" className="py-3">
-              <Form.Control
+              <Form.Select
                 className='shiptxtfield w-input'
-                type="text"
-                placeholder="Ciudad"
                 value={shippingAddress.city}
-                onChange={e =>
-                  setShippingAddress({ ...shippingAddress, city: e.target.value })
-                }
-              ></Form.Control>
+                onChange= {e => addressCode(e)}
+              >
+                <option >Ciudad</option>
+                <option value="rosario">Rosario</option>
+                <option value="funes">Funes</option>
+                <option value="fisherton">Fisherton</option>
+              </Form.Select>
             </Form.Group>
 
             <Form.Group controlId="postalCode">
-              <Form.Control
+              <Form.Text
                 className='shiptxtfield w-input'
-                type="text"
-                placeholder="Código postal"
-                value={shippingAddress.postalCode}
-                onChange={e =>
-                  setShippingAddress({
-                    ...shippingAddress,
-                    postalCode: e.target.value,
-                  })
-                }
-              ></Form.Control>
+              >
+                {shippingAddress.postalCode}
+              </Form.Text>
             </Form.Group>
 
-            <Form.Group controlId="zone">   {/* Falta crear en la db*/} 
-              <Form.Control
+            <Form.Group controlId="timeZone" className="py-3">
+              <Form.Select
                 className='shiptxtfield w-input'
-                type="text"
-                placeholder="Zona"
-                /*value={shippingAddress.postalCode}
-                onChange={e =>
-                  setShippingAddress({
-                    ...shippingAddress,
-                    zone: e.target.value,
-                  })
-                }*/
-              ></Form.Control>
+                placeholder="Franja horaria"
+                onChange={e => handlerTimeZone(e)}
+              >
+                <option value="horario1">Horario 1</option>
+                <option value="horario2">Horario 2</option>
+                <option value="horario3">Horario 3</option>
+              </Form.Select>
             </Form.Group>
 
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="primary" style={{marginTop: '15px'}}>
               Continuar
             </Button>
 

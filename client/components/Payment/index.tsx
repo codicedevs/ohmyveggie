@@ -3,9 +3,13 @@ import CheckoutSteps from '../CheckoutSteps';
 import { Form, Col, Button } from 'react-bootstrap';
 import { useState, FormEvent } from 'react';
 import { useAuth, useCartActions } from '../../hooks';
+import { useRouter } from 'next/router';
+
 
 const Payment = () => {
   useAuth();
+
+  const router = useRouter();
 
   const [paymentMethod, setPaymentMethod] = useState('PayPal');
   const { savePaymentMethod } = useCartActions();
@@ -14,6 +18,9 @@ const Payment = () => {
     e.preventDefault();
 
     savePaymentMethod(paymentMethod);
+
+    //router.push('/placeorder');  //******************* lo puse yo  */
+
   };
 
   const payType = (e: any) => {

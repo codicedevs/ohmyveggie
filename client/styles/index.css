@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Open Sans, sans-serif;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 main {
@@ -55,8 +55,13 @@ h2 {
   margin-right: auto;
 }
 
+
 @media (max-width: 900px) {
   .carousel-caption h2 {
     font-size: 2.5vw;
   }
 }
+
+
+
+

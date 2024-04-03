@@ -11,6 +11,7 @@ import Message from '../Message';
 import Paginate from '../Paginate';
 import ProductCarousel from '../ProductCarousel';
 import Link from 'next/link';
+import SearchBox from '../SearchBox';
 
 interface ProductsInterface {
   keyword?: query;
@@ -34,6 +35,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
   }, [fetchProducts, keyword, pageId]);
   
 
+  //images/logo2.png
   return (
     <>
       <div className="div-block-8">
@@ -46,16 +48,10 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
             className="image-5"
           />
           <h1 className="heading">Comprá Online</h1>
-          <div className="div-block-9">
-            <img
-              src="images/searchIcon.png"
-              loading="lazy"
-              alt=""
-              className="image"
-            />
-            <div className="text-block-6">¿Qué estás buscando?</div>
-          </div>
-          <a href="#productos" className="link">
+          
+          <SearchBox />
+          
+          <a href="#productos" className="herolink">
             ¡Hacé tu pedido por la web y te lo enviamos a domicilio!
           </a>
           <div className="text-block-20">
@@ -102,8 +98,14 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
           </div>
           <div className="div-block-17">
             <div className="categorie">
-              <h2 className="heading-2">Productos destacados</h2>
-              <div className="text-block-3">La mejor elección para usted</div>
+              { keyword?
+                  <h2 className="heading-2">{keyword}</h2>
+                :
+                  <>
+                    <h2 className="heading-2">TODOS LOS PRODUCTOS</h2>
+                    <div className="text-block-3">La mejor elección para usted</div>
+                  </>
+              }
             </div>
             <div className="prods">
 
@@ -119,11 +121,11 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
                   ))}
 
 
-                  {/*<Paginate
+                  <Paginate
                     pages={pages}
                     page={page}
                     keyword={keyword ? keyword : ''}
-                  />*/}
+                  />
                 </>
               )}
 

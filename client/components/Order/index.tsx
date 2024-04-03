@@ -12,6 +12,7 @@ interface OrderProps {
 }
 
 const Order: React.FC<OrderProps> = ({ pageId }) => {
+  alert('Pausa');
   const { loading, data, error, success } = useTypedSelector(
     state => state.order
   );

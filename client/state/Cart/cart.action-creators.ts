@@ -116,6 +116,7 @@ export const getCart = () => async (dispatch: Dispatch<CartAction>) => {
 };
 
 export const savePaymentMethod =
+
   (paymentMethod: string) => async (dispatch: Dispatch<CartAction>) => {
     try {
       const { data } = await proshopAPI.post(
