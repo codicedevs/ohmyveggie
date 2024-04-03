@@ -93,7 +93,6 @@ export class OrdersService {
     const endOfDay = new Date(day);
     endOfDay.setUTCHours(23, 59, 59, 999);
 
-
     // Buscar órdenes para el día especificado dentro del rango de tiempo establecido
     const orders = await this.orderModel.find({
       createdAt: {

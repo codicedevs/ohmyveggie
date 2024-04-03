@@ -30,8 +30,8 @@ export class OrdersController {
     return this.ordersService.findAll();
   }
 
-  /* @UseGuards(AdminGuard) esto esta comentado porque si no el get se pisa con el de arriba inmediato!, este endpoint es el que debe usarse
-  esta comentado a los efectos de no romper el frontend 
+  /* @UseGuards(AdminGuard)  este endpoint es el que debe usarse
+  esta comentado a los efectos de no romper el frontend actual
     @Get()
     getPaginatedOrders(
       @Query('pageId') pageId: string
@@ -39,8 +39,7 @@ export class OrdersController {
       return this.ordersService.findMany(pageId);
     }*/
 
-
-  //pasar decorador de admin!
+  @UseGuards(AdminGuard)
   @Get('/find-by-day')
   async findByDay(@Query('day') day: string): Promise<Order[]> {
     const orders = await this.ordersService.findByDay(day);
