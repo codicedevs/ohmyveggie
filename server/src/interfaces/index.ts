@@ -43,3 +43,8 @@ export interface PaginatedOrders {
   pages: number;
   page: number
 }
+
+export interface DateRange {
+  startDate: string; 
+  endDate: string;  
+}
