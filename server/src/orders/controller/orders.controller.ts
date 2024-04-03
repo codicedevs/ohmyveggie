@@ -42,7 +42,7 @@ export class OrdersController {
       return this.ordersService.findMany(pageId);
     }*/
 
-//  @UseGuards(AdminGuard)
+@UseGuards(AdminGuard)
   @Get('/find-by-day')
   async findByDay(@Query('startDate') startDate: string, @Query('endDate') endDate: string): Promise<Order[]> {
     if (new Date(endDate) < new Date(startDate)) {
