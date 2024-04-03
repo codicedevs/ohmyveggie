@@ -5,16 +5,18 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Session,
   UseGuards,
 } from '@nestjs/common';
 import { AdminGuard } from 'src/guards/admin.guard';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { OrdersService } from '../services/orders.service';
+import { Order } from '../schemas/order.schema';
 
 @Controller('orders')
 export class OrdersController {
-  constructor(private ordersService: OrdersService) {}
+  constructor(private ordersService: OrdersService) { }
 
   @UseGuards(AuthGuard)
   @Post()
@@ -26,6 +28,22 @@ export class OrdersController {
   @Get()
   async getOrders() {
     return this.ordersService.findAll();
+  }
+
+  /* @UseGuards(AdminGuard)  este endpoint es el que debe usarse
+  esta comentado a los efectos de no romper el frontend actual
+    @Get()
+    getPaginatedOrders(
+      @Query('pageId') pageId: string
+    ) {
+      return this.ordersService.findMany(pageId);
+    }*/
+
+  @UseGuards(AdminGuard)
+  @Get('/find-by-day')
+  async findByDay(@Query('day') day: string): Promise<Order[]> {
+    const orders = await this.ordersService.findByDay(day);
+    return orders;
   }
 
   @UseGuards(AuthGuard)

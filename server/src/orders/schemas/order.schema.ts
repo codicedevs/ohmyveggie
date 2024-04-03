@@ -2,6 +2,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { OrderItem, PaymentResult, ShippingDetails } from 'src/interfaces';
 import { User } from 'src/users/schemas/user.schema';
+import { shippingDetailsSchema } from './shipping.detail.schema';
+
 
 export type OrderDocument = Order & mongoose.Document;
 
@@ -28,16 +30,7 @@ export class Order {
   })
   orderItems: OrderItem[];
 
-  @Prop({
-    required: true,
-    type: {
-      address: { required: true, type: String },
-      city: { required: true, type: String },
-      postalCode: { required: true, type: String },
-      country: { required: true, type: String },
-      //time zone
-    },
-  })
+  @Prop({ required: true, type: shippingDetailsSchema })
   shippingDetails: ShippingDetails;
 
   @Prop({ required: true })
@@ -77,7 +70,7 @@ export class Order {
 
   @Prop({ required: false })
   deliveredAt: string;
- 
+
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

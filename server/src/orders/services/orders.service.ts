@@ -5,14 +5,14 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { PaymentResult } from 'src/interfaces';
+import { PaginatedOrders, PaymentResult } from 'src/interfaces';
 import { Order, OrderDocument } from '../schemas/order.schema';
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectModel(Order.name) private orderModel: Model<OrderDocument>
-  ) {}
+  ) { }
 
   async create(
     orderAttrs: Partial<OrderDocument>,
@@ -51,6 +51,22 @@ export class OrdersService {
     return orders;
   }
 
+  async findMany(
+    pageId?: string
+  ): Promise<PaginatedOrders> {
+    const pageSize = 2;
+    const page = parseInt(pageId) || 1;
+
+    const orders = await this.orderModel
+      .find()
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
+
+    if (!orders.length) throw new NotFoundException('No orders found.');
+
+    return { orders, page, pages: Math.ceil(pageSize) };
+  }
+
   async findById(id: string): Promise<OrderDocument> {
     if (!Types.ObjectId.isValid(id))
       throw new BadRequestException('Invalid order ID.');
@@ -62,6 +78,30 @@ export class OrdersService {
     if (!order) throw new NotFoundException('No order with given ID.');
 
     return order;
+  }
+
+  /**
+   * 
+   * @param day esta funcion entrega ordenes buscadas respecto de la fecha en que fueron creadas
+   * @returns 
+   */
+  async findByDay(day: string) {
+    // Establecer el comienzo del día
+    const startOfDay = new Date(day);
+    startOfDay.setUTCHours(0, 0, 0, 1)
+    // Establecer el final del día
+    const endOfDay = new Date(day);
+    endOfDay.setUTCHours(23, 59, 59, 999);
+
+    // Buscar órdenes para el día especificado dentro del rango de tiempo establecido
+    const orders = await this.orderModel.find({
+      createdAt: {
+        $gte: startOfDay, // Comienzo del día
+        $lte: endOfDay // Final del día
+      }
+    });
+
+    return orders;
   }
 
   async updatePaid(
