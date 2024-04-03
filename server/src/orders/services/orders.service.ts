@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { PaginatedOrders, PaymentResult } from 'src/interfaces';
+import { DateRange, PaginatedOrders, PaymentResult } from 'src/interfaces';
 import { Order, OrderDocument } from '../schemas/order.schema';
 
 @Injectable()
@@ -85,12 +85,12 @@ export class OrdersService {
    * @param day esta funcion entrega ordenes buscadas respecto de la fecha en que fueron creadas
    * @returns 
    */
-  async findByDay(day: string) {
+  async findByDay(dateRange: DateRange) {
     // Establecer el comienzo del día
-    const startOfDay = new Date(day);
+    const startOfDay = new Date(dateRange.startDate);
     startOfDay.setUTCHours(0, 0, 0, 1)
     // Establecer el final del día
-    const endOfDay = new Date(day);
+    const endOfDay = new Date(dateRange.endDate);
     endOfDay.setUTCHours(23, 59, 59, 999);
 
     // Buscar órdenes para el día especificado dentro del rango de tiempo establecido

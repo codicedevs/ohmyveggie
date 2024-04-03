@@ -13,6 +13,8 @@ import { AdminGuard } from 'src/guards/admin.guard';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { OrdersService } from '../services/orders.service';
 import { Order } from '../schemas/order.schema';
+import { DateRange } from 'src/interfaces';
+
 
 @Controller('orders')
 export class OrdersController {
@@ -41,8 +43,9 @@ export class OrdersController {
 
   @UseGuards(AdminGuard)
   @Get('/find-by-day')
-  async findByDay(@Query('day') day: string): Promise<Order[]> {
-    const orders = await this.ordersService.findByDay(day);
+  async findByDay(@Query('startDate') startDate: string, @Query('endDate') endDate: string): Promise<Order[]> {
+    const dateRange: DateRange = { startDate, endDate };
+    const orders = await this.ordersService.findByDay(dateRange);
     return orders;
   }
 
