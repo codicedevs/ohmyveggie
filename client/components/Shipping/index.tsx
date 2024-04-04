@@ -28,10 +28,10 @@ const Shipping = () => {
     const { address, country, city, postalCode } = shippingAddress;
 
     if (
-      address.length < 1 ||
+      address.length < 1 //||
       // country.length < 1 ||
-      city.length < 1 ||
-      postalCode.length < 1
+      //city.length < 1 //||
+      //postalCode.length < 1
     ) {
       setMessage('All fields are required.');
 
@@ -54,11 +54,11 @@ const Shipping = () => {
     
     //-- de acuerdo a la localidad setea el código
     let zipCode = '2000';
-    if(selectedCity === 'funes') {
-      zipCode = '2132'
-    } else if (selectedCity === 'fisherton') {
-        zipCode = '2001'
-    }
+    // if(selectedCity === 'funes') {
+    //   zipCode = '2132'
+    // } else if (selectedCity === 'fisherton') {
+    //     zipCode = '2001'
+    // }
 
     console.log(zipCode, selectedCity, shippingAddress);
 
@@ -103,7 +103,7 @@ const Shipping = () => {
             <Form.Group controlId="city" className="py-3">
               <Form.Select
                 className='shiptxtfield w-input'
-                value={shippingAddress.city}
+                value= "rosario" //{shippingAddress.city}
                 onChange= {e => addressCode(e)}
               >
                 <option >Ciudad</option>
