@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { FilterQuery, Model, Types } from 'mongoose';
 import { PaginatedProducts } from 'src/interfaces';
 import { UserDocument } from 'src/users/schemas/user.schema';
 import { sampleProduct } from '../../utils/data/product';
@@ -14,7 +14,7 @@ import { Product, ProductDocument } from '../schemas/product.schema';
 export class ProductsService {
   constructor(
     @InjectModel(Product.name) public productModel: Model<ProductDocument>
-  ) {}
+  ) { }
 
   async findTopRated(): Promise<ProductDocument[]> {
     const products = await this.productModel
@@ -29,16 +29,18 @@ export class ProductsService {
 
   async findMany(
     keyword?: string,
-    pageId?: string
+    pageId?: string,
+    category?: string
   ): Promise<PaginatedProducts> {
     const pageSize = 2;
     const page = parseInt(pageId) || 1;
+    const filter: FilterQuery<ProductDocument> = {}
+    if (keyword) filter.name = { $regex: keyword, $options: 'i' }
+    if (category) filter.category = category // esta busqueda distingue mayusculas!!!
 
-    const rgex = keyword ? { name: { $regex: keyword, $options: 'i' } } : {};
-
-    const count = await this.productModel.countDocuments({ ...rgex });
+    const count = await this.productModel.countDocuments(filter);
     const products = await this.productModel
-      .find({ ...rgex })
+      .find(filter)
       .limit(pageSize)
       .skip(pageSize * (page - 1));
 
@@ -80,7 +82,7 @@ export class ProductsService {
       attrs;
     if (!Types.ObjectId.isValid(id))
       throw new BadRequestException('Invalid product ID.');
-    
+
     const product = await this.productModel.findById(id);
     if (!product) throw new NotFoundException('No product with given ID.');
 

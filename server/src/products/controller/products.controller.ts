@@ -16,16 +16,19 @@ import { ProductDto } from '../dtos/product.dto';
 import { ReviewDto } from '../dtos/review.dto';
 import { ProductsService } from '../services/products.service';
 
+
 @Controller('products')
 export class ProductsController {
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService) { }
 
   @Get()
   getProducts(
     @Query('keyword') keyword: string,
-    @Query('pageId') pageId: string
+    @Query('pageId') pageId: string,
+    @Query("category") category: string
   ) {
-    return this.productsService.findMany(keyword, pageId);
+
+    return this.productsService.findMany(keyword, pageId, category);
   }
 
   @Get('topRated')
