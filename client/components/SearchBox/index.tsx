@@ -28,7 +28,7 @@ const SearchBox = () => {
 
         <Button type="submit" variant="light" style={{ marginLeft: '4px' }} >
           <img
-            src="images/searchIcon.png"
+            src="/images/searchIcon.png"
             loading="lazy"
             alt=""
             className="image"

@@ -96,15 +96,45 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
               </ul>
             </div>
           </div>
+
           <div className="div-block-17">
+
+            {keyword ?
+              null
+              :
+              <>
+                <div className="categorie">
+                  <h2 className="heading-2">Productos destacados</h2>
+                  {/* <div className="text-block-3">Le ofrecemos una gran variedad</div> */}
+                </div>
+                <div className="prods">
+                  {loading ? (
+                    <Loader />
+                  ) : error ? (
+                    <Message variant="danger">{error}</Message>
+                  ) : (
+                    <>
+
+                      {
+                      products.slice(0,3).map(product => (
+                        <Item {...product} />
+                      ))}
+
+
+                    </>
+                  )}
+                </div>
+              </>  
+            }
+
             <div className="categorie">
-              { keyword?
-                  <h2 className="heading-2">{keyword}</h2>
+              {keyword ?
+                <h2 className="heading-2">{keyword}</h2>
                 :
-                  <>
-                    <h2 className="heading-2">TODOS LOS PRODUCTOS</h2>
-                    <div className="text-block-3">La mejor elección para usted</div>
-                  </>
+                <>
+                  <h2 className="heading-2">TODOS LOS PRODUCTOS</h2>
+                  <div className="text-block-3">La mejor elección para usted</div>
+                </>
               }
             </div>
             <div className="prods">
@@ -130,33 +160,8 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
               )}
 
             </div>
-            <div className="categorie">
-              <h2 className="heading-2">Todos los productos</h2>
-              <div className="text-block-3">Le ofrecemos una gran variedad</div>
-            </div>
-            <div className="prods">
 
-              <a href="detalleproducto.html" className="link-block w-inline-block">
-                <div className="picture">
-                  <div className="offer">Oferta</div>
-                  <img
-                    src="images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979.png"
-                    loading="lazy"
-                    sizes="(max-width: 479px) 21vw, (max-width: 767px) 14vw, (max-width: 991px) 17vw, 16vw"
-                    srcSet="images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979-p-500.png 500w, images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979.png 768w"
-                    alt=""
-                    className="image-7"
-                  />
-                </div>
-                <div className="productfooterwrapper">
-                  <div className="title">Veggie burguer</div>
-                  <div className="text-block-5">$ 3.500,00 </div>
-                  <div className="addbutton">+</div>
-                </div>
-              </a>
 
-            </div>
-            
             <div className="categorie">
               <ProductCarousel />
             </div>
