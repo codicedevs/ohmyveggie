@@ -90,14 +90,14 @@ const Navbar = () => {
 
                 {data ? (
                   <>
-                    <img
+                    {/* <img
                       src="/images/loginLila.png"
                       loading="lazy"
                       data-w-id="5021ecdb-f327-aca9-730b-42c1c27b6526"
                       alt=""
                       className="image-4"
                       // srcSet="/images/loginLila.png 500w, images/loginLila.png 800w, images/loginLila.png 830w"
-                    />
+                    /> */}
 
                     <NavDropdown title={data.name} id="username">
                       <Link href="/profile" passHref>
@@ -112,14 +112,13 @@ const Navbar = () => {
                   <Link href="/login" passHref>
 
                     <Nav.Link>
-                      <img
+                      {/* <img
                         src="/images/loginLila.png"
                         loading="lazy"
                         data-w-id="5021ecdb-f327-aca9-730b-42c1c27b6526"
                         alt=""
-                        className="image-4"
-                        // srcSet="images/loginLila.png 500w, images/loginLila.png 800w, images/loginLila.png 830w"
-                      /> Registrarse
+                        className="image-4" */}
+                       Ingresar
                     </Nav.Link>
 
                   </Link>
