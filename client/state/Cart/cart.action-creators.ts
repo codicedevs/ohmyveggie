@@ -40,9 +40,9 @@ export const addToCart =
         payload: data,
       });
 
-      if (Router.asPath !== '/cart') {
-        Router.push('/cart');
-      }
+      //if (Router.asPath !== '/cart') {
+      //  Router.push('/cart');
+      //}
     } catch (error: any) {
       dispatch({
         type: ActionTypes.ADD_CART_ITEM_ERROR,
@@ -116,6 +116,7 @@ export const getCart = () => async (dispatch: Dispatch<CartAction>) => {
 };
 
 export const savePaymentMethod =
+
   (paymentMethod: string) => async (dispatch: Dispatch<CartAction>) => {
     try {
       const { data } = await proshopAPI.post(

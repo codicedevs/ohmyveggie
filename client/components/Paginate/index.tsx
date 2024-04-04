@@ -16,23 +16,25 @@ const Paginate: React.FC<PaginateProps> = ({
   keyword = '',
 }) => {
   return pages > 1 ? (
-    <Pagination>
-      {[...Array(pages).keys()].map(x => (
-        <Link
-          key={v4()}
-          href={
-            !isAdmin
-              ? keyword
-                ? `/search/${keyword}/page/${x + 1}`
-                : `/page/${x + 1}`
-              : `/admin/products/page/${x + 1}`
-          }
-          passHref
-        >
-          <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
-        </Link>
-      ))}
-    </Pagination>
+    <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+      <Pagination>
+        {[...Array(pages).keys()].map(x => (
+          <Link
+            key={v4()}
+            href={
+              !isAdmin
+                ? keyword
+                  ? `/search/${keyword}/page/${x + 1}`
+                  : `/page/${x + 1}`
+                : `/admin/products/page/${x + 1}`
+            }
+            passHref
+          >
+            <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
+          </Link>
+        ))}
+      </Pagination>
+    </div>  
   ) : (
     <></>
   );

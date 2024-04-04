@@ -1,6 +1,11 @@
 //importing styles
 import '../styles/index.css';
 import '../styles/bootstrap.min.css';
+import '../styles/ohmyveggie.webflow.css';
+import '../styles/normalize.css';
+import '../styles/webflow.css';
+
+
 //importing utils
 import { useStore } from '../state';
 import type { AppProps } from 'next/app';
@@ -14,17 +19,25 @@ function MyApp({ Component, pageProps }: AppProps) {
     ...pageProps.initialReduxState,
   };
 
+  console.log('page_props', pageProps);
+
   const store = useStore(initialState);
 
   return (
     <Provider store={store}>
       <MainLayout>
-        <Container>
           <Component {...pageProps} />
-        </Container>
       </MainLayout>
     </Provider>
   );
 }
 
 export default MyApp;
+
+{/*<Provider store={store}>
+      <MainLayout>
+        <Container>
+          <Component {...pageProps} />
+        </Container>
+      </MainLayout>
+    </Provider> */}

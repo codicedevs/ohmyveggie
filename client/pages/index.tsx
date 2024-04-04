@@ -9,11 +9,13 @@ const HomePage: NextPage = () => {
   return (
     <>
       <SEO {...homeConfig} />
-      <main className="wrapper py-5">
         <Products />
-      </main>
     </>
   );
 };
 
 export default HomePage;
+
+{/*<main className="wrapper py-5">
+        <Products />
+      </main> */}

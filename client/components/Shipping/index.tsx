@@ -29,7 +29,7 @@ const Shipping = () => {
 
     if (
       address.length < 1 ||
-      country.length < 1 ||
+      // country.length < 1 ||
       city.length < 1 ||
       postalCode.length < 1
     ) {
@@ -38,13 +38,121 @@ const Shipping = () => {
       return null;
     }
 
+    setShippingAddress({     // Pais hardcodeado
+      ...shippingAddress,
+      country: 'Argentina',
+    })
+
     saveShippingAddress(shippingAddress);
 
     router.push('/payment');
   };
 
+  function addressCode (e: any)  {
+    let selectedCity = e.target.value;
+    setShippingAddress({ ...shippingAddress, city: selectedCity });
+    
+    //-- de acuerdo a la localidad setea el código
+    let zipCode = '2000';
+    if(selectedCity === 'funes') {
+      zipCode = '2132'
+    } else if (selectedCity === 'fisherton') {
+        zipCode = '2001'
+    }
+
+    console.log(zipCode, selectedCity, shippingAddress);
+
+    setShippingAddress({
+      ...shippingAddress,
+      postalCode: zipCode,
+    })
+  }
+
+  function handlerTimeZone(e: any) {
+
+  }
+
   return (
+
     <FormContainer>
+      <CheckoutSteps step1 step2 />
+      <section className="section-3">
+        <div className="div-block-24">
+          <h1 className="heading-3">Envío</h1>
+          {message && (
+            <Message variant="danger">
+              {Array.isArray(message) ? message[0] : message}
+            </Message>
+          )}
+          <Form onSubmit={onSubmitHandler}>
+            <Form.Group controlId="address">
+              <Form.Control
+                className='shiptxtfield w-input'
+                type="text"
+                placeholder="Dirección"
+                value={shippingAddress.address}
+                onChange={e =>
+                  setShippingAddress({
+                    ...shippingAddress,
+                    address: e.target.value,
+                  })
+                }
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="city" className="py-3">
+              <Form.Select
+                className='shiptxtfield w-input'
+                value={shippingAddress.city}
+                onChange= {e => addressCode(e)}
+              >
+                <option >Ciudad</option>
+                <option value="rosario">Rosario</option>
+                <option value="funes">Funes</option>
+                <option value="fisherton">Fisherton</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group controlId="postalCode">
+              <Form.Text
+                className='shiptxtfield w-input'
+              >
+                {shippingAddress.postalCode}
+              </Form.Text>
+            </Form.Group>
+
+            <Form.Group controlId="timeZone" className="py-3">
+              <Form.Select
+                className='shiptxtfield w-input'
+                placeholder="Franja horaria"
+                onChange={e => handlerTimeZone(e)}
+              >
+                <option value="horario1">Horario 1</option>
+                <option value="horario2">Horario 2</option>
+                <option value="horario3">Horario 3</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Button type="submit" variant="primary" style={{marginTop: '15px'}}>
+              Continuar
+            </Button>
+
+            <div style={{height: 50}}></div>
+
+          </Form>
+
+                 
+        </div>
+      </section>
+     
+    </FormContainer>
+  );
+};
+
+export default Shipping;
+
+
+/*<FormContainer>
       <CheckoutSteps step1 step2 />
       <h1>Shipping</h1>
 
@@ -116,8 +224,4 @@ const Shipping = () => {
           Continue
         </Button>
       </Form>
-    </FormContainer>
-  );
-};
-
-export default Shipping;
+    </FormContainer> */
