@@ -1,7 +1,7 @@
 //importing types & utils
 import { v4 as randomID } from 'uuid';
 //importing hooks
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useProductsActions, useTypedSelector } from '../../hooks';
 //importing components
 import { Row, Col, Button } from 'react-bootstrap';
@@ -25,6 +25,8 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
     error,
     data: { products, pages, page },
   } = useTypedSelector(state => state.products);
+
+  const [cantCart, setCantCart] = useState(0);
 
   console.log('keyword:', keyword);
   console.log('products:', products);
@@ -99,7 +101,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
 
           <div className="div-block-17">
 
-            {keyword ?
+            {keyword ?    // si hay busqueda no muestra destacados
               null
               :
               <>
@@ -116,7 +118,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
                     <>
 
                       {
-                      products.slice(0,3).map(product => (
+                      products.slice(0,3).map(product => (  // muestra los primeros 3 prods
                         <Item {...product} />
                       ))}
 

@@ -598,8 +598,8 @@
   width: 100%;
   height: auto;
   justify-content: flex-end;
-  padding-left: 7%;
-  padding-right: 7%; 
+  /* padding-left: 7%;
+  padding-right: 7%;  */
   display: flex;
 }
 
