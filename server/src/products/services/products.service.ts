@@ -37,8 +37,8 @@ export class ProductsService {
       return products;
     }
 
-    const query: any = {};
-    if (filter.keyword) { 
+    const query: FilterQuery<ProductDocument> = {};
+    if (filter.keyword) {
       query.name = { $regex: new RegExp(filter.keyword, 'i') }
     }
     if (filter.brand) {
