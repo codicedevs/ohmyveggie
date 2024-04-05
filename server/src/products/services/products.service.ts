@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { FilterQuery, Model, Types } from 'mongoose';
 import { PaginatedProducts } from 'src/interfaces';
 import { UserDocument } from 'src/users/schemas/user.schema';
 import { sampleProduct } from '../../utils/data/product';
@@ -14,7 +14,7 @@ import { Product, ProductDocument } from '../schemas/product.schema';
 export class ProductsService {
   constructor(
     @InjectModel(Product.name) public productModel: Model<ProductDocument>
-  ) {}
+  ) { }
 
   async findTopRated(): Promise<ProductDocument[]> {
     const products = await this.productModel
@@ -27,23 +27,33 @@ export class ProductsService {
     return products;
   }
 
-  async findMany(
-    keyword?: string,
-    pageId?: string
-  ): Promise<PaginatedProducts> {
-    const pageSize = 15;
+  async findMany(pageId: string, filter?: FilterQuery<ProductDocument>): Promise<ProductDocument[] | PaginatedProducts> {
+    const pageSize = 2;
     const page = parseInt(pageId) || 1;
+    if (!filter) {
+      // Si no se proporciona un filtro busca todos los productos
+      const products = await this.productModel.find();
+      if (!products.length) throw new NotFoundException('No products found.');
+      return products;
+    }
 
-    const rgex = keyword ? { name: { $regex: keyword, $options: 'i' } } : {};
-
-    const count = await this.productModel.countDocuments({ ...rgex });
+    const query: FilterQuery<ProductDocument> = {};
+    if (filter.keyword) {
+      query.name = { $regex: new RegExp(filter.keyword, 'i') }
+    }
+    if (filter.category) {
+      query.category = filter.category
+    }
+    if (filter.brand) {
+      query.brand = filter.brand;
+    }
+    const count = await this.productModel.countDocuments(query);
     const products = await this.productModel
-      .find({ ...rgex })
+      .find(query)
       .limit(pageSize)
-      .skip(pageSize * (page - 1));
+      .skip(pageSize * (page - 1));;
 
     if (!products.length) throw new NotFoundException('No products found.');
-
     return { products, page, pages: Math.ceil(count / pageSize) };
   }
 
@@ -80,7 +90,7 @@ export class ProductsService {
       attrs;
     if (!Types.ObjectId.isValid(id))
       throw new BadRequestException('Invalid product ID.');
-    
+
     const product = await this.productModel.findById(id);
     if (!product) throw new NotFoundException('No product with given ID.');
 
