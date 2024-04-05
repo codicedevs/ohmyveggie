@@ -12,7 +12,6 @@ interface OrderProps {
 }
 
 const Order: React.FC<OrderProps> = ({ pageId }) => {
-  alert('Pausa');
   const { loading, data, error, success } = useTypedSelector(
     state => state.order
   );
@@ -134,7 +133,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             </div>
             
             {!data.isPaid && (
-                <ListGroup.Item>
+                <ListGroup.Item >
                   {loading && <Loader />}
 
                   {/* <PayPalButton
@@ -144,7 +143,19 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                     amount={data.totalPrice}
                     onSuccess={onPaymentHandler}
                   />  */}
-                  <button onClick={()=>onPaymentHandler({id: 123, payer: {email_address: 'abc345@gmail.com'}, update_time: new Date().toISOString(), status: 'ok' })}>Pagar</button>
+                  {/* <button onClick={()=>onPaymentHandler({id: 123, payer: {email_address: 'abc345@gmail.com'}, update_time: new Date().toISOString(), status: 'ok' })}>Pagar</button> */}
+                
+                  <ListGroup.Item>
+                    <Button
+                      type="button"
+                      className="btn btn-block"
+                      onClick={()=>onPaymentHandler({id: 123, payer: {email_address: 'abc345@gmail.com'}, update_time: new Date().toISOString(), status: 'ok' })}
+                    >
+                      Pagar
+                    </Button>
+                  </ListGroup.Item>
+                
+                
                 </ListGroup.Item>
               )}
 
@@ -158,7 +169,9 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                     <Button
                       type="button"
                       className="btn btn-block"
-                      onClick={() => deliverOrder(data._id!)}
+                      onClick={() => {
+                        deliverOrder(data._id!)
+                      }}
                     >
                       Marcar como entregado
                     </Button>

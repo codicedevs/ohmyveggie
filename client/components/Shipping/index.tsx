@@ -27,21 +27,26 @@ const Shipping = () => {
 
     const { address, country, city, postalCode } = shippingAddress;
 
-    if (
-      address.length < 1 //||
-      // country.length < 1 ||
-      //city.length < 1 //||
-      //postalCode.length < 1
-    ) {
-      setMessage('All fields are required.');
+    // if (
+    //   address.length < 1 ||
+    //   country.length < 1 ||
+    //   city.length < 1 ||
+    //   postalCode.length < 1
+    // ) {
+    //   setMessage('All fields are required.');
 
-      return null;
-    }
+    //   return null;
+    // }
 
     setShippingAddress({     // Pais hardcodeado
       ...shippingAddress,
       country: 'Argentina',
+      city: 'Rosario',
+      postalCode: '2000',
+      address: 'pp'
     })
+
+    console.log('iiiiiiii', shippingAddress);
 
     saveShippingAddress(shippingAddress);
 
@@ -50,7 +55,7 @@ const Shipping = () => {
 
   function addressCode (e: any)  {
     let selectedCity = e.target.value;
-    setShippingAddress({ ...shippingAddress, city: selectedCity });
+    setShippingAddress({ ...shippingAddress, city: 'rosario', country: 'argentina' });
     
     //-- de acuerdo a la localidad setea el código
     let zipCode = '2000';
@@ -69,6 +74,7 @@ const Shipping = () => {
   }
 
   function handlerTimeZone(e: any) {
+    setShippingAddress({ ...shippingAddress, city: 'rosario', country: 'argentina' });
 
   }
 
@@ -114,11 +120,16 @@ const Shipping = () => {
             </Form.Group>
 
             <Form.Group controlId="postalCode">
-              <Form.Text
+              <Form.Control
                 className='shiptxtfield w-input'
+                value={shippingAddress.postalCode}
+                onChange={e =>
+                  setShippingAddress({
+                    ...shippingAddress,
+                    postalCode: e.target.value,
+                  })}
               >
-                {shippingAddress.postalCode}
-              </Form.Text>
+              </Form.Control>
             </Form.Group>
 
             <Form.Group controlId="timeZone" className="py-3">

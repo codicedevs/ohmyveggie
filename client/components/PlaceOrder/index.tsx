@@ -1,15 +1,19 @@
 import CheckoutSteps from '../CheckoutSteps';
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import Message from '../Message';
-import { useOrderActions, useShipping, useTypedSelector } from '../../hooks';
+import { useOrderActions, useShipping, useTypedSelector, useUserActions } from '../../hooks';
 import Link from 'next/link';
 
 const PlaceOrder = () => {
-  useShipping();
+  //useShipping();     
 
   const { cart } = useTypedSelector(state => state);
   const { error } = useTypedSelector(state => state.order);
   const { createOrder } = useOrderActions();
+
+  const {
+    data
+  } = useTypedSelector(state => state.user);
 
   const onPlaceOrderHandler = () => {
     const {
@@ -33,7 +37,7 @@ const PlaceOrder = () => {
     });
   };
 
-
+ 
   // calculo cantidad de productos (total)
   const items = cart.data.cartItems;
   var totalProductos = 0;
@@ -45,17 +49,17 @@ const PlaceOrder = () => {
   return (
 
     <section className="section-4">
-      <CheckoutSteps step1 step2 step3 step4/>
+      <CheckoutSteps step1 step2 step3 step4/> 
       <h1 className="heading-3">Orden</h1>
       <div className="columns-2 w-row">
         <div className="column-5 w-col w-col-8">
           <div className="orderitem">
             <div className="txtorderitem">Envío</div>
-            <div className="txtordersubitem">Nombre :</div>
-            <div className="txtordersubitem">Email :</div>
+            <div className="txtordersubitem">Nombre : {data?.name}</div>
+            <div className="txtordersubitem">Email : {data?.email}</div>
             <div className="txtordersubitem">Dirección : {cart.data.shippingDetails.address}</div>
             {/* <div className="deliveredpaid">Pedido no enviado</div>
-            <div className="deliveredpaid true">Pedido enviado</div> */}
+            <div className="deliveredpaid true">Pedido enviado</div>  */}
           </div>
           <div className="orderitem">
             <div className="txtorderitem">Método de pago</div>

@@ -67,8 +67,11 @@ const Item: React.FC<ProductInterface> = (product) => {
 
   function subtractQtyProd(item: any) {
     const result = cartData.cartItems.find(function (item) { return item.productId == _id; });
-    if (!result ||result.qty < 1) {
-      // console.log('substractCero', result.qty);
+    if(!result) return
+    if ( result.qty <= 1) {
+      console.log('___--' )
+      removeFromCart(result.productId);
+      setCantProd(0)
       setIsVisibleAddButton(false);
       return
     }  
