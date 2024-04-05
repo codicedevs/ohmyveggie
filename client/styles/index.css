@@ -2,6 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Montserrat, sans-serif;
+  text-transform: none;
 }
 
 main {
@@ -11,11 +13,11 @@ main {
 h1 {
   padding-bottom: 20px;
   padding-top: 5px;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
 }
 
 h2 {
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   padding: 0.5rem 0;
 }
 
@@ -53,8 +55,13 @@ h2 {
   margin-right: auto;
 }
 
+
 @media (max-width: 900px) {
   .carousel-caption h2 {
     font-size: 2.5vw;
   }
 }
+
+
+
+

@@ -13,9 +13,9 @@ const HomePage: NextPage = () => {
   return (
     <>
       <SEO {...homeConfig} />
-      <main className="wrapper py-5">
+      {/* <main className="wrapper py-5"> */}
         <Products keyword={keyword} />
-      </main>
+      {/* </main> */}
     </>
   );
 };

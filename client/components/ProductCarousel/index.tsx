@@ -1,12 +1,36 @@
 import React, { useEffect } from 'react';
-import Link from 'next/link';
-import { Carousel, Image } from 'react-bootstrap';
-import Loader from '../Loader';
-import Message from '../Message';
-import { useProductsActions, useTypedSelector } from '../../hooks';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader  
+import { Carousel } from 'react-responsive-carousel'; 
+
+
+
+
+
+//"../images/slide1.jpg"
 
 const ProductCarousel = () => {
-  const { fetchTopRatedProducts } = useProductsActions();
+
+  return (
+
+    // <Carousel>
+    //   <div>
+    //     <img src="../images/slide1.jpg" />
+    //     <p className="legend">Legend 1</p>
+    //   </div>
+    //   <div>
+    //     <img src="../images/slide2.jpg" />
+    //     <p className="legend">Legend 2</p>
+    //   </div>
+      
+    // </Carousel>
+    <h1>Acá va el slider</h1>
+
+  );
+};
+
+export default ProductCarousel;
+
+{/*const { fetchTopRatedProducts } = useProductsActions();
 
   const { loading, error, data } = useTypedSelector(
     state => state.productsTopRated
@@ -34,8 +58,4 @@ const ProductCarousel = () => {
           </Link>
         </Carousel.Item>
       ))}
-    </Carousel>
-  );
-};
-
-export default ProductCarousel;
+    </Carousel> */}
