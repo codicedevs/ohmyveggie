@@ -31,7 +31,7 @@ export class ProductsService {
     const pageSize = 2;
     const page = parseInt(pageId) || 1;
     if (!filter) {
-      // Si no se proporciona un filtro, simplemente busca todos los productos
+      // Si no se proporciona un filtro busca todos los productos
       const products = await this.productModel.find();
       if (!products.length) throw new NotFoundException('No products found.');
       return products;
@@ -40,6 +40,9 @@ export class ProductsService {
     const query: FilterQuery<ProductDocument> = {};
     if (filter.keyword) {
       query.name = { $regex: new RegExp(filter.keyword, 'i') }
+    }
+    if (filter.category) {
+      query.category = filter.category
     }
     if (filter.brand) {
       query.brand = filter.brand;
