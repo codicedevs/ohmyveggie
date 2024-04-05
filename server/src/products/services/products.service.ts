@@ -27,25 +27,30 @@ export class ProductsService {
     return products;
   }
 
-  async findMany(
-    keyword?: string,
-    pageId?: string,
-    category?: string
-  ): Promise<PaginatedProducts> {
+  async findMany(pageId: string, filter?: FilterQuery<ProductDocument>): Promise<ProductDocument[] | PaginatedProducts> {
     const pageSize = 2;
     const page = parseInt(pageId) || 1;
-    const filter: FilterQuery<ProductDocument> = {}
-    if (keyword) filter.name = { $regex: keyword, $options: 'i' }
-    if (category) filter.category = category // esta busqueda distingue mayusculas!!!
+    if (!filter) {
+      // Si no se proporciona un filtro, simplemente busca todos los productos
+      const products = await this.productModel.find();
+      if (!products.length) throw new NotFoundException('No products found.');
+      return products;
+    }
 
-    const count = await this.productModel.countDocuments(filter);
+    const query: any = {};
+    if (filter.keyword) { 
+      query.name = { $regex: new RegExp(filter.keyword, 'i') }
+    }
+    if (filter.brand) {
+      query.brand = filter.brand;
+    }
+    const count = await this.productModel.countDocuments(query);
     const products = await this.productModel
-      .find(filter)
+      .find(query)
       .limit(pageSize)
-      .skip(pageSize * (page - 1));
+      .skip(pageSize * (page - 1));;
 
     if (!products.length) throw new NotFoundException('No products found.');
-
     return { products, page, pages: Math.ceil(count / pageSize) };
   }
 
