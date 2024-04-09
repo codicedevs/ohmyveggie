@@ -166,4 +166,8 @@ export class ProductsService {
     const categories = await this.productModel.distinct('category').exec();
     return categories;
   }
+  async getAllBrands(): Promise<string[]> {
+    const categories = await this.productModel.distinct('brand').exec();
+    return categories;
+  }
 }

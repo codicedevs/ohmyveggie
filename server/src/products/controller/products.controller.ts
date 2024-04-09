@@ -77,3 +77,12 @@ export class ProductsCategoriesController {
     return this.productsService.getAllCategories();
   }
 }
+
+@Controller("brands")
+export class ProductsBrandsController {
+  constructor(private productsService: ProductsService) {}
+  @Get()
+  async getAllBrands(): Promise<string[]> {
+    return this.productsService.getAllBrands();
+  }
+}
