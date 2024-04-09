@@ -161,4 +161,13 @@ export class ProductsService {
   async deleteMany(): Promise<void> {
     await this.productModel.deleteMany({});
   }
+  
+  async getAllCategories(): Promise<string[]> {
+    const categories = await this.productModel.distinct('category').exec();
+    return categories;
+  }
+  async getAllBrands(): Promise<string[]> {
+    const categories = await this.productModel.distinct('brand').exec();
+    return categories;
+  }
 }
