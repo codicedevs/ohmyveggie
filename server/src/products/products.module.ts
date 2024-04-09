@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ProductsService } from './services/products.service';
-import { ProductsController } from './controller/products.controller';
+import { ProductsCategoriesController, ProductsController } from './controller/products.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Product, ProductSchema } from './schemas/product.schema';
 
@@ -15,6 +15,6 @@ import { Product, ProductSchema } from './schemas/product.schema';
     ]),
   ],
   providers: [ProductsService],
-  controllers: [ProductsController],
+  controllers: [ProductsController,ProductsCategoriesController],
 })
 export class ProductsModule {}
