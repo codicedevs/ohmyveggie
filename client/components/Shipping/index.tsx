@@ -41,9 +41,9 @@ const Shipping = () => {
     setShippingAddress({     // Pais hardcodeado
       ...shippingAddress,
       country: 'Argentina',
-      city: 'Rosario',
-      postalCode: '2000',
-      address: 'pp'
+      // city: 'Rosario',
+      // postalCode: '2000',
+      // address: 'pp'
     })
 
     console.log('iiiiiiii', shippingAddress);
@@ -55,17 +55,18 @@ const Shipping = () => {
 
   function addressCode (e: any)  {
     let selectedCity = e.target.value;
-    setShippingAddress({ ...shippingAddress, city: 'rosario', country: 'argentina' });
+    console.log('---------->', selectedCity);
+    setShippingAddress({ ...shippingAddress, city: selectedCity });
     
     //-- de acuerdo a la localidad setea el código
-    let zipCode = '2000';
+    let zipCode = '9999';
     // if(selectedCity === 'funes') {
     //   zipCode = '2132'
     // } else if (selectedCity === 'fisherton') {
     //     zipCode = '2001'
     // }
 
-    console.log(zipCode, selectedCity, shippingAddress);
+    console.log('>>>>>>>>>>>',zipCode, selectedCity);
 
     setShippingAddress({
       ...shippingAddress,
@@ -74,7 +75,7 @@ const Shipping = () => {
   }
 
   function handlerTimeZone(e: any) {
-    setShippingAddress({ ...shippingAddress, city: 'rosario', country: 'argentina' });
+    setShippingAddress({ ...shippingAddress,  });
 
   }
 
@@ -109,10 +110,9 @@ const Shipping = () => {
             <Form.Group controlId="city" className="py-3">
               <Form.Select
                 className='shiptxtfield w-input'
-                value= "rosario" //{shippingAddress.city}
                 onChange= {e => addressCode(e)}
               >
-                <option >Ciudad</option>
+                {/* <option >Ciudad</option> */}
                 <option value="rosario">Rosario</option>
                 <option value="funes">Funes</option>
                 <option value="fisherton">Fisherton</option>

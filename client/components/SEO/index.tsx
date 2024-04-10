@@ -10,7 +10,7 @@ const SEO: React.FC<SEOProps> = ({ title, description, keywords }) => {
   return (
     <Head>
       <title>{title}</title>
-      <link rel="shortcut icon" type="images/ico" href="./images/favicon.ico" />
+      <link rel="shortcut icon" type="images/ico" href="/images/favicon.png" />
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"

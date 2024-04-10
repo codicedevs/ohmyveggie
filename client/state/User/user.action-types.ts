@@ -36,4 +36,7 @@ export enum ActionTypes {
 
   USER_LOGOUT = 'USER_LOGOUT',
   USER_RESET = 'USER_RESET',
+
+  LOGIN_IS_VISIBLE = 'TOGGLE_LOGIN',
+
 }

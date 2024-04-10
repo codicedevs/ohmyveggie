@@ -117,7 +117,7 @@ const Item: React.FC<ProductInterface> = (product) => {
           <div className="title">{name}</div>
           <div className="text-block-5">${price}</div>
           {isVisibleAddButton || cantProd > 0 ?       //-------------------------------------------------
-            <div className="addbutton">
+            <div className="addbutton" style={{backgroundColor: 'black'}}>
               <div className='addRestButton' onClick={addQtyProd}> + </div>
               <div className='addRestButton'> {cantProd} </div>
               <div className='addRestButton' onClick={subtractQtyProd}> - </div>

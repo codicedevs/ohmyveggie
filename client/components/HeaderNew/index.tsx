@@ -1,18 +1,25 @@
 import {useState} from 'react';
 import Link from 'next/link';
 import { useTypedSelector, useUserActions } from '../../hooks';
-import { Nav, NavDropdown } from 'react-bootstrap';
+import { Button, Nav, NavDropdown } from 'react-bootstrap';
 import CartNew from '../CartNew';
+import { UserAction } from '../../state/User/user.actions';
+import { useDispatch } from 'react-redux';
+import { ActionTypes } from '../../state/User/user.action-types';
 
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const dispatch = useDispatch();
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
 
-  const { data } = useTypedSelector(state => state.user);
+  const { data, isLoginVisible} = useTypedSelector(state => state.user);
+  const state = useTypedSelector(state => state);
+
+  
+  console.log('esado', state);
   const { logout } = useUserActions();
 
   const [isVisibleCart, setIsVisibleCart] = useState(false);
@@ -26,6 +33,7 @@ const Navbar = () => {
   function toggleCart() {
     setIsVisibleCart(!isVisibleCart);
   }
+  
   const [isOpen, setIsOpen] = useState(false)
     return (
       <>
@@ -87,6 +95,15 @@ const Navbar = () => {
                     <div className="div-block-30">{cartItems.reduce((acc, item) => acc + item.qty, 0)}</div>
                   </Nav.Link>
                 </div>
+
+                <Button onClick={() => dispatch({type: ActionTypes.LOGIN_IS_VISIBLE, payload: true})}>
+                {isLoginVisible} 
+                </Button>
+
+                {/* export interface ToggleLogin {
+                        type: ActionTypes.LOGIN_IS_VISIBLE;
+                        payload: boolean;
+                } */}
 
                 {data ? (
                   <>

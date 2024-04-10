@@ -1,11 +1,17 @@
 export const homeConfig = {
-  title: 'Welcome to Elecshop | Home',
-  description: 'Find the best products for the cheapest prices.',
-  keywords: 'electronics, cheap electronics, buy electronics',
+  title: 'Bienvenidos a Oh My Veggie | Inicio',
+  description: 'Encuentre los mejores productos en nuestra tienda saludable.',
+  keywords: 'comida nutritiva, ingredientes frescos, comida vegana, comida saludable',
 };
 
 export const shippingConfig = {
-  title: 'Welcome to Elecshop | Shipping Page',
-  description: 'Find the best products for the cheapest prices.',
-  keywords: 'electronics, cheap electronics, buy electronics',
+  title: 'Bienvenidos a Oh My Veggie | Página de envío',
+  description: 'Encuentre los mejores productos en nuestra tienda saludable.',
+  keywords: 'comida nutritiva, ingredientes frescos, comida vegana, comida saludable',
 };
+
+export const aboutConfig = {
+  title: 'Bienvenidos a Oh My Veggie | Nosotros',
+  description: 'Encuentre los mejores productos en nuestra tienda saludable.',
+  keywords: 'comida nutritiva, ingredientes frescos, comida vegana, comida saludable',
+}

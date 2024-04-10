@@ -11,15 +11,20 @@ export const userLoginReducer = (
     case ActionTypes.USER_LOGIN_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.USER_LOGIN_SUCCESS:
-      return { loading: false, data: action.payload, error: null };
+      return { loading: false, data: action.payload, error: null, isLoginVisible: false };
     case ActionTypes.USER_LOGIN_ERROR:
       return { ...state, loading: false, error: action.payload };
 
     case ActionTypes.USER_LOGOUT:
       return { ...state, data: action.payload };
     case ActionTypes.USER_RESET:
-      return { loading: false, data: null, error: null };
-    default:
+      return { loading: false, data: null, error: null, isLoginVisible: false };
+    
+      case ActionTypes.LOGIN_IS_VISIBLE:
+        console.log(action);     //-----------------------------login is visible
+      return {...state, isLoginVisible: action.payload }  
+    
+      default:
       return state;
   }
 };
@@ -32,14 +37,14 @@ export const userRegisterReducer = (
     case ActionTypes.USER_REGISTER_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.USER_REGISTER_SUCCESS:
-      return { loading: false, data: action.payload, error: null };
+      return { loading: false, data: action.payload, error: null, isLoginVisible: false };
     case ActionTypes.USER_REGISTER_ERROR:
       return { ...state, loading: false, error: action.payload };
 
     case ActionTypes.USER_LOGOUT:
       return { ...state, data: action.payload };
     case ActionTypes.USER_RESET:
-      return { loading: false, data: null, error: null };
+      return { loading: false, data: null, error: null, isLoginVisible: false };
     default:
       return state;
   }
@@ -53,7 +58,7 @@ export const userDetailsReducer = (
     case ActionTypes.GET_CURRENT_USER_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.GET_CURRENT_USER_SUCCESS:
-      return { loading: false, data: action.payload, error: null };
+      return { loading: false, data: action.payload, error: null, isLoginVisible: false };
     case ActionTypes.GET_CURRENT_USER_ERROR:
       return { ...state, loading: false, error: action.payload };
 
@@ -72,21 +77,21 @@ export const userEditReducer = (
     case ActionTypes.FETCH_USER_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.FETCH_USER_SUCCESS:
-      return { loading: false, data: action.payload, error: null };
+      return { loading: false, data: action.payload, error: null, isLoginVisible: false };
     case ActionTypes.FETCH_USER_ERROR:
       return { ...state, loading: false, error: action.payload };
 
     case ActionTypes.ADMIN_UPDATE_USER_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.ADMIN_UPDATE_USER_SUCCESS:
-      return { loading: false, data: action.payload, error: null };
+      return { loading: false, data: action.payload, error: null, isLoginVisible: false };
     case ActionTypes.ADMIN_UPDATE_USER_ERROR:
       return { ...state, loading: false, error: action.payload };
 
     case ActionTypes.USER_RESET:
-      return { data: null, loading: false, error: null };
+      return { data: null, loading: false, error: null, isLoginVisible: false };
     case ActionTypes.ADMIN_UPDATE_USER_RESET:
-      return { loading: false, data: null, error: null };
+      return { loading: false, data: null, error: null, isLoginVisible: false };
     default:
       return state;
   }
@@ -105,6 +110,7 @@ export const userUpdateReducer = (
         data: action.payload,
         error: null,
         success: true,
+        isLoginVisible: false
       };
     case ActionTypes.USER_UPDATE_ERROR:
       return {
@@ -117,7 +123,7 @@ export const userUpdateReducer = (
     case ActionTypes.USER_LOGOUT:
       return { ...state, data: action.payload };
     case ActionTypes.USER_UPDATE_RESET:
-      return { loading: false, data: null, error: null, success: false };
+      return { loading: false, data: null, error: null, success: false, isLoginVisible: false };
     default:
       return state;
   }
@@ -131,7 +137,7 @@ export const usersReducer = (
     case ActionTypes.FETCH_USERS_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.FETCH_USERS_SUCCESS:
-      return { loading: false, data: action.payload, error: null };
+      return { loading: false, data: action.payload, error: null, isLoginVisible: false };
     case ActionTypes.FETCH_USERS_ERROR:
       return { ...state, loading: false, error: action.payload };
 
