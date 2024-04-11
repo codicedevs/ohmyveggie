@@ -1,12 +1,14 @@
 import { MercadoPagoConfig, Preference } from 'mercadopago';
-import { Body, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { OrderItem } from 'src/interfaces';
+import { Order, OrderDocument } from 'src/orders/schemas/order.schema';
+import { log } from 'console';
 
 
 @Injectable()
 export class PaymentService {
   private readonly client: any;
-  private readonly preference: any;
+  private readonly preference: Preference;
 
   constructor() {
     this.client = new MercadoPagoConfig({
@@ -16,21 +18,26 @@ export class PaymentService {
     this.preference = new Preference(this.client);
   }
 
-  async testPreference() {
+  async createPreference(order: OrderDocument) {
 
-    this.preference.create({
-      body: {
-        items: [
-          {
-            id: '<ID>',
-            title: '<title>',
-            quantity: 1,
-            unit_price: 12.34
-          }
-        ]
-      }
-    }).then(console.log).catch(console.log);
+    try {
+      const preferenceResult = this.preference.create({
+        body: {
+          external_reference: order._id,
+          items: order.orderItems.map((item) => {
+            return ({
+              id: item.productId,
+              title: item.name,
+              quantity: item.qty,
+              unit_price: item.price
+            })
+          })
+        }
+      })
+      console.log(preferenceResult)
+      return preferenceResult
+    } catch (error) {
+      console.error(error)
+    }
   }
-
-
 }
