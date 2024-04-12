@@ -56,9 +56,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
           <a href="#productos" className="herolink">
             ¡Hacé tu pedido por la web y te lo enviamos a domicilio!
           </a>
-          <div className="text-block-20">
-            Envíos adomicilio | Fisherton | Funes | Rosario
-          </div>
+
         </div>
       </div>
 

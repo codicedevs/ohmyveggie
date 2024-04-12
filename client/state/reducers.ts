@@ -24,6 +24,8 @@ import {
   userUpdateReducer,
 } from './User/user.reducers';
 
+import { uIReducer } from './UI/ui.reducers';
+
 export const reducers = combineReducers({
   products: productsReducer,
   productsTopRated: productsTopRatedReducer,
@@ -43,6 +45,7 @@ export const reducers = combineReducers({
   orders: ordersReducer,
   userOrders: userOrdersReducer,
   users: usersReducer,
+  uI: uIReducer,
 });
 
 export type RootState = ReturnType<typeof reducers>;

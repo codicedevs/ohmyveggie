@@ -6,8 +6,14 @@ import { UserCredentials } from '../../interfaces';
 import FormContainer from '../FormContainer';
 import Loader from '../Loader';
 import Message from '../Message';
+import { useDispatch } from 'react-redux';
+import { ActionTypes as AT } from '../../state/UI/ui.action-types';
 
-const Register = () => {
+
+const Register = ({visible= false} ) => {
+
+  if (!visible) return null;
+
   const initialCredentials = {
     name: '',
     email: '',
@@ -25,6 +31,8 @@ const Register = () => {
   useEffect(() => {
     setMessage(error);
   }, [error]);
+
+  const dispatch = useDispatch();
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,7 +64,7 @@ const Register = () => {
     <section style={{ display: "flex" }} className="login">
           <div className="div-block-35">
               <img
-                  src="images/logo.png"
+                  src="/images/logo.png"
                   loading="lazy"
                   sizes="100vw"
                   srcSet="images/logo-p-500.png 500w, images/logo-p-800.png 800w, images/logo.png 830w"
@@ -162,19 +170,24 @@ const Register = () => {
               </div>
               <div className="div-block-36">
                   <div className="text-block-17">Ya tiene cuenta?</div>
-                  {/* <a href="#" className="link-3">
-                      Registrese aquí
-                  </a> */}
-                  <Link href="/login">Ingresar</Link>
+                   <a  className="link-3" onClick={()=> {dispatch({ type: AT.CLOSE_REGISTER }); dispatch({ type: AT.OPEN_LOGIN })}}>
+                      Ingresar
+                  </a> 
+                  {/* <Link href="/login">Ingresar</Link> */}
 
 
               </div>
-              <div className="div-block-37">
-                  <div className="text-block-18">Olvidó su contraseña?</div>
-              </div>
+              {/* <div className="div-block-37">
+                  <div className="text-block-18"
+                    onClick={() => {dispatch({type: AT.OPEN_PASSWORD_RECOVER }); dispatch({type: AT.CLOSE_REGISTER })}}
+                  >
+                    Olvidó su contraseña?
+                  </div>
+              </div> */}
               <div
                   data-w-id="61f6a0b0-599f-9b79-f962-7952437987a5"
                   className="text-block-19"
+                  onClick={()=> {dispatch({ type: AT.CLOSE_REGISTER })}}
               >
                   X
               </div>

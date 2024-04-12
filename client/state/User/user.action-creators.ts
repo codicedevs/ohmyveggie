@@ -73,7 +73,7 @@ export const getCurrentUser =
     } catch (error: any) {
       dispatch({
         type: ActionTypes.GET_CURRENT_USER_ERROR,
-        payload: error.response.data.message,
+        payload: error.response?.data.message,
       });
     }
   };

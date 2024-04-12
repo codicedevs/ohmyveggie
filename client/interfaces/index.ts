@@ -101,3 +101,13 @@ export interface PaginatedProducts {
   pages: number;
   page: number;
 }
+
+export interface UIInterface {
+  isLoginVisible: boolean;
+}
+
+export interface UIRecover {
+  codigo: number;
+  nuevaContraseña: string;
+  confNuevaContraseña: string;
+}

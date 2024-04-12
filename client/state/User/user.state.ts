@@ -5,7 +5,6 @@ export interface UserState {
   error: string | null;
   data: UserInterface | null;
   success?: boolean;
-  isLoginVisible: boolean
 }
 
 export interface UsersState {
@@ -13,5 +12,4 @@ export interface UsersState {
   error: string | null;
   data: UserInterface[];
   success?: boolean;
-  isLoginVisible: boolean
 }

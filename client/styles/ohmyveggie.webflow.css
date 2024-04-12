@@ -36,6 +36,11 @@
 .addRestButton {
   width: 20%;
   text-align: center;
+  font-weight: 500;
+}
+
+.socialWrapper {
+  display: flex;
 }
 
 
@@ -173,6 +178,8 @@
   padding-left: 7%;
   padding-right: 7%;
   display: flex;
+  justify-content: space-between;
+  font-weight: 300;
 }
 
 .div-block-8 {
@@ -199,6 +206,7 @@
   font-style: normal;
   line-height: 3.6rem;
   text-transform: capitalize;
+  letter-spacing: normal;
   
 }
 
@@ -207,7 +215,7 @@
 }
 
 .div-block-9 {
-  width: 100%;
+  width: 70%;
   height: auto;
   background-color: #fff;
   border-radius: 6px;
@@ -550,6 +558,7 @@
   justify-content: center;
   align-items: center;
   font-size: 20px;
+  font-weight: 500;
   transition: all .2s;
   display: flex;
 }
@@ -1049,7 +1058,7 @@
 }
 
 .div-block-35 {
-  width: 31%;
+  width: 40%;
   height: auto;
   background-color: var(--color-5);
   border-radius: 6px;
@@ -1318,7 +1327,7 @@
 }
 
 .aboutheading {
-  font-family: Montserrat, sans-serif;
+  font-family: Montserrat, sans-serif ;
   font-size: 32px;
 }
 

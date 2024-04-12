@@ -7,6 +7,8 @@ import { UserAction } from '../../state/User/user.actions';
 import { useDispatch } from 'react-redux';
 import { ActionTypes } from '../../state/User/user.action-types';
 
+import { ActionTypes as AT } from '../../state/UI/ui.action-types';
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -15,11 +17,11 @@ const Navbar = () => {
     setMenuOpen(!menuOpen);
   };
 
-  const { data, isLoginVisible} = useTypedSelector(state => state.user);
-  const state = useTypedSelector(state => state);
+  const user = useTypedSelector(state => state.user);
 
-  
-  console.log('esado', state);
+  const uI = useTypedSelector(state => state.uI);
+  console.log("UI",uI);
+
   const { logout } = useUserActions();
 
   const [isVisibleCart, setIsVisibleCart] = useState(false);
@@ -38,24 +40,28 @@ const Navbar = () => {
     return (
       <>
         <div className="div-block-7">
-          <div className="div-block-11">
-            <img
-              src="/images/whatsappIcon.png"
-              loading="lazy"
-              alt=""
-              className="image-2"
-            />
-            <div className="text-block">341 6 666666</div>
-          </div>
-          <div className="div-block-11">
-            <img
-              src="/images/instagramIcon.png"
-              loading="lazy"
-              alt=""
-              className="image-2"
-            />
-            <div className="text-block">ohmyveggierosario</div>
-          </div>
+          <div className='socialWrapper'>
+            <div className="div-block-11">
+              <img
+                src="/images/whatsappIcon.png"
+                loading="lazy"
+                alt=""
+                className="image-2"
+              />
+              <div className="text-block">341 6 666666</div>
+            </div>
+            <div className="div-block-11">
+              <img
+                src="/images/instagramIcon.png"
+                loading="lazy"
+                alt=""
+                className="image-2"
+              />
+              <div className="text-block">ohmyveggierosario</div>
+
+            </div>
+          </div>  
+          <div className="text-block">Envíos adomicilio | Fisherton | Funes | Rosario</div>
         </div>
         <div className="navbar">
 
@@ -96,16 +102,11 @@ const Navbar = () => {
                   </Nav.Link>
                 </div>
 
-                <Button onClick={() => dispatch({type: ActionTypes.LOGIN_IS_VISIBLE, payload: true})}>
-                {isLoginVisible} 
-                </Button>
+                {/* <Button onClick={() => dispatch({type: AT.TOGGLE_LOGIN})}>
+                
+                </Button> */}
 
-                {/* export interface ToggleLogin {
-                        type: ActionTypes.LOGIN_IS_VISIBLE;
-                        payload: boolean;
-                } */}
-
-                {data ? (
+                {user.data ? (
                   <>
                     {/* <img
                       src="/images/loginLila.png"
@@ -116,7 +117,7 @@ const Navbar = () => {
                       // srcSet="/images/loginLila.png 500w, images/loginLila.png 800w, images/loginLila.png 830w"
                     /> */}
 
-                    <NavDropdown title={data.name} id="username">
+                    <NavDropdown title={user.data.name} id="username">
                       <Link href="/profile" passHref>
                         <NavDropdown.Item style={{ color: 'black' }}>Perfil</NavDropdown.Item>
                       </Link>
@@ -126,9 +127,9 @@ const Navbar = () => {
                     </NavDropdown>
                   </>
                 ) : (
-                  <Link href="/login" passHref>
+                  // <Link href="/login" passHref>
 
-                    <Nav.Link>
+                    <Nav.Link onClick={() => dispatch({type: AT.TOGGLE_LOGIN})}>
                       {/* <img
                         src="/images/loginLila.png"
                         loading="lazy"
@@ -138,10 +139,10 @@ const Navbar = () => {
                        Ingresar
                     </Nav.Link>
 
-                  </Link>
+                  // </Link>
                 )}
 
-                {data && data.isAdmin && (
+                {user.data && user.data.isAdmin && (
                   <NavDropdown title="Admin" id="username">
                     <Link href="/admin/users" passHref>
                       <NavDropdown.Item style={{ color: 'black' }}>Usuarios</NavDropdown.Item>

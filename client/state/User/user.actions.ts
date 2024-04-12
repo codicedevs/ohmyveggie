@@ -31,7 +31,7 @@ export type UserAction =
   | AdminUpdateUserSuccess
   | AdminUpdateUserError
   | AdminUpdateUserReset
-  | ToggleLogin;
+  
 
 export interface UserLoginStart {
   type: ActionTypes.USER_LOGIN_START;
@@ -165,7 +165,4 @@ export interface DeleteUserError {
 export interface UserReset {
   type: ActionTypes.USER_RESET;
 }
-export interface ToggleLogin {
-type: ActionTypes.LOGIN_IS_VISIBLE;
-payload: boolean;
-}
+
