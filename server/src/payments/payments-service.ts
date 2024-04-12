@@ -1,8 +1,7 @@
 import { MercadoPagoConfig, Preference } from 'mercadopago';
 import { Injectable } from '@nestjs/common';
-import { OrderItem } from 'src/interfaces';
-import { Order, OrderDocument } from 'src/orders/schemas/order.schema';
-import { log } from 'console';
+import { OrderDocument } from 'src/orders/schemas/order.schema';
+
 
 
 @Injectable()
