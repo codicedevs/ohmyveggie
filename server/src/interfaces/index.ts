@@ -13,7 +13,7 @@ export interface OrderItem {
   qty: number;
   image: string;
   price: number;
-  productId: Product;
+  productId: string;
 }
 
 export interface PaymentResult {

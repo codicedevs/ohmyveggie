@@ -9,7 +9,7 @@ export const transform = (rawProduct: any): Product => {
     product.name = rawProduct.nombre
     product.brand = rawProduct.marca_nombre
     product.countInStock = rawProduct.stock
-    product.category = rawProduct.categoria_nombre
+    product.category = rawProduct.categoria_nombre// revisar , quizas la categoria no iria en el csv
     product.price = rawProduct.precio
     return product
 }
