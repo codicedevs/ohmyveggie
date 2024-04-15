@@ -13,3 +13,12 @@ export class PaymentController {
     return { preference };
   }
 }
+@Controller("notifications")
+export class NotificationController {
+  constructor() { }
+
+  @Post("mercado-pago")
+  async handleNotification(@Body() notification: any) {// tipar como mercadopago notification
+    console.log("webhook-recibed", notification)
+  }
+}
