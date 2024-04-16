@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import { BgGreen, BgYellow, FgRed, Reset } from 'src/constants/console';
 
+import * as fs from 'fs';
+import { BgGreen, BgYellow, FgRed, Reset } from '../constants/console';
 /**
  * Obtiene la configuración del protocolo del servidor, http o https según si encuentra los certificados o no.
  * @returns Devuelve los parámetros para la configuración del protocolo
