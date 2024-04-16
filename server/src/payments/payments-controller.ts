@@ -1,6 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { PaymentService } from './payments-service';
 import { OrderDocument } from 'src/orders/schemas/order.schema';
+import { NotificationType } from 'src/interfaces';
 
 
 @Controller('payments')
@@ -15,10 +16,10 @@ export class PaymentController {
 }
 @Controller("notifications")
 export class NotificationController {
-  constructor() { }
+  constructor() {}
 
   @Post("mercado-pago")
-  async handleNotification(@Body() notification: any) {// tipar como mercadopago notification
+  async handleNotification(@Body() notification: NotificationType) {
     console.log("webhook-recibed", notification)
   }
 }
