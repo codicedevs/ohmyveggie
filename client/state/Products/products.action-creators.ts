@@ -29,6 +29,30 @@ export const fetchProducts =
     }
   };
 
+  //COPIE EL FETCH PRODUCT
+
+export const fetchCategories = () => {
+  async(dispatch: Dispatch<ProductsAction>)=>{
+
+    try{
+      dispatch({
+        type: ActionTypes.FETCH_CATEGORIES_START,
+      })
+      const { data } = await proshopAPI.get('/categories')
+    
+      dispatch({
+      type: ActionTypes.FETCH_CATEGORIES_SUCCESS,
+      payload: data,
+    });
+  } catch (error: any) {
+    dispatch({
+      type: ActionTypes.FETCH_CATEGORIES_ERROR,
+      payload: error.response.data.message,
+    });
+  }
+  }
+}
+
 export const fetchTopRatedProducts =
   () => async (dispatch: Dispatch<ProductsAction>) => {
     try {

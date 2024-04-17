@@ -1,4 +1,10 @@
-export interface ProductInterface {
+//COPIE DE PRODUCT
+
+export interface CategoryInterface {
+  name: string;
+}
+
+  export interface ProductInterface {
   _id: string;
   name: string;
   image: string;
@@ -100,4 +106,8 @@ export interface PaginatedProducts {
   products: ProductInterface[];
   pages: number;
   page: number;
+}
+
+export interface PaginatedCategories {
+  categories: CategoryInterface[];
 }
