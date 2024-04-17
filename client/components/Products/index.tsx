@@ -19,6 +19,7 @@ interface ProductsInterface {
 }
 
 const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
+  const {fetchCategories} = useProductsActions()
   const { fetchProducts } = useProductsActions();
   const {
     loading,
@@ -31,9 +32,13 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
   console.log('keyword:', keyword);
   console.log('products:', products);
 
+  useEffect(()=> {
+    fetchCategories()}
+    , [fetchCategories])
 
   useEffect(() => {
     fetchProducts(keyword as string, parseInt(pageId as string));
+    
   }, [fetchProducts, keyword, pageId]);
   
 
@@ -56,9 +61,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
           <a href="#productos" className="herolink">
             ¡Hacé tu pedido por la web y te lo enviamos a domicilio!
           </a>
-          <div className="text-block-20">
-            Envíos adomicilio | Fisherton | Funes | Rosario
-          </div>
+
         </div>
       </div>
 
