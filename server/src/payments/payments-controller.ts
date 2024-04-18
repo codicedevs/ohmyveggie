@@ -34,6 +34,7 @@ export class NotificationController {
       const id = payment.external_reference
       const orderUpdated = this.ordersService.updatePaid(id)
     }
+    // enviar correo electronico de venta exitosa
     return { payment }
   }
 }
