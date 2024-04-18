@@ -106,10 +106,10 @@ export class OrdersService {
 
   async updatePaid(
     id: string,
-    paymentResult: PaymentResult
+    paymentResult?: PaymentResult
   ): Promise<OrderDocument> {
     if (!Types.ObjectId.isValid(id))
-      throw new BadRequestException('Invalid order ID.');
+      throw new BadRequestException('Invalid order ID.')
 
     const order = await this.orderModel.findById(id);
 
@@ -117,7 +117,7 @@ export class OrdersService {
 
     order.isPaid = true;
     order.paidAt = Date();
-    order.paymentResult = paymentResult;
+    if (paymentResult) { order.paymentResult = paymentResult }
 
     const updatedOrder = await order.save();
 

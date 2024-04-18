@@ -48,3 +48,33 @@ export interface DateRange {
   startDate: string; 
   endDate: string;  
 }
+
+/**
+ * mercado pago types notification
+ */
+export interface Notification<T = NotificationData> {
+  /**ID de la notificación */
+  id: number,
+  /**Indica si la URL ingresada es válida. */
+  live_mode: boolean,
+  /**Tipo de notificacion recebida (payments, mp-connect, subscription etc) */
+  type: NotificationType,
+  date_created: string,
+  /**UserID del vendedor */
+  user_id: number,
+  /**Indica si es una notificación duplicada o no */
+  api_version: string,
+  /**Tipo de notificación recibida, indicando si es la actualización de un recurso o bien la creación de un nuevo */
+  action: 'created' | 'updated' | 'payment.created' | 'payment.updated' | 'application.deauthorized' | 'application.authorized',
+  data: T,
+}
+
+export type NotificationType = 'subscription_preapproval' | 'payment' | 'subscription_preapproval_plan' | 'subscription_authorized_payment' | 'point_integration_wh' | 'delivery'
+
+export type NotificationData = {
+  /**
+   * Id de la notificación
+   */
+  id: string
+  [key: string]: any,
+}
