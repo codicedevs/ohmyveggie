@@ -20,15 +20,20 @@ export class PaymentController {
 export class NotificationController {
   constructor(private readonly paymentService: PaymentService, private readonly ordersService: OrdersService) { }
 
-
+/**
+ * 
+ * @param notification esta funcion toma la notificacion, que envia mercado pago como parametro, dentro de ella
+ * se encuentra el id de la compra que mercado pago tiene registrada, dentro de esa compra esta el id de nuestra orden de sistema, 
+ * la cual una vez recuperada, actualiza el estado de la mencionada orden en nuestro sistema
+ * @returns 
+ */
   @Post("mercado-pago")
   async handleNotification(@Body() notification: NotificationData) {
     const payment = await this.paymentService.getPayment(notification.data.id)
     if (payment) {
       const id = payment.external_reference
-      this.ordersService.updatePaid(id)
+      const orderUpdated = this.ordersService.updatePaid(id)
     }
-    console.log("webhook-recibed", notification)
-    console.log("payment", payment)
+    return { payment }
   }
 }

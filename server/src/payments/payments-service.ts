@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { OrderDocument } from 'src/orders/schemas/order.schema';
 
 
-
 @Injectable()
 export class PaymentService {
   private readonly client: any;
@@ -20,7 +19,6 @@ export class PaymentService {
   }
 
   async createPreference(order: OrderDocument) {
-
     try {
       const preferenceResult = this.preference.create({
         body: {
