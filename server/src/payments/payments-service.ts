@@ -60,5 +60,4 @@ export class PaymentService {
     // busque el usuario por id , recupere el correo electronico,  envie un correo 
     // indicando que la venta es exitosa, tanto a ese user como al administrador
   }
-
 }
