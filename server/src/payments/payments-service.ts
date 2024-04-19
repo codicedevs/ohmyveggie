@@ -2,23 +2,29 @@ import { MercadoPagoConfig, Preference, Payment } from 'mercadopago';
 import { Injectable } from '@nestjs/common';
 import { OrderDocument } from 'src/orders/schemas/order.schema';
 import { EmailService } from 'src/email/email.service';
+import { OrdersService } from 'src/orders/services/orders.service';
+import { UsersService } from 'src/users/services/users.service';
+import { UserDocument } from 'src/users/schemas/user.schema';
 
 
 @Injectable()
 export class PaymentService {
-  private readonly client: any;
+  /**las dependencias externas no se inyectan directamente en el constructor */
   private readonly preference: Preference;
   private readonly payment: Payment
-  private readonly emailService: EmailService
-  constructor() {
+  private readonly client: any;
 
+  constructor(
+    private readonly emailService: EmailService,
+    private readonly ordersService: OrdersService,
+    private readonly usersService: UsersService
+  ) {
     this.client = new MercadoPagoConfig({
       accessToken: "TEST-6951506869962077-041109-9968d6f209a4180103b81b0d0e0d3223-1767060986", // token de usuario vendedor test
       options: { timeout: 5000 }
     });
     this.preference = new Preference(this.client);
     this.payment = new Payment(this.client);
-
   }
 
   async createPreference(order: OrderDocument) {
@@ -42,10 +48,17 @@ export class PaymentService {
       console.error(error)
     }
   }
+
   async getPayment(id: string) {
     const paymentResult = this.payment.get({ id })
     return paymentResult
   }
-  // funcion que tome como parametro la order, busque el usuario por id y recupere el correo electronico, se lo pase al controlador 
-  // de notification para que envie apropiadamente el correo de venta exitosa
+
+  async sendEmailConfirmation(order: OrderDocument) {
+    const userId = order.user.toString()
+    const userToSendEmail = await this.usersService.findById(userId)
+    // busque el usuario por id , recupere el correo electronico,  envie un correo 
+    // indicando que la venta es exitosa, tanto a ese user como al administrador
+  }
+
 }

@@ -14,10 +14,10 @@ export class ShippingDetails extends Document {
     @Prop({ required: true })
     country: string;
 
-    @Prop({ required: true })
+    @Prop({ required: false })// solo esta en false para no romper con el flujo de la venta, debe agregarse a la orden
     timeDeliver: Date;
 
-    @Prop({ required: true, enum: Zone })
+    @Prop({ required: false, enum: Zone })// solo esta en false para no romper con el flujo de la venta, debe agregarse a la orden
     zoneDeliver: Zone;
 }
 

@@ -20,21 +20,22 @@ export class PaymentController {
 export class NotificationController {
   constructor(private readonly paymentService: PaymentService, private readonly ordersService: OrdersService) { }
 
-/**
- * 
- * @param notification esta funcion toma la notificacion, que envia mercado pago como parametro, dentro de ella
- * se encuentra el id de la compra que mercado pago tiene registrada, dentro de esa compra esta el id de nuestra orden de sistema, 
- * la cual una vez recuperada, actualiza el estado de la mencionada orden en nuestro sistema
- * @returns 
- */
+  /**
+   * 
+   * @param notification esta funcion toma la notificacion, que envia mercado pago como parametro, dentro de ella
+   * se encuentra el id de la compra que mercado pago tiene registrada, dentro de esa compra esta el id de nuestra orden de sistema, 
+   * la cual una vez recuperada, actualiza el estado de la mencionada orden en nuestro sistema
+   * @returns 
+   */
   @Post("mercado-pago")
   async handleNotification(@Body() notification: NotificationData) {
     const payment = await this.paymentService.getPayment(notification.data.id)
     if (payment) {
       const id = payment.external_reference
-      const orderUpdated = this.ordersService.updatePaid(id)
+      const orderUpdated = await this.ordersService.updatePaid(id)
+      await this.paymentService.sendEmailConfirmation(orderUpdated)
     }
-    // enviar correo electronico de venta exitosa
-    return { payment }
+
+    return { payment } // ver que devuelve la funcion
   }
 }
