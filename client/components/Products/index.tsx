@@ -24,21 +24,33 @@ interface ProductsInterface {
 
 const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
   
-  const Button=()=>{
+  const Button=({filter}: {filter:string} )=>{
     
-    function handleClose () {
-      setSelectedId('')
-      setBrandSel('')
-      console.log('close clicked')
-      console.log(selectedId)
+    function handleClose (filter: string) {
       
+      switch(filter){
+        case "brand": 
+          setBrandSel('')
+          setBrandSelectedId('')
+          
+        
+        break;
+        case 'category': {
+          setCatSel('')
+          setCatSelectedId('')
+        }
+        default:
+          console.log('default')
+        break
+      }  
     }
     return (
-    <button onClick={(e)=>{e.stopPropagation(); handleClose()}} type="button" className="btn-close" aria-label="Close" style={{marginLeft: 15, width: 1, alignItems: 'center', zIndex:1000}}></button>
+    <button onClick={(e)=>{e.stopPropagation(); handleClose(filter)}} type="button" className="btn-close" aria-label="Close" style={{marginLeft: 15, width: 1, alignItems: 'center', zIndex:1000}}></button>
     )
   }
   const [catSel, setCatSel] = useState('')
-  const [selectedId, setSelectedId] = useState('')
+  const [catSelectedId, setCatSelectedId] = useState('')
+  const [brandSelectedId, setBrandSelectedId] = useState('')
   const [brandSel, setBrandSel] = useState('')
 
 
@@ -46,11 +58,12 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
   
   function handleBrandSel(brand: string, id: string){
       setBrandSel(brand)
-      setSelectedId(id)
-  
-  }
-  function handleCatSel(cat: string){
+      setBrandSelectedId(id)
+      console.log('sigue andando')
+    }
+    function handleCatSel(cat: string, id: string){
       setCatSel(cat)
+      setCatSelectedId(id)
   
   }
   
@@ -115,13 +128,13 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
               <ul role="list" className="list w-list-unstyled">
                 {brands.map((brand, idx) => <li 
                   key={idx} 
-                  className={(selectedId===idx.toString())? "listitem listitemselected" : "listitem"}
+                  className={(brandSelectedId===idx.toString())? "listitem listitemselected" : "listitem"}
                   onClick={()=>{
                     handleBrandSel(brand, idx.toString())
-                    console.log('asdkl')
+                    console.log(brand)
                     }}>
                     {brand}
-                    {selectedId===idx.toString() && <Button />  }
+                    {brandSelectedId===idx.toString() && <Button filter="brand" />  }
                   
                   </li>)}
               </ul>
@@ -132,7 +145,19 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
                 <div className="div-block-15" />
               </div>
               <ul role="list" className="list w-list-unstyled">
-              {categories.map((cat, idx) => <li key={idx} onClick={()=>handleCatSel(cat)}className="listitem">{cat}</li>)}
+              {categories.map((cat, idx) => <li 
+                  key={idx} 
+                  className={(catSelectedId===idx.toString())? "listitem listitemselected" : "listitem"}
+                  onClick={()=>{
+                    handleCatSel(cat, idx.toString())}}
+                               
+              
+                    
+                    >
+                  {cat}
+                  {catSelectedId===idx.toString() && <Button filter="category" />  }
+                
+                </li>)}
 
               </ul>
             </div>
