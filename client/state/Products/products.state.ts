@@ -4,6 +4,8 @@ export interface ProductsState {
   loading: boolean;
   error: string | null;
   data: PaginatedProducts;
+  categories: string[]
+  brands: string[]
 }
 
 export interface ProductState {

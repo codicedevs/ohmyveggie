@@ -1,8 +1,4 @@
-//COPIE DE PRODUCT
 
-export interface CategoryInterface {
-  name: string;
-}
 
   export interface ProductInterface {
   _id: string;
@@ -108,6 +104,3 @@ export interface PaginatedProducts {
   page: number;
 }
 
-export interface PaginatedCategories {
-  categories: CategoryInterface[];
-}

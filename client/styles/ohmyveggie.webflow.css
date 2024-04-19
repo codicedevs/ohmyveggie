@@ -393,10 +393,17 @@
   background-repeat: no-repeat;
   background-size: contain;
   margin-bottom: 6px;
+  margin-top: 6px;
   padding-left: 20px;
   font-family: Open Sans, sans-serif;
   font-size: 1rem;
   font-weight: 400;
+  display: flex;
+}
+
+.listitemselected {
+  font-weight: 700;
+
 }
 
 .list {
