@@ -33,12 +33,16 @@ export class NotificationController {
    */
   @Post("mercado-pago")
   async handleNotification(@Body() notification: NotificationData) {
-    const payment = await this.paymentService.getPayment(notification.data.id);
-    if (payment) {
+    try {
+      const payment = await this.paymentService.getPayment(
+        notification.data.id
+      )
       const id = payment.external_reference;
       const orderUpdated = await this.ordersService.updatePaid(id);
       await this.paymentService.sendEmailConfirmation(orderUpdated);
+      return { payment };
+    } catch (error) {
+      return { msg: "Error al crear el pago" };
     }
-    return { payment }; // ver que devuelve la funcion
   }
 }
