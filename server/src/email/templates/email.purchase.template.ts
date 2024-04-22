@@ -1,6 +1,7 @@
+import { OrderDocument } from "src/orders/schemas/order.schema";
 import { User } from "src/users/schemas/user.schema";
 
-export const purchaseSuccessTemplate = (user: User) => `
+export const purchaseSuccessTemplate = (user: User, orderId: OrderDocument) => `
     <!DOCTYPE html>
     <html>
     
@@ -65,12 +66,11 @@ export const purchaseSuccessTemplate = (user: User) => `
     <body>
       <div class="container">
         <p>Estimade ${user.name} ,</p>
-        <p>Nos complace informarle que su compra ha sido exitosa a traves de nuestra pagina!: ohmyveggie.com.</p>
+        <p>Nos complace informarle que su compra ha sido exitosa a traves de nuestra pagina!: es la numero : ${orderId} </p>
         <p>Usted puede consultar su historial de compras directamente desde su perfil de usuario en Ohmyveggie</>
         <ul>
           <li>Saludos cordiales.</li> 
       </div>
     </body>
-
     </html>
     `

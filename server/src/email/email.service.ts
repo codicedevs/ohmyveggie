@@ -7,6 +7,7 @@ import { passworRecoveryTemplate } from "./templates/email.recover.password.temp
 import { smtpSettings } from "src/settings";
 import { User } from "src/users/schemas/user.schema";
 import setupTransporter from "./utils/email.transporter";
+import { Order, OrderDocument } from "src/orders/schemas/order.schema";
 
 
 @Injectable()
@@ -36,12 +37,12 @@ export class EmailService {
      * @param user Envia correo de aviso por compra exitosa
      * @returns 
      */
-    async sendUserPurchaseSuccessEmail(user: User): Promise<SentMessageInfo> {
+    async sendUserPurchaseSuccessEmail(user: User,orderId:OrderDocument): Promise<SentMessageInfo> {
         return this.send({
             to: user.email,
             from: this.defaultSender,
             subject: "Gracias por su compra en" + "Oh my veggie",
-            html: purchaseSuccessTemplate(user)
+            html: purchaseSuccessTemplate(user,orderId)
         })
     }
     /**
