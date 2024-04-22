@@ -1,11 +1,11 @@
 import { User } from "src/users/schemas/user.schema";
 
-export const registrationTemplate = (user: User) => `
+export const purchaseSuccessTemplate = (user: User) => `
     <!DOCTYPE html>
     <html>
     
     <head>
-      <title>Bienvenido/a a ${"Oh my vegie"}</title>
+      <title>Gracias por su compra en ${"Oh my vegie"}</title>
       <style>
         body {
           font-family: Arial, sans-serif;
@@ -65,11 +65,12 @@ export const registrationTemplate = (user: User) => `
     <body>
       <div class="container">
         <p>Estimade ${user.name} ,</p>
-        <p>Nos complace informarle que su compra ha sido exitosa a traves de nuestra pagina!: ohmyveggie.com.
+        <p>Nos complace informarle que su compra ha sido exitosa a traves de nuestra pagina!: ohmyveggie.com.</p>
+        <p>Usted puede consultar su historial de compras directamente desde su perfil de usuario en Ohmyveggie</>
         <ul>
           <li>Saludos cordiales.</li> 
       </div>
     </body>
 
     </html>
-    `;
+    `

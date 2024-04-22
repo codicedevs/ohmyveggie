@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { SentMessageInfo } from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
 import { registrationTemplate } from "./templates/email.welcome.template";
+import { purchaseSuccessTemplate } from "./templates/email.purchase.template";
 import { passworRecoveryTemplate } from "./templates/email.recover.password.template";
 import { smtpSettings } from "src/settings";
 import { User } from "src/users/schemas/user.schema";
@@ -28,6 +29,19 @@ export class EmailService {
             from: this.defaultSender,
             subject: "Bienvenido a " + "Oh my veggie",
             html: registrationTemplate(user)
+        })
+    }
+    /**
+     * 
+     * @param user Envia correo de aviso por compra exitosa
+     * @returns 
+     */
+    async sendUserPurchaseSuccessEmail(user: User): Promise<SentMessageInfo> {
+        return this.send({
+            to: user.email,
+            from: this.defaultSender,
+            subject: "Gracias por su compra en" + "Oh my veggie",
+            html: purchaseSuccessTemplate(user)
         })
     }
     /**

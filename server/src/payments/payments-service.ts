@@ -53,7 +53,6 @@ export class PaymentService {
   async sendEmailConfirmation(order: OrderDocument) {
     const userId = order.user.toString();
     const userToSendEmail = await this.usersService.findById(userId);
-    // busque el usuario por id , recupere el correo electronico,  envie un correo
-    // indicando que la venta es exitosa, tanto a ese user como al administrador
+    await this.emailService.sendUserPurchaseSuccessEmail(userToSendEmail)
   }
 }
