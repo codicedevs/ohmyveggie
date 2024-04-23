@@ -51,7 +51,7 @@ export class PaymentService {
   }
 
   async sendEmailConfirmation(order: OrderDocument) {
-    const orderId = order._id
+    const orderId = order._id.toString()
     const userId = order.user.toString();
     const userToSendEmail = await this.usersService.findById(userId);
     await this.emailService.sendUserPurchaseSuccessEmail(userToSendEmail,orderId)
