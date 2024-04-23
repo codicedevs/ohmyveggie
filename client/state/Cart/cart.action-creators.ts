@@ -82,7 +82,7 @@ export const saveShippingAddress =
         payload: data,
       });
 
-      Router.push('/payment');
+      Router.push('/placeorder');
     } catch (error: any) {
       console.log(error.response.data.message);
     }

@@ -1,15 +1,19 @@
 import CheckoutSteps from '../CheckoutSteps';
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import Message from '../Message';
-import { useOrderActions, useShipping, useTypedSelector } from '../../hooks';
+import { useOrderActions, useShipping, useTypedSelector, useUserActions } from '../../hooks';
 import Link from 'next/link';
 
 const PlaceOrder = () => {
-  useShipping();
+  useShipping();     
 
   const { cart } = useTypedSelector(state => state);
   const { error } = useTypedSelector(state => state.order);
   const { createOrder } = useOrderActions();
+
+  const {
+    data
+  } = useTypedSelector(state => state.user);
 
   const onPlaceOrderHandler = () => {
     const {
@@ -33,7 +37,7 @@ const PlaceOrder = () => {
     });
   };
 
-
+ 
   // calculo cantidad de productos (total)
   const items = cart.data.cartItems;
   var totalProductos = 0;
@@ -44,35 +48,42 @@ const PlaceOrder = () => {
 
   return (
 
-    <section className="section-4">
-      <CheckoutSteps step1 step2 step3 step4/>
-      <h1 className="heading-3">Orden</h1>
+    <section className="section-4" style={{padding: "100px 400px 0px 400px"}}>
+      <CheckoutSteps step1 step2/> 
+      <h1 className="heading-3">Su orden</h1>
       <div className="columns-2 w-row">
-        <div className="column-5 w-col w-col-8">
+        <div className="column-5 w-col w-col-8 px-0">
           <div className="orderitem">
-            <div className="txtorderitem">Envío</div>
-            <div className="txtordersubitem">Nombre :</div>
-            <div className="txtordersubitem">Email :</div>
+            <h3 className="heading-2" style={{marginLeft: 0}}>Datos de envío</h3>
+            <div className="container-item-order">
+
+            <div className="txtordersubitem">Nombre : {data?.name}</div>
+            <div className="txtordersubitem">Email : {data?.email}</div>
             <div className="txtordersubitem">Dirección : {cart.data.shippingDetails.address}</div>
+            <div className="txtordersubitem">Horario de entrega : </div>
+            <div className="txtordersubitem">En caso de no existir stock: </div>
+            </div>
             {/* <div className="deliveredpaid">Pedido no enviado</div>
-            <div className="deliveredpaid true">Pedido enviado</div> */}
+            <div className="deliveredpaid true">Pedido enviado</div>  */}
           </div>
           <div className="orderitem">
-            <div className="txtorderitem">Método de pago</div>
-            <div className="txtordersubitem">{cart.data.paymentMethod}</div>
+            {/* <div className="txtorderitem">Método de pago</div>
+            <div className="txtordersubitem">{cart.data.paymentMethod}</div> */}
             {/* <div className="deliveredpaid paid">Pedido no pago</div>
             <div className="deliveredpaid true">Pedido pago</div> */}
           </div>
           <div className="orderitem">
             <div className="txtorderitem">Items</div>
+            <div className='container-item-order'>
+
             {cart.data.cartItems.length === 0 ? (
-                <Message>El carro está vacío</Message>
-              ) : (
-                <ListGroup variant="flush">
+              <Message>El carro está vacío</Message>
+            ) : (
+              <ListGroup variant="flush">
                   {cart.data.cartItems.map((item, index) => (
                     <ListGroup.Item key={index}>
-                      <Row>
-                        
+                      <Row style={{fontSize: 14, color: 'black', fontWeight: 800}}>
+                  *
                         <Col>
                           <Link href={`/product/${item.productId}`} passHref>
                             <span className="link__span">{item.name}</span>
@@ -87,26 +98,30 @@ const PlaceOrder = () => {
                   ))}
                 </ListGroup>
               )}
+              </div>
           </div>
         </div>
-        <div className="column-6 w-col w-col-4">
-          <div className="ordersummary">
-            <div className="itemordersummary">
-              <div className="txtitemordersummary">Items :</div>
+        <div className="column-6 w-col w-col-4 ">
+          <div className="ordersummary px-4 d-flex" style={{width: 350}}>
+            <div className="itemordersummary d-flex col pb-2">
+              <div className="txtitemordersummary">Cantidad de productos :</div>
               <div className="txtitemordersummary">{totalProductos}</div>
             </div>
-            <div className="itemordersummary">
-              <div className="txtitemordersummary">Total :</div>
-              <div className="txtitemordersummary">${(cart.data.itemsPrice)}</div>
+            <div className="itemordersummary pb-3" >
+              <div className="txtitemordersummary fs-3">Total :</div>
+              <div className="txtitemordersummary fs-3">${(cart.data.itemsPrice)}</div>
             </div>
+            
+
             <Button
               type="button"
               className="btn-block"
               disabled={cart.data.cartItems.length === 0}
               onClick={onPlaceOrderHandler}
-            >
-              Realizar pedido
+              >
+              Confirmar pedido
             </Button>
+            
             {/* <div className="div-block-25">Pagar</div> */}
           </div>
         </div>

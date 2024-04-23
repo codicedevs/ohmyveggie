@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 
 
-const CartNew: React.FC <{toggleCart: () => void}> = ( props ) => {
+const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
     const router = useRouter();
     
     const {

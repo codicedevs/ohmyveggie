@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader  
-import { Carousel } from 'react-responsive-carousel'; 
-
-
+//import { Carousel } from 'react-responsive-carousel'; 
+import Carousel from 'react-bootstrap/Carousel';
+//import ExampleCarouselImage from 'components/ExampleCarouselImage';
 
 
 
@@ -11,21 +11,27 @@ import { Carousel } from 'react-responsive-carousel';
 const ProductCarousel = () => {
 
   return (
-
-    // <Carousel>
-    //   <div>
-    //     <img src="../images/slide1.jpg" />
-    //     <p className="legend">Legend 1</p>
-    //   </div>
-    //   <div>
-    //     <img src="../images/slide2.jpg" />
-    //     <p className="legend">Legend 2</p>
-    //   </div>
+    <Carousel data-bs-theme="dark" fade>
       
-    // </Carousel>
-    <h1>Acá va el slider</h1>
+      <Carousel.Item>
+        <img style={{borderRadius: '0px', objectFit: 'cover'}}
+          className="d-block w-100"
+          src="/images/slide0.jpg"
+          alt="First slide"
+        />
+      </Carousel.Item>
 
+      <Carousel.Item>
+        <img style={{borderRadius: '0px', objectFit: 'cover'}}
+          className="d-block w-100"
+          src="/images/slide1.jpg"
+          alt="Second slide"
+        />
+      </Carousel.Item>
+
+    </Carousel>
   );
+  
 };
 
 export default ProductCarousel;

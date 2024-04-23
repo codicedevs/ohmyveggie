@@ -59,6 +59,7 @@ export interface ShippingDetails {
   city: string;
   postalCode: string;
   country: string;
+  timeDelivery: string;
 }
 
 export interface PaymentResult {
@@ -104,3 +105,12 @@ export interface PaginatedProducts {
   page: number;
 }
 
+export interface UIInterface {
+  isLoginVisible: boolean;
+}
+
+export interface UIRecover {
+  codigo: number;
+  nuevaContraseña: string;
+  confNuevaContraseña: string;
+}
