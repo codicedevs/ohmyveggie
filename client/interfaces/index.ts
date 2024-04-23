@@ -57,6 +57,7 @@ export interface ShippingDetails {
   city: string;
   postalCode: string;
   country: string;
+  timeDelivery: string;
 }
 
 export interface PaymentResult {

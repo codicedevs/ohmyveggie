@@ -68,7 +68,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       <div className="columns-2 w-row">
         <div className="column-5 w-col w-col-8">
           <div className="orderitem">
-            <div className="txtorderitem">Envío</div>
+            <div className="heading-3">Envío</div>
+            <div className="container-item-order">
             <div className="txtordersubitem">Nombre : {data.user?.name}</div>
             <div className="txtordersubitem">Email : <a className="txtordersubitem" href={`mailto:${data.user?.email}`}>{data.user?.email}</a></div>
             <div className="txtordersubitem">Dirección : 
@@ -84,8 +85,9 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             )}
 
           </div>
+            </div>
           <div className="orderitem">
-            <div className="txtorderitem">Método de pago</div>
+            <div className="txtorderitem">Datos del pago</div>
             <div className="txtordersubitem">{data.paymentMethod}</div>
             
             {data.isPaid ? (
@@ -121,7 +123,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
               )}
           </div>
         </div>
-        <div className="column-6 w-col w-col-4">
+        <div className="column-6 w-col-2"  >
           <div className="ordersummary">
             <div className="itemordersummary">
               <div className="txtitemordersummary">Items :</div>
@@ -133,7 +135,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             </div>
             
             {!data.isPaid && (
-                <ListGroup.Item >
+                <ListGroup.Item style={{border: 'none', display: 'flex', justifyContent: 'center'}}>
                   {loading && <Loader />}
 
                   {/* <PayPalButton
@@ -145,7 +147,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   />  */}
                   {/* <button onClick={()=>onPaymentHandler({id: 123, payer: {email_address: 'abc345@gmail.com'}, update_time: new Date().toISOString(), status: 'ok' })}>Pagar</button> */}
                 
-                  <ListGroup.Item>
+                  
                     <Button
                       type="button"
                       className="btn btn-block"
@@ -153,7 +155,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                     >
                       Pagar
                     </Button>
-                  </ListGroup.Item>
+                  
                 
                 
                 </ListGroup.Item>

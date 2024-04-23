@@ -1,31 +1,32 @@
-import FormContainer from '../FormContainer';
-import { Form, Button } from 'react-bootstrap';
-import { FormEvent, useState } from 'react';
-import { ShippingDetails } from '../../interfaces';
-import { useAuth, useCartActions, useTypedSelector } from '../../hooks';
-import CheckoutSteps from '../CheckoutSteps';
-import { useRouter } from 'next/router';
-import Message from '../Message';
+import FormContainer from "../FormContainer";
+import { Form, Button } from "react-bootstrap";
+import { FormEvent, useState } from "react";
+import { ShippingDetails } from "../../interfaces";
+import { useAuth, useCartActions, useTypedSelector } from "../../hooks";
+import CheckoutSteps from "../CheckoutSteps";
+import { useRouter } from "next/router";
+import Message from "../Message";
 
 const Shipping = () => {
-  useAuth();
+  // useAuth();
 
   const router = useRouter();
 
   const {
     data: { shippingDetails },
     error,
-  } = useTypedSelector(state => state.cart);
+  } = useTypedSelector((state) => state.cart);
   const { saveShippingAddress } = useCartActions();
+  console.log("shipping details", shippingDetails);
 
   const [shippingAddress, setShippingAddress] =
     useState<ShippingDetails>(shippingDetails);
   const [message, setMessage] = useState<string | null | string[]>(error);
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
+    
     e.preventDefault();
-
-    const { address, country, city, postalCode } = shippingAddress;
+    const { address, postalCode } = shippingAddress;
 
     // if (
     //   address.length < 1 ||
@@ -38,54 +39,54 @@ const Shipping = () => {
     //   return null;
     // }
 
-    setShippingAddress({     // Pais hardcodeado
-      ...shippingAddress,
-      country: 'Argentina',
-      // city: 'Rosario',
-      // postalCode: '2000',
-      // address: 'pp'
-    })
+    // setShippingAddress({     // Pais hardcodeado
+    //   ...shippingAddress,
+    //   country: 'Argentina',
+    //   // city: 'Rosario',
+    //   // postalCode: '2000',
+    //   // address: 'pp'
+    // })
 
-    console.log('iiiiiiii', shippingAddress);
+    console.log("shipping adress", shippingAddress);
 
     saveShippingAddress(shippingAddress);
 
-    router.push('/payment');
+    router.push("/placeorder");
   };
 
-  function addressCode (e: any)  {
+  function addressCode(e: any) {
     let selectedCity = e.target.value;
-    console.log('---------->', selectedCity);
-    setShippingAddress({ ...shippingAddress, city: selectedCity });
-    
+    console.log("---------->", selectedCity);
+    // setShippingAddress({ ...shippingAddress, city: selectedCity });
+
     //-- de acuerdo a la localidad setea el código
-    let zipCode = '9999';
+    let zipCode = "2000";
     // if(selectedCity === 'funes') {
     //   zipCode = '2132'
     // } else if (selectedCity === 'fisherton') {
     //     zipCode = '2001'
     // }
 
-    console.log('>>>>>>>>>>>',zipCode, selectedCity);
+    console.log("Shipping Address con ciudad", shippingAddress);
 
     setShippingAddress({
       ...shippingAddress,
       postalCode: zipCode,
-    })
+      city: selectedCity,
+      country: "Argentina",
+    });
   }
 
   function handlerTimeZone(e: any) {
-    setShippingAddress({ ...shippingAddress,  });
-
+    setShippingAddress({ ...shippingAddress });
   }
 
   return (
-
     <FormContainer>
       <CheckoutSteps step1 step2 />
       <section className="section-3">
         <div className="div-block-24">
-          <h1 className="heading-3">Envío</h1>
+          <h1 className="heading-2">Datos del envío</h1>
           {message && (
             <Message variant="danger">
               {Array.isArray(message) ? message[0] : message}
@@ -94,11 +95,11 @@ const Shipping = () => {
           <Form onSubmit={onSubmitHandler}>
             <Form.Group controlId="address">
               <Form.Control
-                className='shiptxtfield w-input'
+                className="shiptxtfield w-input"
                 type="text"
                 placeholder="Dirección"
                 value={shippingAddress.address}
-                onChange={e =>
+                onChange={(e) =>
                   setShippingAddress({
                     ...shippingAddress,
                     address: e.target.value,
@@ -109,10 +110,10 @@ const Shipping = () => {
 
             <Form.Group controlId="city" className="py-3">
               <Form.Select
-                className='shiptxtfield w-input'
-                onChange= {e => addressCode(e)}
+                className="shiptxtfield w-input"
+                onChange={(e) => addressCode(e)}
               >
-                {/* <option >Ciudad</option> */}
+                <option selected>Elija su Ciudad</option>
                 <option value="rosario">Rosario</option>
                 <option value="funes">Funes</option>
                 <option value="fisherton">Fisherton</option>
@@ -121,47 +122,67 @@ const Shipping = () => {
 
             <Form.Group controlId="postalCode">
               <Form.Control
-                className='shiptxtfield w-input'
+                className="shiptxtfield w-input"
                 value={shippingAddress.postalCode}
-                onChange={e =>
+                placeholder="Codigo Postal"
+                onChange={(e) =>
                   setShippingAddress({
                     ...shippingAddress,
                     postalCode: e.target.value,
-                  })}
-              >
-              </Form.Control>
+                  })
+                }
+              ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="timeZone" className="py-3">
               <Form.Select
-                className='shiptxtfield w-input'
+                className="shiptxtfield w-input"
                 placeholder="Franja horaria"
-                onChange={e => handlerTimeZone(e)}
+                onChange={(e) => handlerTimeZone(e)}
               >
-                <option value="horario1">Horario 1</option>
-                <option value="horario2">Horario 2</option>
-                <option value="horario3">Horario 3</option>
+                <option selected>En caso de no existir stock disponible</option>
+                <option value="horario1">Que Oh My Veggie elija con que reemplazar</option>
+                <option value="horario2">Llamada telefonica</option>
+                <option value="horario3">Cancelen el pedido y devuelvan el dinero</option>
               </Form.Select>
             </Form.Group>
 
-            <Button type="submit" variant="primary" style={{marginTop: '15px'}}>
+            <div >
+            <div style={{display:'flex', justifyContent: 'center'}}>
+
+            <h4 style={{justifyContent: 'center'}}>Horario de entrega</h4>
+            </div>
+            <div className="btn-group j-c d-flex" role="group" aria-label="Basic example">
+              <button type="button" className="btn btn-secondary">
+                De 9 a 12
+              </button>
+              <button type="button" className="btn btn-secondary">
+                De 12 a 15
+              </button>
+              <button type="button" className="btn btn-secondary">
+                De 15 a 18
+              </button>
+            </div>
+              </div>  
+            <br />
+
+            <Button
+              type="submit"
+              variant="primary"
+              style={{ marginTop: "15px" }}
+            >
               Continuar
             </Button>
 
-            <div style={{height: 50}}></div>
-
+            <div style={{ height: 50 }}></div>
           </Form>
-
-                 
         </div>
       </section>
-     
     </FormContainer>
   );
 };
 
 export default Shipping;
-
 
 /*<FormContainer>
       <CheckoutSteps step1 step2 />
