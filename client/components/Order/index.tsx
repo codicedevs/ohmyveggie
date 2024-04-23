@@ -27,6 +27,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
 
       fetchOrder(pageId as string);
     }
+    console.log(data)
   }, [fetchOrder, pageId, success, data]);
 
   const onPaymentHandler = ({
