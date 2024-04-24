@@ -7,7 +7,10 @@ import { proshopAPI } from '../../lib';
 import FormContainer from '../FormContainer';
 import Loader from '../Loader';
 import Message from '../Message';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
+
+
+//CREO QUE HAY QUE GENERAR ALGO MAS EN REDUX PARA QUE FUNCIONE VER MAS ADELANTE
 
 interface ProductsEditProps {
   pageId: string | string[] | undefined;
@@ -15,7 +18,7 @@ interface ProductsEditProps {
 
 const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
   useAdmin();
-  const router = useRouter();
+  const router = useRouter()
   const initialProduct = {
     name: '',
     price: 0,
@@ -89,7 +92,7 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
         <Button className="btn btn-light my-3">⇐ Volver</Button>
       </Link>
       <FormContainer>
-        <h1>Editar Producto</h1>
+        <h1>Crear Producto</h1>
 
         {loading ? (
           <Loader />
@@ -101,7 +104,7 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
               <Form.Label>Nombre del producto</Form.Label>
               <Form.Control
                 type="name"
-                placeholder="Nombre producto"
+                placeholder="Enter name"
                 value={productDetails.name}
                 onChange={e =>
                   setDetails({ ...productDetails, name: e.target.value })
@@ -113,7 +116,7 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
               <Form.Label>Precio</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Precio del producto"
+                placeholder="Enter price"
                 value={productDetails.price}
                 onChange={e =>
                   setDetails({
@@ -136,7 +139,7 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
               <Form.Label>Marca</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Marca del producto"
+                placeholder="Enter brand"
                 value={productDetails.brand}
                 onChange={e =>
                   setDetails({ ...productDetails, brand: e.target.value })
@@ -148,7 +151,7 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
               <Form.Label>Stock del producto</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Stock de producto"
+                placeholder="Enter countInStock"
                 value={productDetails.countInStock}
                 onChange={e =>
                   setDetails({
@@ -163,7 +166,7 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
               <Form.Label>Categoria</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Categoria del producto"
+                placeholder="Enter category"
                 value={productDetails.category}
                 onChange={e =>
                   setDetails({ ...productDetails, category: e.target.value })
@@ -175,21 +178,20 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
               <Form.Label>Descripcion</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Description del producto"
+                placeholder="Enter description"
                 value={productDetails.description}
                 onChange={e =>
                   setDetails({ ...productDetails, description: e.target.value })
                 }
               ></Form.Control>
             </Form.Group>
-            <div className="d-flex" style={{gap: 20}}>
+
             <Button type="submit" variant="primary" className="mt-3">
-              Actualizar
+              Crear
             </Button>
-            <Button type="button" variant="primary" className="mt-3" onClick={()=> router.back()}>
+            <Button type="button" variant="primary" className="mt-3" onClick={()=> router.back}>
               Volver
             </Button>
-              </div>    
           </Form>
         )}
       </FormContainer>

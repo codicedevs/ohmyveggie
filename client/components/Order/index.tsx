@@ -23,6 +23,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   console.log('user al inicio', user)
 
   const { fetchOrder, payOrder, deliverOrder } = useOrderActions();
+
+  console.log('Data',data)
   
   const onPaymentHandler = ({
     id,
@@ -49,6 +51,10 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       }
       
     }, [fetchOrder, pageId, success, data, onPaymentHandler]);
+
+    
+    // useEffect(() => {
+    //   if(isDelivered)
 
   // calculo cantidad de productos (total)
   const items = data.orderItems;
@@ -85,15 +91,15 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             <div className="orderitem">
               <div className="container-item-order">
                 <div className="txtordersubitem">
-                  Nombre : {user?.data?.name}
+                  Nombre : {data?.user?.name}
                 </div>
                 <div className="txtordersubitem">
                   Email :{" "}
                   <a
                     className="txtordersubitem"
-                    href={`mailto:${user?.data?.email}`}
+                    href={`mailto:${data?.user?.email}`}
                   >
-                    {user?.data?.email}
+                    {data?.user?.email}
                   </a>
                 </div>
                 <div className="txtordersubitem">
