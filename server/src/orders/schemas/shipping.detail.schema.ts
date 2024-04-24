@@ -19,6 +19,11 @@ export class ShippingDetails extends Document {
 
     @Prop({ required: true, enum: Zone })
     zoneDeliver: Zone;
+    
+    @Prop({ required: false })
+    stockOption: string ;// revisar, esto deberia ser un enum seguramente
 }
 
 export const shippingDetailsSchema = SchemaFactory.createForClass(ShippingDetails);
+
+//falta agregar al backend la propiedad stockOption

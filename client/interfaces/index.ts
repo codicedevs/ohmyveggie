@@ -1,8 +1,4 @@
-//COPIE DE PRODUCT
 
-export interface CategoryInterface {
-  name: string;
-}
 
   export interface ProductInterface {
   _id: string;
@@ -63,7 +59,9 @@ export interface ShippingDetails {
   city: string;
   postalCode: string;
   country: string;
-  timeDelivery: string;
+  timeDeliver: string;
+  zoneDeliver: string;
+  stockOption: string;
 }
 
 export interface PaymentResult {

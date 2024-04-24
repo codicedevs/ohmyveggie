@@ -20,9 +20,13 @@ export const productsReducer = (
     case ActionTypes.FETCH_PRODUCTS_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.FETCH_PRODUCTS_SUCCESS:
-      return { loading: false, data: action.payload, error: null };
+      return { loading: false, data: action.payload, error: null, categories: state.categories, brands: state.brands};
     case ActionTypes.FETCH_PRODUCTS_ERROR:
       return { ...state, loading: false, error: action.payload };
+    case ActionTypes.FETCH_CATEGORIES_SUCCESS:
+      return { ...state, loading: false, categories: action.payload};
+    case ActionTypes.FETCH_BRANDS_SUCCESS:
+      return { ...state, loading: false, brands: action.payload};
     default:
       return state;
   }

@@ -15,20 +15,15 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   const { loading, data, error, success } = useTypedSelector(
     (state) => state.order
   );
+  console.log('data al inicio', data )
   const { loading: loadingDeliver } = useTypedSelector(
     (state) => state.orderDeliver
   );
   const user = useTypedSelector((state) => state.user);
+  console.log('user al inicio', user)
+
   const { fetchOrder, payOrder, deliverOrder } = useOrderActions();
-
-  useEffect(() => {
-    if (!data._id || success) {
-      if (!pageId) return;
-
-      fetchOrder(pageId as string);
-    }
-  }, [fetchOrder, pageId, success, data]);
-
+  
   const onPaymentHandler = ({
     id,
     payer: { email_address },
@@ -41,9 +36,19 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       update_time,
       status,
     };
-
+    
     payOrder(data._id!, paymentResult);
+    
   };
+  
+    useEffect(() => {
+      if (!data._id || success) {
+        if (!pageId) return;
+  
+        fetchOrder(pageId as string);
+      }
+      
+    }, [fetchOrder, pageId, success, data, onPaymentHandler]);
 
   // calculo cantidad de productos (total)
   const items = data.orderItems;
@@ -55,6 +60,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   async function delivered(){
     await deliverOrder(data._id!)
     fetchOrder(data._id!)
+    console.log('data en delivered', data)
+    console.log('users en delivered', user)
   }
 
   return loading ? (
@@ -78,21 +85,27 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             <div className="orderitem">
               <div className="container-item-order">
                 <div className="txtordersubitem">
-                  Nombre : {data.user?.name}
+                  Nombre : {user?.data?.name}
                 </div>
                 <div className="txtordersubitem">
                   Email :{" "}
                   <a
                     className="txtordersubitem"
-                    href={`mailto:${data.user?.email}`}
+                    href={`mailto:${user?.data?.email}`}
                   >
-                    {data.user?.email}
+                    {user?.data?.email}
                   </a>
                 </div>
                 <div className="txtordersubitem">
-                  Dirección :{data.shippingDetails.address},
-                  {data.shippingDetails.city} {data.shippingDetails.postalCode},{" "}
+                  Dirección :{data.shippingDetails.address}, {" "} 
+                  {data.shippingDetails.zoneDeliver}, {data.shippingDetails.postalCode},{" "}
                   {data.shippingDetails.country}
+                </div>
+                <div className="txtordersubitem">
+                  Horario de entrega: {data?.shippingDetails.timeDeliver}
+                </div>
+                <div className="txtordersubitem">
+                  Si no hay stock: {data?.shippingDetails.stockOption}
                 </div>
               </div>
             </div>
@@ -146,7 +159,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                 <ListGroup variant="flush">
                   {data.orderItems.map((item, index) => (
                     <ListGroup.Item key={index}>
-                      <Row>
+                      <Row style={{fontSize: 14, color: 'black', fontWeight: 800}}>
                         <Col>
                           <Link href={`/product/${item.productId}`} passHref>
                             <span className="link__span">{item.name}</span>

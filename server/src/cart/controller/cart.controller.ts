@@ -28,11 +28,15 @@ export class CartController {
     return cartItem;
   }
 
+  //Saque el DTO del body para que me acepte los datos que le mando
+  
   @Post('shipping')
-  saveShipping(@Body() body: any, @Session() session: any) {
+  saveShipping(@Body() body: any, @Session() session: any) { // este any responde a no romper con el front, deberiamos 
+    //armar correctamente el DTO del shipping detail
     this.cartService.cart = session.cart ? session.cart : defaultCart;
 
     const shippingDetails = this.cartService.saveShippingDetails(body);
+    console.log(shippingDetails)
 
     session.cart = this.cartService.cart;
 

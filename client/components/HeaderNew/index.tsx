@@ -39,9 +39,9 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
     return (
       <>
-        <div className="div-block-7">
-          <div className='socialWrapper'>
-            <div className="div-block-11">
+        <div className="div-block-7" style={{justifyContent: 'space-between'}}>
+          <div className='socialWrapper d-flex'>
+            <div className="div-block-11 d-flex col">
               <img
                 src="/images/whatsappIcon.png"
                 loading="lazy"
@@ -61,7 +61,7 @@ const Navbar = () => {
 
             </div>
           </div>  
-          <div className="text-block">Envíos adomicilio | Fisherton | Funes | Rosario</div>
+          <div className="text-block" style={{justifyContent: 'right'}}>Envíos adomicilio | Fisherton | Funes | Rosario</div>
         </div>
         <div className="navbar">
 
@@ -98,7 +98,13 @@ const Navbar = () => {
                       // srcSet="/images/shopLila.png 500w, /images/shopLila.png 800w, /Simages/shopLila.png 830w"
 
                     />
-                    <div className="div-block-30">{cartItems.reduce((acc, item) => acc + item.qty, 0)}</div>
+                    { cartItems.reduce((acc, item) => acc + item.qty, 0) ? 
+                            <div className="div-block-30">
+                              {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                            </div>
+                            :
+                            ""
+                    }
                   </Nav.Link>
                 </div>
 

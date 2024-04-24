@@ -6,15 +6,15 @@ import Link from 'next/link';
 
 const PlaceOrder = () => {
   useShipping();     
-
+  
   const { cart } = useTypedSelector(state => state);
   const { error } = useTypedSelector(state => state.order);
   const { createOrder } = useOrderActions();
 
+  console.log(cart)
   const {
     data
   } = useTypedSelector(state => state.user);
-
   const onPlaceOrderHandler = () => {
     const {
       itemsPrice,
@@ -59,18 +59,12 @@ const PlaceOrder = () => {
 
             <div className="txtordersubitem">Nombre : {data?.name}</div>
             <div className="txtordersubitem">Email : {data?.email}</div>
-            <div className="txtordersubitem">Dirección : {cart.data.shippingDetails.address}</div>
-            <div className="txtordersubitem">Horario de entrega : </div>
-            <div className="txtordersubitem">En caso de no existir stock: </div>
+            <div className="txtordersubitem">Dirección : {cart.data.shippingDetails.address} - {cart.data.shippingDetails.zoneDeliver}</div>
+            <div className="txtordersubitem">Horario de entrega : {cart.data.shippingDetails.timeDeliver} </div>
+            <div className="txtordersubitem">En caso de no existir stock: {cart.data.shippingDetails.stockOption} </div>
             </div>
-            {/* <div className="deliveredpaid">Pedido no enviado</div>
-            <div className="deliveredpaid true">Pedido enviado</div>  */}
           </div>
           <div className="orderitem">
-            {/* <div className="txtorderitem">Método de pago</div>
-            <div className="txtordersubitem">{cart.data.paymentMethod}</div> */}
-            {/* <div className="deliveredpaid paid">Pedido no pago</div>
-            <div className="deliveredpaid true">Pedido pago</div> */}
           </div>
           <div className="orderitem">
             <div className="txtorderitem">Items</div>
@@ -120,9 +114,7 @@ const PlaceOrder = () => {
               onClick={onPlaceOrderHandler}
               >
               Confirmar pedido
-            </Button>
-            
-            {/* <div className="div-block-25">Pagar</div> */}
+            </Button>            
           </div>
         </div>
       </div>
@@ -132,112 +124,3 @@ const PlaceOrder = () => {
 };
 
 export default PlaceOrder;
-
-/*<>
-      <CheckoutSteps step1 step2 step3 step4 />
-      <Row>
-        <Col md={8}>
-          <ListGroup variant="flush">
-            <ListGroup.Item>
-              <h2>Shipping</h2>
-              <p>
-                <strong>Address: </strong>
-                {cart.data.shippingDetails.address},{' '}
-                {cart.data.shippingDetails.city}{' '}
-                {cart.data.shippingDetails.postalCode},{' '}
-                {cart.data.shippingDetails.country}
-              </p>
-            </ListGroup.Item>
-
-            <ListGroup.Item>
-              <h2>Payment Method</h2>
-              <strong>Method: </strong>
-              {cart.data.paymentMethod}
-            </ListGroup.Item>
-
-            <ListGroup.Item>
-              <h2>Order Items</h2>
-              {cart.data.cartItems.length === 0 ? (
-                <Message>Your cart is empty</Message>
-              ) : (
-                <ListGroup variant="flush">
-                  {cart.data.cartItems.map((item, index) => (
-                    <ListGroup.Item key={index}>
-                      <Row>
-                        <Col md={1}>
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            fluid
-                            rounded
-                          />
-                        </Col>
-                        <Col>
-                          <Link href={`/product/${item.productId}`} passHref>
-                            <span className="link__span">{item.name}</span>
-                          </Link>
-                        </Col>
-                        <Col md={4}>
-                          {item.qty} x ${item.price} = $
-                          {(item.qty * item.price).toFixed(2)}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
-              )}
-            </ListGroup.Item>
-          </ListGroup>
-        </Col>
-        <Col md={4}>
-          <Card>
-            <ListGroup variant="flush">
-              <ListGroup.Item>
-                <h2>Order Summary</h2>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Items</Col>
-                  <Col>${cart.data.itemsPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Shipping</Col>
-                  <Col>
-                    {cart.data.shippingPrice !== 0
-                      ? `$${cart.data.shippingPrice}`
-                      : 'Free'}
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Tax</Col>
-                  <Col>${cart.data.taxPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Total</Col>
-                  <Col>${cart.data.totalPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                {error && <Message variant="danger">{error}</Message>}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Button
-                  type="button"
-                  className="btn-block"
-                  disabled={cart.data.cartItems.length === 0}
-                  onClick={onPlaceOrderHandler}
-                >
-                  Place Order
-                </Button>
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
-    </>*/
