@@ -37,7 +37,7 @@ export class EmailService {
      * @param user Envia correo de aviso por compra exitosa
      * @returns 
      */
-    async sendUserPurchaseSuccessEmail(user: User,orderId:OrderDocument): Promise<SentMessageInfo> {
+    async sendUserPurchaseSuccessEmail(user: User,orderId:string): Promise<SentMessageInfo> {
         return this.send({
             to: user.email,
             from: this.defaultSender,

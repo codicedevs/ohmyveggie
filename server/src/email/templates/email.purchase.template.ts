@@ -1,7 +1,7 @@
 import { OrderDocument } from "src/orders/schemas/order.schema";
 import { User } from "src/users/schemas/user.schema";
 
-export const purchaseSuccessTemplate = (user: User, orderId: OrderDocument) => `
+export const purchaseSuccessTemplate = (user: User, orderId: string) => `
     <!DOCTYPE html>
     <html>
     
