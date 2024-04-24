@@ -31,9 +31,10 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
 
   return (
     <>
+    <section className='d-flex row' style={{paddingLeft: 40, paddingRight: 40, justifyContent: 'center', gap: 30, fontWeight: 600}}>
       <Row className="align-items-center">
         <Col>
-          <h1>Products</h1>
+          <h1>Productos</h1>
         </Col>
         <Col className="text-right">
           <Button
@@ -41,7 +42,7 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
             onClick={() => createProduct()}
             style={{ float: 'right' }}
           >
-            <i className="fas fa-plus"></i> Create Product
+            <i className="fas fa-plus"></i>  Crear nuevo Producto
           </Button>
         </Col>
       </Row>
@@ -55,12 +56,12 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
           <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
-                <th></th>
+                <th>ID de producto</th>
+                <th>Nombre de producto</th>
+                <th>Precio</th>
+                <th>Categoria</th>
+                <th>Marca</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -76,13 +77,15 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
                       href={`/admin/products/edit/${_product._id}`}
                       passHref
                     >
-                      <Button variant="light" className="btn-sm">
+                      <Button variant="light" className="btn-sm" title='Editar' >
+                                           
                         <i className="fas fa-edit"></i>
                       </Button>
                     </Link>
                     <Button
                       variant="danger"
                       className="btn-sm"
+                      title="Borrar"
                       onClick={() => {
                         if (
                           window.confirm(
@@ -104,6 +107,7 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
           <Paginate pages={pages} page={page} isAdmin={true} />
         </>
       )}
+      </section> 
     </>
   );
 };

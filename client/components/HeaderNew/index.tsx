@@ -149,7 +149,7 @@ const Navbar = () => {
                 )}
 
                 {user.data && user.data.isAdmin && (
-                  <NavDropdown title="Admin" id="username">
+                  <NavDropdown title="Menu administrador" id="username">
                     <Link href="/admin/users" passHref>
                       <NavDropdown.Item style={{ color: 'black' }}>Usuarios</NavDropdown.Item>
                     </Link>

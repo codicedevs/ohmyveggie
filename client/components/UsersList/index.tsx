@@ -20,7 +20,9 @@ const UsersList = () => {
 
   return (
     <>
-      <h1>Users</h1>
+        <section className='d-flex row' style={{paddingLeft: 40, paddingRight: 40, justifyContent: 'center', gap: 30, fontWeight: 600}}>
+
+      <h1>Usuarios Activos</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -29,10 +31,10 @@ const UsersList = () => {
         <Table striped bordered hover responsive className="table-sm">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>NAME</th>
-              <th>EMAIL</th>
-              <th>ADMIN</th>
+              <th>ID de Usuario</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Administrador</th>
               <th></th>
             </tr>
           </thead>
@@ -78,6 +80,7 @@ const UsersList = () => {
           </tbody>
         </Table>
       )}
+      </section>
     </>
   );
 };
