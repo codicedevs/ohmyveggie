@@ -32,9 +32,6 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
   console.log('keyword:', keyword);
   console.log('products:', products);
 
-  useEffect(()=> {
-    fetchCategories()}
-    , [fetchCategories])
 
   useEffect(() => {
     fetchProducts(keyword as string, parseInt(pageId as string));

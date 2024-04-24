@@ -1,4 +1,5 @@
-import { IsString } from 'class-validator';
+import { IsEnum, IsString } from 'class-validator';
+import { Zone } from 'src/orders/enums/zone.enum';
 
 export class SaveShippingDetailsDto {
   @IsString()
@@ -12,4 +13,10 @@ export class SaveShippingDetailsDto {
 
   @IsString()
   country: string;
+  
+  @IsString()
+  timeDeliver: Date;
+
+  @IsEnum(Zone)
+  zoneDeliver: Zone;
 }

@@ -15,7 +15,7 @@ import { SavePaymentMethodDto } from '../dtos/save-payment-method.dto';
 
 @Controller('cart')
 export class CartController {
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService) { }
 
   @Post()
   addToCart(@Body() body: AddToCartDto, @Session() session: any) {
@@ -29,7 +29,7 @@ export class CartController {
   }
 
   @Post('shipping')
-  saveShipping(@Body() body: SaveShippingDetailsDto, @Session() session: any) {
+  saveShipping(@Body() body: any, @Session() session: any) {
     this.cartService.cart = session.cart ? session.cart : defaultCart;
 
     const shippingDetails = this.cartService.saveShippingDetails(body);

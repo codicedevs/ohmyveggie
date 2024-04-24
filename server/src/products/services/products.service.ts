@@ -28,7 +28,7 @@ export class ProductsService {
   }
 
   async findMany(pageId: string, filter?: FilterQuery<ProductDocument>): Promise<ProductDocument[] | PaginatedProducts> {
-    const pageSize = 2;
+    const pageSize = 10;
     const page = parseInt(pageId) || 1;
     if (!filter) {
       // Si no se proporciona un filtro busca todos los productos
