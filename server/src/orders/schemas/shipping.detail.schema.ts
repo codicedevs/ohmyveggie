@@ -15,10 +15,15 @@ export class ShippingDetails extends Document {
     country: string;
 
     @Prop({ required: false })
-    timeDeliver: Date;
+    timeDeliver: string;
 
     @Prop({ required: false, enum: Zone })
     zoneDeliver: Zone;
+    
+    @Prop({ required: false })
+    stockOption: string ;
 }
 
 export const shippingDetailsSchema = SchemaFactory.createForClass(ShippingDetails);
+
+//falta agregar al backend la propiedad stockOption

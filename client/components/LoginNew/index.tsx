@@ -31,6 +31,7 @@ const Login = ({ visible = false }) => {
 
     if (!error || (email.length > 0 && password.length > 0)) {
       login(email, password);
+      dispatch({type: AT.CLOSE_LOGIN})
     }
   };
 
@@ -118,10 +119,10 @@ const Login = ({ visible = false }) => {
                 />
               </form>
               <div className="w-form-done">
-                <div>Thank you! Your submission has been received!</div>
+                <div>Gracias! Recibimos tu suscripcion</div>
               </div>
               <div className="w-form-fail">
-                <div>Oops! Something went wrong while submitting the form.</div>
+                <div>Algo salio mal con el formulario!</div>
               </div>
             </div>
             <div className="div-block-36">

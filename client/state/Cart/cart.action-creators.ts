@@ -69,6 +69,7 @@ export const saveShippingAddress =
   (shippingDetails: ShippingDetails) =>
   async (dispatch: Dispatch<CartAction>) => {
     try {
+      console.log(shippingDetails, 'lo que deberia setearse en data')
       const { data } = await proshopAPI.post(
         '/cart/shipping',
         shippingDetails,
@@ -81,6 +82,8 @@ export const saveShippingAddress =
         type: ActionTypes.SAVE_CART_SHIPPING_ADDRESS,
         payload: data,
       });
+
+      console.log('en el dispatcher', data );
 
       Router.push('/placeorder');
     } catch (error: any) {
@@ -108,6 +111,7 @@ export const getCart = () => async (dispatch: Dispatch<CartAction>) => {
       payload: newCart,
     });
   } catch (error: any) {
+    console.log(error)
     dispatch({
       type: ActionTypes.GET_CART_ERROR,
       payload: error.response.data.message,

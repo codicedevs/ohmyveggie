@@ -86,6 +86,7 @@ export const logout = () => async (dispatch: Dispatch<UserAction>) => {
       type: ActionTypes.USER_LOGOUT,
       payload: null,
     });
+    Router.push('/')
   } catch (error: any) {
     console.log(error.response.data.message);
   }
