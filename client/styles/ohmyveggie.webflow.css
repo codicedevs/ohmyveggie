@@ -36,6 +36,11 @@
 .addRestButton {
   width: 20%;
   text-align: center;
+  font-weight: 500;
+}
+
+.socialWrapper {
+  display: flex;
 }
 
 
@@ -51,7 +56,7 @@
   align-content: center;
   padding-left: 7%;
   padding-right: 7%;
-  font-family: Open sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   z-index: 9999;
 
 }
@@ -173,6 +178,8 @@
   padding-left: 7%;
   padding-right: 7%;
   display: flex;
+  justify-content: space-between;
+  font-weight: 300;
 }
 
 .div-block-8 {
@@ -199,6 +206,7 @@
   font-style: normal;
   line-height: 3.6rem;
   text-transform: capitalize;
+  letter-spacing: normal;
   
 }
 
@@ -207,7 +215,7 @@
 }
 
 .div-block-9 {
-  width: 100%;
+  width: 70%;
   height: auto;
   background-color: #fff;
   border-radius: 6px;
@@ -291,7 +299,7 @@
 .text-block {
   color: var(--color-3);
   margin-left: 8px;
-  font-family: Montserrat, sans-serif;
+  /* font-family: Montserrat, sans-serif; */
   font-size: .9rem;
 }
 
@@ -339,7 +347,7 @@
 
 .section {
   padding: 6rem 7% 2.7rem;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   text-decoration: none;
 }
 
@@ -377,7 +385,7 @@
   color: #2e2d2d;
   border-radius: 3px;
   padding: 0;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 19px;
   font-weight: 600;
   display: inline-block;
@@ -394,7 +402,7 @@
   background-size: contain;
   margin-bottom: 6px;
   padding-left: 20px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 1rem;
   font-weight: 400;
 }
@@ -463,7 +471,7 @@
   margin-top: 0;
   margin-bottom: -1px;
   margin-left: 1%;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 25px;
   transition: all .2s;
 }
@@ -472,7 +480,7 @@
   color: #7c7b7b;
   margin-bottom: 8px;
   margin-left: 1%;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 13px;
 }
 
@@ -493,7 +501,7 @@
   border-radius: 16px;
   margin: 8px;
   padding: 4px 7px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 12px;
   display: block;
   position: absolute;
@@ -521,7 +529,7 @@
   height: 45px;
   max-height: 45px;
   flex-direction: column;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 15px;
   font-weight: 600;
   display: block;
@@ -534,7 +542,7 @@
 
 .text-block-5 {
   color: var(--calabaza);
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-weight: 700;
 }
 
@@ -550,6 +558,7 @@
   justify-content: center;
   align-items: center;
   font-size: 20px;
+  font-weight: 500;
   transition: all .2s;
   display: flex;
 }
@@ -561,7 +570,7 @@
 .text-block-6 {
   color: #9b9999;
   margin-left: 10px;
-  font-family: Montserrat, sans-serif;
+  /* font-family: Montserrat, sans-serif; */
 }
 
 .div-block-18 {
@@ -573,7 +582,7 @@
   -webkit-text-stroke-color: var(--color-3);
   margin-top: 32px;
   margin-bottom: 21px;
-  font-family: Montserrat, sans-serif;
+  /* font-family: Montserrat, sans-serif; */
   font-size: 25px;
   font-weight: 600;
   text-decoration: none;
@@ -619,7 +628,7 @@
 
 .paragraph-2 {
   color: var(--color-3);
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-weight: 300;
 }
 
@@ -643,7 +652,7 @@
 
 .footerlistitem {
   color: var(--color-3);
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-weight: 300;
 }
 
@@ -669,7 +678,7 @@
 .text-block-7 {
   color: var(--color-3);
   text-align: left;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 
 .upbutton {
@@ -728,19 +737,18 @@
 
 .heading-3 {
   margin-top: 0;
-  font-family: Open Sans, sans-serif;
   font-size: 1.8rem;
 }
 
 .paragraph-3 {
   margin-bottom: 35px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 
 .text-block-8 {
   color: var(--calabaza);
   margin-bottom: 13px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 25px;
   font-weight: 700;
 }
@@ -751,7 +759,7 @@
   border-radius: 6px;
   margin-top: 20px;
   padding: 9px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-weight: 600;
   display: inline-block;
 }
@@ -759,7 +767,7 @@
 .text-block-9 {
   color: #a7a5a5;
   margin-bottom: 12px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-weight: 800;
 }
 
@@ -775,7 +783,7 @@
   border-radius: 20px;
   margin-bottom: 13px;
   padding: 6px 12px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   display: inline-block;
   position: relative;
   top: 0%;
@@ -811,13 +819,13 @@
   display: none;
 }
 
-.slide {
+/* .slide {
   background-image: url('../public/images/slide1.jpg');
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 6px;
-}
+} */
 
 .slide-2 {
   background-image: url('../public/images/slide2.jpg');
@@ -860,7 +868,7 @@
   justify-content: center;
   align-items: center;
   margin-left: 0;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 13px;
   display: flex;
   position: absolute;
@@ -899,6 +907,11 @@
   background-color: var(--color-5);
 }
 
+.container-item-order{
+  padding-top: 20px ;
+  padding-bottom: 20px ;
+}
+
 .totalitems {
   height: 7%;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
@@ -909,7 +922,7 @@
 }
 
 .text-block-10 {
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 15px;
 }
 
@@ -931,7 +944,7 @@
   border-radius: 100px;
   justify-content: center;
   align-items: center;
-  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 25px;
   display: flex;
 }
@@ -976,7 +989,7 @@
 .text-block-11 {
   margin-top: 5px;
   margin-bottom: 5px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 15px;
 }
 
@@ -995,20 +1008,20 @@
 
 .text-block-12 {
   color: #333;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 14px;
   font-weight: 600;
 }
 
 .text-block-13 {
   color: rgba(51, 51, 51, .72);
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 12px;
 }
 
 .text-block-14 {
   color: var(--locura);
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 
 .chartprodswrapper {
@@ -1029,7 +1042,7 @@
   background-color: var(--color-3);
   text-align: center;
   border-radius: 6px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 
 .login {
@@ -1049,7 +1062,7 @@
 }
 
 .div-block-35 {
-  width: 31%;
+  width: 40%;
   height: auto;
   background-color: var(--color-5);
   border-radius: 6px;
@@ -1068,7 +1081,7 @@
 }
 
 .text-block-15 {
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 16px;
   font-weight: 600;
 }
@@ -1076,13 +1089,13 @@
 .text-block-16 {
   margin-top: 4px;
   margin-bottom: 28px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 12px;
 }
 
 .loginfieldlabel {
   color: #6f6e6e;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 13px;
   font-weight: 600;
 }
@@ -1111,19 +1124,19 @@
 .link-3 {
   color: rgba(76, 75, 75, .77);
   margin-left: 14px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-weight: 700;
   line-height: 20px;
 }
 
 .text-block-17 {
   color: rgba(51, 51, 51, .73);
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-weight: 600;
 }
 
 .text-block-18 {
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 
 .div-block-37 {
@@ -1198,7 +1211,7 @@
 
 .text-block-20 {
   color: var(--color-3);
-  font-family: Montserrat, sans-serif;
+  /* font-family: Montserrat, sans-serif; */
   font-size: 16px;
   font-weight: 500;
 }
@@ -1214,11 +1227,11 @@
 
 .shiptxtfield {
   border-radius: 6px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 
 .checkbox {
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 16px;
   font-weight: 600;
 }
@@ -1247,7 +1260,7 @@
   border: 1px solid #adacac;
   border-radius: 6px;
   padding: 10px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 20px;
   font-weight: 700;
 }
@@ -1255,7 +1268,7 @@
 .txtordersubitem {
   height: 50px;
   padding: 15px 15px 15px 10px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 16px;
   font-weight: 600;
 }
@@ -1278,7 +1291,7 @@
 }
 
 .txtitemordersummary {
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 18px;
   font-weight: 600;
 }
@@ -1301,7 +1314,7 @@
   border-radius: 6px;
   margin-bottom: 20px;
   padding: 10px;
-  font-family: Open Sans, sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 16px;
 }
 
@@ -1313,9 +1326,66 @@
   background-color: var(--bosque-verde);
 }
 
+.aboutsection {
+  padding: 50px 7% 100px;
+}
+
+.aboutheading {
+  /* font-family: Montserrat, sans-serif ; */
+  font-size: 32px;
+}
+
+.aboutcolumn1 {
+  padding-left: 0;
+}
+
+.aboutcolumns {
+  margin-top: 49px;
+  display: flex;
+}
+
+.block-quote {
+  /* font-family: Montserrat, sans-serif; */
+  line-height: 25px;
+}
+
+.aboutcolumn2 {
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.aboutlogo {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.aboutdiv41 {
+  justify-content: center;
+  align-items: center;
+  margin-top: 26px;
+  display: flex;
+}
+
+.aboutparag {
+  text-align: center;
+  margin-top: 0;
+  /* font-family: Montserrat, sans-serif; */
+  font-size: 18px;
+  line-height: 25px;
+}
+
+
 @media screen and (max-width: 991px) {
   
   /*............................ navbar 991 ...........................*/
+
+  .aboutsection {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
 
   .image-4 {
     cursor: pointer;
@@ -1547,6 +1617,16 @@
 }
 
 @media screen and (max-width: 767px) {
+
+  .aboutcolumns {
+    display: block;
+  }
+
+  .block-quote {
+    margin-top: 25px;
+  }
+
+
   .div-block-8 {
     background-image: linear-gradient(rgba(229, 188, 216, .6), rgba(229, 188, 216, .6)), url('../public/images/Banner-Mobile-1.jpg');
     background-position: 0 0, 50%;
@@ -1622,7 +1702,7 @@
     color: #f3f2f2;
     justify-content: space-around;
     padding: 10px 2%;
-    font-family: Open Sans, sans-serif;
+    font-family: Montserrat, sans-serif;
     display: none;
     position: fixed;
     top: auto;

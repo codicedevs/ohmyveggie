@@ -167,17 +167,20 @@ export const deliverOrder =
       dispatch({
         type: ActionTypes.DELIVER_ORDER_START,
       });
-
+      console.log('aca estoy')
       const { data } = await proshopAPI.put(
         `/orders/${orderId}/deliver`,
         {},
         config
       );
 
+
+
       dispatch({
         type: ActionTypes.DELIVER_ORDER_SUCCESS,
         payload: data,
       });
+      
     } catch (error: any) {
       dispatch({
         type: ActionTypes.DELIVER_ORDER_ERROR,

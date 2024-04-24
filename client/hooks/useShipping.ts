@@ -11,7 +11,7 @@ export const useShipping = () => {
       shippingDetails.address.length < 1 ||
       shippingDetails.city.length < 1 ||
       shippingDetails.country.length < 1 ||
-      shippingDetails.city.length < 1
+      shippingDetails.postalCode.length < 1
     ) {
       router.push('/shipping');
     }
