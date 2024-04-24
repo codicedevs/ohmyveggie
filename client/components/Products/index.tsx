@@ -81,12 +81,9 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
   const [cantCart, setCantCart] = useState(0);
 
 
-<<<<<<< HEAD
-=======
   useEffect(()=> {
     fetchCategories(), fetchBrands()}
     , [])
->>>>>>> Prueba-Merge
 
   useEffect(() => {
     fetchProducts(keyword as string, parseInt(pageId as string), brandSel as string, catSel as string);
