@@ -98,7 +98,13 @@ const Navbar = () => {
                       // srcSet="/images/shopLila.png 500w, /images/shopLila.png 800w, /Simages/shopLila.png 830w"
 
                     />
-                    <div className="div-block-30">{cartItems.reduce((acc, item) => acc + item.qty, 0)}</div>
+                    { cartItems.reduce((acc, item) => acc + item.qty, 0) ? 
+                            <div className="div-block-30">
+                              {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                            </div>
+                            :
+                            ""
+                    }
                   </Nav.Link>
                 </div>
 
