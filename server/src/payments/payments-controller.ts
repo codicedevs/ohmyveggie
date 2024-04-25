@@ -26,30 +26,28 @@ export class NotificationController {
   ) { }
   /**
    *
-   * @param notification esta funcion toma la notificacion, que envia mercado pago como parametro, dentro de ella
-   * se encuentra el id de la compra que mercado pago tiene registrada, dentro de esa compra esta el id de nuestra orden de sistema,
-   * la cual una vez recuperada, actualiza el estado de la mencionada orden en nuestro sistema
+   * @param notification esta funcion toma la notificacion, que envia mercado pago como parametro (web-hook), dentro de ella
+   * se encuentra el id de la compra como external reference, con eso se actualiza el estado de la orden como pago
+   * el servicio de email envia un correo indicando que la compra fue exitosa
    * @returns
    */
   @Post("mercado-pago")
   async handleNotification(@Body() notification: NotificationData) {
     try {
-      // Obtener información de pago
+
       const payment = await this.paymentService.getPayment(notification.data.id);
       const id = payment.external_reference;
-      // Actualizar estado del pedido
       const orderUpdated = await this.ordersService.updatePaid(id);
-      // Enviar correo de confirmación
+
       try {
         await this.paymentService.sendEmailConfirmation(orderUpdated);
       } catch (emailError) {
         console.error("Error al enviar correo de confirmación:", emailError);
       }
-      // Respuesta exitosa
+
       return { payment };
     } catch (paymentError) {
       console.error("Error al procesar el pago:", paymentError);
-      // Lanzar un error HTTP indicando que el flujo de pago no se ha completado
       throw new HttpException('Error al procesar el pago', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
