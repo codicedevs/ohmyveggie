@@ -174,8 +174,6 @@ export const deliverOrder =
         config
       );
 
-
-
       dispatch({
         type: ActionTypes.DELIVER_ORDER_SUCCESS,
         payload: data,
@@ -188,3 +186,6 @@ export const deliverOrder =
       });
     }
   };
+ 
+
+  
