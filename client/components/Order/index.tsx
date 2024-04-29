@@ -37,7 +37,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     };
     payOrder(data._id!, paymentResult);
   };
-  data
 
   const createPaymentPreference = async (paymentData: OrderInterface) => {
     const config = {
@@ -48,8 +47,9 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     };
     try {
       const response = await axios.post('http://localhost:4000/payments/preference', paymentData, config);
-      setPaymentResult(response.data)
-      console.log("paymentResult",paymentResult)
+      if (response.status === 201) {
+        window.location.href = response.data.preference.init_point
+      }
       return { success: true };
     } catch (error) {
       return { success: false, error: "error" };
