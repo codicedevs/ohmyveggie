@@ -30,6 +30,12 @@ export class PaymentService {
   async createPreference(order: OrderDocument) {
     const preferenceResult = this.preference.create({
       body: {
+        "back_urls": {
+          "success": "https://www.tu-sitio/success",
+          "failure": "http://www.tu-sitio/failure",
+          "pending": "http://www.tu-sitio/pending"
+        },
+        "auto_return": "approved",
         external_reference: order._id,
         items: order.orderItems.map((item) => {
           return {
@@ -54,6 +60,6 @@ export class PaymentService {
     const orderId = order._id.toString()
     const userId = order.user.toString();
     const userToSendEmail = await this.usersService.findById(userId);
-    await this.emailService.sendUserPurchaseSuccessEmail(userToSendEmail,orderId)
+    await this.emailService.sendUserPurchaseSuccessEmail(userToSendEmail, orderId)
   }
 }

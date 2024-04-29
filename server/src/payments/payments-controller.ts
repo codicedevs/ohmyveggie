@@ -34,7 +34,6 @@ export class NotificationController {
   @Post("mercado-pago")
   async handleNotification(@Body() notification: NotificationData) {
     try {
-
       const payment = await this.paymentService.getPayment(notification.data.id);
       const id = payment.external_reference;
       const orderUpdated = await this.ordersService.updatePaid(id);
@@ -44,7 +43,7 @@ export class NotificationController {
       } catch (emailError) {
         console.error("Error al enviar correo de confirmación:", emailError);
       }
-
+      
       return { payment };
     } catch (paymentError) {
       console.error("Error al procesar el pago:", paymentError);
