@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useOrderActions, useTypedSelector } from "../../hooks";
 import Loader from "../Loader";
 import Message from "../Message";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from 'axios';
 import { OrderInterface } from "../../interfaces";
 
@@ -13,7 +13,6 @@ interface OrderProps {
 }
 
 const Order: React.FC<OrderProps> = ({ pageId }) => {
-  const [paymentResult, setPaymentResult] = useState({})
   const { loading, data, error, success } = useTypedSelector(
     (state) => state.order
   );
