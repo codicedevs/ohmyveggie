@@ -47,6 +47,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     try {
       const response = await axios.post('http://localhost:4000/payments/preference', paymentData, config);
       if (response.status === 201) {
+        // aca deberia vaciar el carro, si la respuesta de mercadopago es correcta , te vacio el carro, 
         window.location.href = response.data.preference.init_point
       }
       return { success: true };

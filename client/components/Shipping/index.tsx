@@ -7,27 +7,40 @@ import CheckoutSteps from "../CheckoutSteps";
 import { useRouter } from "next/router";
 import Message from "../Message";
 
-
+const arrayOption = [
+  {
+    key: "option1",
+    description: "Que Oh My Veggie elija con que reemplazar"
+  },
+  {
+    key: "option2",
+    description: "Llamada telefonica"
+  },
+  {
+    key: "option3",
+    description: "Cancelen el pedido y devuelvan el dinero"
+  },
+]
 
 const Shipping = () => {
   // useAuth();
-  
+
   const router = useRouter();
-  
+
   const {
-    data: { shippingDetails } ,
+    data: { shippingDetails },
     error,
   } = useTypedSelector((state) => state.cart);
   const { saveShippingAddress } = useCartActions();
   const [shippingAddress, setShippingAddress] =
-  useState<ShippingDetails>(shippingDetails);
-  
+    useState<ShippingDetails>(shippingDetails);
+
   const [message, setMessage] = useState<string | null | string[]>(error);
-  
+
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
-    
+
     e.preventDefault();
-    const { address, postalCode, timeDeliver, zoneDeliver, stockOption  } = shippingAddress;
+    const { address, postalCode, timeDeliver, zoneDeliver, stockOption } = shippingAddress;
     if (
       address.length < 1 ||
       timeDeliver.length < 1 ||
@@ -35,34 +48,32 @@ const Shipping = () => {
       stockOption.length < 1
     ) {
       setMessage('Debe completar todos los datos');
-    
+
       return null;
     }
-    
+
     saveShippingAddress(shippingAddress);
     router.push("/placeorder");
   };
 
-  function handleStock(e: any){
-      let selectedOption = e.target.value
-  
-      setShippingAddress(prevShippingAddress => ({
-        ...prevShippingAddress,
-        stockOption: selectedOption
-        
-      }));
-
+  function handleStock(e: any) {
+    let selectedOption = e.target.value
+    console.log(e.target.value)
+    setShippingAddress(prevShippingAddress => ({
+      ...prevShippingAddress,
+      stockOption: selectedOption
+    }));
   }
 
   function addressCode(e: any) {
     let selectedCity = e.target.value;
-    
+
     //-- de acuerdo a la localidad setea el código
     let zipCode = "2000";
-    if(selectedCity === 'funes') {
+    if (selectedCity === 'funes') {
       zipCode = '2132'
     } else if (selectedCity === 'fisherton') {
-        zipCode = '2001'
+      zipCode = '2001'
     }
 
     setShippingAddress(prevShippingAddress => ({
@@ -73,13 +84,13 @@ const Shipping = () => {
     }));
   }
   useEffect(() => {
-      }, [shippingAddress])
+  }, [shippingAddress])
 
   async function handlerTimeZone(e: any) {
     let timeZone = e.target.innerText
-    setShippingAddress( {
-      ...shippingAddress, 
-      timeDeliver: timeZone 
+    setShippingAddress({
+      ...shippingAddress,
+      timeDeliver: timeZone
     });
   }
 
@@ -140,41 +151,39 @@ const Shipping = () => {
               <Form.Select
                 className="shiptxtfield w-input"
                 placeholder="Franja horaria"
-                onChange={(e)=>handleStock(e)}
+                onChange={(e) => handleStock(e)}
               >
                 <option selected>En caso de no existir stock disponible</option>
-                <option value="opcion1">Que Oh My Veggie elija con que reemplazar</option>
-                <option value="opcion2">Llamada telefonica</option>
-                <option value="opcion3">Cancelen el pedido y devuelvan el dinero</option>
+                {arrayOption.map((option) => <option key={option.key}>{option.description}</option>)}
               </Form.Select>
             </Form.Group>
 
             <div >
-            <div style={{display:'flex', justifyContent: 'center'}}>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
 
-            <h4 style={{justifyContent: 'center'}}>Horario de entrega</h4>
+                <h4 style={{ justifyContent: 'center' }}>Horario de entrega</h4>
+              </div>
+
+              <div className="btn-group j-c d-flex" role="group" aria-label="Basic example">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={(e) => handlerTimeZone(e)}
+                >
+                  De 9 a 12
+                </button>
+                <button type="button" className="btn btn-secondary"
+                  onClick={(e) => handlerTimeZone(e)}
+                >
+                  De 12 a 15
+                </button>
+                <button type="button" className="btn btn-secondary"
+                  onClick={(e) => handlerTimeZone(e)}
+                >
+                  De 15 a 18
+                </button>
+              </div>
             </div>
-            
-            <div className="btn-group j-c d-flex" role="group" aria-label="Basic example">
-              <button 
-              type="button" 
-              className="btn btn-secondary"
-              onClick={(e) => handlerTimeZone(e)}
-              >
-                De 9 a 12
-              </button>
-              <button type="button" className="btn btn-secondary"
-              onClick={(e) => handlerTimeZone(e)}
-              >
-                De 12 a 15
-              </button>
-              <button type="button" className="btn btn-secondary"
-              onClick={(e) => handlerTimeZone(e)}
-              >
-                De 15 a 18
-              </button>
-            </div>
-              </div>  
             <br />
 
             <Button

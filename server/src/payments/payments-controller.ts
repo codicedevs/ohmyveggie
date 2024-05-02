@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpException, HttpStatus } from "@nestjs/common";
+import { Controller, Post, Body, HttpException, HttpStatus, Session } from "@nestjs/common";
 import { PaymentService } from "./payments-service";
 import { OrderDocument } from "src/orders/schemas/order.schema";
 import { NotificationData } from "src/interfaces";
@@ -43,7 +43,7 @@ export class NotificationController {
       } catch (emailError) {
         console.error("Error al enviar correo de confirmación:", emailError);
       }
-      
+
       return { payment };
     } catch (paymentError) {
       console.error("Error al procesar el pago:", paymentError);

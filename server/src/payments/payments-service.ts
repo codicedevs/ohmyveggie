@@ -32,8 +32,8 @@ export class PaymentService {
       body: {
         "back_urls": {
           "success": "http://localhost:3000",
-          "failure": "http://www.tu-sitio/failure",
-          "pending": "http://www.tu-sitio/pending"
+          "failure": "http://localhost:3000",
+          "pending": "http://localhost:3000"
         },
         external_reference: order._id,
         items: order.orderItems.map((item) => {
