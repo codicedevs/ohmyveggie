@@ -36,6 +36,7 @@ const Shipping = () => {
     useState<ShippingDetails>(shippingDetails);
 
   const [message, setMessage] = useState<string | null | string[]>(error);
+  const [switchValue, setSwitchValue] = useState(false);
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
 
@@ -51,6 +52,8 @@ const Shipping = () => {
 
       return null;
     }
+
+    console.log('vvvvv>', shippingAddress);
 
     saveShippingAddress(shippingAddress);
     router.push("/placeorder");
@@ -87,15 +90,15 @@ const Shipping = () => {
   }, [shippingAddress])
 
   async function handlerTimeZone(e: any) {
-    let timeZone = e.target.innerText
+    let timeZone = e.target.id
+    if (e.target.id == 'switch' && e.target.value == 'on') {
+      timeZone = 'retira por local'
+      setSwitchValue(!switchValue); 
+    }
     setShippingAddress({
       ...shippingAddress,
       timeDeliver: timeZone
     });
-  }
-
-  function HandleSchedule(e) {
-    console.log('cccc>', e.target.id);
   }
 
   return (
@@ -163,53 +166,43 @@ const Shipping = () => {
             </Form.Group>
 
             <div >
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Form.Switch 
+                id="switch"
+                label="Retira por local"
+                checked={switchValue}
+                onClick={(e) => handlerTimeZone(e)}
+              />
 
-                <h4 style={{ justifyContent: 'center' }}>Horario de entrega</h4>
-              </div>
-
-              <div className="btn-group j-c d-flex" role="group" aria-label="Basic example">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={(e) => handlerTimeZone(e)}
-                >
-                  De 9 a 12
-                </button>
-                <button type="button" className="btn btn-secondary"
-                  onClick={(e) => handlerTimeZone(e)}
-                >
-                  De 12 a 15
-                </button>
-                <button type="button" className="btn btn-secondary"
-                  onClick={(e) => handlerTimeZone(e)}
-                >
-                  De 15 a 18
-                </button>
-              </div>
-
+              <text className='subtitle'>Horario de entrega</text>
+              
               <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <Form.Check
-                  inline 
-                  type="radio"
-                  label="De 9 a 12"
-                  onClick={(e) => HandleSchedule(e)}
-                  id='De 9 a 12'
-                />
-                <Form.Check
-                  inline 
-                  type="radio"
-                  label="De 12 a 15"
-                  onClick={(e) => HandleSchedule(e)}
-                  id='De 12 a 15'
-                />
-                <Form.Check
-                  inline 
-                  type="radio"
-                  label="De 15 a 18"
-                  onClick={(e) => HandleSchedule(e)}
-                  id='De 15 a 18'
-                />
+                  <Form.Check
+                    disabled={switchValue}
+                    inline 
+                    type="radio"
+                    label="De 9 a 12"
+                    onClick={(e) => handlerTimeZone(e)}
+                    id='De 9 a 12'
+                    name='timeZone'
+                  />
+                  <Form.Check
+                    disabled={switchValue}
+                    inline 
+                    type="radio"
+                    label="De 12 a 15"
+                    onClick={(e) => handlerTimeZone(e)}
+                    id='De 12 a 15'
+                    name='timeZone'
+                  />
+                  <Form.Check
+                    disabled={switchValue}
+                    inline 
+                    type="radio"
+                    label="De 15 a 18"
+                    onClick={(e) => handlerTimeZone(e)}
+                    id='De 15 a 18'
+                    name='timeZone'
+                  />
               </div>
             </div>
             <br />

@@ -48,7 +48,7 @@ const PlaceOrder = () => {
 
   return (
 
-    <section className="section-4" style={{padding: "100px 400px 0px 400px"}}>
+    <section className="section-4" >
       <CheckoutSteps step1 step2/> 
       <h1 className="heading-3">Su orden</h1>
       <div className="columns-2 w-row">
@@ -57,11 +57,11 @@ const PlaceOrder = () => {
             <h3 className="heading-2" style={{marginLeft: 0}}>Datos de envío</h3>
             <div className="container-item-order">
 
-            <div className="txtordersubitem">Nombre : {data?.name}</div>
-            <div className="txtordersubitem">Email : {data?.email}</div>
-            <div className="txtordersubitem">Dirección : {cart.data.shippingDetails.address} - {cart.data.shippingDetails.zoneDeliver}</div>
-            <div className="txtordersubitem">Horario de entrega : {cart.data.shippingDetails.timeDeliver} </div>
-            <div className="txtordersubitem">En caso de no existir stock: {cart.data.shippingDetails.stockOption} </div>
+            <div className="txtordersubitem">Nombre: <b>{data?.name}</b></div>
+            <div className="txtordersubitem">Email: <b>{data?.email}</b></div>
+            <div className="txtordersubitem">Dirección: <b>{cart.data.shippingDetails.address} - {cart.data.shippingDetails.zoneDeliver}</b></div>
+            <div className="txtordersubitem">Horario de entrega: <b>{cart.data.shippingDetails.timeDeliver}</b> </div>
+            <div className="txtordersubitem">En caso de no existir stock: <b>{cart.data.shippingDetails.stockOption} </b></div>
             </div>
           </div>
           <div className="orderitem">

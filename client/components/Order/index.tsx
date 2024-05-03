@@ -84,7 +84,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     <>
       <section
         className="section-4"
-        style={{ padding: "100px 400px 0px 400px" }}
+        
       >
         {data.isDelivered && data.isPaid ? (
           <h1 className="heading-2"> Orden Finalizada nro: {data._id}</h1>
