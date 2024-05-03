@@ -7,13 +7,11 @@ export class SaveShippingDetailsDto {
   address: string;
 
   @IsString()
-  city: string;
-
-  @IsString()
   postalCode: string;
 
   @IsString()
-  country: string;
+  city:string
+
 
   @IsString()
   timeDeliver: string;

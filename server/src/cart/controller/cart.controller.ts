@@ -31,7 +31,7 @@ export class CartController {
 
   @Post('shipping')
   saveShipping(@Body() body: SaveShippingDetailsDto, @Session() session: any) {
-
+    //armar correctamente el DTO del shipping detail
     this.cartService.cart = session.cart ? session.cart : defaultCart;
 
     const shippingDetails = this.cartService.saveShippingDetails(body);

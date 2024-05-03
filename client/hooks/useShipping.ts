@@ -10,7 +10,6 @@ export const useShipping = () => {
     if (
       shippingDetails.address.length < 1 ||
       shippingDetails.zoneDeliver.length < 1 ||
-      shippingDetails.country.length < 1 ||
       shippingDetails.postalCode.length < 1
     ) {
       router.push('/shipping');
