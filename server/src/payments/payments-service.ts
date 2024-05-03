@@ -4,7 +4,7 @@ import { OrderDocument } from "src/orders/schemas/order.schema";
 import { EmailService } from "src/email/email.service";
 import { OrdersService } from "src/orders/services/orders.service";
 import { UsersService } from "src/users/services/users.service";
-import { UserDocument } from "src/users/schemas/user.schema";
+
 
 @Injectable()
 export class PaymentService {
@@ -30,6 +30,11 @@ export class PaymentService {
   async createPreference(order: OrderDocument) {
     const preferenceResult = this.preference.create({
       body: {
+        "back_urls": {
+          "success": "http://localhost:3000",
+          "failure": "http://localhost:3000",
+          "pending": "http://localhost:3000"
+        },
         external_reference: order._id,
         items: order.orderItems.map((item) => {
           return {
@@ -54,6 +59,6 @@ export class PaymentService {
     const orderId = order._id.toString()
     const userId = order.user.toString();
     const userToSendEmail = await this.usersService.findById(userId);
-    await this.emailService.sendUserPurchaseSuccessEmail(userToSendEmail,orderId)
+    await this.emailService.sendUserPurchaseSuccessEmail(userToSendEmail, orderId)
   }
 }

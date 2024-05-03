@@ -29,7 +29,7 @@ export class CartService {
         name,
         image,
         price,
-        countInStock, //ESTO ES EL STOCK DEL PRODUCTO, PERO MOSTRADO EN EL CARRITO
+        countInStock,
         qty,
       };
 

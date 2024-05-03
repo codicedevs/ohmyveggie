@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpException, HttpStatus } from "@nestjs/common";
+import { Controller, Post, Body, HttpException, HttpStatus, Session } from "@nestjs/common";
 import { PaymentService } from "./payments-service";
 import { OrderDocument } from "src/orders/schemas/order.schema";
 import { NotificationData } from "src/interfaces";
@@ -34,7 +34,6 @@ export class NotificationController {
   @Post("mercado-pago")
   async handleNotification(@Body() notification: NotificationData) {
     try {
-
       const payment = await this.paymentService.getPayment(notification.data.id);
       const id = payment.external_reference;
       const orderUpdated = await this.ordersService.updatePaid(id);
