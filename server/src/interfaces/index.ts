@@ -1,5 +1,5 @@
 import { OrderDocument } from 'src/orders/schemas/order.schema';
-import { Product, ProductDocument } from 'src/products/schemas/product.schema';
+import {  ProductDocument } from 'src/products/schemas/product.schema';
 
 export interface ShippingDetails {
   address: string;

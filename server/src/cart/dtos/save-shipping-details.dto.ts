@@ -12,7 +12,6 @@ export class SaveShippingDetailsDto {
   @IsString()
   city:string
 
-
   @IsString()
   timeDeliver: string;
 

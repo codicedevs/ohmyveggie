@@ -4,7 +4,6 @@ import { Zone } from '../enums/zone.enum';
 import { stockOption } from '../enums/stock.option';
 
 
-
 @Schema()
 export class ShippingDetails extends Document {
     @Prop({ required: true })
