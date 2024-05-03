@@ -1109,6 +1109,7 @@
 
 .logintextfield {
   border-radius: 6px;
+  font-weight: 300;
 }
 
 .form-block {

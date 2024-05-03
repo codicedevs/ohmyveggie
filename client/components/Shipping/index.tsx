@@ -94,6 +94,10 @@ const Shipping = () => {
     });
   }
 
+  function HandleSchedule(e) {
+    console.log('cccc>', e.target.id);
+  }
+
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 />
@@ -182,6 +186,30 @@ const Shipping = () => {
                 >
                   De 15 a 18
                 </button>
+              </div>
+
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <Form.Check
+                  inline 
+                  type="radio"
+                  label="De 9 a 12"
+                  onClick={(e) => HandleSchedule(e)}
+                  id='De 9 a 12'
+                />
+                <Form.Check
+                  inline 
+                  type="radio"
+                  label="De 12 a 15"
+                  onClick={(e) => HandleSchedule(e)}
+                  id='De 12 a 15'
+                />
+                <Form.Check
+                  inline 
+                  type="radio"
+                  label="De 15 a 18"
+                  onClick={(e) => HandleSchedule(e)}
+                  id='De 15 a 18'
+                />
               </div>
             </div>
             <br />

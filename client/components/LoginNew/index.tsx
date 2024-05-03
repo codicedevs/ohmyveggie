@@ -10,6 +10,7 @@ import { ActionTypes as AT } from '../../state/UI/ui.action-types';
 import { useDispatch } from 'react-redux';
 
 import RegisterNew from '../RegisterNew';
+import { ActionTypes } from '../../state/User/user.action-types';
 
 const Login = ({ visible = false }) => {
   if(!visible) return null
@@ -25,22 +26,26 @@ const Login = ({ visible = false }) => {
   const { loading, error } = useTypedSelector(state => state.userLogin);
 
   const [isErrorVisible, setIsErrorVisible] = useState(false);
-
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!error || (email.length > 0 && password.length > 0)) {
-      login(email, password);
-      dispatch({type: AT.CLOSE_LOGIN})
+    if (!email || !password) {
+      dispatch({
+        type: ActionTypes.USER_LOGIN_ERROR,
+        payload: "Por favor no deje campos en blanco"
+      })
+    } else {
+      login(email, password)
     }
-  };
 
-  function registerOn() {                      // saca modal de login y muestra register
+  };
+  
+
+  function registerOn() {                      
+    // saca modal de login y muestra register
     //() => dispatch({type: AT.TOGGLE_LOGIN});
     setIsVisibleRegister(true);
   }
-
-  console.log('= = = >', isVisibleRegister);
 
   function forgotPass(){
     const checkMail = /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)[.][a-zA-Z]{2,5}/;
