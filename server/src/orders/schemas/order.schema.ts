@@ -71,6 +71,9 @@ export class Order {
   @Prop({ required: false })
   deliveredAt: string;
 
+  @Prop({ required: false })
+  observations: string
+
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
