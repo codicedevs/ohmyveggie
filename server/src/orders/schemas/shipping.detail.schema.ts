@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Zone } from '../enums/zone.enum';
+import { stockOption } from '../enums/stock.option';
 
 
 @Schema()
@@ -19,11 +20,9 @@ export class ShippingDetails extends Document {
 
     @Prop({ required: true, enum: Zone })
     zoneDeliver: Zone;
-    
-    @Prop({ required: false })
-    stockOption: string ;// revisar, esto deberia ser un enum seguramente
+
+    @Prop({ required: true, enum: stockOption })
+    stockOption: stockOption;
 }
 
 export const shippingDetailsSchema = SchemaFactory.createForClass(ShippingDetails);
-
-//falta agregar al backend la propiedad stockOption
