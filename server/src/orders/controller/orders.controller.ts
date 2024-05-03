@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   Query,
@@ -42,7 +43,7 @@ export class OrdersController {
       return this.ordersService.findMany(pageId);
     }*/
 
-@UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @Get('/find-by-day')
   async findByDay(@Query('startDate') startDate: string, @Query('endDate') endDate: string): Promise<Order[]> {
     if (new Date(endDate) < new Date(startDate)) {
@@ -79,4 +80,11 @@ export class OrdersController {
   async updateOrderDelivery(@Param('id') id: string) {
     return this.ordersService.updateDelivered(id);
   }
+
+  @UseGuards(AdminGuard)
+  @Patch(":id/description")
+  async updateDescription(
+    @Param('id') id: string,
+    @Body() description: string
+  ) { }
 }

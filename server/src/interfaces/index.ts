@@ -3,9 +3,7 @@ import {  ProductDocument } from 'src/products/schemas/product.schema';
 
 export interface ShippingDetails {
   address: string;
-  city: string;
   postalCode: string;
-
 }
 
 export interface OrderItem {

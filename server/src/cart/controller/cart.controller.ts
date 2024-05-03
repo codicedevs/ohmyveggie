@@ -31,11 +31,11 @@ export class CartController {
 
   @Post('shipping')
   saveShipping(@Body() body: SaveShippingDetailsDto, @Session() session: any) {
-    //armar correctamente el DTO del shipping detail
+
     this.cartService.cart = session.cart ? session.cart : defaultCart;
 
     const shippingDetails = this.cartService.saveShippingDetails(body);
-    console.log(shippingDetails)
+  
 
     session.cart = this.cartService.cart;
 
@@ -47,19 +47,7 @@ export class CartController {
     return session.cart ? session.cart : defaultCart;
   }
 
-  @Post('payment')
-  savePaymentMethod(
-    @Body() { paymentMethod }: SavePaymentMethodDto,
-    @Session() session: any
-  ) {
-    this.cartService.cart = session.cart ? session.cart : defaultCart;
 
-    const shippingDetails = this.cartService.savePaymentMethod(paymentMethod);
-
-    session.cart = this.cartService.cart;
-
-    return shippingDetails;
-  }
 
   @Delete(':id')
   removeCartItem(@Param('id') id: string, @Session() session: any) {
