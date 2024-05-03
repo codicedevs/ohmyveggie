@@ -46,7 +46,6 @@ export class PaymentService {
         }),
       },
     });
-    console.log(preferenceResult);
     return preferenceResult;
   }
 

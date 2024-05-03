@@ -20,22 +20,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     (state) => state.orderDeliver
   );
   const user = useTypedSelector((state) => state.user);
-  const { fetchOrder, payOrder, deliverOrder } = useOrderActions();
+  const { fetchOrder, deliverOrder } = useOrderActions();
 
-  const onPaymentHandler = ({
-    id,
-    payer: { email_address },
-    update_time,
-    status,
-  }: any) => {
-    const paymentResult = {
-      id,
-      email_address,
-      update_time,
-      status,
-    };
-    payOrder(data._id!, paymentResult);
-  };
 
   const createPaymentPreference = async (paymentData: OrderInterface) => {
     const config = {
@@ -67,7 +53,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       fetchOrder(pageId as string);
     }
 
-  }, [fetchOrder, pageId, success, data, onPaymentHandler]);
+  }, [fetchOrder, pageId, success, data,]);
 
   const items = data.orderItems;
   var totalProductos = 0;

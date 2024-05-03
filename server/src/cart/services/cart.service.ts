@@ -63,7 +63,6 @@ export class CartService {
   }
 
 
-
   removeCartItem(id: string): CartItem[] {
     const itemExists = this.cart.cartItems.find(x => x.productId === id);
 

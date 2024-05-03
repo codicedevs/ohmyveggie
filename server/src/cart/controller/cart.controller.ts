@@ -36,7 +36,6 @@ export class CartController {
 
     const shippingDetails = this.cartService.saveShippingDetails(body);
   
-
     session.cart = this.cartService.cart;
 
     return shippingDetails;
