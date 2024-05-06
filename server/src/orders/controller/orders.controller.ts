@@ -82,9 +82,9 @@ export class OrdersController {
   }
 
   @UseGuards(AdminGuard)
-  @Patch(":id/description")
+  @Patch(":id/observations")
   async updateDescription(
     @Param('id') id: string,
-    @Body() description: string
+    @Body() observations: string
   ) { }
 }
