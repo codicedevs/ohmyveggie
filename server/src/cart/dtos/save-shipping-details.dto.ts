@@ -10,9 +10,6 @@ export class SaveShippingDetailsDto {
   postalCode: string;
 
   @IsString()
-  city:string
-
-  @IsString()
   timeDeliver: string;
 
   @IsEnum(Zone)

@@ -59,15 +59,9 @@ export class CartService {
 
   saveShippingDetails(shippingDetails: ShippingDetails): ShippingDetails {
     this.cart.shippingDetails = shippingDetails;
-
     return this.cart.shippingDetails;
   }
 
-  savePaymentMethod(paymentMethod: string): string {
-    this.cart.paymentMethod = paymentMethod;
-
-    return this.cart.paymentMethod;
-  }
 
   removeCartItem(id: string): CartItem[] {
     const itemExists = this.cart.cartItems.find(x => x.productId === id);

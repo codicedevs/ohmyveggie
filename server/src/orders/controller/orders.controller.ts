@@ -4,22 +4,22 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   Query,
   Session,
   UseGuards,
-} from '@nestjs/common';
-import { AdminGuard } from 'src/guards/admin.guard';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { OrdersService } from '../services/orders.service';
-import { Order } from '../schemas/order.schema';
-import { DateRange } from 'src/interfaces';
+} from "@nestjs/common";
+import { AdminGuard } from "src/guards/admin.guard";
+import { AuthGuard } from "src/guards/auth.guard";
+import { OrdersService } from "../services/orders.service";
+import { Order } from "../schemas/order.schema";
+import { DateRange } from "src/interfaces";
 
-
-@Controller('orders')
+@Controller("orders")
 export class OrdersController {
-  constructor(private ordersService: OrdersService) { }
+  constructor(private ordersService: OrdersService) {}
 
   @UseGuards(AuthGuard)
   @Post()
@@ -42,11 +42,14 @@ export class OrdersController {
       return this.ordersService.findMany(pageId);
     }*/
 
-@UseGuards(AdminGuard)
-  @Get('/find-by-day')
-  async findByDay(@Query('startDate') startDate: string, @Query('endDate') endDate: string): Promise<Order[]> {
+  @UseGuards(AdminGuard)
+  @Get("/find-by-day")
+  async findByDay(
+    @Query("startDate") startDate: string,
+    @Query("endDate") endDate: string
+  ): Promise<Order[]> {
     if (new Date(endDate) < new Date(startDate)) {
-      throw new BadRequestException('endDate cannot be less than startDate');
+      throw new BadRequestException("endDate cannot be less than startDate");
     }
     const dateRange: DateRange = { startDate, endDate };
     const orders = await this.ordersService.findByDay(dateRange);
@@ -54,29 +57,38 @@ export class OrdersController {
   }
 
   @UseGuards(AuthGuard)
-  @Get('myorders')
+  @Get("myorders")
   async getUserOrders(@Session() session: any) {
     return this.ordersService.findUserOrders(session.user._id);
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id')
-  async getOrder(@Param('id') id: string) {
+  @Get(":id")
+  async getOrder(@Param("id") id: string) {
     return this.ordersService.findById(id);
   }
 
   @UseGuards(AuthGuard)
-  @Put(':id/pay')
+  @Put(":id/pay")
   async updateOrderPayment(
-    @Param('id') id: string,
+    @Param("id") id: string,
     @Body() { paymentResult }: any
   ) {
     return this.ordersService.updatePaid(id, paymentResult);
   }
 
   @UseGuards(AdminGuard)
-  @Put(':id/deliver')
-  async updateOrderDelivery(@Param('id') id: string) {
+  @Put(":id/deliver")
+  async updateOrderDelivery(@Param("id") id: string) {
     return this.ordersService.updateDelivered(id);
+  }
+
+  @UseGuards(AdminGuard)
+  @Patch(":id/observations")
+  async updateObservations(
+    @Param("id") id: string,
+    @Body() observations: string
+  ) {
+    return this.ordersService.updateObservations(id, observations);
   }
 }
