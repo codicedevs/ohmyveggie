@@ -21,7 +21,6 @@ export class OrdersService {
     const {
       orderItems,
       shippingDetails,
-      paymentMethod,
       itemsPrice,
       taxPrice,
       shippingPrice,
@@ -35,7 +34,6 @@ export class OrdersService {
       user: userId,
       orderItems,
       shippingDetails,
-      paymentMethod,
       itemsPrice,
       taxPrice,
       shippingPrice,

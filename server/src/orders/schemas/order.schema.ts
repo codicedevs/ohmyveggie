@@ -32,9 +32,6 @@ export class Order {
   @Prop({ required: true, type: shippingDetailsSchema })
   shippingDetails: ShippingDetails;
 
-  @Prop({ required: true })
-  paymentMethod: string;
-
   @Prop({
     required: false,
     type: {
