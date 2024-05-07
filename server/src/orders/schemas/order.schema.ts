@@ -1,15 +1,14 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
-import { OrderItem, PaymentResult, ShippingDetails } from 'src/interfaces';
-import { User } from 'src/users/schemas/user.schema';
-import { shippingDetailsSchema } from './shipping.detail.schema';
-
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import * as mongoose from "mongoose";
+import { OrderItem, PaymentResult, ShippingDetails } from "src/interfaces";
+import { User } from "src/users/schemas/user.schema";
+import { shippingDetailsSchema } from "./shipping.detail.schema";
 
 export type OrderDocument = Order & mongoose.Document;
 
 @Schema({ timestamps: true })
 export class Order {
-  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" })
   user: User;
 
   @Prop({
@@ -23,7 +22,7 @@ export class Order {
         productId: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
-          ref: 'Product',
+          ref: "Product",
         },
       },
     ],
@@ -32,9 +31,6 @@ export class Order {
 
   @Prop({ required: true, type: shippingDetailsSchema })
   shippingDetails: ShippingDetails;
-
-  @Prop({ required: true })
-  paymentMethod: string;
 
   @Prop({
     required: false,
@@ -71,6 +67,8 @@ export class Order {
   @Prop({ required: false })
   deliveredAt: string;
 
+  @Prop({ required: false })
+  observations: string;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
