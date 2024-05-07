@@ -70,7 +70,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   ) : (
     <>
       <Modal fullscreen={true} show={modalIsOpen} onHide={handleClose}>
-        <iframe src={mercadoPagoUrl}  />
+        <iframe src={mercadoPagoUrl} style={{height:"100%",width:"100%"}}  />
       </Modal>
       <section
         className="section-4"
