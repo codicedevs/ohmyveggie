@@ -14,7 +14,7 @@ interface OrderProps {
 
 const Order: React.FC<OrderProps> = ({ pageId }) => {
   const [mercadoPagoUrl, setMercadoPagoUrl] = useState('');
-  const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { loading, data, error, success } = useTypedSelector(
     (state) => state.order
   );
@@ -35,7 +35,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       const response = await axios.post('http://localhost:4000/payments/preference', paymentData, config);
       if (response.status === 201) {
         setMercadoPagoUrl(response.data.preference.init_point)
-
+        setModalIsOpen(true)
       }
       return { success: true };
     } catch (error) {
@@ -64,26 +64,14 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   });
 
 
-  return loading ? (
-    
+  return loading ? (  
     <Loader />
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
     <>
       <Modal show={modalIsOpen} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
+      <iframe src={mercadoPagoUrl} title="Contenido Externo" width="800" height="600" />
       </Modal>
       <section
         className="section-4"
