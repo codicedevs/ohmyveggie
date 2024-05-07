@@ -41,13 +41,13 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       return { success: false, error: "error" };
     }
   };
-  console.log("mercadopagourl",mercadoPagoUrl)
+  console.log("mercadopagourl", mercadoPagoUrl)
 
   const delivered = () => {
     deliverOrder(data._id!)
     fetchOrder(data._id!)
   }
-  const handleClose = () => setModalIsOpen(false);
+
 
   useEffect(() => {
     if (!data._id || success) {
@@ -70,8 +70,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-      <Modal fullscreen={true} show={modalIsOpen} onHide={handleClose}>
-        <iframe src={mercadoPagoUrl} style={{ height: "100%", width: "100%" }}  />
+      <Modal fullscreen={true} show={modalIsOpen} >
+        <iframe src={mercadoPagoUrl} style={{ height: "100%", width: "100%" }} />
       </Modal>
       <section
         className="section-4"
