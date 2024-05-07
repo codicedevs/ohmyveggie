@@ -61,7 +61,7 @@ const Navbar = () => {
 
             </div>
           </div>  
-          <div className="text-block" style={{justifyContent: 'right'}}>Envíos adomicilio | Fisherton | Funes | Rosario</div>
+          <div className="text-block" style={{justifyContent: 'right'}}>Envíos a domicilio | Fisherton | Funes | Rosario</div>
         </div>
         <div className="navbar">
 

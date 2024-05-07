@@ -24,9 +24,7 @@ const arrayOption = [
 
 const Shipping = () => {
   // useAuth();
-
   const router = useRouter();
-
   const {
     data: { shippingDetails },
     error,
@@ -39,7 +37,6 @@ const Shipping = () => {
   const [switchValue, setSwitchValue] = useState(false);
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
-
     e.preventDefault();
     const { address, postalCode, timeDeliver, zoneDeliver, stockOption } = shippingAddress;
     if (
@@ -49,11 +46,8 @@ const Shipping = () => {
       stockOption.length < 1
     ) {
       setMessage('Debe completar todos los datos');
-
       return null;
     }
-
-    console.log('vvvvv>', shippingAddress);
 
     saveShippingAddress(shippingAddress);
     router.push("/placeorder");
@@ -103,7 +97,6 @@ const Shipping = () => {
 
   return (
     <FormContainer>
-      <CheckoutSteps step1 step2 />
       <section className="section-3">
         <div className="div-block-24">
           <h1 className="heading-2">Datos del envío</h1>
@@ -127,7 +120,6 @@ const Shipping = () => {
                 }
               ></Form.Control>
             </Form.Group>
-
             <Form.Group controlId="city" className="py-3">
               <Form.Select
                 className="shiptxtfield w-input"
@@ -139,7 +131,6 @@ const Shipping = () => {
                 <option value="fisherton">Fisherton</option>
               </Form.Select>
             </Form.Group>
-
             <Form.Group controlId="postalCode">
               <Form.Control
                 className="shiptxtfield w-input"
@@ -164,7 +155,6 @@ const Shipping = () => {
                 {arrayOption.map((option) => <option key={option.key}>{option.description}</option>)}
               </Form.Select>
             </Form.Group>
-
             <div >
               <Form.Switch 
                 id="switch"
@@ -172,9 +162,7 @@ const Shipping = () => {
                 checked={switchValue}
                 onClick={(e) => handlerTimeZone(e)}
               />
-
               <text className='subtitle'>Horario de entrega</text>
-              
               <div style={{display: 'flex', justifyContent: 'space-between'}}>
                   <Form.Check
                     disabled={switchValue}
@@ -206,7 +194,6 @@ const Shipping = () => {
               </div>
             </div>
             <br />
-
             <Button
               type="submit"
               variant="primary"
@@ -214,7 +201,6 @@ const Shipping = () => {
             >
               Continuar
             </Button>
-
             <div style={{ height: 50 }}></div>
           </Form>
         </div>
