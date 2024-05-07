@@ -41,6 +41,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       return { success: false, error: "error" };
     }
   };
+  console.log("mercadopagourl",mercadoPagoUrl)
 
   const delivered = () => {
     deliverOrder(data._id!)
@@ -70,7 +71,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   ) : (
     <>
       <Modal fullscreen={true} show={modalIsOpen} onHide={handleClose}>
-        <iframe src={mercadoPagoUrl} style={{height:"100%",width:"100%"}}  />
+        <iframe src={mercadoPagoUrl} style={{ height: "100%", width: "100%" }}  />
       </Modal>
       <section
         className="section-4"
