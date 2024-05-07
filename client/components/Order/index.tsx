@@ -41,7 +41,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       return { success: false, error: "error" };
     }
   };
-  console.log("mercadopagourl", mercadoPagoUrl)
+
 
   const delivered = () => {
     deliverOrder(data._id!)
