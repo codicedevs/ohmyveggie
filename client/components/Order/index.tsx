@@ -1,9 +1,9 @@
-import { Row, Col, ListGroup, Button, } from "react-bootstrap";
+import { Row, Col, ListGroup, Button, Modal } from "react-bootstrap";
 import Link from "next/link";
 import { useOrderActions, useTypedSelector } from "../../hooks";
 import Loader from "../Loader";
 import Message from "../Message";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 import { OrderInterface } from "../../interfaces";
 
@@ -13,6 +13,8 @@ interface OrderProps {
 }
 
 const Order: React.FC<OrderProps> = ({ pageId }) => {
+  const [mercadoPagoUrl, setMercadoPagoUrl] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(true);
   const { loading, data, error, success } = useTypedSelector(
     (state) => state.order
   );
@@ -21,7 +23,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   );
   const user = useTypedSelector((state) => state.user);
   const { fetchOrder, deliverOrder } = useOrderActions();
-
 
   const createPaymentPreference = async (paymentData: OrderInterface) => {
     const config = {
@@ -33,8 +34,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     try {
       const response = await axios.post('http://localhost:4000/payments/preference', paymentData, config);
       if (response.status === 201) {
-        // aca deberia vaciar el carro, si la respuesta de mercadopago es correcta , te vacio el carro, 
-        window.location.href = response.data.preference.init_point
+        setMercadoPagoUrl(response.data.preference.init_point)
+
       }
       return { success: true };
     } catch (error) {
@@ -46,6 +47,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     deliverOrder(data._id!)
     fetchOrder(data._id!)
   }
+  const handleClose = () => setModalIsOpen(false);
 
   useEffect(() => {
     if (!data._id || success) {
@@ -63,15 +65,31 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
 
 
   return loading ? (
+    
     <Loader />
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
     <>
+      <Modal show={modalIsOpen} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <section
         className="section-4"
         style={{ padding: "100px 400px 0px 400px" }}
       >
+
         {data.isDelivered && data.isPaid ? (
           <h1 className="heading-2"> Orden Finalizada nro: {data._id}</h1>
         ) : (
@@ -79,6 +97,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
         )}
 
         <div className="columns-2 w-row">
+
           <div className="column-5 w-col w-col-8">
             <div className="orderitem">
               <div className="container-item-order">
