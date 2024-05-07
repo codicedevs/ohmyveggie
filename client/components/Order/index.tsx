@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { OrderInterface } from "../../interfaces";
 
-
 interface OrderProps {
   pageId: string | string[] | undefined;
 }
@@ -55,7 +54,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       fetchOrder(pageId as string);
     }
 
-  }, [fetchOrder, pageId, success, data,]);
+  }, [fetchOrder, pageId, success, data]);
 
   const items = data.orderItems;
   var totalProductos = 0;
@@ -64,14 +63,14 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   });
 
 
-  return loading ? (  
+  return loading ? (
     <Loader />
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-      <Modal show={modalIsOpen} onHide={handleClose}>
-      <iframe src={mercadoPagoUrl} title="Contenido Externo" width="800" height="600" />
+      <Modal fullscreen={true} show={modalIsOpen} onHide={handleClose}>
+        <iframe src={mercadoPagoUrl}  />
       </Modal>
       <section
         className="section-4"
