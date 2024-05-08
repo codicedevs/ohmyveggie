@@ -56,9 +56,6 @@ const PasswordRecover = ({visible= false} ) => {
 
     setMessage('');
 
-    console.log('pasó', recover);
-
-    //register(name, email, password);
   };
 
 

@@ -40,7 +40,6 @@ const Login = ({ visible = false }) => {
     setIsVisibleRegister(true);
   }
 
-  console.log('= = = >', isVisibleRegister);
 
   function forgotPass(){
     const checkMail = /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)[.][a-zA-Z]{2,5}/;
