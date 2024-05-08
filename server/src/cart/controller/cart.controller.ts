@@ -47,7 +47,6 @@ export class CartController {
   }
 
 
-
   @Delete(':id')
   removeCartItem(@Param('id') id: string, @Session() session: any) {
     this.cartService.cart = session.cart ? session.cart : defaultCart;
