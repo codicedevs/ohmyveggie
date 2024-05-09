@@ -47,6 +47,10 @@ export interface DateRange {
   endDate: string;  
 }
 
+export interface OrderFilter {
+  isPaid?: boolean;
+}
+
 /**
  * mercado pago types notification
  */
