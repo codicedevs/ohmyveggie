@@ -15,9 +15,9 @@ import { AdminGuard } from "src/guards/admin.guard";
 import { AuthGuard } from "src/guards/auth.guard";
 import { OrdersService } from "../services/orders.service";
 import { Order, OrderDocument } from "../schemas/order.schema";
-import { DateRange, OrderFilter } from "src/interfaces";
+import { DateRange } from "src/interfaces";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { FilterQuery, Model } from "mongoose";
 
 @Controller("orders")
 export class OrdersController {
@@ -33,7 +33,7 @@ export class OrdersController {
  // @UseGuards(AdminGuard)
   @Get()
   async getOrders(
-    @Query() filter: OrderFilter // tipar correctamente respecto de lo que espero recibir como consulta
+    @Query() filter: FilterQuery<OrderDocument> // tipar correctamente respecto de lo que espero recibir como consulta
   ) {
     return this.orderModel.find(filter)
       .populate('user').exec()
