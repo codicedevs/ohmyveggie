@@ -33,7 +33,7 @@ export class OrdersController {
  @UseGuards(AdminGuard)
   @Get()
   async getOrders(
-    @Query() filter: FilterQuery<OrderDocument> // tipar correctamente respecto de lo que espero recibir como consulta
+    @Query() filter: FilterQuery<OrderDocument> 
   ) {
     return this.orderModel.find(filter)
       .populate('user').exec()
