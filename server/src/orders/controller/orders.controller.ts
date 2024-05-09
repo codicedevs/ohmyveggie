@@ -30,7 +30,7 @@ export class OrdersController {
     return this.ordersService.create(body, session.user._id);
   }
 
- // @UseGuards(AdminGuard)
+ @UseGuards(AdminGuard)
   @Get()
   async getOrders(
     @Query() filter: FilterQuery<OrderDocument> // tipar correctamente respecto de lo que espero recibir como consulta
