@@ -11,10 +11,8 @@ export class PaymentController {
   @Post("preference")
   async createPreference(@Body() order: OrderDocument, @Session() session: any) {
     try {
-      console.log(session.cart.cartItems)
-      session.cart.cartItems = []
-      console.log("session should be empty", session)
       const preference = await this.paymentService.createPreference(order);
+      session.cart.cartItems = []
       return { preference };
     } catch (error) {
       throw new HttpException('Error al crear preference', HttpStatus.INTERNAL_SERVER_ERROR);
