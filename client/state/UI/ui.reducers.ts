@@ -3,10 +3,6 @@ import { UIAction } from './ui.actions';
 import { uIInitialState } from './ui.initial-state';
 import { UIState } from './ui.state';
 
-<<<<<<< HEAD
-
-=======
->>>>>>> fe127621f43bfef17b8dabc1b9581b81cc183638
 
 export const uIReducer = (
   state: UIState = uIInitialState,

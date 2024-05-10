@@ -68,10 +68,6 @@ export const saveShippingAddress =
   (shippingDetails: ShippingDetails) =>
   async (dispatch: Dispatch<CartAction>) => {
     try {
-<<<<<<< HEAD
-=======
-
->>>>>>> fe127621f43bfef17b8dabc1b9581b81cc183638
       const { data } = await proshopAPI.post(
         '/cart/shipping',
         shippingDetails,
@@ -85,10 +81,6 @@ export const saveShippingAddress =
         payload: data,
       });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> fe127621f43bfef17b8dabc1b9581b81cc183638
       Router.push('/placeorder');
     } catch (error: any) {
     }

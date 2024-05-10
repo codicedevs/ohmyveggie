@@ -47,10 +47,6 @@ const Login = ({ visible = false }) => {
     setIsVisibleRegister(true);
   }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> development
   function forgotPass(){
     const checkMail = /[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)[.][a-zA-Z]{2,5}/;
     if (email !== '' && !checkMail.test(email)) {
