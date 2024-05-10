@@ -4,7 +4,6 @@ import { userInitialState, usersInitialState } from './user.initial-state';
 import { UsersState, UserState } from './user.state';
 
 
-
 export const userLoginReducer = (
   state: UserState = userInitialState,
   action: UserAction

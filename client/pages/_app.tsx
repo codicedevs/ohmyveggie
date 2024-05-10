@@ -20,13 +20,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
 
-
   const store = useStore(initialState);
 
   return (
     <Provider store={store}>
       <MainLayout>
-          <Component {...pageProps} />
+        <Component {...pageProps} />
       </MainLayout>
     </Provider>
   );
