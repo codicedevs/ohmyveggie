@@ -18,8 +18,8 @@ export class ShippingDetails extends Document {
     @Prop({ required: true, enum: Zone })
     zoneDeliver: Zone;
 
-    @Prop({ required: true, enum: stockOption })
-    stockOption: stockOption;
+    @Prop({ required: true })
+    stockOption: string;
 }
 
 export const shippingDetailsSchema = SchemaFactory.createForClass(ShippingDetails);
