@@ -23,7 +23,6 @@ const arrayOption = [
 ]
 
 const Shipping = () => {
-  // useAuth();
   const router = useRouter();
   const {
     data: { shippingDetails },
@@ -34,7 +33,6 @@ const Shipping = () => {
     useState<ShippingDetails>(shippingDetails);
 
   const [message, setMessage] = useState<string | null | string[]>(error);
-  const [switchValue, setSwitchValue] = useState(false);
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,6 +44,7 @@ const Shipping = () => {
       stockOption.length < 1
     ) {
       setMessage('Debe completar todos los datos');
+      
       return null;
     }
 
@@ -84,10 +83,6 @@ const Shipping = () => {
 
   async function handlerTimeZone(e: any) {
     let timeZone = e.target.id
-    if (e.target.id == 'switch' && e.target.value == 'on') {
-      timeZone = 'retira por local'
-      setSwitchValue(!switchValue); 
-    }
     setShippingAddress({
       ...shippingAddress,
       timeDeliver: timeZone
@@ -155,41 +150,23 @@ const Shipping = () => {
               </Form.Select>
             </Form.Group>
             <div >
-              <Form.Switch 
-                id="switch"
-                label="Retira por local"
-                checked={switchValue}
-                onClick={(e) => handlerTimeZone(e)}
-              />
-              <text className='subtitle'>Horario de entrega</text>
-              <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                  <Form.Check
-                    disabled={switchValue}
-                    inline 
-                    type="radio"
-                    label="De 9 a 12"
-                    onClick={(e) => handlerTimeZone(e)}
-                    id='De 9 a 12'
-                    name='timeZone'
-                  />
-                  <Form.Check
-                    disabled={switchValue}
-                    inline 
-                    type="radio"
-                    label="De 12 a 15"
-                    onClick={(e) => handlerTimeZone(e)}
-                    id='De 12 a 15'
-                    name='timeZone'
-                  />
-                  <Form.Check
-                    disabled={switchValue}
-                    inline 
-                    type="radio"
-                    label="De 15 a 18"
-                    onClick={(e) => handlerTimeZone(e)}
-                    id='De 15 a 18'
-                    name='timeZone'
-                  />
+              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="Envío"
+                  onClick={(e) => handlerTimeZone(e)}
+                  id='Envío'
+                  name='timeZone'
+                />
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="Retira por local"
+                  onClick={(e) => handlerTimeZone(e)}
+                  id='Retira por local'
+                  name='timeZone'
+                />
               </div>
             </div>
             <br />

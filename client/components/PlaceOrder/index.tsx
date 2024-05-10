@@ -5,11 +5,11 @@ import { useOrderActions, useShipping, useTypedSelector, useUserActions } from '
 import Link from 'next/link';
 
 const PlaceOrder = () => {
-  useShipping();     
   const { cart } = useTypedSelector(state => state);
   const { error } = useTypedSelector(state => state.order);
   const { createOrder } = useOrderActions();
-
+  
+  useShipping();     
   const {
     data
   } = useTypedSelector(state => state.user);
