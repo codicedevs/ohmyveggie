@@ -167,7 +167,6 @@ export const deliverOrder =
       dispatch({
         type: ActionTypes.DELIVER_ORDER_START,
       });
-      console.log('aca estoy')
       const { data } = await proshopAPI.put(
         `/orders/${orderId}/deliver`,
         {},

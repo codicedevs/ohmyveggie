@@ -20,7 +20,6 @@ const MainLayout: React.FC = ({ children }) => {
   const accessToken = useLocalStorage('', 'accessToken');
 
   const uI = useTypedSelector(state => state.uI);
-  console.log('isvisible:', uI);
 
   const { getCurrentUser } = useUserActions();
   const { getCart } = useCartActions();

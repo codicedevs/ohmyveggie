@@ -20,7 +20,6 @@ const Navbar = () => {
   const user = useTypedSelector(state => state.user);
 
   const uI = useTypedSelector(state => state.uI);
-  // console.log("UI",uI);
 
   const { logout } = useUserActions();
 

@@ -19,7 +19,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     ...pageProps.initialReduxState,
   };
 
-  console.log('page_props', pageProps);
 
   const store = useStore(initialState);
 

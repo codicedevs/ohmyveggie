@@ -3,7 +3,6 @@ import { UserAction } from './user.actions';
 import { userInitialState, usersInitialState } from './user.initial-state';
 import { UsersState, UserState } from './user.state';
 
-console.log(userInitialState)
 
 export const userLoginReducer = (
   state: UserState = userInitialState,
