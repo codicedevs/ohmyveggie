@@ -1,10 +1,12 @@
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Button, Table } from 'react-bootstrap';
 import { useAdmin, useProductsActions, useTypedSelector } from '../../hooks';
 import Loader from '../Loader';
 import Message from '../Message';
 import Paginate from '../Paginate';
+import SearchBoxAdmin from '../SearchBoxAdmin';
+
 
 interface ProductListProps {
   pageId?: query;
@@ -12,6 +14,7 @@ interface ProductListProps {
 
 const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
   useAdmin();
+
 
   const { fetchProducts, deleteProduct, createProduct } = useProductsActions();
 
@@ -29,12 +32,17 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
     fetchProducts('', parseInt(pageId as string));
   }, [fetchProducts, successDelete, pageId]);
 
+  const search = (keyword: string) => {
+    fetchProducts(keyword, parseInt(pageId as string));
+  }
+
   return (
     <>
-    <section className='d-flex row' style={{paddingLeft: 40, paddingRight: 40, justifyContent: 'center', gap: 30, fontWeight: 600}}>
-      <Row className="align-items-center">
+    <section className='d-flex row' style={{paddingLeft: 40, paddingRight: 40, justifyContent: 'center', gap: 30, fontWeight: 500}}>
+      <h1>Productos</h1>
+      <Row className="align-items-center" style={{justifyContent: 'center'}}>
         <Col>
-          <h1>Productos</h1>
+          <SearchBoxAdmin search={search}/>  
         </Col>
         <Col className="text-right">
           <Button

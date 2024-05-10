@@ -11,10 +11,11 @@ const Loader: React.FC<LoaderProps> = ({ options }) => {
       animation="border"
       role="status"
       style={{
-        width: '100px',
-        height: '100px',
+        width: '80px',
+        height: '80px',
         margin: 'auto',
         display: 'block',
+        borderRadius: '100px',
         ...options,
       }}
     >
