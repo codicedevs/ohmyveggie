@@ -24,9 +24,7 @@ const arrayOption = [
 
 const Shipping = () => {
   // useAuth();
-
   const router = useRouter();
-
   const {
     data: { shippingDetails },
     error,
@@ -36,9 +34,9 @@ const Shipping = () => {
     useState<ShippingDetails>(shippingDetails);
 
   const [message, setMessage] = useState<string | null | string[]>(error);
+  const [switchValue, setSwitchValue] = useState(false);
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
-
     e.preventDefault();
     const { address, postalCode, timeDeliver, zoneDeliver, stockOption } = shippingAddress;
     if (
@@ -48,7 +46,6 @@ const Shipping = () => {
       stockOption.length < 1
     ) {
       setMessage('Debe completar todos los datos');
-
       return null;
     }
 
@@ -86,7 +83,11 @@ const Shipping = () => {
   }, [shippingAddress])
 
   async function handlerTimeZone(e: any) {
-    let timeZone = e.target.innerText
+    let timeZone = e.target.id
+    if (e.target.id == 'switch' && e.target.value == 'on') {
+      timeZone = 'retira por local'
+      setSwitchValue(!switchValue); 
+    }
     setShippingAddress({
       ...shippingAddress,
       timeDeliver: timeZone
@@ -95,7 +96,6 @@ const Shipping = () => {
 
   return (
     <FormContainer>
-      <CheckoutSteps step1 step2 />
       <section className="section-3">
         <div className="div-block-24">
           <h1 className="heading-2">Datos del envío</h1>
@@ -119,7 +119,6 @@ const Shipping = () => {
                 }
               ></Form.Control>
             </Form.Group>
-
             <Form.Group controlId="city" className="py-3">
               <Form.Select
                 className="shiptxtfield w-input"
@@ -131,7 +130,6 @@ const Shipping = () => {
                 <option value="fisherton">Fisherton</option>
               </Form.Select>
             </Form.Group>
-
             <Form.Group controlId="postalCode">
               <Form.Control
                 className="shiptxtfield w-input"
@@ -156,35 +154,45 @@ const Shipping = () => {
                 {arrayOption.map((option) => <option key={option.key}>{option.description}</option>)}
               </Form.Select>
             </Form.Group>
-
             <div >
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-
-                <h4 style={{ justifyContent: 'center' }}>Horario de entrega</h4>
-              </div>
-
-              <div className="btn-group j-c d-flex" role="group" aria-label="Basic example">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={(e) => handlerTimeZone(e)}
-                >
-                  De 9 a 12
-                </button>
-                <button type="button" className="btn btn-secondary"
-                  onClick={(e) => handlerTimeZone(e)}
-                >
-                  De 12 a 15
-                </button>
-                <button type="button" className="btn btn-secondary"
-                  onClick={(e) => handlerTimeZone(e)}
-                >
-                  De 15 a 18
-                </button>
+              <Form.Switch 
+                id="switch"
+                label="Retira por local"
+                checked={switchValue}
+                onClick={(e) => handlerTimeZone(e)}
+              />
+              <text className='subtitle'>Horario de entrega</text>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                  <Form.Check
+                    disabled={switchValue}
+                    inline 
+                    type="radio"
+                    label="De 9 a 12"
+                    onClick={(e) => handlerTimeZone(e)}
+                    id='De 9 a 12'
+                    name='timeZone'
+                  />
+                  <Form.Check
+                    disabled={switchValue}
+                    inline 
+                    type="radio"
+                    label="De 12 a 15"
+                    onClick={(e) => handlerTimeZone(e)}
+                    id='De 12 a 15'
+                    name='timeZone'
+                  />
+                  <Form.Check
+                    disabled={switchValue}
+                    inline 
+                    type="radio"
+                    label="De 15 a 18"
+                    onClick={(e) => handlerTimeZone(e)}
+                    id='De 15 a 18'
+                    name='timeZone'
+                  />
               </div>
             </div>
             <br />
-
             <Button
               type="submit"
               variant="primary"
@@ -192,7 +200,6 @@ const Shipping = () => {
             >
               Continuar
             </Button>
-
             <div style={{ height: 50 }}></div>
           </Form>
         </div>

@@ -4,10 +4,13 @@ import { UserCredentials, UserEditCredentials } from '../../interfaces';
 import { proshopAPI } from '../../lib';
 import { ActionTypes } from './user.action-types';
 import { UserAction } from './user.actions';
+import { ActionTypes as ATypes} from '../UI/ui.action-types';
+import { UIAction } from '../UI/ui.actions';
+import { ActionTypes as AT } from '../../state/UI/ui.action-types';
 
 export const login =
   (email: string, password: string) =>
-  async (dispatch: Dispatch<UserAction>) => {
+  async (dispatch: Dispatch<any>) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -28,7 +31,6 @@ export const login =
         },
         config
       );
-
       dispatch({
         type: ActionTypes.USER_LOGIN_SUCCESS,
         payload: data,
@@ -40,8 +42,9 @@ export const login =
       });
 
       localStorage.setItem('accessToken', data.accessToken);
-
-      Router.push('/');
+      dispatch({
+        type: AT.CLOSE_LOGIN
+      })
     } catch (error: any) {
       dispatch({
         type: ActionTypes.USER_LOGIN_ERROR,
@@ -86,9 +89,7 @@ export const logout = () => async (dispatch: Dispatch<UserAction>) => {
       type: ActionTypes.USER_LOGOUT,
       payload: null,
     });
-    Router.push('/')
   } catch (error: any) {
-    console.log(error.response.data.message);
   }
 };
 

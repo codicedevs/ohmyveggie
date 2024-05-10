@@ -57,6 +57,7 @@ const Register = ({visible= false} ) => {
     }
 
     register(name, email, password);
+    dispatch({type: AT.CLOSE_REGISTER })
   };
 
   return (

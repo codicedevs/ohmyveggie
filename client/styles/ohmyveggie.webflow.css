@@ -43,6 +43,14 @@
   display: flex;
 }
 
+.subtitle {
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  padding: 15px;
+  font-weight: 400;
+}
+
 
 /*............................. navbar desktop .................................*/
 .navbar{
@@ -1109,6 +1117,7 @@
 
 .logintextfield {
   border-radius: 6px;
+  font-weight: 300;
 }
 
 .form-block {
@@ -1273,11 +1282,11 @@
 }
 
 .txtordersubitem {
-  height: 50px;
-  padding: 15px 15px 15px 10px;
+  height: 35px;
+  padding: 12px 12px 12px 5px;
   font-family: Montserrat, sans-serif;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .ordersummary {

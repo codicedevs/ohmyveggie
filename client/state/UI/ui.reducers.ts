@@ -4,7 +4,6 @@ import { uIInitialState } from './ui.initial-state';
 import { UIState } from './ui.state';
 
 
-
 export const uIReducer = (
   state: UIState = uIInitialState,
   action: UIAction

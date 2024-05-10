@@ -42,6 +42,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
     success: successReview,
   } = useTypedSelector(state => state.productCreateReview);
 
+  /*const {
+    loading,
+    error,
+    data: { cartItems },
+  } = useTypedSelector(state => state.cart);*/
+
   const { image, name, price, countInStock, description, rating, numReviews } =
     data;
 
