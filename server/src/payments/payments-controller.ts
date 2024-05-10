@@ -9,8 +9,11 @@ export class PaymentController {
   constructor(private readonly paymentService: PaymentService) { }
 
   @Post("preference")
-  async createPreference(@Body() order: OrderDocument) {
+  async createPreference(@Body() order: OrderDocument, @Session() session: any) {
     try {
+      console.log(session.cart.cartItems)
+      session.cart.cartItems = []
+      console.log("session should be empty", session)
       const preference = await this.paymentService.createPreference(order);
       return { preference };
     } catch (error) {
@@ -32,7 +35,7 @@ export class NotificationController {
    * @returns
    */
   @Post("mercado-pago")
-  async handleNotification(@Body() notification: NotificationData,@Session() session: any) {
+  async handleNotification(@Body() notification: NotificationData, @Session() session: any) {
     try {
       const payment = await this.paymentService.getPayment(notification.data.id);
       const id = payment.external_reference;
