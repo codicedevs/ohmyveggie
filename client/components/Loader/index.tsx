@@ -22,6 +22,7 @@ const Loader: React.FC<LoaderProps> = ({ options }) => {
       <span className="sr-only">Loading</span>
     </Spinner>
   );
-};
+}; 
+
 
 export default Loader;
