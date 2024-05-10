@@ -90,7 +90,6 @@ export const logout = () => async (dispatch: Dispatch<UserAction>) => {
       payload: null,
     });
   } catch (error: any) {
-    console.log(error.response.data.message);
   }
 };
 

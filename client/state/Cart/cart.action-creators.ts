@@ -61,7 +61,6 @@ export const removeFromCart =
     });
     try {
     } catch (error: any) {
-      console.log(error.response.data.message);
     }
   };
 
@@ -69,6 +68,10 @@ export const saveShippingAddress =
   (shippingDetails: ShippingDetails) =>
   async (dispatch: Dispatch<CartAction>) => {
     try {
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe127621f43bfef17b8dabc1b9581b81cc183638
       const { data } = await proshopAPI.post(
         '/cart/shipping',
         shippingDetails,
@@ -82,9 +85,12 @@ export const saveShippingAddress =
         payload: data,
       });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe127621f43bfef17b8dabc1b9581b81cc183638
       Router.push('/placeorder');
     } catch (error: any) {
-      console.log(error.response.data.message);
     }
   };
 
@@ -108,7 +114,6 @@ export const getCart = () => async (dispatch: Dispatch<CartAction>) => {
       payload: newCart,
     });
   } catch (error: any) {
-    console.log(error)
     dispatch({
       type: ActionTypes.GET_CART_ERROR,
       payload: error.response.data.message,
@@ -135,6 +140,5 @@ export const savePaymentMethod =
 
       Router.push('/placeorder');
     } catch (error: any) {
-      console.log(error.response.data.message);
     }
   };

@@ -20,7 +20,10 @@ const MainLayout: React.FC = ({ children }) => {
   const accessToken = useLocalStorage('', 'accessToken');
 
   const uI = useTypedSelector(state => state.uI);
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe127621f43bfef17b8dabc1b9581b81cc183638
 
   const { getCurrentUser } = useUserActions();
   const { getCart } = useCartActions();

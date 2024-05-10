@@ -19,7 +19,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     ...pageProps.initialReduxState,
   };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe127621f43bfef17b8dabc1b9581b81cc183638
 
   const store = useStore(initialState);
 

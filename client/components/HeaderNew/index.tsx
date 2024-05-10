@@ -21,7 +21,6 @@ const Navbar = () => {
 
   const uI = useTypedSelector(state => state.uI);
 
-
   const { logout } = useUserActions();
 
   const [isVisibleCart, setIsVisibleCart] = useState(false);

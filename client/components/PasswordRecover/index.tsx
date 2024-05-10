@@ -56,6 +56,8 @@ const PasswordRecover = ({visible= false} ) => {
 
     setMessage('');
 
+
+    //register(name, email, password);
   };
 
 
