@@ -4,6 +4,7 @@ import { UserCredentials, UserEditCredentials } from '../../interfaces';
 import { proshopAPI } from '../../lib';
 import { ActionTypes } from './user.action-types';
 import { UserAction } from './user.actions';
+import { ActionTypes as AT } from '../UI/ui.action-types';
 
 export const login =
   (email: string, password: string) =>
@@ -138,6 +139,20 @@ export const register =
     }
   };
 
+  export const recoverPassword =
+  (mail: string) => async (dispatch: Dispatch<any>) => {
+    
+    console.log('Mail', mail)
+    try {
+      dispatch({ type: AT.EMAIL_UPDATE_RECOVER, payload: mail });
+      const res = await proshopAPI.post('/auth/recover-password', 
+      {'email': mail});
+      console.log(res);
+      dispatch({ type: AT.CLOSE_PASSWORD_RECOVER });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 export const updateUser =
   (userCredentials: Partial<UserCredentials>) =>
   async (dispatch: Dispatch<UserAction>) => {
