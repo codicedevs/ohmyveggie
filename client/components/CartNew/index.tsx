@@ -19,12 +19,12 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
 
     const onCheckoutHandler = () => {
       const redirect = data ? '/shipping' : '/login';    //  acá redirecciona al hacer click en Comprar ahora en funcion de data
-      console.log('redirect', redirect)
+      
       props.toggleCart();
       router.push('/shipping');
     };
 
-    console.log('cartsItems', cartItems);
+    
 
     function addQtyProd(item: any) {  
       if (item.qty + 1 > item.countInStock) {

@@ -4,9 +4,11 @@ import { proshopAPI } from '../../lib';
 import { ActionTypes } from './order.action-types';
 import { OrderAction } from './order.actions';
 import Router from 'next/router';
+import { ActionTypes as AT } from '../../state/UI/ui.action-types';
+
 
 export const createOrder =
-  (order: OrderInterface) => async (dispatch: Dispatch<OrderAction>) => {
+  (order: OrderInterface) => async (dispatch: Dispatch<any>) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -28,12 +30,17 @@ export const createOrder =
 
       Router.push(`/orders/${data._id}`);
     } catch (error: any) {
-      dispatch({
-        type: ActionTypes.CREATE_ORDER_ERROR,
-        payload: error.response.data.message,
-      });
+      if(error.response.data.statusCode == 403) {
+          dispatch({type: AT.OPEN_LOGIN})
+        }; 
+        dispatch({
+          type: ActionTypes.CREATE_ORDER_ERROR,
+          payload: error.response.data.message,
+        });
+      } 
+      
     }
-  };
+  
 
 export const fetchOrder =
   (id: string) => async (dispatch: Dispatch<OrderAction>) => {
@@ -167,7 +174,6 @@ export const deliverOrder =
       dispatch({
         type: ActionTypes.DELIVER_ORDER_START,
       });
-      console.log('aca estoy')
       const { data } = await proshopAPI.put(
         `/orders/${orderId}/deliver`,
         {},

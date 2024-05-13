@@ -9,9 +9,10 @@ export class PaymentController {
   constructor(private readonly paymentService: PaymentService) { }
 
   @Post("preference")
-  async createPreference(@Body() order: OrderDocument) {
+  async createPreference(@Body() order: OrderDocument, @Session() session: any) {
     try {
       const preference = await this.paymentService.createPreference(order);
+      session.cart.cartItems = []
       return { preference };
     } catch (error) {
       throw new HttpException('Error al crear preference', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -32,7 +33,7 @@ export class NotificationController {
    * @returns
    */
   @Post("mercado-pago")
-  async handleNotification(@Body() notification: NotificationData) {
+  async handleNotification(@Body() notification: NotificationData, @Session() session: any) {
     try {
       const payment = await this.paymentService.getPayment(notification.data.id);
       const id = payment.external_reference;

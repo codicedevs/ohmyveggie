@@ -20,7 +20,6 @@ const Navbar = () => {
   const user = useTypedSelector(state => state.user);
 
   const uI = useTypedSelector(state => state.uI);
-  // console.log("UI",uI);
 
   const { logout } = useUserActions();
 
@@ -61,7 +60,7 @@ const Navbar = () => {
 
             </div>
           </div>  
-          <div className="text-block" style={{justifyContent: 'right'}}>Envíos adomicilio | Fisherton | Funes | Rosario</div>
+          <div className="text-block" style={{justifyContent: 'right'}}>Envíos a domicilio | Fisherton | Funes | Rosario</div>
         </div>
         <div className="navbar">
 

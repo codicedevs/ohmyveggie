@@ -23,10 +23,7 @@ const arrayOption = [
 ]
 
 const Shipping = () => {
-  // useAuth();
-
   const router = useRouter();
-
   const {
     data: { shippingDetails },
     error,
@@ -38,7 +35,6 @@ const Shipping = () => {
   const [message, setMessage] = useState<string | null | string[]>(error);
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
-
     e.preventDefault();
     const { address, postalCode, timeDeliver, zoneDeliver, stockOption } = shippingAddress;
     if (
@@ -48,7 +44,7 @@ const Shipping = () => {
       stockOption.length < 1
     ) {
       setMessage('Debe completar todos los datos');
-
+      
       return null;
     }
 
@@ -58,7 +54,6 @@ const Shipping = () => {
 
   function handleStock(e: any) {
     let selectedOption = e.target.value
-    console.log(e.target.value)
     setShippingAddress(prevShippingAddress => ({
       ...prevShippingAddress,
       stockOption: selectedOption
@@ -87,7 +82,7 @@ const Shipping = () => {
   }, [shippingAddress])
 
   async function handlerTimeZone(e: any) {
-    let timeZone = e.target.innerText
+    let timeZone = e.target.id
     setShippingAddress({
       ...shippingAddress,
       timeDeliver: timeZone
@@ -96,7 +91,6 @@ const Shipping = () => {
 
   return (
     <FormContainer>
-      <CheckoutSteps step1 step2 />
       <section className="section-3">
         <div className="div-block-24">
           <h1 className="heading-2">Datos del envío</h1>
@@ -120,7 +114,6 @@ const Shipping = () => {
                 }
               ></Form.Control>
             </Form.Group>
-
             <Form.Group controlId="city" className="py-3">
               <Form.Select
                 className="shiptxtfield w-input"
@@ -132,7 +125,6 @@ const Shipping = () => {
                 <option value="fisherton">Fisherton</option>
               </Form.Select>
             </Form.Group>
-
             <Form.Group controlId="postalCode">
               <Form.Control
                 className="shiptxtfield w-input"
@@ -157,35 +149,27 @@ const Shipping = () => {
                 {arrayOption.map((option) => <option key={option.key}>{option.description}</option>)}
               </Form.Select>
             </Form.Group>
-
             <div >
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-
-                <h4 style={{ justifyContent: 'center' }}>Horario de entrega</h4>
-              </div>
-
-              <div className="btn-group j-c d-flex" role="group" aria-label="Basic example">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
+              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="Envío"
                   onClick={(e) => handlerTimeZone(e)}
-                >
-                  De 9 a 12
-                </button>
-                <button type="button" className="btn btn-secondary"
+                  id='Envío'
+                  name='timeZone'
+                />
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="Retira por local"
                   onClick={(e) => handlerTimeZone(e)}
-                >
-                  De 12 a 15
-                </button>
-                <button type="button" className="btn btn-secondary"
-                  onClick={(e) => handlerTimeZone(e)}
-                >
-                  De 15 a 18
-                </button>
+                  id='Retira por local'
+                  name='timeZone'
+                />
               </div>
             </div>
             <br />
-
             <Button
               type="submit"
               variant="primary"
@@ -193,7 +177,6 @@ const Shipping = () => {
             >
               Continuar
             </Button>
-
             <div style={{ height: 50 }}></div>
           </Form>
         </div>
