@@ -29,7 +29,7 @@ export class ProductsService {
 
   async findMany(pageId: string, filter?: FilterQuery<ProductDocument>): Promise<ProductDocument[] | PaginatedProducts> {
     const pageSize = 10;
-    const page = parseInt(pageId) || 1;
+    const page = parseInt(pageId) || 1; //si no se proporciona pageId entrega 1
     if (!filter) {
       // Si no se proporciona un filtro busca todos los productos
       const products = await this.productModel.find();

@@ -7,9 +7,7 @@ export const transform = (rawProduct: any): Product => {
     const product = new Product()
     product.externalId = rawProduct.id
     product.name = rawProduct.nombre
-    product.brand = rawProduct.marca_nombre // revisar , porque esto no irian
     product.countInStock = rawProduct.stock
-    product.category = rawProduct.categoria_nombre// revisar , quizas la categoria no iria en el csv
     product.price = rawProduct.precio
     return product
 }
