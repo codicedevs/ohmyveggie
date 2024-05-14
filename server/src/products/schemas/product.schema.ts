@@ -30,10 +30,7 @@ export class Product {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true })
-  brand: string;
-
-  @Prop({ required: true })
+  @Prop({ required: false })
   category: string;
 
   @Prop({ require: true })

@@ -86,7 +86,7 @@ export class ProductsService {
     id: string,
     attrs: Partial<ProductDocument>
   ): Promise<ProductDocument> {
-    const { name, price, description, image, brand, category, countInStock } =
+    const { name, price, description, image, category, countInStock } =
       attrs;
     if (!Types.ObjectId.isValid(id))
       throw new BadRequestException('Invalid product ID.');
@@ -98,7 +98,7 @@ export class ProductsService {
     product.price = price;
     product.description = description;
     product.image = image;
-    product.brand = brand;
+
     product.category = category;
     product.countInStock = countInStock;
 
@@ -161,7 +161,7 @@ export class ProductsService {
   async deleteMany(): Promise<void> {
     await this.productModel.deleteMany({});
   }
-  
+
   async getAllCategories(): Promise<string[]> {
     const categories = await this.productModel.distinct('category').exec();
     return categories;
