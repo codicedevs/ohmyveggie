@@ -6,24 +6,7 @@ import { UUID } from 'mongodb';
 export type ProductDocument = Product & mongoose.Document;
 
 @Schema({ timestamps: true })
-export class Review {
-  @Prop({
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User',
-    default: null,
-  })
-  user: User;
 
-  @Prop({ required: true })
-  name: string;
-
-  @Prop({ required: true })
-  rating: number;
-
-  @Prop({ required: true })
-  comment: string;
-}
 
 @Schema({ timestamps: true })
 export class Product {
@@ -35,18 +18,6 @@ export class Product {
 
   @Prop({ require: true })
   image: string;
-
-  @Prop({ required: true })
-  description: string;
-
-  @Prop({ required: true })
-  reviews: Review[];
-
-  @Prop({ required: true, default: 0 })
-  rating: number;
-
-  @Prop({ required: true, default: 0 })
-  numReviews: number;
 
   @Prop({ required: true, default: 0 })
   price: number;

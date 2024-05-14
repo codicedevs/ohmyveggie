@@ -8,13 +8,7 @@ export class ProductDto {
   price: number;
 
   @IsString()
-  description: string;
-
-  @IsString()
   image: string;
-
-  @IsString()
-  brand: string;
 
   @IsString()
   category: string;
