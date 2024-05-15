@@ -80,7 +80,7 @@ export class OrdersController {
     return this.ordersService.updateDelivered(id);
   }
 
- // @UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @Patch(":id/observations")
   async updateObservations(
     @Param("id") id: string,
