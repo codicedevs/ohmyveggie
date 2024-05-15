@@ -147,12 +147,31 @@ export const register =
       dispatch({ type: AT.EMAIL_UPDATE_RECOVER, payload: mail });
       const res = await proshopAPI.post('/auth/recover-password', 
       {'email': mail});
-      console.log(res);
       dispatch({ type: AT.CLOSE_PASSWORD_RECOVER });
+      dispatch({ type: AT.OPEN_RESET_PASSWORD})
     } catch (error) {
       console.log(error);
     }
   };
+
+  export const resetPassword = (resetPass: any ) => async (dispatch: Dispatch<any>) => {
+    
+
+    try {
+      
+      const res = await proshopAPI.post('/auth/reset-password', 
+      resetPass);
+      if(res.status === 201) alert("Se cambio la contraseña exitosamente")
+      dispatch({ type: AT.CLOSE_RESET_PASSWORD });
+      dispatch({ type: AT.OPEN_LOGIN})
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+
 export const updateUser =
   (userCredentials: Partial<UserCredentials>) =>
   async (dispatch: Dispatch<UserAction>) => {

@@ -11,6 +11,8 @@ export type UIAction =
     | TogglePasswordRecover
     | OpenPasswordRecover
     | ClosePasswordRecover
+    | OpenResetPassword
+    | CloseResetPassword
     | EmailUpdateRecover
     ;
 
@@ -49,6 +51,13 @@ export interface OpenPasswordRecover {
 
 export interface ClosePasswordRecover {
     type: ActionTypes.CLOSE_PASSWORD_RECOVER;
+}
+export interface OpenResetPassword {
+    type: ActionTypes.OPEN_RESET_PASSWORD;
+}
+
+export interface CloseResetPassword {
+    type: ActionTypes.CLOSE_RESET_PASSWORD;
 }
 
 export interface EmailUpdateRecover {

@@ -9,6 +9,7 @@ import Message from "../Message";
 import { ActionTypes as AT } from "../../state/UI/ui.action-types";
 import { useDispatch } from "react-redux";
 import RegisterNew from "../RegisterNew";
+import { resetPassword } from "../../state/User/user.action-creators";
 
 
 const ResetPassword = ({visible= false} ) => {
@@ -23,12 +24,12 @@ const ResetPassword = ({visible= false} ) => {
 
   const [isAlertVisible, setIsAlertVisible] = useState(true);
 
-  const { register } = useUserActions();
+  const { resetPassword } = useUserActions();
   const { loading, error } = useTypedSelector(state => state.userRegister);
 
   const uI = useTypedSelector(state => state.uI);
 
-    const [message, setMessage] = useState<string | null | string[]>(error);
+  const [message, setMessage] = useState<string | null | string[]>(error);
 
   useEffect(() => {
     setMessage(error);
@@ -36,9 +37,10 @@ const ResetPassword = ({visible= false} ) => {
 
   const dispatch = useDispatch();
 
-  const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
 
+  const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
+    
+    e.preventDefault();
     const { codigo, nuevaContraseña, confNuevaContraseña } = recover;
 
     if (
@@ -59,9 +61,14 @@ const ResetPassword = ({visible= false} ) => {
 
     setMessage('');
 
-    console.log('pasó', recover);
 
-    //register(name, email, password);
+    const resetObj = {
+        'resetKey': codigo,
+        'email': uI.emailForRecover,
+        'password': nuevaContraseña
+        } 
+    
+    resetPassword(resetObj);
   };
 
   const setDataForm = (e: any) => {
@@ -91,7 +98,7 @@ const ResetPassword = ({visible= false} ) => {
                         </Button>
 
                         <Button
-                            onClick={()=> {dispatch({ type: AT.CLOSE_PASSWORD_RECOVER })}}
+                            onClick={()=> {dispatch({ type: AT.CLOSE_RESET_PASSWORD })}}
                             variant="outline-success"
                         >
                             Cancelar
@@ -197,21 +204,14 @@ const ResetPassword = ({visible= false} ) => {
                     </form>
 
                 </div>
-                <div className="div-block-36">
-                    <div className="text-block-17">Ya tiene cuenta?</div>
-                    <a  className="link-3" onClick={()=> {dispatch({ type: AT.CLOSE_PASSWORD_RECOVER }); dispatch({ type: AT.OPEN_LOGIN })}}>
-                        Ingresar
-                    </a>
-                    {/* <Link href="/login">Ingresar</Link> */}
-
-                </div>
+                
                 {/* <div className="div-block-37">
                     <div className="text-block-18">Olvidó su contraseña?</div>
                 </div> */}
                 <div
                     data-w-id="61f6a0b0-599f-9b79-f962-7952437987a5"
                     className="text-block-19"
-                    onClick={()=> {dispatch({ type: AT.CLOSE_PASSWORD_RECOVER })}}
+                    onClick={()=> {dispatch({ type: AT.CLOSE_RESET_PASSWORD })}}
                 >
                     X
                 </div>
