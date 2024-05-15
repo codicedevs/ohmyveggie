@@ -21,12 +21,12 @@ const Loader: React.FC<LoaderProps> = ({ options }) => {
     // >
     //   <span className="sr-only">Loading</span>
     // </Spinner>
-
-    <DotLoader
-  color="#a2cca6"
-  size={80}
-
-/>
+    <div style={{width: '100%', display: 'flex', justifyContent: 'center' }}>
+      <DotLoader
+        color="#a2cca6"
+        size={80}
+      />
+    </div>  
   );
 };
 

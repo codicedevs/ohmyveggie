@@ -1,4 +1,4 @@
-import { Row, Col, ListGroup, Button, Modal } from "react-bootstrap";
+import { Row, Col, ListGroup, Button, Modal, Form } from "react-bootstrap";
 import Link from "next/link";
 import { useOrderActions, useTypedSelector } from "../../hooks";
 import Loader from "../Loader";
@@ -21,7 +21,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     (state) => state.orderDeliver
   );
   const user = useTypedSelector((state) => state.user);
-  const { fetchOrder, deliverOrder } = useOrderActions();
+  const { fetchOrder, deliverOrder, updateOrder } = useOrderActions();
+  const [observation, setObservation] = useState('');
 
   const createPaymentPreference = async (paymentData: OrderInterface) => {
     const config = {
@@ -48,11 +49,14 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     fetchOrder(data._id!)
   }
 
-
   useEffect(() => {
     if (!data._id || success) {
       if (!pageId) return;
       fetchOrder(pageId as string);
+    }
+
+    if (data.observations) {
+    setObservation(data.observations);
     }
 
   }, [fetchOrder, pageId, success, data]);
@@ -83,7 +87,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
         )}
 
         <div className="columns-2 w-row">
-
           <div className="column-5 w-col w-col-8">
             <div className="orderitem">
               <div className="container-item-order">
@@ -105,7 +108,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   {data.shippingDetails.country}</b>
                 </div>
                 <div className="txtordersubitem">
-                  Horario de entrega: <b>{data?.shippingDetails.timeDeliver}</b>
+                  Forma de entrega: <b>{data?.shippingDetails.timeDeliver}</b>
                 </div>
                 <div className="txtordersubitem">
                   Si no hay stock: <b>{data?.shippingDetails.stockOption}</b>
@@ -119,7 +122,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   style={{ width: 180, textAlign: "center", height: 60 }}
                 >
                   Pedido enviado el {data.deliveredAt?.slice(3, 10)}
-
                 </div>
               ) : (
                 <div
@@ -127,7 +129,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   style={{ width: 180, textAlign: "center" }}
                 >
                   Pedido no enviado
-
                 </div>
               )}
               {data.isPaid ? (
@@ -181,7 +182,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
           </div>
 
           <div className="column-6 w-col w-col-4 ">
-            <div className="ordersummary px-4 d-flex" style={{ width: 350 }}>
+            <div className="ordersummary px-4 d-flex" style={{ width: 'auto' }}>
               <div className="itemordersummary d-flex col pb-2">
                 <div className="txtitemordersummary">
                   Cantidad de productos :
@@ -237,6 +238,25 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             </div>
           </div>
         </div>
+        { user.data?.isAdmin ?
+          <div className='txtArea'>
+            <div className="txtorderitem">Observaciones</div>
+            <Form.Control style={{marginTop: '10px', marginBottom: '10px'}}
+              as="textarea"
+              rows={3}
+              value={observation}
+              onChange={(e) => setObservation(e.target.value)}
+            />
+            <Button 
+               onClick={() => updateOrder(data._id!, observation)}
+               disabled={loading}
+            >
+               {loading ? 'Loading…' : 'Guardar'}
+               
+            </Button> 
+          </div>
+          : null
+        }
       </section>
     </>
   );

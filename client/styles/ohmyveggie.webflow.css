@@ -21,6 +21,12 @@
   --color: #facbef;
 }
 
+.txtArea {
+  margin-top: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .herolink {
   color: var(--color-3);
   -webkit-text-stroke-color: var(--color-3);
