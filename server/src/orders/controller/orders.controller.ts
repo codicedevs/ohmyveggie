@@ -30,10 +30,10 @@ export class OrdersController {
     return this.ordersService.create(body, session.user._id);
   }
 
- @UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @Get()
   async getOrders(
-    @Query() filter: FilterQuery<OrderDocument> 
+    @Query() filter: FilterQuery<OrderDocument>
   ) {
     return this.orderModel.find(filter)
       .populate('user').exec()
@@ -80,11 +80,11 @@ export class OrdersController {
     return this.ordersService.updateDelivered(id);
   }
 
-  @UseGuards(AdminGuard)
+ // @UseGuards(AdminGuard)
   @Patch(":id/observations")
   async updateObservations(
     @Param("id") id: string,
-    @Body() observations: string
+    @Body("observations") observations: string
   ) {
     return this.ordersService.updateObservations(id, observations);
   }
