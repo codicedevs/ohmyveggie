@@ -66,9 +66,10 @@ export class AuthService {
 
   async passwordRecovery(email: string) {
     const user = await this.usersService.findOne(email);
+    if (!user) throw new NotFoundException('Revise si su correo es el correcto');
     const resetKey = Math.floor(Math.random() * (99999 - 10000) + 10000);
     const resetKeyTimeStamp = new Date().toISOString();
-    await this.usersService.update(user.id, {
+    await this.usersService.update(user._id, {
       resetKey: resetKey,
       resetKeyTimeStamp: resetKeyTimeStamp,
     });
