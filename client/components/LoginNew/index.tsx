@@ -145,8 +145,8 @@ const Login = ({ visible = false }) => {
         data-w-id="61f6a0b0-599f-9b79-f962-7952437987a5"
         className="text-block-19"
         onClick={() => {
-          dispatch({ type: AT.CLOSE_PASSWORD_RECOVER })
-          dispatch({ type: ActionTypes.RECOVER_PASSWORD_SUCCESS})
+          dispatch({ type: AT.CLOSE_LOGIN })
+          dispatch({ type: ActionTypes.USER_LOGIN_SUCCESS})
           }
         }
         
