@@ -40,6 +40,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
           setCatSelectedId('')
         }
         default:
+
         break
       }  
     }
@@ -58,6 +59,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
   function handleBrandSel(brand: string, id: string){
       setBrandSel(brand)
       setBrandSelectedId(id)
+  
     }
     function handleCatSel(cat: string, id: string){
       setCatSel(cat)
@@ -85,6 +87,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
 
   useEffect(() => {
     fetchProducts(keyword as string, parseInt(pageId as string), brandSel as string, catSel as string);
+
     
   }, [keyword, pageId, brandSel, catSel]);
   
@@ -128,6 +131,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
                   className={(brandSelectedId===idx.toString())? "listitem listitemselected" : "listitem"}
                   onClick={()=>{
                     handleBrandSel(brand, idx.toString())
+      
                     }}>
                     {brand}
                     {brandSelectedId===idx.toString() && <Button filter="brand" />  }

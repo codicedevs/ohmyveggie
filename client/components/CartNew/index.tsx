@@ -24,7 +24,7 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
       router.push('/shipping');
     };
 
-    
+  
 
     function addQtyProd(item: any) {  
       if (item.qty + 1 > item.countInStock) {
