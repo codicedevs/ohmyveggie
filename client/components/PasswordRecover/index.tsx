@@ -9,6 +9,7 @@ import Message from "../Message";
 import { ActionTypes as AT } from "../../state/UI/ui.action-types";
 import { useDispatch } from "react-redux";
 import RegisterNew from "../RegisterNew";
+import { ActionTypes } from "../../state/User/user.action-types";
 
 const PasswordRecover = ({ visible = false }) => {
   
@@ -19,13 +20,12 @@ const PasswordRecover = ({ visible = false }) => {
   const dispatch = useDispatch();
 
   const { recoverPassword } = useUserActions();
-  const { loading, error } = useTypedSelector((state) => state.userLogin);
+  const { loading, error } = useTypedSelector((state) => state.userRecoverPass);
 
   const [isErrorVisible, setIsErrorVisible] = useState(false);
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
     recoverPassword(email);
 
     if (!error || email.length > 0) {
@@ -51,7 +51,6 @@ const PasswordRecover = ({ visible = false }) => {
         <div className="text-block-12">Complete con su mail de usuario</div>
         <div className="form-block w-form">
           {error && <Message variant="danger">{error}</Message>}
-          {loading && <Loader />}
           <form
             onSubmit={onSubmitHandler}
             id="email-form"
@@ -73,26 +72,33 @@ const PasswordRecover = ({ visible = false }) => {
               onChange={(e) => setEmail(e.target.value)}
               style={{ marginTop: 20 }}
             />
-            <input
+            <button 
               type="submit"
-              data-wait="Please wait..."
               className="submit-button w-button"
-              defaultValue="Ingresar"
-            />
+              disabled={loading}
+              >
+              {loading? <Loader size={15} color={'white'} /> : "Ingresar"}
+                </button>
           </form>
 
           <div className="w-form-fail">
             <div>Algo salio mal con el formulario!</div>
           </div>
         </div>
-
+        {!loading && 
         <div
-          data-w-id="61f6a0b0-599f-9b79-f962-7952437987a5"
-          className="text-block-19"
-          onClick={() => dispatch({ type: AT.CLOSE_PASSWORD_RECOVER })}
+        data-w-id="61f6a0b0-599f-9b79-f962-7952437987a5"
+        className="text-block-19"
+        onClick={() => {
+          dispatch({ type: AT.CLOSE_PASSWORD_RECOVER })
+          dispatch({ type: ActionTypes.RECOVER_PASSWORD_SUCCESS})
+          }
+        }
+        
         >
           X
         </div>
+        }
       </div>
       
     </section>

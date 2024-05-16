@@ -6,7 +6,7 @@ interface LoaderProps {
   options?: CSSProperties;
 }
 
-const Loader: React.FC<LoaderProps> = ({ options }) => {
+const Loader: React.FC<any> = ( {size, color}  ) => {
   return (
     // <Spinner
     //   animation="border"
@@ -23,8 +23,8 @@ const Loader: React.FC<LoaderProps> = ({ options }) => {
     // </Spinner>
 
     <DotLoader
-  color="#a2cca6"
-  size={80}
+  color={!color? "#a2cca6" : color}
+  size={!size? 80 : size }
 
 />
   );
