@@ -21,7 +21,6 @@ const Navbar = () => {
 
   const uI = useTypedSelector(state => state.uI);
 
-
   const { logout } = useUserActions();
 
   const [isVisibleCart, setIsVisibleCart] = useState(false);
@@ -61,7 +60,7 @@ const Navbar = () => {
 
             </div>
           </div>  
-          <div className="text-block" style={{justifyContent: 'right'}}>Envíos adomicilio | Fisherton | Funes | Rosario</div>
+          <div className="text-block" style={{justifyContent: 'right'}}>Envíos a domicilio | Fisherton | Funes | Rosario</div>
         </div>
         <div className="navbar">
 

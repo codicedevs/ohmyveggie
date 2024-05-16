@@ -35,7 +35,7 @@ export class CartController {
     this.cartService.cart = session.cart ? session.cart : defaultCart;
 
     const shippingDetails = this.cartService.saveShippingDetails(body);
-  
+
     session.cart = this.cartService.cart;
 
     return shippingDetails;
@@ -45,7 +45,6 @@ export class CartController {
   getCart(@Session() session: any) {
     return session.cart ? session.cart : defaultCart;
   }
-
 
 
   @Delete(':id')

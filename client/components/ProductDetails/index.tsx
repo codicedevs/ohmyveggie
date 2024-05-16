@@ -48,7 +48,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
     data: { cartItems },
   } = useTypedSelector(state => state.cart);*/
 
-
   const { image, name, price, countInStock, description, rating, numReviews } =
     data;
 

@@ -61,7 +61,6 @@ export const removeFromCart =
     });
     try {
     } catch (error: any) {
-
     }
   };
 
@@ -138,6 +137,5 @@ export const savePaymentMethod =
 
       Router.push('/placeorder');
     } catch (error: any) {
-
     }
   };

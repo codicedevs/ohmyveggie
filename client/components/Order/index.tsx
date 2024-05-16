@@ -61,7 +61,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     totalProductos += item.qty;
   });
 
-
   return loading ? (
     <Loader />
   ) : error ? (
@@ -70,7 +69,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     <>
       <section
         className="section-4"
-        style={{ padding: "100px 400px 0px 400px" }}
       >
         {data.isDelivered && data.isPaid ? (
           <h1 className="heading-2"> Orden Finalizada nro: {data._id}</h1>
@@ -83,7 +81,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             <div className="orderitem">
               <div className="container-item-order">
                 <div className="txtordersubitem">
-                  Nombre : {data?.user?.name}
+                  Nombre : <b>{data?.user?.name}</b>
                 </div>
                 <div className="txtordersubitem">
                   Email :{" "}
@@ -91,19 +89,19 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                     className="txtordersubitem"
                     href={`mailto:${data?.user?.email}`}
                   >
-                    {data?.user?.email}
+                    <b>{data?.user?.email}</b>
                   </a>
                 </div>
                 <div className="txtordersubitem">
-                  Dirección :{data.shippingDetails.address}, {" "}
+                  Dirección :<b>{data.shippingDetails.address}, {" "}
                   {data.shippingDetails.zoneDeliver}, {data.shippingDetails.postalCode},{" "}
-                  {data.shippingDetails.country}
+                  {data.shippingDetails.country}</b>
                 </div>
                 <div className="txtordersubitem">
-                  Horario de entrega: {data?.shippingDetails.timeDeliver}
+                  Horario de entrega: <b>{data?.shippingDetails.timeDeliver}</b>
                 </div>
                 <div className="txtordersubitem">
-                  Si no hay stock: {data?.shippingDetails.stockOption}
+                  Si no hay stock: <b>{data?.shippingDetails.stockOption}</b>
                 </div>
               </div>
             </div>
