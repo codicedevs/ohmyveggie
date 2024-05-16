@@ -142,7 +142,6 @@ export const register =
   export const recoverPassword =
   (mail: string) => async (dispatch: Dispatch<any>) => {
     
-    console.log('Mail', mail)
     try {
       dispatch({ type: AT.EMAIL_UPDATE_RECOVER, payload: mail });
       const res = await proshopAPI.post('/auth/recover-password', 
