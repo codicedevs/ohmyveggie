@@ -94,7 +94,7 @@ export class AuthService {
       resetPassBody.email
     );
     if (user.resetKey != resetPassBody.resetKey) {
-      throw new UnauthorizedException({ message: "Reset Key Invalid" });
+      throw new UnauthorizedException({ message: "El reset key es invalido" });
     }
     // Reset password key, tiene 12 hs de validez
     const keyFromUser = new Date(user.resetKeyTimeStamp);
@@ -102,7 +102,7 @@ export class AuthService {
     const differenceInHours = Math.abs(actualDate.getTime() - keyFromUser.getTime()) / (1000 * 60 * 60);
     if (differenceInHours > 12) {
       throw new UnauthorizedException(
-        { message: "Your reset key has expired. It is valid for 12 hours. Please request the password change again." }
+        { message: "El reset key ha expirado, tiene una validez de 12 horas." }
       );
     }
     // Actualiza la contraseña del usuario cuando el proceso de resetKey es exitoso
