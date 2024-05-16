@@ -158,7 +158,7 @@ const ResetPassword = ({ visible = false }) => {
                 name="nuevaContraseña"
                 data-name="Name 2"
                 placeholder=""
-                type="text"
+                type="password"
                 id="name-2"
                 value={recover.nuevaContraseña}
                 onChange={(e) => setDataForm(e)}
@@ -173,11 +173,12 @@ const ResetPassword = ({ visible = false }) => {
                 name="confNuevaContraseña"
                 data-name="Name 4"
                 placeholder=""
-                type="text"
+                type="password"
                 id="name-4"
                 value={recover.confNuevaContraseña}
                 onChange={(e) => setDataForm(e)}
               />
+              
 
               <button
                 type="submit"

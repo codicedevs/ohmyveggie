@@ -6,9 +6,10 @@ import { ActionTypes } from "./user.action-types";
 import { UserAction } from "./user.actions";
 import { ActionTypes as AT } from "../UI/ui.action-types";
 
+
 export const login =
   (email: string, password: string) =>
-  async (dispatch: Dispatch<UserAction>) => {
+  async (dispatch: Dispatch<any>) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -39,6 +40,9 @@ export const login =
         type: ActionTypes.GET_CURRENT_USER_SUCCESS,
         payload: data,
       });
+
+      dispatch({type: AT.CLOSE_LOGIN})
+
 
       localStorage.setItem("accessToken", data.accessToken);
 
