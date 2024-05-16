@@ -88,7 +88,7 @@ export const logout = () => async (dispatch: Dispatch<UserAction>) => {
     });
     Router.push('/')
   } catch (error: any) {
-    console.log(error.response.data.message);
+
   }
 };
 

@@ -11,7 +11,7 @@ const PlaceOrder = () => {
   const { error } = useTypedSelector(state => state.order);
   const { createOrder } = useOrderActions();
 
-  console.log(cart)
+
   const {
     data
   } = useTypedSelector(state => state.user);

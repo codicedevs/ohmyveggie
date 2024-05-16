@@ -8,7 +8,7 @@ const SearchBox = () => {
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('keyword', keyword);
+
     if (keyword.length > 0) {
       router.push(`/search/${keyword.trim()}/#productos`);
     }

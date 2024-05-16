@@ -58,7 +58,7 @@ const Shipping = () => {
 
   function handleStock(e: any) {
     let selectedOption = e.target.value
-    console.log(e.target.value)
+
     setShippingAddress(prevShippingAddress => ({
       ...prevShippingAddress,
       stockOption: selectedOption

@@ -11,7 +11,7 @@ const OrdersList = () => {
 
   const { data, loading, error } = useTypedSelector(state => state.orders);
   const dataOrder = useTypedSelector(state => state.order);
-  console.log('DataOrden',dataOrder)
+
   const { fetchOrders } = useOrderActions();
   const user = useTypedSelector(state => state.user);
   
