@@ -6,6 +6,7 @@ import Message from "../Message";
 import { useEffect } from "react";
 import axios from 'axios';
 import { OrderInterface } from "../../interfaces";
+import { useRouter } from "next/router";
 
 
 interface OrderProps {
@@ -21,8 +22,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   );
   const user = useTypedSelector((state) => state.user);
   const { fetchOrder, deliverOrder } = useOrderActions();
-
-
+  const router = useRouter();
+  
   const createPaymentPreference = async (paymentData: OrderInterface) => {
     const config = {
       headers: {
@@ -33,7 +34,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     try {
       const response = await axios.post('http://localhost:4000/payments/preference', paymentData, config);
       if (response.status === 201) {
-        // aca deberia vaciar el carro, si la respuesta de mercadopago es correcta , te vacio el carro, 
+        // aca deberia vaciar el carro, si la respuesta de mercadopago es correcta , te vacio el carro,
         window.location.href = response.data.preference.init_point
       }
       return { success: true };
@@ -44,7 +45,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
 
   const delivered = () => {
     deliverOrder(data._id!)
-    fetchOrder(data._id!)
   }
 
   useEffect(() => {
@@ -54,6 +54,12 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     }
 
   }, [fetchOrder, pageId, success, data,]);
+
+  useEffect (() => {    // saca el id de la orden de la url
+    const { id } = router.query
+    fetchOrder(id)
+    console.log('orderId:', id);
+  }, [router.query] )
 
   const items = data.orderItems;
   var totalProductos = 0;
