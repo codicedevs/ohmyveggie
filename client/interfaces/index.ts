@@ -112,7 +112,7 @@ export interface UIInterface {
 }
 
 export interface UIRecover {
-  codigo: number | null;
+  codigo: number | undefined;
   nuevaContraseña: string;
   confNuevaContraseña: string;
 }

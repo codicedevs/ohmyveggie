@@ -17,7 +17,7 @@ const ResetPassword = ({ visible = false }) => {
   if (!visible) return null;
 
   const [recover, setRecover] = useState<UIRecover>({
-    codigo: null,
+    codigo: undefined,
     nuevaContraseña: "",
     confNuevaContraseña: "",
   });
