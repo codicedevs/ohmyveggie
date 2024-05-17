@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react';
 import { Spinner } from 'react-bootstrap';
+import {DotLoader} from "react-spinners"
 
 interface LoaderProps {
   options?: CSSProperties;
