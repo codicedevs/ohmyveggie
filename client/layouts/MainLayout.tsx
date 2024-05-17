@@ -22,7 +22,6 @@ const MainLayout: React.FC = ({ children }) => {
 
   const uI = useTypedSelector(state => state.uI);
 
-
   const { getCurrentUser } = useUserActions();
   const { getCart } = useCartActions();
 

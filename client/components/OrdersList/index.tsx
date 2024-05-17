@@ -11,6 +11,7 @@ const OrdersList = () => {
 
   const { data, loading, error } = useTypedSelector(state => state.orders);
   const dataOrder = useTypedSelector(state => state.order);
+
   const { fetchOrders } = useOrderActions();
   const user = useTypedSelector(state => state.user);
   
@@ -47,7 +48,7 @@ const OrdersList = () => {
             {data.map(_order => (
               <tr key={_order._id}>
                 <td>{_order._id}</td>
-                <td>{_order.user }</td>
+                <td>{_order.user?.name }</td>
                 <td>{_order.createdAt?.substring(0, 10)}</td>
                 <td>${_order.totalPrice}</td>
                 <td>

@@ -47,7 +47,6 @@ export interface DateRange {
   endDate: string;  
 }
 
-
 /**
  * mercado pago types notification
  */

@@ -1,4 +1,4 @@
-import { Row, Col, ListGroup, Button, Modal } from "react-bootstrap";
+import { Row, Col, ListGroup, Button, Modal, Form } from "react-bootstrap";
 import Link from "next/link";
 import { useOrderActions, useTypedSelector } from "../../hooks";
 import Loader from "../Loader";
@@ -6,14 +6,14 @@ import Message from "../Message";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { OrderInterface } from "../../interfaces";
+import { useRouter } from "next/router";
+
 
 interface OrderProps {
   pageId: string | string[] | undefined;
 }
 
 const Order: React.FC<OrderProps> = ({ pageId }) => {
-  const [mercadoPagoUrl, setMercadoPagoUrl] = useState('');
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { loading, data, error, success } = useTypedSelector(
     (state) => state.order
   );
@@ -21,7 +21,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     (state) => state.orderDeliver
   );
   const user = useTypedSelector((state) => state.user);
-  const { fetchOrder, deliverOrder } = useOrderActions();
+  const { fetchOrder, deliverOrder, updateOrder } = useOrderActions();
+  const [observation, setObservation] = useState('');
 
   const createPaymentPreference = async (paymentData: OrderInterface) => {
     const config = {
@@ -33,8 +34,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     try {
       const response = await axios.post('http://localhost:4000/payments/preference', paymentData, config);
       if (response.status === 201) {
-        setMercadoPagoUrl(response.data.preference.init_point)
-        setModalIsOpen(true)
+        // aca deberia vaciar el carro, si la respuesta de mercadopago es correcta , te vacio el carro,
+        window.location.href = response.data.preference.init_point
       }
       return { success: true };
     } catch (error) {
@@ -42,17 +43,18 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     }
   };
 
-
   const delivered = () => {
     deliverOrder(data._id!)
-    fetchOrder(data._id!)
   }
-
 
   useEffect(() => {
     if (!data._id || success) {
       if (!pageId) return;
       fetchOrder(pageId as string);
+    }
+
+    if (data.observations) {
+    setObservation(data.observations);
     }
 
   }, [fetchOrder, pageId, success, data]);
@@ -63,21 +65,15 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     totalProductos += item.qty;
   });
 
-
   return loading ? (
     <Loader />
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-      <Modal fullscreen={true} show={modalIsOpen} >
-        <iframe src={mercadoPagoUrl} style={{ height: "100%", width: "100%" }} />
-      </Modal>
       <section
         className="section-4"
-        style={{ padding: "100px 400px 0px 400px" }}
       >
-
         {data.isDelivered && data.isPaid ? (
           <h1 className="heading-2"> Orden Finalizada nro: {data._id}</h1>
         ) : (
@@ -85,12 +81,11 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
         )}
 
         <div className="columns-2 w-row">
-
           <div className="column-5 w-col w-col-8">
             <div className="orderitem">
               <div className="container-item-order">
                 <div className="txtordersubitem">
-                  Nombre : {data?.user?.name}
+                  Nombre : <b>{data?.user?.name}</b>
                 </div>
                 <div className="txtordersubitem">
                   Email :{" "}
@@ -98,19 +93,19 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                     className="txtordersubitem"
                     href={`mailto:${data?.user?.email}`}
                   >
-                    {data?.user?.email}
+                    <b>{data?.user?.email}</b>
                   </a>
                 </div>
                 <div className="txtordersubitem">
-                  Dirección :{data.shippingDetails.address}, {" "}
+                  Dirección :<b>{data.shippingDetails.address}, {" "}
                   {data.shippingDetails.zoneDeliver}, {data.shippingDetails.postalCode},{" "}
-                  {data.shippingDetails.country}
+                  {data.shippingDetails.country}</b>
                 </div>
                 <div className="txtordersubitem">
-                  Horario de entrega: {data?.shippingDetails.timeDeliver}
+                  Forma de entrega: <b>{data?.shippingDetails.timeDeliver}</b>
                 </div>
                 <div className="txtordersubitem">
-                  Si no hay stock: {data?.shippingDetails.stockOption}
+                  Si no hay stock: <b>{data?.shippingDetails.stockOption}</b>
                 </div>
               </div>
             </div>
@@ -121,7 +116,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   style={{ width: 180, textAlign: "center", height: 60 }}
                 >
                   Pedido enviado el {data.deliveredAt?.slice(3, 10)}
-
                 </div>
               ) : (
                 <div
@@ -129,7 +123,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   style={{ width: 180, textAlign: "center" }}
                 >
                   Pedido no enviado
-
                 </div>
               )}
               {data.isPaid ? (
@@ -183,7 +176,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
           </div>
 
           <div className="column-6 w-col w-col-4 ">
-            <div className="ordersummary px-4 d-flex" style={{ width: 350 }}>
+            <div className="ordersummary px-4 d-flex">
               <div className="itemordersummary d-flex col pb-2">
                 <div className="txtitemordersummary">
                   Cantidad de productos :
@@ -207,16 +200,21 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                 >
                   {loading && <Loader />}
 
-                  <Button
-                    type="button"
-                    className="btn btn-block"
-                    onClick={() =>
-                    (createPaymentPreference(data)
-                    )
-                    }
-                  >
-                    Pagar
-                  </Button>
+                  <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                    <img src='/images/mercado-pago.png' style={{marginBottom: '15px'}}></img>
+                    <Button
+                    
+                      type="button"
+                      className="btn btn-block"
+                      onClick={() =>
+                      (createPaymentPreference(data)
+                      )
+                      }
+                    >
+                      Pagar
+                    </Button>
+                  </div>
+
                 </ListGroup.Item>
               )}
 
@@ -239,6 +237,25 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             </div>
           </div>
         </div>
+        { user.data?.isAdmin ?
+          <div className='txtArea'>
+            <div className="txtorderitem">Observaciones</div>
+            <Form.Control style={{marginTop: '10px', marginBottom: '10px'}}
+              as="textarea"
+              rows={3}
+              value={observation}
+              onChange={(e) => setObservation(e.target.value)}
+            />
+            <Button 
+               onClick={() => updateOrder(data._id!, observation)}
+               disabled={loading}
+            >
+               {loading ? 'Loading…' : 'Guardar'}
+               
+            </Button> 
+          </div>
+          : null
+        }
       </section>
     </>
   );

@@ -12,7 +12,7 @@ import { Order, OrderDocument } from "../schemas/order.schema";
 export class OrdersService {
   constructor(
     @InjectModel(Order.name) private orderModel: Model<OrderDocument>
-  ) {}
+  ) { }
 
   async create(
     orderAttrs: Partial<OrderDocument>,
@@ -142,14 +142,21 @@ export class OrdersService {
     id: string,
     observations: string
   ): Promise<OrderDocument> {
-    if (!Types.ObjectId.isValid(id))
+
+    if (!Types.ObjectId.isValid(id)) {
       throw new BadRequestException("Invalid order ID.");
+    }
+
     const order = await this.orderModel.findById(id);
-    if (!order) throw new NotFoundException("No order with given ID.");
-    if (order.observations) order.observations = observations;
+    if (!order) {
+      throw new NotFoundException("No order with given ID.");
+    }
 
-    const updatedOrder = await order.save();
-
+    const updatedOrder = await this.orderModel.findByIdAndUpdate(
+      id,
+      { observations },
+      { new: true, runValidators: true } 
+    );
     return updatedOrder;
   }
 

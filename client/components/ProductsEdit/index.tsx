@@ -78,7 +78,7 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
       setDetails({ ...productDetails, image: data });
       setUploading(false);
     } catch (error) {
-
+      console.error(error);
       setUploading(false);
     }
   };

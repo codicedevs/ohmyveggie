@@ -25,14 +25,12 @@ const Login = ({ visible = false }) => {
   const { loading, error } = useTypedSelector((state) => state.userLogin);
 
   const [isErrorVisible, setIsErrorVisible] = useState(false);
-
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!error || (email.length > 0 && password.length > 0)) {
       login(email, password);
     }
-  };
 
   function registerOn() {
     // saca modal de login y muestra register
@@ -158,5 +156,5 @@ const Login = ({ visible = false }) => {
     </section>  
   );
 };
-
+}
 export default Login;
