@@ -5,6 +5,9 @@ export type OrderAction =
   | CreateOrderStart
   | CreateOrderSuccess
   | CreateOrderError
+  | UpdateOrderStart
+  | UpdateOrderSuccess
+  | UpdateOrderError
   | FetchOrderStart
   | FetchOrderSuccess
   | FetchOrderError
@@ -32,6 +35,20 @@ export interface CreateOrderSuccess {
 
 export interface CreateOrderError {
   type: ActionTypes.CREATE_ORDER_ERROR;
+  payload: string;
+}
+
+export interface UpdateOrderStart {
+  type: ActionTypes.UPDATE_ORDER_START;
+}
+
+export interface UpdateOrderSuccess {
+  type: ActionTypes.UPDATE_ORDER_SUCCESS;
+  payload: OrderInterface;
+}
+
+export interface UpdateOrderError {
+  type: ActionTypes.UPDATE_ORDER_ERROR;
   payload: string;
 }
 

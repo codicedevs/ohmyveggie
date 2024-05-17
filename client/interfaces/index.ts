@@ -90,6 +90,7 @@ export interface OrderInterface {
     name: string;
     email: string;
   };
+  observations?: string;
 }
 
 export interface Review {

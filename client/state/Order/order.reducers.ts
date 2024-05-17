@@ -23,6 +23,21 @@ export const orderReducer = (
         error: action.payload,
       };
 
+    case ActionTypes.UPDATE_ORDER_START:
+      return { ...state, loading: true, error: null };
+    case ActionTypes.UPDATE_ORDER_SUCCESS:
+      return {
+        loading: false,
+        data: action.payload,
+        error: null,
+      };
+    case ActionTypes.UPDATE_ORDER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
     case ActionTypes.FETCH_ORDER_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.FETCH_ORDER_SUCCESS:
