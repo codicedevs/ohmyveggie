@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useOrderActions, useTypedSelector } from "../../hooks";
 import Loader from "../Loader";
 import Message from "../Message";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 import { OrderInterface } from "../../interfaces";
 import { useRouter } from "next/router";
