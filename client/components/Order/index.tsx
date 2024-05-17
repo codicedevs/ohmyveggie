@@ -1,4 +1,4 @@
-import { Row, Col, ListGroup, Button, } from "react-bootstrap";
+import { Row, Col, ListGroup, Button, Modal, Form } from "react-bootstrap";
 import Link from "next/link";
 import { useOrderActions, useTypedSelector } from "../../hooks";
 import Loader from "../Loader";
@@ -21,9 +21,9 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     (state) => state.orderDeliver
   );
   const user = useTypedSelector((state) => state.user);
-  const { fetchOrder, deliverOrder } = useOrderActions();
-  const router = useRouter();
-  
+  const { fetchOrder, deliverOrder, updateOrder } = useOrderActions();
+  const [observation, setObservation] = useState('');
+
   const createPaymentPreference = async (paymentData: OrderInterface) => {
     const config = {
       headers: {
@@ -53,13 +53,11 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       fetchOrder(pageId as string);
     }
 
-  }, [fetchOrder, pageId, success, data,]);
+    if (data.observations) {
+    setObservation(data.observations);
+    }
 
-  useEffect (() => {    // saca el id de la orden de la url
-    const { id } = router.query
-    fetchOrder(id)
-    console.log('orderId:', id);
-  }, [router.query] )
+  }, [fetchOrder, pageId, success, data]);
 
   const items = data.orderItems;
   var totalProductos = 0;
@@ -104,7 +102,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   {data.shippingDetails.country}</b>
                 </div>
                 <div className="txtordersubitem">
-                  Horario de entrega: <b>{data?.shippingDetails.timeDeliver}</b>
+                  Forma de entrega: <b>{data?.shippingDetails.timeDeliver}</b>
                 </div>
                 <div className="txtordersubitem">
                   Si no hay stock: <b>{data?.shippingDetails.stockOption}</b>
@@ -118,7 +116,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   style={{ width: 180, textAlign: "center", height: 60 }}
                 >
                   Pedido enviado el {data.deliveredAt?.slice(3, 10)}
-
                 </div>
               ) : (
                 <div
@@ -126,7 +123,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   style={{ width: 180, textAlign: "center" }}
                 >
                   Pedido no enviado
-
                 </div>
               )}
               {data.isPaid ? (
@@ -241,6 +237,25 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             </div>
           </div>
         </div>
+        { user.data?.isAdmin ?
+          <div className='txtArea'>
+            <div className="txtorderitem">Observaciones</div>
+            <Form.Control style={{marginTop: '10px', marginBottom: '10px'}}
+              as="textarea"
+              rows={3}
+              value={observation}
+              onChange={(e) => setObservation(e.target.value)}
+            />
+            <Button 
+               onClick={() => updateOrder(data._id!, observation)}
+               disabled={loading}
+            >
+               {loading ? 'Loading…' : 'Guardar'}
+               
+            </Button> 
+          </div>
+          : null
+        }
       </section>
     </>
   );

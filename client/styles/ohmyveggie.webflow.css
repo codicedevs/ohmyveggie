@@ -21,6 +21,12 @@
   --color: #facbef;
 }
 
+.txtArea {
+  margin-top: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .herolink {
   color: var(--color-3);
   -webkit-text-stroke-color: var(--color-3);
@@ -1332,6 +1338,9 @@
   padding: 10px;
   font-family: Montserrat, sans-serif;
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .deliveredpaid.paid {
