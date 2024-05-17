@@ -1,19 +1,19 @@
-import { Row, Col, ListGroup, Button, Modal } from "react-bootstrap";
+import { Row, Col, ListGroup, Button, } from "react-bootstrap";
 import Link from "next/link";
 import { useOrderActions, useTypedSelector } from "../../hooks";
 import Loader from "../Loader";
 import Message from "../Message";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from 'axios';
 import { OrderInterface } from "../../interfaces";
+import { useRouter } from "next/router";
+
 
 interface OrderProps {
   pageId: string | string[] | undefined;
 }
 
 const Order: React.FC<OrderProps> = ({ pageId }) => {
-  const [mercadoPagoUrl, setMercadoPagoUrl] = useState('');
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { loading, data, error, success } = useTypedSelector(
     (state) => state.order
   );
@@ -22,7 +22,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   );
   const user = useTypedSelector((state) => state.user);
   const { fetchOrder, deliverOrder } = useOrderActions();
-
+  const router = useRouter();
+  
   const createPaymentPreference = async (paymentData: OrderInterface) => {
     const config = {
       headers: {
@@ -33,8 +34,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     try {
       const response = await axios.post('http://localhost:4000/payments/preference', paymentData, config);
       if (response.status === 201) {
-        setMercadoPagoUrl(response.data.preference.init_point)
-        setModalIsOpen(true)
+        // aca deberia vaciar el carro, si la respuesta de mercadopago es correcta , te vacio el carro,
+        window.location.href = response.data.preference.init_point
       }
       return { success: true };
     } catch (error) {
@@ -42,12 +43,9 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     }
   };
 
-
   const delivered = () => {
     deliverOrder(data._id!)
-    fetchOrder(data._id!)
   }
-
 
   useEffect(() => {
     if (!data._id || success) {
@@ -55,7 +53,13 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       fetchOrder(pageId as string);
     }
 
-  }, [fetchOrder, pageId, success, data]);
+  }, [fetchOrder, pageId, success, data,]);
+
+  useEffect (() => {    // saca el id de la orden de la url
+    const { id } = router.query
+    fetchOrder(id)
+    console.log('orderId:', id);
+  }, [router.query] )
 
   const items = data.orderItems;
   var totalProductos = 0;
@@ -69,13 +73,9 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-      <Modal fullscreen={true} show={modalIsOpen} >
-        <iframe src={mercadoPagoUrl} style={{ height: "100%", width: "100%" }} />
-      </Modal>
       <section
         className="section-4"
       >
-
         {data.isDelivered && data.isPaid ? (
           <h1 className="heading-2"> Orden Finalizada nro: {data._id}</h1>
         ) : (
@@ -83,7 +83,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
         )}
 
         <div className="columns-2 w-row">
-
           <div className="column-5 w-col w-col-8">
             <div className="orderitem">
               <div className="container-item-order">

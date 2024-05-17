@@ -36,6 +36,7 @@ const Item: React.FC<ProductInterface> = (product) => {
   useEffect(() => {
     const result = cartData.cartItems.find(function (item) { return item.productId == _id; });
     if (!result) return
+
     setCantProd(result.qty);
   }, [cartItems])
 
@@ -46,6 +47,7 @@ const Item: React.FC<ProductInterface> = (product) => {
     }
 
     const cartItemInterface = cartData.cartItems.find(function (item) { return item.productId == _id; });
+
       if(cartItemInterface){
         setCantProd(cartItemInterface.qty + 1);
         addToCart({
@@ -67,11 +69,13 @@ const Item: React.FC<ProductInterface> = (product) => {
     const result = cartData.cartItems.find(function (item) { return item.productId == _id; });
     if(!result) return
     if ( result.qty <= 1) {
+
       removeFromCart(result.productId);
       setCantProd(0)
       setIsVisibleAddButton(false);
       return
     }  
+
     setCantProd(result.qty - 1);
     addToCart({
       qty: result.qty - 1,
