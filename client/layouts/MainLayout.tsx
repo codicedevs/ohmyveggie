@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { useTypedSelector} from '.././hooks';
 import Register from '../components/RegisterNew';
 import PasswordRecover from '../components/PasswordRecover';
+import ResetPassword from '../components/ResetPassword';
 
 
 const MainLayout: React.FC = ({ children }) => {
@@ -40,6 +41,7 @@ const MainLayout: React.FC = ({ children }) => {
       <LoginNew visible ={uI.isLoginVisible}/>
       <Register visible ={uI.isRegisterVisible}/>
       <PasswordRecover visible ={uI.isPasswordRecoverVisible}/>
+      <ResetPassword visible ={uI.isResetPasswordVisible}/>
         {children}
       <Footer />
     </>

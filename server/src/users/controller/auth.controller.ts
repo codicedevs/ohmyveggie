@@ -105,7 +105,7 @@ export class AuthController {
   async recoverPassword(@Body() recoverPassword: RecoverPasswordDto) {
     const result = await this.authService.passwordRecovery(recoverPassword.email);
     return {
-      message: "Password recovery initiated successfully",
+      message: "Proceso de recupero de contraseña iniciado exitosamente",
       data: result,
     };
 
@@ -118,7 +118,7 @@ export class AuthController {
   @Post("reset-password")
   async resetPassword(@Body() resetPass: ResetPassDto) {
     await this.authService.resetPassword(resetPass);
-    return { message: "Password reset successful" };
+    return { message: "Usted ha recuperado su contraseña exitosamente" };
   }
 }
 
