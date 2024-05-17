@@ -71,7 +71,7 @@
   padding-left: 7%;
   padding-right: 7%;
   font-family: Montserrat, sans-serif;
-  z-index: 999;
+  z-index: 9999;
 
 }
 .nav_logo{
@@ -235,7 +235,7 @@
   border-radius: 6px;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: 22px;
+  /* margin-bottom: 22px; */
   padding: 1px;
   display: flex;
   box-shadow: 0 0 5px rgba(0, 0, 0, .2);

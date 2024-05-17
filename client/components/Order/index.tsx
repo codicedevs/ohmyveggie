@@ -3,17 +3,17 @@ import Link from "next/link";
 import { useOrderActions, useTypedSelector } from "../../hooks";
 import Loader from "../Loader";
 import Message from "../Message";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from 'axios';
 import { OrderInterface } from "../../interfaces";
+import { useRouter } from "next/router";
+
 
 interface OrderProps {
   pageId: string | string[] | undefined;
 }
 
 const Order: React.FC<OrderProps> = ({ pageId }) => {
-  const [mercadoPagoUrl, setMercadoPagoUrl] = useState('');
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { loading, data, error, success } = useTypedSelector(
     (state) => state.order
   );
@@ -34,8 +34,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     try {
       const response = await axios.post('http://localhost:4000/payments/preference', paymentData, config);
       if (response.status === 201) {
-        setMercadoPagoUrl(response.data.preference.init_point)
-        setModalIsOpen(true)
+        // aca deberia vaciar el carro, si la respuesta de mercadopago es correcta , te vacio el carro,
+        window.location.href = response.data.preference.init_point
       }
       return { success: true };
     } catch (error) {
@@ -43,10 +43,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     }
   };
 
-
   const delivered = () => {
     deliverOrder(data._id!)
-    fetchOrder(data._id!)
   }
 
   useEffect(() => {
@@ -73,13 +71,9 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-      <Modal fullscreen={true} show={modalIsOpen} >
-        <iframe src={mercadoPagoUrl} style={{ height: "100%", width: "100%" }} />
-      </Modal>
       <section
         className="section-4"
       >
-
         {data.isDelivered && data.isPaid ? (
           <h1 className="heading-2"> Orden Finalizada nro: {data._id}</h1>
         ) : (

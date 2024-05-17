@@ -33,7 +33,7 @@ export class NotificationController {
    * @returns
    */
   @Post("mercado-pago")
-  async handleNotification(@Body() notification: NotificationData, @Session() session: any) {
+  async handleNotification(@Body() notification: NotificationData) {
     try {
       const payment = await this.paymentService.getPayment(notification.data.id);
       const id = payment.external_reference;

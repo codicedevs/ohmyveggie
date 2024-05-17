@@ -8,8 +8,8 @@ const PlaceOrder = () => {
   const { cart } = useTypedSelector(state => state);
   const { error } = useTypedSelector(state => state.order);
   const { createOrder } = useOrderActions();
-  
-  useShipping();     
+
+
   const {
     data
   } = useTypedSelector(state => state.user);

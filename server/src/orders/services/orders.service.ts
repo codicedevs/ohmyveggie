@@ -141,7 +141,7 @@ export class OrdersService {
   async updateObservations(
     id: string,
     observations: string
-  ): Promise<any> {
+  ): Promise<OrderDocument> {
     if (!Types.ObjectId.isValid(id)) {
       throw new BadRequestException("Invalid order ID.");
     }
