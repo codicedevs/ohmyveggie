@@ -37,7 +37,7 @@ export const sessionConfig = (MongoDBStore: any): SessionOptions => ({
       }
       : { maxAge: 3 * 24 * 60 * 60 * 1000 },
   store: new MongoDBStore({
-    uri: serverSetting.DB_URL,
+    uri: `${serverSetting.DB_URL}${serverSetting.DB_DATABASE}`,
     collection: 'sessions',
   }),
 });
