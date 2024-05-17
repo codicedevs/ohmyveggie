@@ -14,11 +14,14 @@ import {
 import { AdminGuard } from "src/guards/admin.guard";
 import { AuthGuard } from "src/guards/auth.guard";
 import { OrdersService } from "../services/orders.service";
-import { Order } from "../schemas/order.schema";
+import { Order, OrderDocument } from "../schemas/order.schema";
 import { DateRange } from "src/interfaces";
+import { FilterQuery, Model } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
 
 @Controller("orders")
 export class OrdersController {
+  @InjectModel(Order.name) private orderModel: Model<OrderDocument>
   constructor(private ordersService: OrdersService) {}
 
   @UseGuards(AuthGuard)
@@ -29,8 +32,11 @@ export class OrdersController {
 
   @UseGuards(AdminGuard)
   @Get()
-  async getOrders() {
-    return this.ordersService.findAll();
+  async getOrders(
+    @Query() filter: FilterQuery<OrderDocument>
+  ) {
+    return this.orderModel.find(filter)
+      .populate('user').exec()
   }
 
   /* @UseGuards(AdminGuard)  este endpoint es el que debe usarse
@@ -87,7 +93,7 @@ export class OrdersController {
   @Patch(":id/observations")
   async updateObservations(
     @Param("id") id: string,
-    @Body() observations: string
+    @Body("observations") observations: string
   ) {
     return this.ordersService.updateObservations(id, observations);
   }

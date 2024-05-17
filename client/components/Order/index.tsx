@@ -176,7 +176,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
           </div>
 
           <div className="column-6 w-col w-col-4 ">
-            <div className="ordersummary px-4 d-flex" style={{ width: 'auto' }}>
+            <div className="ordersummary px-4 d-flex">
               <div className="itemordersummary d-flex col pb-2">
                 <div className="txtitemordersummary">
                   Cantidad de productos :
@@ -200,16 +200,21 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                 >
                   {loading && <Loader />}
 
-                  <Button
-                    type="button"
-                    className="btn btn-block"
-                    onClick={() =>
-                    (createPaymentPreference(data)
-                    )
-                    }
-                  >
-                    Pagar
-                  </Button>
+                  <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                    <img src='/images/mercado-pago.png' style={{marginBottom: '15px'}}></img>
+                    <Button
+                    
+                      type="button"
+                      className="btn btn-block"
+                      onClick={() =>
+                      (createPaymentPreference(data)
+                      )
+                      }
+                    >
+                      Pagar
+                    </Button>
+                  </div>
+
                 </ListGroup.Item>
               )}
 
