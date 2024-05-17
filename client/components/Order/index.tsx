@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useOrderActions, useTypedSelector } from "../../hooks";
 import Loader from "../Loader";
 import Message from "../Message";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 import { OrderInterface } from "../../interfaces";
 import { useRouter } from "next/router";
@@ -176,7 +176,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
           </div>
 
           <div className="column-6 w-col w-col-4 ">
-            <div className="ordersummary px-4 d-flex" style={{ width: 'auto' }}>
+            <div className="ordersummary px-4 d-flex">
               <div className="itemordersummary d-flex col pb-2">
                 <div className="txtitemordersummary">
                   Cantidad de productos :
@@ -200,16 +200,21 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                 >
                   {loading && <Loader />}
 
-                  <Button
-                    type="button"
-                    className="btn btn-block"
-                    onClick={() =>
-                    (createPaymentPreference(data)
-                    )
-                    }
-                  >
-                    Pagar
-                  </Button>
+                  <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                    <img src='/images/mercado-pago.png' style={{marginBottom: '15px'}}></img>
+                    <Button
+                    
+                      type="button"
+                      className="btn btn-block"
+                      onClick={() =>
+                      (createPaymentPreference(data)
+                      )
+                      }
+                    >
+                      Pagar
+                    </Button>
+                  </div>
+
                 </ListGroup.Item>
               )}
 
