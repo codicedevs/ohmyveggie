@@ -36,6 +36,12 @@ export const uIReducer = (
         
     case ActionTypes.CLOSE_PASSWORD_RECOVER:
       return {...state, isPasswordRecoverVisible: false}
+    
+      case ActionTypes.OPEN_RESET_PASSWORD:
+      return {...state, isResetPasswordVisible: true }
+        
+    case ActionTypes.CLOSE_RESET_PASSWORD:
+      return {...state, isResetPasswordVisible: false}
       
     case ActionTypes.EMAIL_UPDATE_RECOVER:
       return {...state, emailForRecover: action.payload}  

@@ -1,16 +1,16 @@
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectModel } from "@nestjs/mongoose";
 import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { User, UserDocument } from '../schemas/user.schema';
-import { Model, Types } from 'mongoose';
-import { encryptPassword } from 'src/utils';
+} from "@nestjs/common";
+import { User, UserDocument } from "../schemas/user.schema";
+import { Model, Types } from "mongoose";
+import { encryptPassword } from "src/utils";
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async createMany(users: Partial<UserDocument>[]): Promise<UserDocument[]> {
     const createdUsers = await this.userModel.insertMany(users);
@@ -26,17 +26,16 @@ export class UsersService {
 
   async findOne(email: string): Promise<UserDocument> {
     const user = await this.userModel.findOne({ email });
-
     return user;
   }
 
   async findById(id: string): Promise<UserDocument> {
     if (!Types.ObjectId.isValid(id))
-      throw new BadRequestException('Invalid user ID.');
+      throw new BadRequestException("Invalid user ID.");
 
     const user = await this.userModel.findById(id);
 
-    if (!user) throw new NotFoundException('User not found.');
+    if (!user) throw new NotFoundException("User not found.");
 
     return user;
   }
@@ -49,11 +48,11 @@ export class UsersService {
 
   async deleteOne(id: string): Promise<void> {
     if (!Types.ObjectId.isValid(id))
-      throw new BadRequestException('Invalid user ID.');
+      throw new BadRequestException("Invalid user ID.");
 
     const user = await this.userModel.findById(id);
 
-    if (!user) throw new NotFoundException('User not found.');
+    if (!user) throw new NotFoundException("User not found.");
 
     await user.remove();
   }
@@ -63,16 +62,16 @@ export class UsersService {
     attrs: Partial<UserDocument>
   ): Promise<UserDocument> {
     if (!Types.ObjectId.isValid(id))
-      throw new BadRequestException('Invalid user ID.');
+      throw new BadRequestException("Invalid user ID.");
 
     const user = await this.userModel.findById(id);
 
-    if (!user) throw new NotFoundException('User not found.');
+    if (!user) throw new NotFoundException("User not found.");
 
     const existingUser = await this.findOne(attrs.email);
 
     if (existingUser && existingUser.email !== user.email)
-      throw new BadRequestException('Email is already in use.');
+      throw new BadRequestException("Email is already in use.");
 
     user.name = attrs.name || user.name;
     user.email = attrs.email || user.email;
@@ -90,16 +89,16 @@ export class UsersService {
 
   async adminUpdate(id: string, attrs: Partial<UserDocument>) {
     if (!Types.ObjectId.isValid(id))
-      throw new BadRequestException('Invalid user ID.');
+      throw new BadRequestException("Invalid user ID.");
 
     const user = await this.userModel.findById(id);
 
-    if (!user) throw new NotFoundException('User not found.');
+    if (!user) throw new NotFoundException("User not found.");
 
     const existingUser = await this.findOne(attrs.email);
 
     if (existingUser && existingUser.email !== user.email)
-      throw new BadRequestException('Email is already in use.');
+      throw new BadRequestException("Email is already in use.");
 
     user.name = attrs.name || user.name;
     user.email = attrs.email || user.email;
