@@ -4,9 +4,9 @@ import { useOrderActions, useTypedSelector } from "../../hooks";
 import Loader from "../Loader";
 import Message from "../Message";
 import { useEffect, useState } from "react";
-import axios from 'axios';
 import { OrderInterface } from "../../interfaces";
 import { useRouter } from "next/router";
+import { proshopAPI } from "../../lib";
 
 
 interface OrderProps {
@@ -14,6 +14,8 @@ interface OrderProps {
 }
 
 const Order: React.FC<OrderProps> = ({ pageId }) => {
+  const [mercadoPagoUrl, setMercadoPagoUrl] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { loading, data, error, success } = useTypedSelector(
     (state) => state.order
   );
@@ -34,10 +36,10 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       withCredentials: true,
     };
     try {
-      const response = await axios.post('http://localhost:4000/payments/preference', paymentData, config);
+      const response = await proshopAPI.post('/payments/preference', paymentData, config);
       if (response.status === 201) {
-        // aca deberia vaciar el carro, si la respuesta de mercadopago es correcta , te vacio el carro,
-        window.location.href = response.data.preference.init_point
+        setMercadoPagoUrl(response.data.preference.init_point)
+        setModalIsOpen(true)
       }
       return { success: true };
     } catch (error) {
@@ -80,6 +82,9 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
+       <Modal fullscreen={true} show={modalIsOpen} >
+        <iframe src={mercadoPagoUrl} style={{ height: "100%", width: "100%" }} />
+      </Modal>
       <section
         className="section-4"
       >
@@ -271,5 +276,4 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
 };
 
 export default Order;
-
 
