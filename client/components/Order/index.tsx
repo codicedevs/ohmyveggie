@@ -23,6 +23,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   const user = useTypedSelector((state) => state.user);
   const { fetchOrder, deliverOrder, updateOrder } = useOrderActions();
   const [observation, setObservation] = useState('');
+  const router = useRouter();
+
 
   const createPaymentPreference = async (paymentData: OrderInterface) => {
     const config = {
@@ -54,10 +56,17 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     }
 
     if (data.observations) {
-    setObservation(data.observations);
+      setObservation(data.observations);
     }
 
   }, [fetchOrder, pageId, success, data]);
+
+  useEffect(() => {    // saca el id de la orden de la url
+    const { id } = router.query
+    fetchOrder(id as string)
+    console.log('orderId:', id);
+  }, [router.query])
+
 
   const items = data.orderItems;
   var totalProductos = 0;
@@ -98,8 +107,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                 </div>
                 <div className="txtordersubitem">
                   Dirección :<b>{data.shippingDetails.address}, {" "}
-                  {data.shippingDetails.zoneDeliver}, {data.shippingDetails.postalCode},{" "}
-                  {data.shippingDetails.country}</b>
+                    {data.shippingDetails.zoneDeliver}, {data.shippingDetails.postalCode},{" "}
+                    {data.shippingDetails.country}</b>
                 </div>
                 <div className="txtordersubitem">
                   Forma de entrega: <b>{data?.shippingDetails.timeDeliver}</b>
@@ -200,10 +209,10 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                 >
                   {loading && <Loader />}
 
-                  <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                    <img src='/images/mercado-pago.png' style={{marginBottom: '15px'}}></img>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <img src='/images/mercado-pago.png' style={{ marginBottom: '15px' }}></img>
                     <Button
-                    
+
                       type="button"
                       className="btn btn-block"
                       onClick={() =>
@@ -237,22 +246,22 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             </div>
           </div>
         </div>
-        { user.data?.isAdmin ?
+        {user.data?.isAdmin ?
           <div className='txtArea'>
             <div className="txtorderitem">Observaciones</div>
-            <Form.Control style={{marginTop: '10px', marginBottom: '10px'}}
+            <Form.Control style={{ marginTop: '10px', marginBottom: '10px' }}
               as="textarea"
               rows={3}
               value={observation}
               onChange={(e) => setObservation(e.target.value)}
             />
-            <Button 
-               onClick={() => updateOrder(data._id!, observation)}
-               disabled={loading}
+            <Button
+              onClick={() => updateOrder(data._id!, observation)}
+              disabled={loading}
             >
-               {loading ? 'Loading…' : 'Guardar'}
-               
-            </Button> 
+              {loading ? 'Loading…' : 'Guardar'}
+
+            </Button>
           </div>
           : null
         }
