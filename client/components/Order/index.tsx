@@ -4,7 +4,6 @@ import { useOrderActions, useTypedSelector } from "../../hooks";
 import Loader from "../Loader";
 import Message from "../Message";
 import { useEffect, useState } from "react";
-import axios from 'axios';
 import { OrderInterface } from "../../interfaces";
 import { useRouter } from "next/router";
 import { proshopAPI } from "../../lib";
@@ -277,5 +276,4 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
 };
 
 export default Order;
-
 
