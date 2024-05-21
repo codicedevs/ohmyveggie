@@ -1,10 +1,12 @@
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Button, Table } from 'react-bootstrap';
 import { useAdmin, useProductsActions, useTypedSelector } from '../../hooks';
 import Loader from '../Loader';
 import Message from '../Message';
 import Paginate from '../Paginate';
+import SearchBoxAdmin from '../SearchBoxAdmin';
+
 
 interface ProductListProps {
   pageId?: query;
@@ -12,6 +14,7 @@ interface ProductListProps {
 
 const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
   useAdmin();
+
 
   const { fetchProducts, deleteProduct, createProduct } = useProductsActions();
 
@@ -29,11 +32,17 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
     fetchProducts('', parseInt(pageId as string));
   }, [fetchProducts, successDelete, pageId]);
 
+  const search = (keyword: string) => {
+    fetchProducts(keyword, parseInt(pageId as string));
+  }
+
   return (
     <>
-      <Row className="align-items-center">
+    <section className='d-flex row' style={{paddingLeft: 40, paddingRight: 40, justifyContent: 'center', gap: 30, fontWeight: 500}}>
+      <h1>Productos</h1>
+      <Row className="align-items-center" style={{justifyContent: 'center'}}>
         <Col>
-          <h1>Products</h1>
+          <SearchBoxAdmin search={search}/>  
         </Col>
         <Col className="text-right">
           <Button
@@ -41,7 +50,7 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
             onClick={() => createProduct()}
             style={{ float: 'right' }}
           >
-            <i className="fas fa-plus"></i> Create Product
+            <i className="fas fa-plus"></i>  Crear nuevo Producto
           </Button>
         </Col>
       </Row>
@@ -55,12 +64,12 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
           <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
-                <th></th>
+                <th>ID de producto</th>
+                <th>Nombre de producto</th>
+                <th>Precio</th>
+                <th>Categoria</th>
+                <th>Marca</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -76,13 +85,15 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
                       href={`/admin/products/edit/${_product._id}`}
                       passHref
                     >
-                      <Button variant="light" className="btn-sm">
+                      <Button variant="light" className="btn-sm" title='Editar' >
+                                           
                         <i className="fas fa-edit"></i>
                       </Button>
                     </Link>
                     <Button
                       variant="danger"
                       className="btn-sm"
+                      title="Borrar"
                       onClick={() => {
                         if (
                           window.confirm(
@@ -104,6 +115,7 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
           <Paginate pages={pages} page={page} isAdmin={true} />
         </>
       )}
+      </section> 
     </>
   );
 };

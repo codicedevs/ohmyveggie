@@ -29,7 +29,7 @@ export class CartService {
         name,
         image,
         price,
-        countInStock, //ESTO ES EL STOCK DEL PRODUCTO, PERO MOSTRADO EN EL CARRITO
+        countInStock,
         qty,
       };
 
@@ -59,15 +59,9 @@ export class CartService {
 
   saveShippingDetails(shippingDetails: ShippingDetails): ShippingDetails {
     this.cart.shippingDetails = shippingDetails;
-
     return this.cart.shippingDetails;
   }
 
-  savePaymentMethod(paymentMethod: string): string {
-    this.cart.paymentMethod = paymentMethod;
-
-    return this.cart.paymentMethod;
-  }
 
   removeCartItem(id: string): CartItem[] {
     const itemExists = this.cart.cartItems.find(x => x.productId === id);

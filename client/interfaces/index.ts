@@ -1,8 +1,4 @@
-//COPIE DE PRODUCT
 
-export interface CategoryInterface {
-  name: string;
-}
 
   export interface ProductInterface {
   _id: string;
@@ -63,6 +59,9 @@ export interface ShippingDetails {
   city: string;
   postalCode: string;
   country: string;
+  timeDeliver: string;
+  zoneDeliver: string;
+  stockOption: string;
 }
 
 export interface PaymentResult {
@@ -91,6 +90,7 @@ export interface OrderInterface {
     name: string;
     email: string;
   };
+  observations?: string;
 }
 
 export interface Review {
@@ -108,6 +108,12 @@ export interface PaginatedProducts {
   page: number;
 }
 
-export interface PaginatedCategories {
-  categories: CategoryInterface[];
+export interface UIInterface {
+  isLoginVisible: boolean;
+}
+
+export interface UIRecover {
+  codigo: number | undefined;
+  nuevaContraseña: string;
+  confNuevaContraseña: string;
 }

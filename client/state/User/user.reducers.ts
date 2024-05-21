@@ -1,7 +1,28 @@
-import { ActionTypes } from './user.action-types';
-import { UserAction } from './user.actions';
-import { userInitialState, usersInitialState } from './user.initial-state';
-import { UsersState, UserState } from './user.state';
+import { ActionTypes } from "./user.action-types";
+import { UserAction } from "./user.actions";
+import { userInitialState, usersInitialState } from "./user.initial-state";
+import { UsersState, UserState } from "./user.state";
+
+export const userRecoverPassword = (
+  state: UserState = userInitialState,
+  action: UserAction
+): UserState => {
+  switch (action.type) {
+    case ActionTypes.RECOVER_PASSWORD_START:
+      return { ...state, loading: true, error: null };
+    case ActionTypes.RECOVER_PASSWORD_SUCCESS:
+      return { ...state, loading: false, error: null };
+    case ActionTypes.RECOVER_PASSWORD_ERROR:
+      return { ...state, loading: false, error: action.payload };
+    case ActionTypes.RESET_PASSWORD_START:
+      return { ...state, loading: true, error: null };
+    case ActionTypes.RESET_PASSWORD_SUCCESS:
+      return { ...state, loading: false, error: null };
+    case ActionTypes.RESET_PASSWORD_ERROR:
+      return { ...state, loading: false, error: action.payload };
+      default: return state
+  }
+};
 
 export const userLoginReducer = (
   state: UserState = userInitialState,
@@ -19,6 +40,7 @@ export const userLoginReducer = (
       return { ...state, data: action.payload };
     case ActionTypes.USER_RESET:
       return { loading: false, data: null, error: null };
+
     default:
       return state;
   }

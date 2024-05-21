@@ -19,14 +19,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     ...pageProps.initialReduxState,
   };
 
-  console.log('page_props', pageProps);
 
   const store = useStore(initialState);
 
   return (
     <Provider store={store}>
       <MainLayout>
-          <Component {...pageProps} />
+        <Component {...pageProps} />
       </MainLayout>
     </Provider>
   );

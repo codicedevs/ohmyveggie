@@ -28,8 +28,8 @@ export class ProductsService {
   }
 
   async findMany(pageId: string, filter?: FilterQuery<ProductDocument>): Promise<ProductDocument[] | PaginatedProducts> {
-    const pageSize = 2;
-    const page = parseInt(pageId) || 1;
+    const pageSize = 10;
+    const page = parseInt(pageId) || 1; //si no se proporciona pageId entrega 1
     if (!filter) {
       // Si no se proporciona un filtro busca todos los productos
       const products = await this.productModel.find();
@@ -86,7 +86,7 @@ export class ProductsService {
     id: string,
     attrs: Partial<ProductDocument>
   ): Promise<ProductDocument> {
-    const { name, price, description, image, brand, category, countInStock } =
+    const { name, price, image, category, countInStock } =
       attrs;
     if (!Types.ObjectId.isValid(id))
       throw new BadRequestException('Invalid product ID.');
@@ -96,51 +96,9 @@ export class ProductsService {
 
     product.name = name;
     product.price = price;
-    product.description = description;
     product.image = image;
-    product.brand = brand;
     product.category = category;
     product.countInStock = countInStock;
-
-    const updatedProduct = await product.save();
-
-    return updatedProduct;
-  }
-
-  async createReview(
-    id: string,
-    user: Partial<UserDocument>,
-    rating: number,
-    comment: string
-  ): Promise<ProductDocument> {
-    if (!Types.ObjectId.isValid(id))
-      throw new BadRequestException('Invalid product ID.');
-
-    const product = await this.productModel.findById(id);
-
-    if (!product) throw new NotFoundException('No product with given ID.');
-
-    const alreadyReviewed = product.reviews.find(
-      r => r.user.toString() === user._id.toString()
-    );
-
-    if (alreadyReviewed)
-      throw new BadRequestException('Product already reviewed!');
-
-    const review = {
-      name: user.name,
-      rating,
-      comment,
-      user: user._id,
-    };
-
-    product.reviews.push(review);
-
-    product.rating =
-      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
-      product.reviews.length;
-
-    product.numReviews = product.reviews.length;
 
     const updatedProduct = await product.save();
 
@@ -161,13 +119,10 @@ export class ProductsService {
   async deleteMany(): Promise<void> {
     await this.productModel.deleteMany({});
   }
-  
+
   async getAllCategories(): Promise<string[]> {
     const categories = await this.productModel.distinct('category').exec();
     return categories;
   }
-  async getAllBrands(): Promise<string[]> {
-    const categories = await this.productModel.distinct('brand').exec();
-    return categories;
-  }
+
 }

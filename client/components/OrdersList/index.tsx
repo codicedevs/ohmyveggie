@@ -4,22 +4,29 @@ import { Button, Table } from 'react-bootstrap';
 import { useAdmin, useOrderActions, useTypedSelector } from '../../hooks';
 import Loader from '../Loader';
 import Message from '../Message';
+import { proshopAPI } from '../../lib';
 
 const OrdersList = () => {
   useAdmin();
 
   const { data, loading, error } = useTypedSelector(state => state.orders);
+  const dataOrder = useTypedSelector(state => state.order);
+
   const { fetchOrders } = useOrderActions();
-
   const user = useTypedSelector(state => state.user);
-
+  
   useEffect(() => {
+        
     fetchOrders();
   }, [fetchOrders, user.data]);
+  
 
   return (
     <>
-      <h1>Orders</h1>
+        <section className='d-flex row' style={{paddingLeft: 40, paddingRight: 40, justifyContent: 'center', gap: 30, fontWeight: 600}}>
+
+
+      <h1>Ordenes</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -28,20 +35,20 @@ const OrdersList = () => {
         <Table striped bordered hover responsive className="table-sm">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>USER</th>
-              <th>DATE</th>
+              <th>ID de la orden</th>
+              <th>Cliente</th>
+              <th>Fecha de orden</th>
               <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th></th>
+              <th>Pagado</th>
+              <th>Entregado</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {data.map(_order => (
               <tr key={_order._id}>
                 <td>{_order._id}</td>
-                <td>{_order.user && _order.user.name}</td>
+                <td>{_order.user?.name }</td>
                 <td>{_order.createdAt?.substring(0, 10)}</td>
                 <td>${_order.totalPrice}</td>
                 <td>
@@ -60,8 +67,8 @@ const OrdersList = () => {
                 </td>
                 <td>
                   <Link href={`/orders/${_order._id}`} passHref>
-                    <Button variant="light" className="btn-sm">
-                      Details
+                    <Button variant="light" className="btn-sm" title='Detalle'>
+                      Detalle
                     </Button>
                   </Link>
                 </td>
@@ -70,6 +77,7 @@ const OrdersList = () => {
           </tbody>
         </Table>
       )}
+      </section>
     </>
   );
 };

@@ -7,6 +7,7 @@ import { proshopAPI } from '../../lib';
 import FormContainer from '../FormContainer';
 import Loader from '../Loader';
 import Message from '../Message';
+import { useRouter } from 'next/router';
 
 interface ProductsEditProps {
   pageId: string | string[] | undefined;
@@ -14,7 +15,7 @@ interface ProductsEditProps {
 
 const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
   useAdmin();
-
+  const router = useRouter();
   const initialProduct = {
     name: '',
     price: 0,
@@ -85,10 +86,10 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
   return (
     <>
       <Link href="/admin/products" passHref>
-        <Button className="btn btn-light my-3">Go Back</Button>
+        <Button className="btn btn-light my-3">⇐ Volver</Button>
       </Link>
       <FormContainer>
-        <h1>Edit Product</h1>
+        <h1>Editar Producto</h1>
 
         {loading ? (
           <Loader />
@@ -97,10 +98,10 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
         ) : (
           <Form onSubmit={onSubmitHandler}>
             <Form.Group controlId="name" className="py-2">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Nombre del producto</Form.Label>
               <Form.Control
                 type="name"
-                placeholder="Enter name"
+                placeholder="Nombre producto"
                 value={productDetails.name}
                 onChange={e =>
                   setDetails({ ...productDetails, name: e.target.value })
@@ -109,10 +110,10 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
             </Form.Group>
 
             <Form.Group controlId="price" className="py-2">
-              <Form.Label>Price</Form.Label>
+              <Form.Label>Precio</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Enter price"
+                placeholder="Precio del producto"
                 value={productDetails.price}
                 onChange={e =>
                   setDetails({
@@ -124,7 +125,7 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
             </Form.Group>
 
             <Form.Group controlId="image" className="py-2">
-              <Form.Label>Image</Form.Label>
+              <Form.Label>Imagen del producto</Form.Label>
               <Form.Group controlId="formFile" onChange={uploadFileHandler}>
                 <Form.Control type="file" />
               </Form.Group>
@@ -132,10 +133,10 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
             </Form.Group>
 
             <Form.Group controlId="brand" className="py-2">
-              <Form.Label>Brand</Form.Label>
+              <Form.Label>Marca</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter brand"
+                placeholder="Marca del producto"
                 value={productDetails.brand}
                 onChange={e =>
                   setDetails({ ...productDetails, brand: e.target.value })
@@ -144,10 +145,10 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
             </Form.Group>
 
             <Form.Group controlId="countInStock" className="py-2">
-              <Form.Label>Count In Stock</Form.Label>
+              <Form.Label>Stock del producto</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Enter countInStock"
+                placeholder="Stock de producto"
                 value={productDetails.countInStock}
                 onChange={e =>
                   setDetails({
@@ -159,10 +160,10 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
             </Form.Group>
 
             <Form.Group controlId="category" className="py-2">
-              <Form.Label>Category</Form.Label>
+              <Form.Label>Categoria</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter category"
+                placeholder="Categoria del producto"
                 value={productDetails.category}
                 onChange={e =>
                   setDetails({ ...productDetails, category: e.target.value })
@@ -171,20 +172,24 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
             </Form.Group>
 
             <Form.Group controlId="description" className="py-2">
-              <Form.Label>Description</Form.Label>
+              <Form.Label>Descripcion</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter description"
+                placeholder="Description del producto"
                 value={productDetails.description}
                 onChange={e =>
                   setDetails({ ...productDetails, description: e.target.value })
                 }
               ></Form.Control>
             </Form.Group>
-
+            <div className="d-flex" style={{gap: 20}}>
             <Button type="submit" variant="primary" className="mt-3">
-              Update
+              Actualizar
             </Button>
+            <Button type="button" variant="primary" className="mt-3" onClick={()=> router.back()}>
+              Volver
+            </Button>
+              </div>    
           </Form>
         )}
       </FormContainer>

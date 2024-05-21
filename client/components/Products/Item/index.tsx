@@ -36,7 +36,7 @@ const Item: React.FC<ProductInterface> = (product) => {
   useEffect(() => {
     const result = cartData.cartItems.find(function (item) { return item.productId == _id; });
     if (!result) return
-    console.log('substract', result.qty);
+
     setCantProd(result.qty);
   }, [cartItems])
 
@@ -47,7 +47,7 @@ const Item: React.FC<ProductInterface> = (product) => {
     }
 
     const cartItemInterface = cartData.cartItems.find(function (item) { return item.productId == _id; });
-      console.log('add', cartItemInterface);
+
       if(cartItemInterface){
         setCantProd(cartItemInterface.qty + 1);
         addToCart({
@@ -67,12 +67,15 @@ const Item: React.FC<ProductInterface> = (product) => {
 
   function subtractQtyProd(item: any) {
     const result = cartData.cartItems.find(function (item) { return item.productId == _id; });
-    if (!result ||result.qty < 1) {
-      // console.log('substractCero', result.qty);
+    if(!result) return
+    if ( result.qty <= 1) {
+
+      removeFromCart(result.productId);
+      setCantProd(0)
       setIsVisibleAddButton(false);
       return
     }  
-    console.log('substract', result.qty);
+
     setCantProd(result.qty - 1);
     addToCart({
       qty: result.qty - 1,
@@ -114,7 +117,7 @@ const Item: React.FC<ProductInterface> = (product) => {
           <div className="title">{name}</div>
           <div className="text-block-5">${price}</div>
           {isVisibleAddButton || cantProd > 0 ?       //-------------------------------------------------
-            <div className="addbutton">
+            <div className="addbutton" style={{backgroundColor: '#ccdfce'}}>
               <div className='addRestButton' onClick={addQtyProd}> + </div>
               <div className='addRestButton'> {cantProd} </div>
               <div className='addRestButton' onClick={subtractQtyProd}> - </div>

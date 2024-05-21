@@ -9,9 +9,7 @@ export const serverSetting = Object.freeze({
 });
 
 export const jwtSetting = Object.freeze({
-    JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
-    JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
-   
+    JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,   
   });
 
   export const smtpSettings = Object.freeze({

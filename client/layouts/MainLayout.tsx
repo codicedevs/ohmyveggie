@@ -1,7 +1,7 @@
-import Header from '../components/Header';
 import HeaderNew from '../components/HeaderNew';
 import Footer from '../components/Footer';
 import CartNew from '../components/CartNew';
+import LoginNew from '../components/LoginNew';
 import {
   useCartActions,
   useLocalStorage,
@@ -9,11 +9,18 @@ import {
   useUserActions,
 } from '../hooks';
 import { useEffect } from 'react';
+import { useTypedSelector} from '.././hooks';
+import Register from '../components/RegisterNew';
+import PasswordRecover from '../components/PasswordRecover';
+import ResetPassword from '../components/ResetPassword';
+
 
 const MainLayout: React.FC = ({ children }) => {
   useReset();
 
   const accessToken = useLocalStorage('', 'accessToken');
+
+  const uI = useTypedSelector(state => state.uI);
 
   const { getCurrentUser } = useUserActions();
   const { getCart } = useCartActions();
@@ -31,6 +38,10 @@ const MainLayout: React.FC = ({ children }) => {
   return (
     <>
       <HeaderNew />
+      <LoginNew visible ={uI.isLoginVisible}/>
+      <Register visible ={uI.isRegisterVisible}/>
+      <PasswordRecover visible ={uI.isPasswordRecoverVisible}/>
+      <ResetPassword visible ={uI.isResetPasswordVisible}/>
         {children}
       <Footer />
     </>

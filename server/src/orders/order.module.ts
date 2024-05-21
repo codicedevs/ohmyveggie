@@ -21,6 +21,6 @@ import { ShippingDetails, shippingDetailsSchema } from './schemas/shipping.detai
     ]),
   ],
   controllers: [OrdersController],
-  providers: [OrdersService]
+  providers: [OrdersService],
 })
 export class OrderModule { }

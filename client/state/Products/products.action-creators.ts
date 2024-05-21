@@ -5,22 +5,25 @@ import { proshopAPI } from '../../lib';
 import { ActionTypes } from './products.action-types';
 import { ProductsAction } from './products.actions';
 
-export const fetchProducts =
-  (keyword: string = '', pageId: number = 1) =>
-  async (dispatch: Dispatch<ProductsAction>) => {
+//category: string ='', brand: string ='' esto se lo saque a FetchProducts
+//y esto al endpoint &category=${category}&brand=${brand}
+
+export const fetchProducts = (keyword: string = '', pageId: number = 1, brand: string = '',category: string ='' ) => async (dispatch: Dispatch<ProductsAction>) => {
     try {
       dispatch({
         type: ActionTypes.FETCH_PRODUCTS_START,
       });
 
       const { data } = await proshopAPI.get(
-        `/products?keyword=${keyword}&pageId=${pageId}`
+        `/products?keyword=${keyword}&brand=${brand}&category=${category}`
       );
+    setTimeout(()=>{
 
       dispatch({
         type: ActionTypes.FETCH_PRODUCTS_SUCCESS,
         payload: data,
       });
+    }, 300)
     } catch (error: any) {
       dispatch({
         type: ActionTypes.FETCH_PRODUCTS_ERROR,
@@ -31,12 +34,11 @@ export const fetchProducts =
 
   //COPIE EL FETCH PRODUCT
 
-export const fetchCategories = () => {
-  async(dispatch: Dispatch<ProductsAction>)=>{
+export const fetchCategories = () => async(dispatch: Dispatch<ProductsAction>)=>{
 
     try{
       dispatch({
-        type: ActionTypes.FETCH_CATEGORIES_START,
+        type: ActionTypes.FETCH_PRODUCTS_START,
       })
       const { data } = await proshopAPI.get('/categories')
     
@@ -51,7 +53,26 @@ export const fetchCategories = () => {
     });
   }
   }
-}
+export const fetchBrands = () => async(dispatch: Dispatch<ProductsAction>)=>{
+
+    try{
+      dispatch({
+        type: ActionTypes.FETCH_PRODUCTS_START,
+      })
+      const { data } = await proshopAPI.get('/brands')
+    
+      dispatch({
+      type: ActionTypes.FETCH_BRANDS_SUCCESS,
+      payload: data,
+    });
+  } catch (error: any) {
+    dispatch({
+      type: ActionTypes.FETCH_BRANDS_ERROR,
+      payload: error.response.data.message,
+    });
+  }
+  }
+
 
 export const fetchTopRatedProducts =
   () => async (dispatch: Dispatch<ProductsAction>) => {

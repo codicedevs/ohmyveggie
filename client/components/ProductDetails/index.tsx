@@ -47,7 +47,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
     error,
     data: { cartItems },
   } = useTypedSelector(state => state.cart);*/
-  console.log('Cart items :', cartData.cartItems, data);
 
   const { image, name, price, countInStock, description, rating, numReviews } =
     data;
@@ -91,26 +90,35 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
         <p className="paragraph-3">
           {description}
         </p>
-        { countInStock > 0 ?
-          <div className="div-block-25"
-          
-          onClick={() => {   // va al carro, no tiene que ir - Modificado en state/Cart/cart.actions.creators/addToCart
-            //let qutuy = qty;
-            //setQty( qutuy + 1)
-            //alert(qty);
-            
-            addToCart({
-              product: data,
-              qty,  //----------------------------------> Verificar porque modifica el total de productos del carro <----------------------------
-            });
-          }}
+        {countInStock > 0 ?
+          <Button
+            variant='success'
+            type="button"
+            className="btn btn-block"
+            onClick={() => {   // va al carro, no tiene que ir - Modificado en state/Cart/cart.actions.creators/addToCart
+              //let qutuy = qty;
+              //setQty( qutuy + 1)
+              //alert(qty);
+
+              addToCart({
+                product: data,
+                qty,  //----------------------------------> Verificar porque modifica el total de productos del carro <----------------------------
+              });
+            }}
           >
             Añadir al carro
-          </div>
+          </Button>
           : null
         }
-        <Link href="/" passHref>
-          <div className="div-block-25-back">Volver</div>
+
+        <Link href="/#productos" passHref>
+          <Button
+            variant='outline-dark'
+            type="button"
+            className="btn btn-block"
+          >
+            Volver
+          </Button>
         </Link>
       </div>
     </section>

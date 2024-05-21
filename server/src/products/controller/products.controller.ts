@@ -29,7 +29,7 @@ export class ProductsController {
   ) {
     return this.productsService.findMany(pageId, filter);
   }
-
+  
   @Get("topRated")
   getTopRatedProducts() {
     return this.productsService.findTopRated();
@@ -58,15 +58,6 @@ export class ProductsController {
     return this.productsService.update(id, product);
   }
 
-  @UseGuards(AuthGuard)
-  @Put(":id/review")
-  createReview(
-    @Param("id") id: string,
-    @Body() { rating, comment }: ReviewDto,
-    @Session() session: any
-  ) {
-    return this.productsService.createReview(id, session.user, rating, comment);
-  }
 }
 
 @Controller("categories")
@@ -78,11 +69,4 @@ export class ProductsCategoriesController {
   }
 }
 
-@Controller("brands")
-export class ProductsBrandsController {
-  constructor(private productsService: ProductsService) {}
-  @Get()
-  async getAllBrands(): Promise<string[]> {
-    return this.productsService.getAllBrands();
-  }
-}
+

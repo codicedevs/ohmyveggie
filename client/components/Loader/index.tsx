@@ -1,26 +1,20 @@
-import { CSSProperties } from 'react';
-import { Spinner } from 'react-bootstrap';
+import React from 'react';
+import { DotLoader } from 'react-spinners';
 
 interface LoaderProps {
-  options?: CSSProperties;
+  size?: number;
+  color?: string;
 }
 
-const Loader: React.FC<LoaderProps> = ({ options }) => {
+const Loader: React.FC<LoaderProps> = ({ size, color }) => {
   return (
-    <Spinner
-      animation="border"
-      role="status"
-      style={{
-        width: '100px',
-        height: '100px',
-        margin: 'auto',
-        display: 'block',
-        ...options,
-      }}
-    >
-      <span className="sr-only">Loading</span>
-    </Spinner>
+    <DotLoader
+      color={color || "#a2cca6"}
+      size={size || 80}
+    />
   );
 };
 
 export default Loader;
+
+

@@ -19,10 +19,13 @@ import {
   userDetailsReducer,
   userEditReducer,
   userLoginReducer,
+  userRecoverPassword,
   userRegisterReducer,
   usersReducer,
   userUpdateReducer,
 } from './User/user.reducers';
+
+import { uIReducer } from './UI/ui.reducers';
 
 export const reducers = combineReducers({
   products: productsReducer,
@@ -43,6 +46,9 @@ export const reducers = combineReducers({
   orders: ordersReducer,
   userOrders: userOrdersReducer,
   users: usersReducer,
+  uI: uIReducer,
+  userRecoverPass: userRecoverPassword,
+  
 });
 
 export type RootState = ReturnType<typeof reducers>;

@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 
 
-const CartNew: React.FC <{toggleCart: () => void}> = ( props ) => {
+const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
     const router = useRouter();
     
     const {
@@ -19,11 +19,12 @@ const CartNew: React.FC <{toggleCart: () => void}> = ( props ) => {
 
     const onCheckoutHandler = () => {
       const redirect = data ? '/shipping' : '/login';    //  acá redirecciona al hacer click en Comprar ahora en funcion de data
+      
       props.toggleCart();
-      router.push(redirect);
+      router.push('/shipping');
     };
 
-    console.log('cartsItems', cartItems);
+  
 
     function addQtyProd(item: any) {  
       if (item.qty + 1 > item.countInStock) {

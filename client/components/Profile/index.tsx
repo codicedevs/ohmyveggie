@@ -77,9 +77,12 @@ const Profile = () => {
   };
 
   return (
+    <section className='d-flex' style={{paddingLeft: 40, justifyContent: 'center', gap: 30}}>
+
+    
     <Row>
       <Col md={3}>
-        <h2>User Profile</h2>
+        <h2>Perfil de usuario</h2>
 
         {message && (
           <Message variant="danger">
@@ -87,13 +90,13 @@ const Profile = () => {
           </Message>
         )}
         {success && !error && (
-          <Message variant="success">Profile Updated</Message>
+          <Message variant="success">Perfil actualizado!</Message>
         )}
         {loading && <Loader />}
 
         <Form onSubmit={onSubmitHandler}>
           <Form.Group controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>Nombre</Form.Label>
             <Form.Control
               type="name"
               placeholder="Enter name"
@@ -105,7 +108,7 @@ const Profile = () => {
           </Form.Group>
 
           <Form.Group controlId="email" className="py-3">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter email"
@@ -117,7 +120,7 @@ const Profile = () => {
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Contraseña</Form.Label>
             <Form.Control
               type="password"
               placeholder="Enter password"
@@ -129,7 +132,7 @@ const Profile = () => {
           </Form.Group>
 
           <Form.Group controlId="confirmPassword" className="py-3">
-            <Form.Label>Confirm Password</Form.Label>
+            <Form.Label>Confirmar contraseña</Form.Label>
             <Form.Control
               type="password"
               placeholder="Confirm password"
@@ -144,12 +147,12 @@ const Profile = () => {
           </Form.Group>
 
           <Button type="submit" variant="primary">
-            Update
+            Actualizar datos
           </Button>
         </Form>
       </Col>
       <Col md={9}>
-        <h2>My Orders</h2>
+        <h2>Mis ordenes</h2>
 
         {userOrders.loading ? (
           <Loader />
@@ -159,11 +162,11 @@ const Profile = () => {
           <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>DATE</th>
+                <th>ID de Orden</th>
+                <th>Fecha</th>
                 <th>TOTAL</th>
-                <th>PAID</th>
-                <th>DELIVERED</th>
+                <th>Pagado</th>
+                <th>Entregado</th>
                 <th></th>
               </tr>
             </thead>
@@ -190,7 +193,7 @@ const Profile = () => {
                   <td>
                     <Link href={`/orders/${order._id}`} passHref>
                       <Button className="btn-sm" variant="light">
-                        Details
+                        Detalle
                       </Button>
                     </Link>
                   </td>
@@ -201,6 +204,7 @@ const Profile = () => {
         )}
       </Col>
     </Row>
+    </section>
   );
 };
 

@@ -30,7 +30,14 @@ export type UserAction =
   | AdminUpdateUserStart
   | AdminUpdateUserSuccess
   | AdminUpdateUserError
-  | AdminUpdateUserReset;
+  | AdminUpdateUserReset
+  | RecoverPasswordStart
+  | RecoverPasswordSuccess
+  | RecoverPasswordError
+  | ResetPasswordStart
+  | ResetPasswordSuccess
+  | ResetPasswordError
+  
 
 export interface UserLoginStart {
   type: ActionTypes.USER_LOGIN_START;
@@ -163,4 +170,25 @@ export interface DeleteUserError {
 
 export interface UserReset {
   type: ActionTypes.USER_RESET;
+}
+
+export interface RecoverPasswordStart {
+  type: ActionTypes.RECOVER_PASSWORD_START;
+}
+export interface RecoverPasswordSuccess {
+  type: ActionTypes.RECOVER_PASSWORD_SUCCESS
+}
+export interface RecoverPasswordError {
+  type: ActionTypes.RECOVER_PASSWORD_ERROR,
+  payload: string;
+}
+export interface ResetPasswordStart {
+  type: ActionTypes.RESET_PASSWORD_START
+}
+export interface ResetPasswordSuccess {
+  type: ActionTypes.RESET_PASSWORD_SUCCESS
+}
+export interface ResetPasswordError {
+  type: ActionTypes.RESET_PASSWORD_ERROR,
+  payload: string
 }
