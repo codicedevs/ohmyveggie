@@ -171,14 +171,18 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                 <ListGroup variant="flush">
                   {data.orderItems.map((item, index) => (
                     <ListGroup.Item key={index}>
-                      <Row style={{ fontSize: 14, color: 'black', fontWeight: 800 }}>
+                      <Row style={{ fontWeight: 600 }}>
                         <Col>
                           <Link href={`/product/${item.productId}`} passHref>
                             <span className="link__span">{item.name}</span>
                           </Link>
                         </Col>
                         <Col style={{ textAlign: "right" }} md={4}>
-                          {item.qty} x ${item.price} = $
+                          {item.qty} x ${item.price} 
+                          
+                        </Col>
+                        <Col style={{ textAlign: "right", fontSize: 18, fontWeight: 700 }} md={4}>
+                        $ {' '}
                           {(item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
@@ -254,7 +258,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
         {user.data?.isAdmin ?
           <div className='txtArea'>
             <div className="txtorderitem">Observaciones</div>
-            <Form.Control style={{ marginTop: '10px', marginBottom: '10px' }}
+            <Form.Control 
+              style={{ marginTop: '10px', marginBottom: '20px', border: '1px', backgroundColor: '#ddd', borderRadius: '10px' }}
               as="textarea"
               rows={3}
               value={observation}

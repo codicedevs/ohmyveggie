@@ -6,6 +6,9 @@ const SearchBox = () => {
   const router = useRouter();
   const [keyword, setKeyword] = useState('');
 
+  const handleRefresh = () => {
+    router.push('/')
+  }
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -26,8 +29,16 @@ const SearchBox = () => {
             placeholder="Buscar productos..."
             className="mr-sm-2 ml-sm-5"
           ></Form.Control>
-
-          <Button type="submit" variant="light" style={{ marginLeft: '4px' }} >
+          <Button onClick={handleRefresh} variant="light" style={{ marginLeft: '4px' }}>
+          <img
+              src="/images/refresh.png"
+              loading="lazy"
+              alt=""
+              className="image"
+              style={{color: '#f3a'}}
+            />
+          </Button>
+          <Button type="submit" variant="light"  >
             <img
               src="/images/searchIcon.png"
               loading="lazy"
