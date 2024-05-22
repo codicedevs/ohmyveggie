@@ -13,8 +13,9 @@ import type { AppProps } from 'next/app';
 import MainLayout from '../layouts/MainLayout';
 import { Container } from 'react-bootstrap';
 import { Provider } from 'react-redux';
+import { ReactNode } from 'react';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps): any{
   const initialState = {
     ...pageProps.initialReduxState,
   };
