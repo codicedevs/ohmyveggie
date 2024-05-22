@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <MainLayout>
-        <Component {...pageProps} />
+        <div>  <Component {...pageProps} /></div>
       </MainLayout>
     </Provider>
   );
