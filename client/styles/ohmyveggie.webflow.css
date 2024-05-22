@@ -19,6 +19,7 @@
   --locura: #f7124b;
   --azul-electrico: #36eefc;
   --color: #facbef;
+  font-weight: 400;
 }
 
 .txtArea {
@@ -1279,8 +1280,8 @@
 .txtorderitem {
   height: auto;
   background-color: rgba(218, 197, 197, 0);
-  border: 1px solid #adacac;
-  border-radius: 6px;
+  /* border: 1px solid #adacac;
+  border-radius: 6px; */
   padding: 10px;
   font-family: Montserrat, sans-serif;
   font-size: 20px;

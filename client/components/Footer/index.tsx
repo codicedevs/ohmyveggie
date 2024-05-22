@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { NavLink } from 'react-bootstrap';
 
 const Footer = () => {
   return (
@@ -20,21 +21,20 @@ const Footer = () => {
             <div className="columns w-row">
               <div className="column-4 w-col w-col-4">
                 <p className="paragraph-2">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                  varius.
+                El lugar ideal para todo aquel que busque sentirse bien, promoviendo nuevos hábitos a través de la toma de consciencia
                 </p>
-                <a href="#" className="link-2">
-                  ohmyveggie@gmail.com
+                <a href="mailto:ohmyveggie@gmail.com" className="link-2">
+                  Escribinos un mail
                 </a>
               </div>
               <div className="column w-col w-col-3">
                 <ul role="list" className="list-2 w-list-unstyled">
-                <Link href="/" >
+                <NavLink href="/" >
                   <li className="footerlistitem">Inicio</li>
-                </Link> 
-                <Link href="/about" >
+                </NavLink> 
+                <NavLink href="/about" >
                   <li className="footerlistitem">Nosotros</li>
-                </Link> 
+                </NavLink> 
                 </ul>
               </div>
               <div className="column-2 w-col w-col-3">

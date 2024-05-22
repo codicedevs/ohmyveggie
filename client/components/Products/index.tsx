@@ -121,25 +121,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
         <div id="products" className="wrapperprods" >
           <div className="wrapperstyckymenu">
             <div className="stickymenu">
-              <div className="div-block-14">
-                <div className="div-block-13">
-                  <div className="text-block-2">Marcas</div>
-                </div>
-                <div className="div-block-15" />
-              </div>
-              <ul role="list" className="list w-list-unstyled">
-                {brands.map((brand, idx) => <li 
-                  key={idx} 
-                  className={(brandSelectedId===idx.toString())? "listitem listitemselected" : "listitem"}
-                  onClick={()=>{
-                    handleBrandSel(brand, idx.toString())
-      
-                    }}>
-                    {brand}
-                    {brandSelectedId===idx.toString() && <Button filter="brand" />  }
-                  
-                  </li>)}
-              </ul>
+              
               <div className="div-block-14">
                 <div className="div-block-13">
                   <div className="text-block-2">Categorías</div>

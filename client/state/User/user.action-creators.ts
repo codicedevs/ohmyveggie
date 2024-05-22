@@ -45,7 +45,7 @@ export const login =
 
       localStorage.setItem("accessToken", data.accessToken);
 
-      Router.push("/");
+      
     } catch (error: any) {
       dispatch({
         type: ActionTypes.USER_LOGIN_ERROR,
