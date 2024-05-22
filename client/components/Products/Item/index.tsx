@@ -98,17 +98,11 @@ const Item: React.FC<ProductInterface> = (product) => {
           <a>
             <>
               <div className="picture" title='Ver detalle de producto'>
-                <div className="offer">Oferta</div>
                 <img
-                  src='/images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979-p-500.png'
+                  src={image? image : '/images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979-p-500.png'}
                   loading="lazy"
 
                 />
-                {/* { countInStock > 0 &&
-                <div className="div-block-39">
-                  <div className="stocklevel disponible">Disponible</div>
-                </div>
-              } */}
               </div>
             </>
           </a>

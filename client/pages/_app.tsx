@@ -33,10 +33,3 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 export default MyApp;
 
-{/*<Provider store={store}>
-      <MainLayout>
-        <Container>
-          <Component {...pageProps} />
-        </Container>
-      </MainLayout>
-    </Provider> */}

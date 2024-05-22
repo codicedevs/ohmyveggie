@@ -15,7 +15,6 @@ const HomePage: NextPage = () => {
       <SEO {...homeConfig} />
       <main className="wrapper py-5">
         <Products pageId={pageId} />
-        <div style={{backgroundColor: 'red'}}>ANMARILLO</div>
       </main>
     </>
   );
