@@ -45,13 +45,14 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
       }  
     }
     return (
-    <button onClick={(e)=>{e.stopPropagation(); handleClose(filter)}} type="button" className="btn-close" aria-label="Close" style={{marginLeft: 15, width: 1, alignItems: 'center', zIndex:1000}}></button>
+      <button onClick={(e)=>{e.stopPropagation(); handleClose(filter)}} type="button" className="btn-close" aria-label="Close" style={{marginLeft: 15, width: 1, alignItems: 'center', zIndex:1000}}></button>
     )
   }
   const [catSel, setCatSel] = useState('')
   const [catSelectedId, setCatSelectedId] = useState('')
   const [brandSelectedId, setBrandSelectedId] = useState('')
   const [brandSel, setBrandSel] = useState('')
+  const [currentPage, setCurrentPage] = useState("")
 
 
 
@@ -91,6 +92,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
     
   }, [keyword, pageId, brandSel, catSel]);
   
+  console.log(currentPage)
 
   //images/logo2.png
   return (
