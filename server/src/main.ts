@@ -12,7 +12,7 @@ import { getProtocolConfig } from './utils/ssl';
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 async function bootstrap() {
-  const { key, cert, protocol } = getProtocolConfig();
+  const { key, cert, protocol } = getProtocolConfig("/etc/letsencrypt/live/www.codice.dev/privkey.pem", "/etc/letsencrypt/live/www.codice.dev/fullchain.pem");
   const app = await NestFactory.create<NestExpressApplication>(AppModule, protocol == 'https' ? { httpsOptions: { key, cert } } : undefined)
   app.set('trust proxy', 1); // trust first proxy
   app.enableCors(corsConfig());
