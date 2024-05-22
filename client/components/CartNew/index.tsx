@@ -64,7 +64,7 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
           <div className="totalitems">
             <div className="div-block-33">
               <img src="images/shop.png" loading="lazy" alt="" className="image-8" />
-              <div className="text-block-10">{cartItems.reduce((acc, item) => acc + item.qty, 0)} item | Total : $ 
+              <div className="text-block-10" style={{fontWeight: 400}}>{cartItems.reduce((acc, item) => acc + item.qty, 0)} item | Total : $ 
               {cartItems
                 .reduce((acc, item) => acc + item.qty * item.price, 0)
                 .toFixed(2)}
@@ -84,10 +84,10 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
               :
               cartItems.map(item => (
                 <div className="chartproduct">
-                  <div className="moreless">
-                    <div className="morelessbutton more" onClick= {() => addQtyProd(item)}>+</div>
+                  <div className="moreless" style={{fontWeight: 500}}>
+                    <div className="morelessbutton more" style={{cursor:"pointer"}} onClick= {() => addQtyProd(item)}>+</div>
                     <div className="text-block-11">{item.qty}</div>
-                    <div className="morelessbutton" onClick= {() => subtractQtyProd(item)}>-</div>
+                    <div className="morelessbutton" style={{cursor:"pointer"}} onClick= {() => subtractQtyProd(item)}>-</div>
                   </div>
                   <div className="productdetail">
                     {/* <img
