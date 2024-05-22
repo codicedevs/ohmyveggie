@@ -29,7 +29,7 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
   );
 
   useEffect(() => {
-    fetchProducts('', parseInt(pageId as string));
+    // fetchProducts('', parseInt(pageId as string));
   }, [fetchProducts, successDelete, pageId]);
 
   const search = (keyword: string) => {
