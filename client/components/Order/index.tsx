@@ -50,6 +50,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   const delivered = () => {
     deliverOrder(data._id!)
   }
+  const handleClose = () => setModalIsOpen(false);
 
   useEffect(() => {
     if (!data._id || success) {
@@ -82,8 +83,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-       <Modal size="xl" show={modalIsOpen} >
-        <iframe src={mercadoPagoUrl} style={{ minHeight: 750 }} />
+       <Modal size="xl" show={modalIsOpen}    onHide={handleClose}>
+        <iframe src={mercadoPagoUrl}  style={modalIsOpen ? { minHeight: 750 } : {opacity:"0"}} />
       </Modal>
       <section
         className="section-4"
@@ -94,7 +95,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
           <h1 className="heading-2">Orden Pendiente nro: {data._id}</h1>
         )}
 
-        <div className="columns-2 w-row">
+        <div className="columns-2 w-row"  >
           <div className="column-5 w-col w-col-8">
             <div className="orderitem">
               <div className="container-item-order">
