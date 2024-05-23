@@ -15,7 +15,12 @@ async function bootstrap() {
   const { key, cert, protocol } = getProtocolConfig("/etc/letsencrypt/live/www.codice.dev/privkey.pem", "/etc/letsencrypt/live/www.codice.dev/fullchain.pem");
   const app = await NestFactory.create<NestExpressApplication>(AppModule, protocol == 'https' ? { httpsOptions: { key, cert } } : undefined,)
   app.set('trust proxy', 1); // trust first proxy
-  app.enableCors();
+  app.enableCors({
+    origin: '*', // Allows all origins
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', // Allows all methods
+    allowedHeaders: '*', // Allows all headers
+    credentials: true, // Allows credentials
+  });
   app.use(session(sessionConfig(MongoDBStore)));
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   await attachTransformEventHandler() // Conecta a la base de datos MongoDB
