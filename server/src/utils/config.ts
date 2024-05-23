@@ -18,9 +18,9 @@ export const connectDB = (
 };
 
 export const corsConfig = (): CorsOptions => ({
-  origin: ["*"],
+  origin: ["https://codice.dev:4000"],
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  credentials: true,
+
 });
 
 export const sessionConfig = (MongoDBStore: any): SessionOptions => ({

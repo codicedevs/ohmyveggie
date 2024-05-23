@@ -83,8 +83,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-       <Modal size="xl" show={modalIsOpen}    onHide={handleClose}>
-        <iframe src={mercadoPagoUrl}  style={modalIsOpen ? { minHeight: 750 } : {opacity:"0"}} />
+      <Modal size="xl" show={modalIsOpen} onHide={handleClose}>
+        <iframe src={mercadoPagoUrl} style={modalIsOpen ? { minHeight: 750 } : { opacity: "0" }} />
       </Modal>
       <section
         className="section-4"
@@ -179,11 +179,11 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                           </Link>
                         </Col>
                         <Col style={{ textAlign: "right" }} md={4}>
-                          {item.qty} x ${item.price} 
-                          
+                          {item.qty} x ${item.price}
+
                         </Col>
                         <Col style={{ textAlign: "right", fontSize: 18, fontWeight: 700 }} md={4}>
-                        $ {' '}
+                          $ {' '}
                           {(item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
@@ -259,7 +259,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
         {user.data?.isAdmin ?
           <div className='txtArea'>
             <div className="txtorderitem">Observaciones</div>
-            <Form.Control 
+            <Form.Control
               style={{ marginTop: '10px', marginBottom: '20px', border: '1px', backgroundColor: '#ddd', borderRadius: '10px' }}
               as="textarea"
               rows={3}
