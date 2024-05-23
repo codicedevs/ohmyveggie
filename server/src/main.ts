@@ -18,7 +18,7 @@ async function bootstrap() {
   app.enableCors({
     origin: true, // Allows all origins
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', // Allows all methods
-    allowedHeaders: '*', // Allows all headers
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'],
     credentials: true, // Allows credentials
   });
   app.use(session(sessionConfig(MongoDBStore)));
