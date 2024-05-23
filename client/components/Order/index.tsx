@@ -82,8 +82,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-       <Modal fullscreen={true} show={modalIsOpen} >
-        <iframe src={mercadoPagoUrl} style={{ height: "100%", width: "100%" }} />
+       <Modal size="xl" show={modalIsOpen} >
+        <iframe src={mercadoPagoUrl} style={{ minHeight: 750 }} />
       </Modal>
       <section
         className="section-4"
