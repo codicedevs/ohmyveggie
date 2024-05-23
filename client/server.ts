@@ -1,10 +1,9 @@
 // server.ts
-export {};
 
-const { createServer } = require('https');
+var https = require('https');
+var fs = require('fs');
 const { parse } = require('url');
 const next = require('next');
-const fs = require('fs');
 const path = require('path');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -17,7 +16,7 @@ const httpsOptions = {
 };
 
 app.prepare().then(() => {
-  createServer(httpsOptions, (req, res) => {
+  https(httpsOptions, (req, res) => {
     const parsedUrl = parse(req.url, true);
     handle(req, res, parsedUrl);
   }).listen(4000, err => {
