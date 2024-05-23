@@ -197,6 +197,7 @@
   font-weight: 300;
 }
 
+
 .div-block-8 {
   height: 87vh;
   background-color: var(--black);
@@ -932,6 +933,9 @@
 .container-item-order{
   padding-top: 20px ;
   padding-bottom: 20px ;
+  display: flex;
+  flex-direction: column;
+  gap: 20px
 }
 
 .totalitems {
@@ -1269,7 +1273,7 @@
 }
 
 .section-4 {
-  padding: 50px 7%;
+  padding: 20px 7%;
 }
 
 .column-5 {
@@ -1284,7 +1288,7 @@
   border-radius: 6px; */
   padding: 10px;
   font-family: Montserrat, sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
 }
 
@@ -1292,15 +1296,16 @@
   height: 35px;
   padding: 12px 12px 12px 5px;
   font-family: Montserrat, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
 }
 
 .ordersummary {
-  border: 1px solid #adaaaa;
-  border-radius: 6px;
+  
+  background-color: #bae1be89 ;
+  border-radius: 10px;
   flex-flow: column;
-  padding: 10px;
+  padding: 30px;
   display: block;
   position: -webkit-sticky;
   position: sticky;
@@ -1774,10 +1779,20 @@
 }
 
 @media screen and (max-width: 479px) {
+
+  .herolink {
+    line-height: 30px;
+  }
+  
+
   .div-block-7 {
     padding-left: 2%;
     padding-right: 2%;
+    justify-content: center;
   }
+
+  .div-block-7 #citiesHeader {display: none;}
+
 
   .div-block-8 {
     background-image: linear-gradient(rgba(226, 186, 213, .6), rgba(226, 186, 213, .6)), url('../public/images/Banner-Mobile-1.jpg');
