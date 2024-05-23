@@ -16,7 +16,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, protocol == 'https' ? { httpsOptions: { key, cert } } : undefined,)
   app.set('trust proxy', 1); // trust first proxy
   app.enableCors({
-    origin: '*', // Allows all origins
+    origin: true, // Allows all origins
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', // Allows all methods
     allowedHeaders: '*', // Allows all headers
     credentials: true, // Allows credentials
