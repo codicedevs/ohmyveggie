@@ -84,7 +84,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   ) : (
     <>
       <Modal size="xl" show={modalIsOpen} onHide={handleClose}>
-        <iframe src={mercadoPagoUrl} style={modalIsOpen ? { minHeight: 750 } : { opacity: "0" }} />
+        <iframe src={mercadoPagoUrl} style={{ minHeight: 750 }} />
       </Modal>
       <section
         className="section-4"
