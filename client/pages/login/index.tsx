@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import Login from '../../components/Login';
 import SEO from '../../components/SEO';
 import { homeConfig } from '../../utils';
 import LoginNew from '../../components/LoginNew'
