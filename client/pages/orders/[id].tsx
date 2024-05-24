@@ -11,7 +11,7 @@ const OrderPage: NextPage = () => {
   return (
     <>
       <SEO {...homeConfig} />
-      <main className="wrapper py-5">
+      <main className="wrapper py-5 d-flex" style={{flexDirection: 'column'}}>
         <Order pageId={id} />
       </main>
     </>

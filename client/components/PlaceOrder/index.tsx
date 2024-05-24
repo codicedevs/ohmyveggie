@@ -47,11 +47,11 @@ const PlaceOrder = () => {
 
   return (
     <section className="section-4" >
-      <h1 className="heading-3">Su orden</h1>
+      <h1 className="heading-1">Su orden</h1>
       <div className="columns-2 w-row">
         <div className="column-5 w-col w-col-8 px-0">
           <div className="orderitem">
-            <h3 className="heading-2" style={{marginLeft: 0}}>Datos de envío</h3>
+            <h5 style={{marginLeft: 0}}>Datos de envío</h5>
             <div className="container-item-order">
             <div className="txtordersubitem">Nombre: <b>{data?.name}</b></div>
             <div className="txtordersubitem">Email: <b>{data?.email}</b></div>
@@ -62,7 +62,7 @@ const PlaceOrder = () => {
           </div>
           <div className="orderitem">
           </div>
-          <div className="orderitem">
+          <div className="orderitem" style={{marginTop: "30px"}}>
             <div className="txtorderitem">Items</div>
             <div className='container-item-order'>
             {cart.data.cartItems.length === 0 ? (
@@ -71,7 +71,7 @@ const PlaceOrder = () => {
               <ListGroup variant="flush">
                   {cart.data.cartItems.map((item, index) => (
                     <ListGroup.Item key={index}>
-                      <Row style={{fontSize: 14, color: 'black', fontWeight: 800}}>
+                      <Row style={{fontSize: 14, color: 'black', fontWeight: 700}}>
                   *
                         <Col>
                           <Link href={`/product/${item.productId}`} passHref>
@@ -91,7 +91,7 @@ const PlaceOrder = () => {
           </div>
         </div>
         <div className="column-6 w-col w-col-4 ">
-          <div className="ordersummary px-4 d-flex" style={{width: 350}}>
+          <div className="ordersummary px-4 d-flex" style={{width: '100%'}}>
             <div className="itemordersummary d-flex col pb-2">
               <div className="txtitemordersummary">Cantidad de productos :</div>
               <div className="txtitemordersummary">{totalProductos}</div>

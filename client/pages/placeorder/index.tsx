@@ -7,7 +7,7 @@ const OrderPage: NextPage = () => {
   return (
     <>
       <SEO {...homeConfig} />
-      <main className="wrapper py-5">
+      <main className="wrapper py-4 d-flex" style={{flexDirection: 'column'}}>
         <PlaceOrder />
       </main>
     </>

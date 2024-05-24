@@ -26,21 +26,21 @@ $ yarn add nodemailer
 ## Configuración del archivo .env
 El archivo .env es crucial para configurar correctamente el entorno de desarrollo y producción de la aplicación. A continuación se detallan las variables de entorno necesarias y sus propósitos:
 
-DB_PASSWORD: Contraseña para acceder a la base de datos MongoDB.
-DB_DATABASE: Nombre de la base de datos MongoDB a la que se conectará la aplicación.
-DB_URL: URL de conexión a la base de datos MongoDB, incluyendo el protocolo, el usuario, la contraseña y la URL del clúster.
-JWT_ACCESS_SECRET: Clave secreta utilizada para firmar y verificar los tokens de acceso JWT.
-SESSION_KEY: Clave secreta para la gestión de sesiones de usuario.
-CLIENT_URL: URL del cliente (frontend) al que la aplicación permitirá las solicitudes CORS.
-CLOUDINARY_API_KEY: Clave API de Cloudinary para la integración con el servicio de almacenamiento y gestión de imágenes.
-CLOUDINARY_API_SECRET: Clave secreta de Cloudinary para la autenticación de la API.
-CLOUDINARY_NAME: Nombre de la nube de Cloudinary donde se almacenarán las imágenes.
-SMTP_SERVER: Servidor SMTP para el envío de correos electrónicos (por ejemplo, smtp.zoho.com).
-SMTP_PORT: Puerto del servidor SMTP (por ejemplo, 587).
-SMTP_SECURE: Indicador booleano que especifica si se utiliza una conexión segura con el servidor SMTP (true/false).
-SMTP_USERNAME: Nombre de usuario del correo electrónico desde el cual se enviarán los correos electrónicos (por ejemplo, codice.arg@zohomail.com).
-SMTP_PASSWORD: Contraseña del correo electrónico desde el cual se enviarán los correos electrónicos.
-Asegúrate de completar todas estas variables con los valores adecuados antes de ejecutar la aplicación en cualquier entorno.
+DB_PASSWORD: Contraseña para acceder a la base de datos MongoDB.</br>
+DB_DATABASE: Nombre de la base de datos MongoDB a la que se conectará la aplicación.</br>
+DB_URL: URL de conexión a la base de datos MongoDB, incluyendo el protocolo, el usuario, la contraseña y la URL del clúster.</br>
+JWT_ACCESS_SECRET: Clave secreta utilizada para firmar y verificar los tokens de acceso JWT.</br>
+SESSION_KEY: Clave secreta para la gestión de sesiones de usuario.</br>
+CLIENT_URL: URL del cliente (frontend) al que la aplicación permitirá las solicitudes CORS.</br>
+CLOUDINARY_API_KEY: Clave API de Cloudinary para la integración con el servicio de almacenamiento y gestión de imágenes.</br>
+CLOUDINARY_API_SECRET: Clave secreta de Cloudinary para la autenticación de la API.</br>
+CLOUDINARY_NAME: Nombre de la nube de Cloudinary donde se almacenarán las imágenes.</br>
+SMTP_SERVER: Servidor SMTP para el envío de correos electrónicos (por ejemplo, smtp.zoho.com).</br>
+SMTP_PORT: Puerto del servidor SMTP (por ejemplo, 587).</br>
+SMTP_SECURE: Indicador booleano que especifica si se utiliza una conexión segura con el servidor SMTP (true/false).</br>
+SMTP_USERNAME: Nombre de usuario del correo electrónico desde el cual se enviarán los correos electrónicos (por ejemplo,codice.arg@zohomail.com).</br>
+SMTP_PASSWORD: Contraseña del correo electrónico desde el cual se enviarán los correos electrónicos.</br>
+Asegúrate de completar todas estas variables con los valores adecuados antes de ejecutar la aplicación en cualquier entorno.</br>
 
 
 
