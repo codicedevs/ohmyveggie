@@ -24,7 +24,10 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
       router.push('/shipping');
     };
 
-  
+    function eraseCart() {
+      console.log(cartItems)
+      cartItems.forEach((item) => removeFromCart(item.productId)  )
+    }
 
     function addQtyProd(item: any) {  
       if (item.qty + 1 > item.countInStock) {
@@ -38,11 +41,12 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
     }
 
     function subtractQtyProd(item: any) {
-      if (item.qty < 2 ) { return }  
+      if (item.qty < 1 ) { return }  
       addToCart({
         qty: item.qty - 1,
         productId: item.productId,
       })
+      if(item.qty === 1) removeFromCart(item.productId)
     }
 
     return (
@@ -80,7 +84,7 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
           </div>
           <div className="chartprodswrapper">
             {cartItems.length === 0 ?
-              <p style={{marginTop: '10px',marginLeft: '15px', fontWeight: 400}}>Su carro está vacío</p>
+              <p style={{marginTop: '10px',marginLeft: '25px', fontWeight: 500}}>Su carro está vacío</p>
               :
               cartItems.map(item => (
                 <div className="chartproduct">
@@ -111,10 +115,12 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
           </div>
 
           {cartItems.length > 0 ?
-            <div className="buybutton" onClick={onCheckoutHandler}>
-              <div className="button w-button">
+            <div className="buybutton d-flex row gap-3" >
+              
+              <button className="button w-button" onClick={eraseCart}> Borrar carrito </button>
+              <button className="button w-button" onClick={onCheckoutHandler}>
                 Comprar ahora
-              </div>
+              </button>
             </div>
             : null
           }  
