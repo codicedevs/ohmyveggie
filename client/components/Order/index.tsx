@@ -50,6 +50,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   const delivered = () => {
     deliverOrder(data._id!)
   }
+  const handleClose = () => setModalIsOpen(false);
 
   useEffect(() => {
     if (!data._id || success) {
@@ -82,8 +83,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
-       <Modal fullscreen={true} show={modalIsOpen} >
-        <iframe src={mercadoPagoUrl} style={{ height: "100%", width: "100%" }} />
+      <Modal size="xl" show={modalIsOpen} onHide={handleClose}>
+        <iframe src={mercadoPagoUrl} style={modalIsOpen ? { minHeight: 750 } : { opacity: "0" }} />
       </Modal>
       <section
         className="section-4"
@@ -94,7 +95,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
           <h1 className="heading-2">Orden Pendiente nro: {data._id}</h1>
         )}
 
-        <div className="columns-2 w-row">
+        <div className="columns-2 w-row"  >
           <div className="column-5 w-col w-col-8">
             <div className="orderitem">
               <div className="container-item-order">
@@ -171,14 +172,18 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                 <ListGroup variant="flush">
                   {data.orderItems.map((item, index) => (
                     <ListGroup.Item key={index}>
-                      <Row style={{ fontSize: 14, color: 'black', fontWeight: 800 }}>
+                      <Row style={{ fontWeight: 600 }}>
                         <Col>
                           <Link href={`/product/${item.productId}`} passHref>
                             <span className="link__span">{item.name}</span>
                           </Link>
                         </Col>
                         <Col style={{ textAlign: "right" }} md={4}>
-                          {item.qty} x ${item.price} = $
+                          {item.qty} x ${item.price}
+
+                        </Col>
+                        <Col style={{ textAlign: "right", fontSize: 18, fontWeight: 700 }} md={4}>
+                          $ {' '}
                           {(item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
@@ -254,7 +259,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
         {user.data?.isAdmin ?
           <div className='txtArea'>
             <div className="txtorderitem">Observaciones</div>
-            <Form.Control style={{ marginTop: '10px', marginBottom: '10px' }}
+            <Form.Control
+              style={{ marginTop: '10px', marginBottom: '20px', border: '1px', backgroundColor: '#ddd', borderRadius: '10px' }}
               as="textarea"
               rows={3}
               value={observation}

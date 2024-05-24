@@ -4,25 +4,39 @@ import { ProductInterface, Review } from '../../interfaces';
 import { proshopAPI } from '../../lib';
 import { ActionTypes } from './products.action-types';
 import { ProductsAction } from './products.actions';
+import { Interface } from 'readline';
 
 //category: string ='', brand: string ='' esto se lo saque a FetchProducts
 //y esto al endpoint &category=${category}&brand=${brand}
 
-export const fetchProducts = (keyword: string = '', pageId: number = 1, brand: string = '',category: string ='' ) => async (dispatch: Dispatch<ProductsAction>) => {
+interface FetchProductsParams {
+  keyword?: query;
+  pageId?: number;
+  brand?: string;
+  category?: string;
+  shouldScroll?: boolean;
+}
+
+export const fetchProducts = ({keyword= '', pageId = 1, brand = '',category ='', shouldScroll = false}: FetchProductsParams ) => async (dispatch: Dispatch<ProductsAction>) => {
     try {
       dispatch({
         type: ActionTypes.FETCH_PRODUCTS_START,
       });
 
       const { data } = await proshopAPI.get(
-        `/products?keyword=${keyword}&brand=${brand}&category=${category}`
+        `/products?keyword=${keyword}&brand=${brand}&category=${category}&pageId=${pageId}`
       );
+      console.log('Soy yo', data)
     setTimeout(()=>{
 
       dispatch({
         type: ActionTypes.FETCH_PRODUCTS_SUCCESS,
         payload: data,
       });
+      if (shouldScroll) {
+        const element = document.getElementById('scrollUp')
+        element?.scrollIntoView({behavior: 'smooth'})
+      }
     }, 300)
     } catch (error: any) {
       dispatch({

@@ -18,9 +18,9 @@ export const connectDB = (
 };
 
 export const corsConfig = (): CorsOptions => ({
-  origin: process.env.CLIENT_URL,
+  origin: ["https://codice.dev:4000"],
   methods: 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  credentials: true,
+
 });
 
 export const sessionConfig = (MongoDBStore: any): SessionOptions => ({
@@ -37,7 +37,7 @@ export const sessionConfig = (MongoDBStore: any): SessionOptions => ({
       }
       : { maxAge: 3 * 24 * 60 * 60 * 1000 },
   store: new MongoDBStore({
-    uri:`${serverSetting.DB_URL}${serverSetting.DB_DATABASE}`,
+    uri: `${serverSetting.DB_URL}${serverSetting.DB_DATABASE}`,
     collection: 'sessions',
   }),
 });
