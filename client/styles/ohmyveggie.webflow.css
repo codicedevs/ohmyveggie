@@ -1051,7 +1051,7 @@
 }
 
 .chartprodswrapper {
-  height: 85%;
+  height: 80%;
   overflow: auto;
 }
 
@@ -1154,6 +1154,7 @@
   font-family: Montserrat, sans-serif;
   font-weight: 700;
   line-height: 20px;
+  cursor: pointer
 }
 
 .text-block-17 {
