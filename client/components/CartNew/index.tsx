@@ -64,7 +64,7 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
           <div className="totalitems">
             <div className="div-block-33">
               <img src="images/shop.png" loading="lazy" alt="" className="image-8" />
-              <div className="text-block-10" style={{fontWeight: 400}}>{cartItems.reduce((acc, item) => acc + item.qty, 0)} item | Total : $ 
+              <div className="text-block-10 fw-bold" style={{fontWeight: 400}}>{cartItems.reduce((acc, item) => acc + item.qty, 0)} item | Total : $ 
               {cartItems
                 .reduce((acc, item) => acc + item.qty * item.price, 0)
                 .toFixed(2)}
@@ -80,7 +80,7 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
           </div>
           <div className="chartprodswrapper">
             {cartItems.length === 0 ?
-              <p style={{marginTop: '10px',marginLeft: '15px'}}>Su carro está vacío</p>
+              <p style={{marginTop: '10px',marginLeft: '15px', fontWeight: 400}}>Su carro está vacío</p>
               :
               cartItems.map(item => (
                 <div className="chartproduct">
@@ -99,9 +99,9 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
                       className="image-9"
                     /> */}
                     <div className="producttext">
-                      <div className="text-block-12">{item.name}</div>
-                      <div className="text-block-13">${item.price}x{item.qty}</div>  
-                      <div className="text-block-14">${(item.price * item.qty).toFixed(2)}</div>
+                      <div className="text-block-12 fw-normal">{item.name}</div>
+                      <div className="text-block-13 fw-normal">${item.price}x{item.qty}</div>  
+                      <div className="text-block-14 fw-normal">${(item.price * item.qty).toFixed(2)}</div>
                     </div>
                   </div>
                   <div className="div-block-34 anular" onClick={() => removeFromCart(item.productId)}>X</div>

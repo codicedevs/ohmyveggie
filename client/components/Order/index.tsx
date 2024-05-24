@@ -8,13 +8,12 @@ import { OrderInterface } from "../../interfaces";
 import { useRouter } from "next/router";
 import { proshopAPI } from "../../lib";
 
-
 interface OrderProps {
   pageId: string | string[] | undefined;
 }
 
 const Order: React.FC<OrderProps> = ({ pageId }) => {
-  const [mercadoPagoUrl, setMercadoPagoUrl] = useState('');
+  const [mercadoPagoUrl, setMercadoPagoUrl] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { loading, data, error, success } = useTypedSelector(
     (state) => state.order
@@ -24,22 +23,25 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   );
   const user = useTypedSelector((state) => state.user);
   const { fetchOrder, deliverOrder, updateOrder } = useOrderActions();
-  const [observation, setObservation] = useState('');
+  const [observation, setObservation] = useState("");
   const router = useRouter();
-
 
   const createPaymentPreference = async (paymentData: OrderInterface) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       withCredentials: true,
     };
     try {
-      const response = await proshopAPI.post('/payments/preference', paymentData, config);
+      const response = await proshopAPI.post(
+        "/payments/preference",
+        paymentData,
+        config
+      );
       if (response.status === 201) {
-        setMercadoPagoUrl(response.data.preference.init_point)
-        setModalIsOpen(true)
+        setMercadoPagoUrl(response.data.preference.init_point);
+        setModalIsOpen(true);
       }
       return { success: true };
     } catch (error) {
@@ -61,15 +63,14 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     if (data.observations) {
       setObservation(data.observations);
     }
-
   }, [fetchOrder, pageId, success, data]);
 
-  useEffect(() => {    // saca el id de la orden de la url
-    const { id } = router.query
-    fetchOrder(id as string)
-    console.log('orderId:', id);
-  }, [router.query])
-
+  useEffect(() => {
+    // saca el id de la orden de la url
+    const { id } = router.query;
+    fetchOrder(id as string);
+    console.log("orderId:", id);
+  }, [router.query]);
 
   const items = data.orderItems;
   var totalProductos = 0;
@@ -86,15 +87,17 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       <Modal size="xl" show={modalIsOpen} onHide={handleClose}>
         <iframe src={mercadoPagoUrl} style={{ minHeight: 750 }} />
       </Modal>
-      <section
-        className="section-4"
-      >
-        {data.isDelivered && data.isPaid ? (
-          <h1 className="heading-2"> Orden Finalizada nro: {data._id}</h1>
-        ) : (
-          <h1 className="heading-2">Orden Pendiente nro: {data._id}</h1>
-        )}
-
+      <section className="section-4 " style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ width: "100%", marginBottom: 30 }}>
+          {data.isDelivered && data.isPaid ? (
+            <h1 className="heading-2"> Orden Finalizada nro: {data._id}</h1>
+          ) : (
+            <>
+              <h1 style={{ paddingBottom: 0 }}>Orden Pendiente nro: </h1>
+              <p style={{ fontSize: 15, fontWeight: 400 }}>{data._id}</p>
+            </>
+          )}
+        </div>
         <div className="columns-2 w-row"  >
           <div className="column-5 w-col w-col-8">
             <div className="orderitem">
@@ -112,9 +115,13 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   </a>
                 </div>
                 <div className="txtordersubitem">
-                  Dirección :<b>{data.shippingDetails.address}, {" "}
-                    {data.shippingDetails.zoneDeliver}, {data.shippingDetails.postalCode},{" "}
-                    {data.shippingDetails.country}</b>
+                  Dirección :
+                  <b>
+                    {data.shippingDetails.address},{" "}
+                    {data.shippingDetails.zoneDeliver},{" "}
+                    {data.shippingDetails.postalCode},{" "}
+                    {data.shippingDetails.country}
+                  </b>
                 </div>
                 <div className="txtordersubitem">
                   Forma de entrega: <b>{data?.shippingDetails.timeDeliver}</b>
@@ -180,11 +187,16 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                         </Col>
                         <Col style={{ textAlign: "right" }} md={4}>
                           {item.qty} x ${item.price}
-
                         </Col>
-                        <Col style={{ textAlign: "right", fontSize: 18, fontWeight: 700 }} md={4}>
-                          $ {' '}
-                          {(item.qty * item.price).toFixed(2)}
+                        <Col
+                          style={{
+                            textAlign: "right",
+                            fontSize: 18,
+                            fontWeight: 700,
+                          }}
+                          md={4}
+                        >
+                          $ {(item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -193,7 +205,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
               )}
             </div>
           </div>
-
           <div className="column-6 w-col w-col-4 ">
             <div className="ordersummary px-4 d-flex">
               <div className="itemordersummary d-flex col pb-2">
@@ -208,37 +219,39 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   ${data.itemsPrice.toFixed(2)}
                 </div>
               </div>
-
               {!data.isPaid && (
                 <ListGroup.Item
                   style={{
                     border: "none",
                     display: "flex",
                     justifyContent: "center",
+                    backgroundColor: "#bae1be11",
                   }}
                 >
                   {loading && <Loader />}
 
-                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <img src='/images/mercado-pago.png' style={{ marginBottom: '15px' }}></img>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <img
+                      src="/images/mercado-pago.png"
+                      style={{ marginBottom: "15px" }}
+                    ></img>
                     <Button
-
                       type="button"
                       className="btn btn-block"
-                      onClick={() =>
-                      (createPaymentPreference(data)
-                      )
-                      }
+                      onClick={() => createPaymentPreference(data)}
                     >
                       Pagar
                     </Button>
                   </div>
-
                 </ListGroup.Item>
               )}
-
               {loadingDeliver && <Loader />}
-
               {user.data &&
                 user.data.isAdmin &&
                 data.isPaid &&
@@ -256,11 +269,17 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             </div>
           </div>
         </div>
-        {user.data?.isAdmin ?
-          <div className='txtArea'>
+        {user.data?.isAdmin ? (
+          <div className="txtArea">
             <div className="txtorderitem">Observaciones</div>
             <Form.Control
-              style={{ marginTop: '10px', marginBottom: '20px', border: '1px', backgroundColor: '#ddd', borderRadius: '10px' }}
+              style={{
+                marginTop: "10px",
+                marginBottom: "20px",
+                border: "1px",
+                backgroundColor: "#ddd",
+                borderRadius: "10px",
+              }}
               as="textarea"
               rows={3}
               value={observation}
@@ -270,16 +289,13 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
               onClick={() => updateOrder(data._id!, observation)}
               disabled={loading}
             >
-              {loading ? 'Loading…' : 'Guardar'}
-
+              {loading ? "Loading…" : "Guardar"}
             </Button>
           </div>
-          : null
-        }
+        ) : null}
       </section>
     </>
   );
 };
 
 export default Order;
-
