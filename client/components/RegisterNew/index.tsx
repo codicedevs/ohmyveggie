@@ -132,7 +132,7 @@ const Register = ({visible= false} ) => {
                           name="name-2"
                           data-name="Name 2"
                           placeholder=""
-                          type="text"
+                          type="password"
                           id="name-2"
                           value={credentials.password}
                           onChange={e =>
@@ -149,7 +149,7 @@ const Register = ({visible= false} ) => {
                           name="name-4"
                           data-name="Name 4"
                           placeholder=""
-                          type="text"
+                          type="password"
                           id="name-4"
                           value={credentials.confirmPassword}
                           onChange={e =>

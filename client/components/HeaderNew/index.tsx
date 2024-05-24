@@ -38,9 +38,9 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
     return (
       <>
-        <div className="div-block-7" style={{justifyContent: 'space-between'}}>
+        <div className="div-block-7" style={{justifyContent: 'space-arround' }}>
           <div className='socialWrapper d-flex'>
-            <div className="div-block-11 d-flex col">
+            <div className="div-block-11 ">
               <img
                 src="/images/whatsappIcon.png"
                 loading="lazy"
@@ -60,7 +60,7 @@ const Navbar = () => {
 
             </div>
           </div>  
-          <div className="text-block" style={{justifyContent: 'right'}}>Envíos a domicilio | Fisherton | Funes | Rosario</div>
+          <div className="text-block" id="citiesHeader" style={{justifyContent: 'right'}}>Envíos a domicilio | Fisherton | Funes | Rosario</div>
         </div>
         <div className="navbar">
 
