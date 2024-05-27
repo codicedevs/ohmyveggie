@@ -19,6 +19,7 @@
   --locura: #f7124b;
   --azul-electrico: #36eefc;
   --color: #facbef;
+  font-weight: 400;
 }
 
 .txtArea {
@@ -71,7 +72,7 @@
   padding-left: 7%;
   padding-right: 7%;
   font-family: Montserrat, sans-serif;
-  z-index: 9999;
+  z-index: 999;
 
 }
 .nav_logo{
@@ -195,6 +196,7 @@
   justify-content: space-between;
   font-weight: 300;
 }
+
 
 .div-block-8 {
   height: 87vh;
@@ -707,7 +709,7 @@
 }
 
 .prodlink-block {
-  width: 30%;
+  width: 22%;
   height: auto;
   color: #033;
   background-color: #f8f8f6;
@@ -931,6 +933,9 @@
 .container-item-order{
   padding-top: 20px ;
   padding-bottom: 20px ;
+  display: flex;
+  flex-direction: column;
+  gap: 20px
 }
 
 .totalitems {
@@ -1046,7 +1051,7 @@
 }
 
 .chartprodswrapper {
-  height: 85%;
+  height: 80%;
   overflow: auto;
 }
 
@@ -1149,6 +1154,7 @@
   font-family: Montserrat, sans-serif;
   font-weight: 700;
   line-height: 20px;
+  cursor: pointer
 }
 
 .text-block-17 {
@@ -1268,7 +1274,7 @@
 }
 
 .section-4 {
-  padding: 50px 7%;
+  padding: 20px 7%;
 }
 
 .column-5 {
@@ -1279,11 +1285,11 @@
 .txtorderitem {
   height: auto;
   background-color: rgba(218, 197, 197, 0);
-  border: 1px solid #adacac;
-  border-radius: 6px;
+  /* border: 1px solid #adacac;
+  border-radius: 6px; */
   padding: 10px;
   font-family: Montserrat, sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
 }
 
@@ -1291,15 +1297,16 @@
   height: 35px;
   padding: 12px 12px 12px 5px;
   font-family: Montserrat, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
 }
 
 .ordersummary {
-  border: 1px solid #adaaaa;
-  border-radius: 6px;
+  
+  background-color: #bae1be89 ;
+  border-radius: 10px;
   flex-flow: column;
-  padding: 10px;
+  padding: 30px;
   display: block;
   position: -webkit-sticky;
   position: sticky;
@@ -1773,10 +1780,20 @@
 }
 
 @media screen and (max-width: 479px) {
+
+  .herolink {
+    line-height: 30px;
+  }
+  
+
   .div-block-7 {
     padding-left: 2%;
     padding-right: 2%;
+    justify-content: center;
   }
+
+  .div-block-7 #citiesHeader {display: none;}
+
 
   .div-block-8 {
     background-image: linear-gradient(rgba(226, 186, 213, .6), rgba(226, 186, 213, .6)), url('../public/images/Banner-Mobile-1.jpg');

@@ -1,4 +1,4 @@
-import { PaginatedCategories, PaginatedProducts, ProductInterface } from '../../interfaces';
+import {  PaginatedProducts, ProductInterface } from '../../interfaces';
 import { ActionTypes } from './products.action-types';
 
 export type ProductsAction =

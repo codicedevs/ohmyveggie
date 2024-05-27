@@ -38,7 +38,7 @@ CLOUDINARY_NAME: Nombre de la nube de Cloudinary donde se almacenarán las imág
 SMTP_SERVER: Servidor SMTP para el envío de correos electrónicos (por ejemplo, smtp.zoho.com).</br>
 SMTP_PORT: Puerto del servidor SMTP (por ejemplo, 587).</br>
 SMTP_SECURE: Indicador booleano que especifica si se utiliza una conexión segura con el servidor SMTP (true/false).</br>
-SMTP_USERNAME: Nombre de usuario del correo electrónico desde el cual se enviarán los correos electrónicos (por ejemplo, codice.arg@zohomail.com).</br>
+SMTP_USERNAME: Nombre de usuario del correo electrónico desde el cual se enviarán los correos electrónicos (por ejemplo,codice.arg@zohomail.com).</br>
 SMTP_PASSWORD: Contraseña del correo electrónico desde el cual se enviarán los correos electrónicos.</br>
 Asegúrate de completar todas estas variables con los valores adecuados antes de ejecutar la aplicación en cualquier entorno.</br>
 
