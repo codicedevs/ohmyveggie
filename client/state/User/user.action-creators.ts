@@ -132,7 +132,6 @@ export const register =
 
       localStorage.setItem("accessToken", data.accessToken);
 
-      Router.push("/");
     } catch (error: any) {
       dispatch({
         type: ActionTypes.USER_REGISTER_ERROR,

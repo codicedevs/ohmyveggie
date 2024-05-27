@@ -86,7 +86,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
 
   useEffect(() => {
     fetchCategories(), fetchBrands()
-    setAlert("lo que quiero", "success")
+    
   }
     , [])
 

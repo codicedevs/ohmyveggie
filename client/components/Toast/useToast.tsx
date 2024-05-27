@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { toastContext } from "./toastContext";
 
-function useToast(duration = 2000) {
+function useToast(duration = 5000) {
     const context = useContext(toastContext)
     
     const setAlert = (message: string, type: string) => {

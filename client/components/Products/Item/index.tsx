@@ -8,6 +8,7 @@ import { useCartActions, useTypedSelector } from '../../../hooks';
 import { v4 as randomID } from 'uuid';
 import Message from '../../Message';
 import { useEffect, useState } from 'react';
+import useToast from '../../Toast/useToast';
 
 
 const Item: React.FC<ProductInterface> = (product) => {
@@ -32,6 +33,7 @@ const Item: React.FC<ProductInterface> = (product) => {
   const { loading: cartLoading, data: cartData } = useTypedSelector(state => state.cart);
 
   const quantity = cartData.cartItems.find(item => item.productId === _id)?.qty || 0
+  const setAlert = useToast()
 
   function addQtyProd(item: any) {
     if (1 > countInStock) {
@@ -52,7 +54,7 @@ const Item: React.FC<ProductInterface> = (product) => {
           product
         })
       }
-
+      setAlert('Producto agregado al carrito', 'success')
 
   }
 
@@ -65,12 +67,13 @@ const Item: React.FC<ProductInterface> = (product) => {
       setIsVisibleAddButton(false);
       return
     }  
-
+    setAlert('Producto eliminado del carrito', 'success')
 
     addToCart({
       qty: result.qty - 1,
       productId: _id,
     })
+
   }
 
   function changeAddButton() {

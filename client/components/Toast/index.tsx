@@ -1,6 +1,6 @@
 import Toast from "react-bootstrap/Toast";
 import { AlertTypes } from "./toastContext";
-import { Alert } from "react-bootstrap";
+import { Alert, ToastContainer, ToastHeader } from "react-bootstrap";
 
 interface ToastOMVProps {
   type: AlertTypes;
@@ -9,9 +9,23 @@ interface ToastOMVProps {
 
 function ToastOMV({ message, type }: ToastOMVProps) {
   return (
-    <Alert key={type} variant={type}>
+    <Alert 
+      id="caramba" 
+      key={type} 
+      variant={type}
+      style={{left: 800}}
+      >
       {message}
     </Alert>
+    // <ToastContainer 
+    // className="p-4"
+    // style={{zIndex: 1 }}
+    // position="top-center"
+    // >
+    //   <Toast key={type}>
+    //     <p>{message}</p>
+    //   </Toast>
+    // </ToastContainer>
   );
 }
 
