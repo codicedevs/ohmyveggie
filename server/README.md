@@ -1,5 +1,5 @@
 
-## Description
+## Descripcion
 
 Backend para Tienda Vegana Online
 El backend de este proyecto es la columna vertebral de una tienda vegana en línea, proporcionando las funcionalidades necesarias para gestionar productos, usuarios y ventas. Diseñado para ser robusto y escalable, el backend resuelve todas las necesidades técnicas para mantener y operar un eCommerce dedicado a productos veganos.
@@ -16,7 +16,7 @@ Implementar medidas de seguridad para proteger los datos de los usuarios y la in
 Mantener un código limpio y modular para facilitar el mantenimiento y la extensión del sistema en el futuro.
 Con el backend de esta tienda vegana online, se busca ofrecer una experiencia de compra sin complicaciones para los usuarios, al tiempo que se promueve un estilo de vida ético y sostenible.
 
-## Installation
+## Instalacion
 
 ```bash
 $ yarn install

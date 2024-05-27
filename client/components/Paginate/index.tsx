@@ -36,13 +36,14 @@ const Paginate: React.FC<PaginateProps> = ({
 
   const renderPaginationItems = () => {
     const paginationItems = [];
-    let orientation = page === pages ? -1 : 1;
-    const condition = orientation ? showPageLimit + page : page - showPageLimit;
-
-    for (let i = page; i <= condition; null) {
-      if (pages - i >= 0) {
+    const orientation = page === pages ? -1 : 1;
+    const condition = orientation === 1 ? showPageLimit + page : page - showPageLimit;
+  
+    for (let i = page; orientation === 1 ? i <= condition : i >= condition; i += orientation) {
+      if (i > 0 && i <= pages) {
         paginationItems.push(
           <Pagination.Item
+            key={i}
             onClick={() => handlePagination(i)}
             active={i === page}
           >
@@ -50,11 +51,8 @@ const Paginate: React.FC<PaginateProps> = ({
           </Pagination.Item>
         );
       }
-      if (orientation) {
-        i++;
-      } else i--;
     }
-
+  
     return paginationItems;
   };
 
@@ -66,7 +64,7 @@ const Paginate: React.FC<PaginateProps> = ({
         {renderPaginationItems()}
         <Pagination.Next
           onClick={() => {
-            page !== pages ? handleRoute(page + 1) : "";
+            page !== pages ? handleRoute(page) : "";
           }}
         />
         <Pagination.Last onClick={() => handleRoute(pages)} />
