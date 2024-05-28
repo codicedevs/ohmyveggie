@@ -22,7 +22,6 @@ const Paginate: React.FC<PaginateProps> = ({
   const handleRoute = (pageId: number) => {
     try {
       fetchProducts( {pageId, shouldScroll: true} );
-      console.log(pageId);
     } catch (err) {
       console.log(err);
     } finally {
