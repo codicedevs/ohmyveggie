@@ -26,7 +26,6 @@ export const fetchProducts = ({keyword= '', pageId = 1, brand = '',category ='',
       const { data } = await proshopAPI.get(
         `/products?keyword=${keyword}&brand=${brand}&category=${category}&pageId=${pageId}`
       );
-      console.log('Soy yo', data)
     setTimeout(()=>{
 
       dispatch({
