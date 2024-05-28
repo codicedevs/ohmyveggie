@@ -9,6 +9,8 @@ import { v4 as randomID } from 'uuid';
 import Message from '../../Message';
 import { useEffect, useState } from 'react';
 import useToast from '../../Toast/useToast';
+import { useDispatch } from 'react-redux';
+import { ActionTypes } from '../../../state/UI/ui.action-types';
 
 
 const Item: React.FC<ProductInterface> = (product) => {
@@ -33,6 +35,7 @@ const Item: React.FC<ProductInterface> = (product) => {
   const { loading: cartLoading, data: cartData } = useTypedSelector(state => state.cart);
 
   const quantity = cartData.cartItems.find(item => item.productId === _id)?.qty || 0
+  const dispatch = useDispatch()
   const setAlert = useToast()
 
   function addQtyProd(item: any) {
@@ -54,7 +57,8 @@ const Item: React.FC<ProductInterface> = (product) => {
           product
         })
       }
-      setAlert('Producto agregado al carrito', 'success')
+      dispatch({type: ActionTypes.OPEN_TOAST, payload: { message: 'Producto agregado al carrito', type: 'success'} })
+      
 
   }
 
@@ -67,7 +71,8 @@ const Item: React.FC<ProductInterface> = (product) => {
       setIsVisibleAddButton(false);
       return
     }  
-    setAlert('Producto eliminado del carrito', 'success')
+    dispatch({type: ActionTypes.OPEN_TOAST, payload: { message: 'Producto eliminado del carrito', type: 'success'} })
+    
 
     addToCart({
       qty: result.qty - 1,

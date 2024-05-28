@@ -35,7 +35,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
 
   const { loading, error, data } = useTypedSelector(state => state.product);
   const { loading: cartLoading,data: cartData } = useTypedSelector(state => state.cart);
-  const { data: user } = useTypedSelector(state => state.user);
+  const { data: user, isLoggedIn } = useTypedSelector(state => state.user);
   const {
     loading: loadingReview,
     error: errorReview,
@@ -62,6 +62,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
 
     createProductReview(pageId as string, { rating: _rating, comment });
   };
+  console.log('Esta logueado',isLoggedIn)
 
   /*const addProdToCart() = {
 

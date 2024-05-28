@@ -25,7 +25,6 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
     };
 
     function eraseCart() {
-      console.log(cartItems)
       cartItems.forEach((item) => removeFromCart(item.productId)  )
     }
 

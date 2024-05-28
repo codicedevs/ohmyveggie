@@ -14,6 +14,8 @@ export type UIAction =
     | OpenResetPassword
     | CloseResetPassword
     | EmailUpdateRecover
+    | OpenToast
+    | CloseToast
     ;
 
 
@@ -63,5 +65,17 @@ export interface CloseResetPassword {
 export interface EmailUpdateRecover {
     type: ActionTypes.EMAIL_UPDATE_RECOVER;
     payload: string  
+}
+
+export interface OpenToast {
+    type: ActionTypes.OPEN_TOAST;
+    payload: {
+        message: string,
+        type: string
+    }
+}
+
+export interface CloseToast {
+    type: ActionTypes.CLOSE_TOAST;
 }
 

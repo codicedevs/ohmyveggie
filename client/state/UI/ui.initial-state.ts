@@ -3,5 +3,11 @@ export const uIInitialState = {
   isRegisterVisible: false,
   isResetPasswordVisible: false,
   isPasswordRecoverVisible: false,
-  emailForRecover: ''
+  emailForRecover: '', 
+  toast: {
+    message: '',
+    type: '',
+    visible: false
+  },
 };
+

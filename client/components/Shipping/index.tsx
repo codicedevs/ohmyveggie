@@ -37,7 +37,9 @@ const Shipping = () => {
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { address, postalCode, timeDeliver, zoneDeliver, stockOption } = shippingAddress;
+    
     if (
+      
       address.length < 1 ||
       timeDeliver.length < 1 ||
       zoneDeliver.length < 1 ||
