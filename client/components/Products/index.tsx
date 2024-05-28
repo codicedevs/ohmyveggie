@@ -96,7 +96,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
 
   }, [keyword, pageId, brandSel, catSel]);
 
-  console.log(currentPage)
+
 
   //images/logo2.png
   return (
