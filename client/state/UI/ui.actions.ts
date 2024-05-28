@@ -14,8 +14,7 @@ export type UIAction =
     | OpenResetPassword
     | CloseResetPassword
     | EmailUpdateRecover
-    | OpenToast
-    | CloseToast
+   
     ;
 
 

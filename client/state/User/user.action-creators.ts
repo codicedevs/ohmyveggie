@@ -5,7 +5,6 @@ import { proshopAPI } from "../../lib";
 import { ActionTypes } from "./user.action-types";
 import { UserAction } from "./user.actions";
 import { ActionTypes as AT } from "../UI/ui.action-types";
-import { useUIActions } from "../../hooks";
 import { toast } from "react-toastify";
 
 
