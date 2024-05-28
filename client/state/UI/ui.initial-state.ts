@@ -3,5 +3,6 @@ export const uIInitialState = {
   isRegisterVisible: false,
   isResetPasswordVisible: false,
   isPasswordRecoverVisible: false,
-  emailForRecover: ''
+  emailForRecover: '', 
 };
+

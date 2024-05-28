@@ -40,9 +40,7 @@ export const addToCart =
         payload: data,
       });
 
-      //if (Router.asPath !== '/cart') {
-      //  Router.push('/cart');
-      //}
+     
     } catch (error: any) {
       dispatch({
         type: ActionTypes.ADD_CART_ITEM_ERROR,

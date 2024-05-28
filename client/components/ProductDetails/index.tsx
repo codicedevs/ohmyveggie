@@ -62,6 +62,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
 
     createProductReview(pageId as string, { rating: _rating, comment });
   };
+  
 
   /*const addProdToCart() = {
 

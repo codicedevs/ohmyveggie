@@ -16,16 +16,6 @@ export class ProductsService {
     @InjectModel(Product.name) public productModel: Model<ProductDocument>
   ) { }
 
-  async findTopRated(): Promise<ProductDocument[]> {
-    const products = await this.productModel
-      .find({})
-      .sort({ rating: -1 })// esto no me sirve
-      .limit(3);
-
-    if (!products.length) throw new NotFoundException('No products found.');
-
-    return products;
-  }
 
   async findMany(pageId: string, filter?: FilterQuery<ProductDocument>): Promise<ProductDocument[] | PaginatedProducts> {
     const pageSize = 10;
