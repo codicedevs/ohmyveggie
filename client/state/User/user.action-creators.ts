@@ -5,6 +5,7 @@ import { proshopAPI } from "../../lib";
 import { ActionTypes } from "./user.action-types";
 import { UserAction } from "./user.actions";
 import { ActionTypes as AT } from "../UI/ui.action-types";
+import { toast } from "react-toastify";
 
 
 export const login =
@@ -32,8 +33,8 @@ export const login =
       );
       dispatch({
         type: ActionTypes.USER_LOGIN_SUCCESS,
-        payload: data,
-      });
+        payload: data
+        });
 
       dispatch({
         type: ActionTypes.GET_CURRENT_USER_SUCCESS,
@@ -41,6 +42,8 @@ export const login =
       });
 
       dispatch({type: AT.CLOSE_LOGIN})
+
+      toast.success("Ingreso correctamente!")
 
 
       localStorage.setItem("accessToken", data.accessToken);
@@ -82,7 +85,7 @@ export const getCurrentUser =
     }
   };
 
-export const logout = () => async (dispatch: Dispatch<UserAction>) => {
+export const logout = () => async (dispatch: Dispatch<any>) => {
   try {
     await proshopAPI.post("/auth/logout", {}, { withCredentials: true });
 
@@ -90,6 +93,7 @@ export const logout = () => async (dispatch: Dispatch<UserAction>) => {
       type: ActionTypes.USER_LOGOUT,
       payload: null,
     });
+    toast.success("Usuario deslogueado", {theme: "dark"})
     Router.push("/");
   } catch (error: any) {
   }
@@ -132,7 +136,6 @@ export const register =
 
       localStorage.setItem("accessToken", data.accessToken);
 
-      Router.push("/");
     } catch (error: any) {
       dispatch({
         type: ActionTypes.USER_REGISTER_ERROR,

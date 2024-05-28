@@ -25,7 +25,6 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
     };
 
     function eraseCart() {
-      console.log(cartItems)
       cartItems.forEach((item) => removeFromCart(item.productId)  )
     }
 
@@ -117,7 +116,7 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
           {cartItems.length > 0 ?
             <div className="buybutton d-flex row gap-3" >
               
-              <button className="button w-button" onClick={eraseCart}> Borrar carrito </button>
+              <button className="button w-button" style={{backgroundColor: "#AA3388"}}onClick={eraseCart}> Borrar carrito </button>
               <button className="button w-button" onClick={onCheckoutHandler}>
                 Comprar ahora
               </button>

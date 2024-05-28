@@ -14,6 +14,7 @@ export type UIAction =
     | OpenResetPassword
     | CloseResetPassword
     | EmailUpdateRecover
+   
     ;
 
 
@@ -64,4 +65,5 @@ export interface EmailUpdateRecover {
     type: ActionTypes.EMAIL_UPDATE_RECOVER;
     payload: string  
 }
+
 

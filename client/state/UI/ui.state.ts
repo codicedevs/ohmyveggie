@@ -3,5 +3,7 @@ export interface UIState {
   isRegisterVisible: boolean,
   isPasswordRecoverVisible: boolean,
   isResetPasswordVisible: boolean,
-  emailForRecover: string
+  emailForRecover: string,
+
 }
+

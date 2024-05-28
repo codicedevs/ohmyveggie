@@ -13,7 +13,6 @@ import ProductCarousel from '../ProductCarousel';
 import Link from 'next/link';
 import SearchBox from '../SearchBox';
 import { useRouter } from 'next/router';
-import useToast from '../Toast/useToast';
 
 
 
@@ -70,7 +69,6 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
 
   }
 
-  const { fetchBrands } = useProductsActions()
   const { fetchCategories } = useProductsActions()
   const { fetchProducts } = useProductsActions();
   const {
@@ -78,24 +76,21 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
     error,
     data: { products, pages, page },
     categories,
-    brands,
+    
   } = useTypedSelector(state => state.products);
 
   const [cantCart, setCantCart] = useState(0);
-  const setAlert = useToast()
 
   useEffect(() => {
-    fetchCategories(), fetchBrands()
-    setAlert("lo que quiero", "success")
+    fetchCategories()     
   }
     , [])
 
   useEffect(() => {
-    fetchProducts({ keyword, pageId: Number(pageId?.toString()), brand: brandSel, category: catSel });
+    fetchProducts({ keyword, pageId: Number(pageId?.toString()), category: catSel });
 
 
   }, [keyword, pageId, brandSel, catSel]);
-
 
 
   //images/logo2.png

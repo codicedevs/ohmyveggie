@@ -69,7 +69,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
     // saca el id de la orden de la url
     const { id } = router.query;
     fetchOrder(id as string);
-    console.log("orderId:", id);
   }, [router.query]);
 
   const items = data.orderItems;
