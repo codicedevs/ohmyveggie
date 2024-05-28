@@ -13,7 +13,6 @@ import ProductCarousel from '../ProductCarousel';
 import Link from 'next/link';
 import SearchBox from '../SearchBox';
 import { useRouter } from 'next/router';
-import useToast from '../Toast/useToast';
 
 
 

@@ -4,10 +4,6 @@ export interface UIState {
   isPasswordRecoverVisible: boolean,
   isResetPasswordVisible: boolean,
   emailForRecover: string,
-  toast: {
-    message: string,
-    type: string,
-    visible: boolean
-  },
+
 }
 

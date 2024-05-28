@@ -6,6 +6,7 @@ import { ActionTypes } from "./user.action-types";
 import { UserAction } from "./user.actions";
 import { ActionTypes as AT } from "../UI/ui.action-types";
 import { useUIActions } from "../../hooks";
+import { toast } from "react-toastify";
 
 
 export const login =
@@ -43,7 +44,7 @@ export const login =
 
       dispatch({type: AT.CLOSE_LOGIN})
 
-      dispatch({type: AT.OPEN_TOAST, payload: {message: "Login successful", type: "success"}})
+      toast.success("Ingreso correctamente!")
 
 
       localStorage.setItem("accessToken", data.accessToken);
@@ -93,7 +94,7 @@ export const logout = () => async (dispatch: Dispatch<any>) => {
       type: ActionTypes.USER_LOGOUT,
       payload: null,
     });
-    dispatch({type: AT.OPEN_TOAST, payload:{message: "Usuario deslogueado", type: "success"}})
+    toast.success("Usuario deslogueado", {theme: "dark"})
     Router.push("/");
   } catch (error: any) {
   }

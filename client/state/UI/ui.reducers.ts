@@ -46,21 +46,7 @@ export const uIReducer = (
 
     case ActionTypes.EMAIL_UPDATE_RECOVER:
       return { ...state, emailForRecover: action.payload };
-    case ActionTypes.OPEN_TOAST:
-      return {
-        ...state,
-        toast: {
-          message: action.payload.message,
-          type: action.payload.type,
-          visible: true,
-        },
-      };
-      case ActionTypes.CLOSE_TOAST:
-        return { ...state, 
-          toast: {
-          ...state.toast,
-          visible: false
-        }};
+  
     default:
       return state;
   }

@@ -9,7 +9,6 @@ import { ActionTypes } from "../../state/User/user.action-types";
 import { ActionTypes as AT } from "../../state/UI/ui.action-types";
 import { useDispatch } from "react-redux";
 import RegisterNew from "../RegisterNew";
-import useToast from "../Toast/useToast";
 
 
 const Login = ({ visible = false }) =>

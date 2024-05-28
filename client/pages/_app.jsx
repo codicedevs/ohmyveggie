@@ -11,7 +11,9 @@ import { useStore } from "../state";
 import MainLayout from "../layouts/MainLayout";
 import { Container, ToastHeader } from "react-bootstrap";
 import { Provider } from "react-redux";
-import { ToastProvider } from "../components/Toast/toastContext";
+//Prueba Toastify
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps }) {
   const initialState = {
@@ -22,11 +24,10 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <Provider store={store}>
-      <ToastProvider>
         <MainLayout>
           <Component {...pageProps} />
         </MainLayout>
-      </ToastProvider>
+
     </Provider>
   );
 }

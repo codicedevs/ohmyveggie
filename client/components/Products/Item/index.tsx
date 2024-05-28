@@ -8,9 +8,9 @@ import { useCartActions, useTypedSelector } from '../../../hooks';
 import { v4 as randomID } from 'uuid';
 import Message from '../../Message';
 import { useEffect, useState } from 'react';
-import useToast from '../../Toast/useToast';
 import { useDispatch } from 'react-redux';
 import { ActionTypes } from '../../../state/UI/ui.action-types';
+import { toast } from 'react-toastify';
 
 
 const Item: React.FC<ProductInterface> = (product) => {
@@ -36,7 +36,6 @@ const Item: React.FC<ProductInterface> = (product) => {
 
   const quantity = cartData.cartItems.find(item => item.productId === _id)?.qty || 0
   const dispatch = useDispatch()
-  const setAlert = useToast()
 
   function addQtyProd(item: any) {
     if (1 > countInStock) {
@@ -57,7 +56,7 @@ const Item: React.FC<ProductInterface> = (product) => {
           product
         })
       }
-      dispatch({type: ActionTypes.OPEN_TOAST, payload: { message: 'Producto agregado al carrito', type: 'success'} })
+      toast.info("Producto agregado al carrito", {theme: "light"})
       
 
   }
@@ -71,14 +70,13 @@ const Item: React.FC<ProductInterface> = (product) => {
       setIsVisibleAddButton(false);
       return
     }  
-    dispatch({type: ActionTypes.OPEN_TOAST, payload: { message: 'Producto eliminado del carrito', type: 'success'} })
     
-
+    
     addToCart({
       qty: result.qty - 1,
       productId: _id,
     })
-
+    
   }
 
   function changeAddButton() {
