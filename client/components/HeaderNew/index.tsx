@@ -39,7 +39,7 @@ const Navbar = () => {
     <>
       <div className="div-block-7" style={{ justifyContent: "space-arround" }}>
         <div className="socialWrapper d-flex">
-          <Link className="text-block" href="https://wa.me/3416666666">
+          <Link href="https://wa.me/3416666666">
             <div
               className="div-block-11 gap-2 "
               style={{ textDecoration: "none", cursor: "pointer" }}
@@ -53,7 +53,7 @@ const Navbar = () => {
               341 6 666666
             </div>
           </Link>
-          <Link className="text-block" href="mailto:ohmyveggie@gmail.com">
+          <Link href="mailto:ohmyveggie@gmail.com">
             <div
               className="div-block-11 gap-2"
               style={{ textDecoration: "none", cursor: "pointer" }}
@@ -109,7 +109,7 @@ const Navbar = () => {
                     data-w-id="2eff27b6-1120-3c74-74f7-fc6d34090150"
                     alt=""
                     className="image-4-shop"
-                    // srcSet="/images/shopLila.png 500w, /images/shopLila.png 800w, /Simages/shopLila.png 830w"
+                  // srcSet="/images/shopLila.png 500w, /images/shopLila.png 800w, /Simages/shopLila.png 830w"
                   />
                   {cartItems.reduce((acc, item) => acc + item.qty, 0) ? (
                     <div className="div-block-30">
