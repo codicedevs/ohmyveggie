@@ -6,20 +6,27 @@ import {
   Param,
   Post,
   Session,
-} from '@nestjs/common';
-import { AddToCartDto } from '../dtos/add-to-cart.dto';
-import { SaveShippingDetailsDto } from '../dtos/save-shipping-details.dto';
-import { CartService } from '../services/cart.service';
-import { defaultCart } from '../schemas/cart.schema';
-import { SavePaymentMethodDto } from '../dtos/save-payment-method.dto';
+} from "@nestjs/common";
+import { AddToCartDto } from "../dtos/add-to-cart.dto";
+import { SaveShippingDetailsDto } from "../dtos/save-shipping-details.dto";
+import { CartService } from "../services/cart.service";
 
-@Controller('cart')
+
+@Controller("cart")
 export class CartController {
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService) {}
 
   @Post()
   addToCart(@Body() body: AddToCartDto, @Session() session: any) {
-    this.cartService.cart = session.cart ? session.cart : defaultCart;
+    this.cartService.cart = session.cart
+      ? session.cart
+      : {
+          cartItems: [],
+          shippingDetails: {
+            address: "",
+            postalCode: "",
+          },
+        };
 
     const cartItem = this.cartService.addCartItem({ ...body });
 
@@ -28,11 +35,17 @@ export class CartController {
     return cartItem;
   }
 
-
-  @Post('shipping')
+  @Post("shipping")
   saveShipping(@Body() body: SaveShippingDetailsDto, @Session() session: any) {
-
-    this.cartService.cart = session.cart ? session.cart : defaultCart;
+    this.cartService.cart = session.cart
+      ? session.cart
+      : {
+          cartItems: [],
+          shippingDetails: {
+            address: "",
+            postalCode: "",
+          },
+        };
 
     const shippingDetails = this.cartService.saveShippingDetails(body);
 
@@ -43,13 +56,28 @@ export class CartController {
 
   @Get()
   getCart(@Session() session: any) {
-    return session.cart ? session.cart : defaultCart;
+    return session.cart
+      ? session.cart
+      : {
+          cartItems: [],
+          shippingDetails: {
+            address: "",
+            postalCode: "",
+          },
+        };
   }
 
-
-  @Delete(':id')
-  removeCartItem(@Param('id') id: string, @Session() session: any) {
-    this.cartService.cart = session.cart ? session.cart : defaultCart;
+  @Delete(":id")
+  removeCartItem(@Param("id") id: string, @Session() session: any) {
+    this.cartService.cart = session.cart
+      ? session.cart
+      : {
+          cartItems: [],
+          shippingDetails: {
+            address: "",
+            postalCode: "",
+          },
+        };
 
     const cartItems = this.cartService.removeCartItem(id);
 

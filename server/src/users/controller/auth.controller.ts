@@ -51,7 +51,8 @@ export class AuthController {
 
   @Post('logout')
   async logout(@Session() session: any) {
-    session.user = null;
+    //borrar cookie
+    session.destroy()
   }
 
   @Post('register')

@@ -1,4 +1,4 @@
-import { CartItem, ShippingDetails } from 'src/interfaces';
+import { CartItem, ShippingDetails } from "src/interfaces";
 
 export interface CartInterface {
   cartItems: CartItem[];
@@ -8,12 +8,19 @@ export interface CartInterface {
 export const defaultCart = {
   cartItems: [],
   shippingDetails: {
-    address: '',
-    postalCode: '',
+    address: "",
+    postalCode: "",
   },
-
 };
 
 export class Cart {
-  constructor(public cart: CartInterface = defaultCart) { }
+  constructor(
+    public cart: CartInterface = {
+      cartItems: [],
+      shippingDetails: {
+        address: "",
+        postalCode: "",
+      },
+    }
+  ) {}
 }
