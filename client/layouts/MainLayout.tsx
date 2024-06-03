@@ -14,6 +14,8 @@ import Register from '../components/RegisterNew';
 import PasswordRecover from '../components/PasswordRecover';
 import ResetPassword from '../components/ResetPassword';
 import { ToastContainer } from 'react-toastify';
+import Link from 'next/link';
+import { NavLink } from 'react-bootstrap';
 
 
 const MainLayout: React.FC = ({ children }) => {
@@ -38,6 +40,10 @@ const MainLayout: React.FC = ({ children }) => {
 
   return (
     <>
+      <a href="https://wa.me/+5493416008824">
+      <img src="\images\whatsappF.png" alt="what" className="btn-wsp" />
+      </a>
+        
       <HeaderNew />
       <LoginNew visible ={uI.isLoginVisible}/>
       <Register visible ={uI.isRegisterVisible}/>

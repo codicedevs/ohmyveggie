@@ -37,13 +37,13 @@ const Shipping = () => {
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { address, postalCode, timeDeliver, zoneDeliver, stockOption } = shippingAddress;
-    
+    console.log('data shipping', address, postalCode, timeDeliver, zoneDeliver, stockOption)
     if (
       
       address.length < 1 ||
       timeDeliver.length < 1 ||
       zoneDeliver.length < 1 ||
-      stockOption.length < 1
+      stockOption.length < 1 
     ) {
       setMessage('Debe completar todos los datos');
       
@@ -168,6 +168,14 @@ const Shipping = () => {
                   label="Retira por local"
                   onClick={(e) => handlerTimeZone(e)}
                   id='Retira por local'
+                  name='timeZone'
+                />
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="A Coordinar"
+                  onClick={(e) => handlerTimeZone(e)}
+                  id='A Coordinar'
                   name='timeZone'
                 />
               </div>

@@ -75,8 +75,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
 
   return (
     <section className="section-2">
-      <div className="div-block-23" />
-      <div className="div-block-24">
+      
+      <div className="div-block-23" title='Ver detalle de producto'>
+                <img
+                  src={image? image : '/images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979-p-500.png'}
+                  loading="lazy"
+
+                />
+              </div>
+        <div className="div-block-24">
         <h1 className="heading-3">{name}</h1>
         <div className="div-block-26">Oferta</div>
         <div className="text-block-8">${price}</div>

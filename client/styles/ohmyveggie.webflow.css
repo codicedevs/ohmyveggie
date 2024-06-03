@@ -22,6 +22,22 @@
   font-weight: 400;
 }
 
+.btn-wsp{
+  
+  position:fixed;
+  bottom:50px;
+  right:50px;
+  width: 5%;
+  height: 7%;
+  z-index:100;
+  color:#FFF;
+  text-align:center;
+  transition: all 300ms ease;
+}
+.btn-wsp:hover{
+  transform: scale(110%);  
+}
+
 .txtArea {
   margin-top: 25px;
   padding-left: 10px;
@@ -741,7 +757,7 @@
   width: 40%;
   height: 50vh;
   /* background-color: var(--orange); */
-  background-image: url('../public/images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979.png');
+  /* background-image: url('../public/images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979.png'); */
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -1780,6 +1796,19 @@
 }
 
 @media screen and (max-width: 479px) {
+
+  .row{
+    font-size: 11px;
+  }
+
+  .col {
+    font-size: 11px;
+  }
+
+  .btn-wsp{
+    width: 13%;
+    height: 8%;
+  }
 
   .herolink {
     line-height: 30px;
