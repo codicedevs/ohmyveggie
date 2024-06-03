@@ -10,8 +10,7 @@ import {
 import { AddToCartDto } from "../dtos/add-to-cart.dto";
 import { SaveShippingDetailsDto } from "../dtos/save-shipping-details.dto";
 import { CartService } from "../services/cart.service";
-import { defaultCart } from "../schemas/cart.schema";
-import { SavePaymentMethodDto } from "../dtos/save-payment-method.dto";
+
 
 @Controller("cart")
 export class CartController {
