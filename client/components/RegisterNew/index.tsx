@@ -174,17 +174,11 @@ const Register = ({visible= false} ) => {
                    <a  className="link-3" onClick={()=> {dispatch({ type: AT.CLOSE_REGISTER }); dispatch({ type: AT.OPEN_LOGIN })}}>
                       Ingresar
                   </a> 
-                  {/* <Link href="/login">Ingresar</Link> */}
+                 
 
 
               </div>
-              {/* <div className="div-block-37">
-                  <div className="text-block-18"
-                    onClick={() => {dispatch({type: AT.OPEN_PASSWORD_RECOVER }); dispatch({type: AT.CLOSE_REGISTER })}}
-                  >
-                    Olvidó su contraseña?
-                  </div>
-              </div> */}
+              
               <div
                   data-w-id="61f6a0b0-599f-9b79-f962-7952437987a5"
                   className="text-block-19"
@@ -200,76 +194,3 @@ const Register = ({visible= false} ) => {
 
 export default Register;
 
-/*<FormContainer>
-      <h1>Sign Up</h1>
-
-      {message && (
-        <Message variant="danger">
-          {Array.isArray(message) ? message[0] : message}
-        </Message>
-      )}
-      {loading && <Loader />}
-
-      <Form onSubmit={onSubmitHandler}>
-        <Form.Group controlId="name">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="name"
-            placeholder="Enter name"
-            value={credentials.name}
-            onChange={e =>
-              setCredentials({ ...credentials, name: e.target.value })
-            }
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group controlId="email" className="py-3">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={credentials.email}
-            onChange={e =>
-              setCredentials({ ...credentials, email: e.target.value })
-            }
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter password"
-            value={credentials.password}
-            onChange={e =>
-              setCredentials({ ...credentials, password: e.target.value })
-            }
-          ></Form.Control>
-        </Form.Group>
-
-        <Form.Group controlId="confirmPassword" className="py-3">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirm password"
-            value={credentials.confirmPassword}
-            onChange={e =>
-              setCredentials({
-                ...credentials,
-                confirmPassword: e.target.value,
-              })
-            }
-          ></Form.Control>
-        </Form.Group>
-
-        <Button type="submit" variant="primary" className="my-1">
-          Register
-        </Button>
-      </Form>
-
-      <Row className="py-3">
-        <Col>
-          Have an Account? <Link href="/login">Login</Link>
-        </Col>
-      </Row>
-    </FormContainer>*/

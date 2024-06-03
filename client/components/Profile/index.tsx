@@ -12,36 +12,38 @@ import { UserCredentials } from '../../interfaces';
 import Link from 'next/link';
 
 const Profile = () => {
+  
   useAuth();
-
   const initialCredentials = {
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
   };
-
+  
   const userData = useTypedSelector(state => state.user.data);
   const { error, loading, success } = useTypedSelector(
     state => state.userUpdate
   );
-  const userOrders = useTypedSelector(state => state.userOrders);
 
+
+  const userOrders = useTypedSelector(state => state.userOrders);
+  
   const { updateUser } = useUserActions();
   const { fetchUserOrders } = useOrderActions();
-
+  
   const [credentials, setCredentials] =
-    useState<UserCredentials>(initialCredentials);
+  useState<UserCredentials>(initialCredentials);
   const [message, setMessage] = useState<string | null | string[]>(error);
-
+  
   useEffect(() => {
     setMessage(error);
   }, [error]);
-
+  
   useEffect(() => {
     if (userData) {
       fetchUserOrders();
-
+      
       setCredentials(credentials => ({
         ...credentials,
         name: userData.name,
@@ -49,33 +51,33 @@ const Profile = () => {
       }));
     }
   }, [userData, fetchUserOrders]);
-
+  
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    
     const { name, email, password, confirmPassword } = credentials;
-
+    
     if (name.length < 1 && email.length < 1 && password.length < 1) {
       setMessage('Change at least one property.');
-
+      
       return null;
     }
-
+    
     if (password.length > 0 && password !== confirmPassword) {
       setMessage('Passwords do not match');
-
+      
       return null;
     }
-
+    
     setMessage(null);
-
+    
     updateUser({
       name: name.length > 0 ? name : undefined,
       email: email.length > 0 ? email : undefined,
       password: password.length > 0 ? password : undefined,
     });
   };
-
+  
   return (
     <section className='d-flex' style={{paddingLeft: 40, justifyContent: 'center', gap: 30}}>
 
