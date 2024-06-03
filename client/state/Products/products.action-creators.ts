@@ -4,18 +4,27 @@ import { ProductInterface, Review } from '../../interfaces';
 import { proshopAPI } from '../../lib';
 import { ActionTypes } from './products.action-types';
 import { ProductsAction } from './products.actions';
+import { Interface } from 'readline';
 
 //category: string ='', brand: string ='' esto se lo saque a FetchProducts
 //y esto al endpoint &category=${category}&brand=${brand}
 
-export const fetchProducts = (keyword: string = '', pageId: number = 1, brand: string = '',category: string ='' ) => async (dispatch: Dispatch<ProductsAction>) => {
+interface FetchProductsParams {
+  keyword?: query;
+  pageId?: number;
+  brand?: string;
+  category?: string;
+  shouldScroll?: boolean;
+}
+
+export const fetchProducts = ({keyword= '', pageId = 1,category ='', shouldScroll = false}: FetchProductsParams ) => async (dispatch: Dispatch<ProductsAction>) => {
     try {
       dispatch({
         type: ActionTypes.FETCH_PRODUCTS_START,
       });
 
       const { data } = await proshopAPI.get(
-        `/products?keyword=${keyword}&brand=${brand}&category=${category}`
+        `/products?keyword=${keyword}&category=${category}&pageId=${pageId}`
       );
     setTimeout(()=>{
 
@@ -23,6 +32,10 @@ export const fetchProducts = (keyword: string = '', pageId: number = 1, brand: s
         type: ActionTypes.FETCH_PRODUCTS_SUCCESS,
         payload: data,
       });
+      if (shouldScroll) {
+        const element = document.getElementById('scrollUp')
+        element?.scrollIntoView({behavior: 'smooth'})
+      }
     }, 300)
     } catch (error: any) {
       dispatch({
@@ -49,25 +62,6 @@ export const fetchCategories = () => async(dispatch: Dispatch<ProductsAction>)=>
   } catch (error: any) {
     dispatch({
       type: ActionTypes.FETCH_CATEGORIES_ERROR,
-      payload: error.response.data.message,
-    });
-  }
-  }
-export const fetchBrands = () => async(dispatch: Dispatch<ProductsAction>)=>{
-
-    try{
-      dispatch({
-        type: ActionTypes.FETCH_PRODUCTS_START,
-      })
-      const { data } = await proshopAPI.get('/brands')
-    
-      dispatch({
-      type: ActionTypes.FETCH_BRANDS_SUCCESS,
-      payload: data,
-    });
-  } catch (error: any) {
-    dispatch({
-      type: ActionTypes.FETCH_BRANDS_ERROR,
       payload: error.response.data.message,
     });
   }

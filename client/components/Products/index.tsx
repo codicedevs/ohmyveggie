@@ -15,6 +15,7 @@ import SearchBox from '../SearchBox';
 import { useRouter } from 'next/router';
 
 
+
 interface ProductsInterface {
   keyword?: query;
   pageId?: query;
@@ -23,74 +24,74 @@ interface ProductsInterface {
 
 
 const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
-  
-  const Button=({filter}: {filter:string} )=>{
-    
-    function handleClose (filter: string) {
-      
-      switch(filter){
-        case "brand": 
+
+  const Button = ({ filter }: { filter: string }) => {
+
+    function handleClose(filter: string) {
+
+      switch (filter) {
+        case "brand":
           setBrandSel('')
           setBrandSelectedId('')
-          
-        
-        break;
+
+
+          break;
         case 'category': {
           setCatSel('')
           setCatSelectedId('')
         }
         default:
 
-        break
-      }  
+          break
+      }
     }
     return (
-    <button onClick={(e)=>{e.stopPropagation(); handleClose(filter)}} type="button" className="btn-close" aria-label="Close" style={{marginLeft: 15, width: 1, alignItems: 'center', zIndex:1000}}></button>
+      <button onClick={(e) => { e.stopPropagation(); handleClose(filter) }} type="button" className="btn-close" aria-label="Close" style={{ marginLeft: 15, width: 1, alignItems: 'center', zIndex: 1000 }}></button>
     )
   }
   const [catSel, setCatSel] = useState('')
   const [catSelectedId, setCatSelectedId] = useState('')
   const [brandSelectedId, setBrandSelectedId] = useState('')
   const [brandSel, setBrandSel] = useState('')
+  const [currentPage, setCurrentPage] = useState("")
 
 
 
-  
-  function handleBrandSel(brand: string, id: string){
-      setBrandSel(brand)
-      setBrandSelectedId(id)
-  
-    }
-    function handleCatSel(cat: string, id: string){
-      setCatSel(cat)
-      setCatSelectedId(id)
-  
+
+  function handleBrandSel(brand: string, id: string) {
+    setBrandSel(brand)
+    setBrandSelectedId(id)
+
   }
-  
-  const {fetchBrands} = useProductsActions()
-  const {fetchCategories} = useProductsActions()
+  function handleCatSel(cat: string, id: string) {
+    setCatSel(cat)
+    setCatSelectedId(id)
+
+  }
+
+  const { fetchCategories } = useProductsActions()
   const { fetchProducts } = useProductsActions();
   const {
     loading,
     error,
     data: { products, pages, page },
     categories,
-    brands,
+    
   } = useTypedSelector(state => state.products);
-  
+
   const [cantCart, setCantCart] = useState(0);
 
-
-  useEffect(()=> {
-    fetchCategories(), fetchBrands()}
+  useEffect(() => {
+    fetchCategories()     
+  }
     , [])
 
   useEffect(() => {
-    fetchProducts(keyword as string, parseInt(pageId as string), brandSel as string, catSel as string);
+    fetchProducts({ keyword, pageId: Number(pageId?.toString()), category: catSel });
 
-    
+
   }, [keyword, pageId, brandSel, catSel]);
-  
+
 
   //images/logo2.png
   return (
@@ -105,9 +106,9 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
             className="image-5"
           />
           <h1 className="heading">Comprá Online</h1>
-          
+
           <SearchBox />
-          
+
           <a href="#productos" className="herolink">
             ¡Hacé tu pedido por la web y te lo enviamos a domicilio!
           </a>
@@ -115,29 +116,11 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
         </div>
       </div>
 
-      <section id="productos" className="section">
-        <div id="products" className="wrapperprods">
+      <section id="productos" className="section" >
+        <div id="products" className="wrapperprods" >
           <div className="wrapperstyckymenu">
             <div className="stickymenu">
-              <div className="div-block-14">
-                <div className="div-block-13">
-                  <div className="text-block-2">Marcas</div>
-                </div>
-                <div className="div-block-15" />
-              </div>
-              <ul role="list" className="list w-list-unstyled">
-                {brands.map((brand, idx) => <li 
-                  key={idx} 
-                  className={(brandSelectedId===idx.toString())? "listitem listitemselected" : "listitem"}
-                  onClick={()=>{
-                    handleBrandSel(brand, idx.toString())
-      
-                    }}>
-                    {brand}
-                    {brandSelectedId===idx.toString() && <Button filter="brand" />  }
-                  
-                  </li>)}
-              </ul>
+
               <div className="div-block-14">
                 <div className="div-block-13">
                   <div className="text-block-2">Categorías</div>
@@ -145,18 +128,19 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
                 <div className="div-block-15" />
               </div>
               <ul role="list" className="list w-list-unstyled">
-              {categories.map((cat, idx) => <li 
-                  key={idx} 
-                  className={(catSelectedId===idx.toString())? "listitem listitemselected" : "listitem"}
-                  onClick={()=>{
-                    handleCatSel(cat, idx.toString())}}
-                               
-              
-                    
-                    >
+                {categories.map((cat, idx) => <li
+                  key={idx}
+                  className={(catSelectedId === idx.toString()) ? "listitem listitemselected" : "listitem"}
+                  onClick={() => {
+                    handleCatSel(cat, idx.toString())
+                  }}
+
+
+
+                >
                   {cat}
-                  {catSelectedId===idx.toString() && <Button filter="category" />  }
-                
+                  {catSelectedId === idx.toString() && <Button filter="category" />}
+
                 </li>)}
 
               </ul>
@@ -173,7 +157,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
                   <h2 className="heading-2">Productos destacados</h2>
                   {/* <div className="text-block-3">Le ofrecemos una gran variedad</div> */}
                 </div>
-                <div className="prods">
+                <div className="prods" >
                   {loading ? (
                     <Loader />
                   ) : error ? (
@@ -182,18 +166,18 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
                     <>
 
                       {
-                      products.slice(0,3).map((product, idx) => (  // muestra los primeros 3 prods
-                        <Item key={idx} {...product} />
-                      ))}
+                        products.slice(0, 3).map((product, idx) => (  // muestra los primeros 3 prods
+                          <Item key={idx} {...product} />
+                        ))}
 
 
                     </>
                   )}
                 </div>
-              </>  
+              </>
             }
 
-            <div className="categorie">
+            <div className="categorie" id="scrollUp">
               {keyword ?
                 <h2 className="heading-2">{keyword}</h2>
                 :

@@ -20,7 +20,7 @@ export class PaymentService {
   ) {
     this.client = new MercadoPagoConfig({
       accessToken:
-        "TEST-6951506869962077-041109-9968d6f209a4180103b81b0d0e0d3223-1767060986", // token de usuario vendedor test
+        "TEST-6042556589144025-040516-0cb34e8b0e12791dfbb6f6234050ddad-382483741", // token de usuario vendedor test
       options: { timeout: 5000 },
     });
     this.preference = new Preference(this.client);
@@ -31,9 +31,9 @@ export class PaymentService {
     const preferenceResult = this.preference.create({
       body: {
         "back_urls": {
-          "success": "http://localhost:3000",
-          "failure": "http://localhost:3000",
-          "pending": "http://localhost:3000"
+          "success": "https://codice.dev:4000",
+          "failure": "https://codice.dev:4000",
+          "pending": "https://codice.dev:4000"
         },
         external_reference: order._id,
         items: order.orderItems.map((item) => {

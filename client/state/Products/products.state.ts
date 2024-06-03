@@ -5,7 +5,6 @@ export interface ProductsState {
   error: string | null;
   data: PaginatedProducts;
   categories: string[]
-  brands: string[]
 }
 
 export interface ProductState {

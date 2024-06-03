@@ -13,7 +13,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 
 async function bootstrap() {
   const { key, cert, protocol } = getProtocolConfig();
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, protocol == 'https' ? { httpsOptions: { key, cert } } : undefined)
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, protocol == 'https' ? { httpsOptions: { key, cert } } : undefined,)
   app.set('trust proxy', 1); // trust first proxy
   app.enableCors(corsConfig());
   app.use(session(sessionConfig(MongoDBStore)));

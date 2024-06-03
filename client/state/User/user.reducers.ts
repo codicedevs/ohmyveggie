@@ -39,7 +39,7 @@ export const userLoginReducer = (
     case ActionTypes.USER_LOGOUT:
       return { ...state, data: action.payload };
     case ActionTypes.USER_RESET:
-      return { loading: false, data: null, error: null };
+      return { loading: false, data: null, error: null};
 
     default:
       return state;
@@ -54,14 +54,14 @@ export const userRegisterReducer = (
     case ActionTypes.USER_REGISTER_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.USER_REGISTER_SUCCESS:
-      return { loading: false, data: action.payload, error: null };
+      return { ...state, loading: false, data: action.payload, error: null };
     case ActionTypes.USER_REGISTER_ERROR:
       return { ...state, loading: false, error: action.payload };
 
     case ActionTypes.USER_LOGOUT:
       return { ...state, data: action.payload };
     case ActionTypes.USER_RESET:
-      return { loading: false, data: null, error: null };
+      return { ...state, loading: false, data: null, error: null };
     default:
       return state;
   }
@@ -75,7 +75,7 @@ export const userDetailsReducer = (
     case ActionTypes.GET_CURRENT_USER_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.GET_CURRENT_USER_SUCCESS:
-      return { loading: false, data: action.payload, error: null };
+      return {...state, loading: false, data: action.payload, error: null };
     case ActionTypes.GET_CURRENT_USER_ERROR:
       return { ...state, loading: false, error: action.payload };
 
@@ -94,21 +94,21 @@ export const userEditReducer = (
     case ActionTypes.FETCH_USER_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.FETCH_USER_SUCCESS:
-      return { loading: false, data: action.payload, error: null };
+      return {...state, loading: false, data: action.payload, error: null };
     case ActionTypes.FETCH_USER_ERROR:
       return { ...state, loading: false, error: action.payload };
 
     case ActionTypes.ADMIN_UPDATE_USER_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.ADMIN_UPDATE_USER_SUCCESS:
-      return { loading: false, data: action.payload, error: null };
+      return {...state, loading: false, data: action.payload, error: null };
     case ActionTypes.ADMIN_UPDATE_USER_ERROR:
       return { ...state, loading: false, error: action.payload };
 
     case ActionTypes.USER_RESET:
-      return { data: null, loading: false, error: null };
+      return {...state, data: null, loading: false, error: null };
     case ActionTypes.ADMIN_UPDATE_USER_RESET:
-      return { loading: false, data: null, error: null };
+      return {...state, loading: false, data: null, error: null };
     default:
       return state;
   }
@@ -123,6 +123,7 @@ export const userUpdateReducer = (
       return { ...state, loading: true, error: null, success: false };
     case ActionTypes.USER_UPDATE_SUCCESS:
       return {
+        ...state,
         loading: false,
         data: action.payload,
         error: null,
@@ -139,7 +140,7 @@ export const userUpdateReducer = (
     case ActionTypes.USER_LOGOUT:
       return { ...state, data: action.payload };
     case ActionTypes.USER_UPDATE_RESET:
-      return { loading: false, data: null, error: null, success: false };
+      return {...state, loading: false, data: null, error: null, success: false };
     default:
       return state;
   }

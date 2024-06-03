@@ -123,18 +123,24 @@ export class OrdersService {
   }
 
   async updateDelivered(id: string): Promise<OrderDocument> {
-    if (!Types.ObjectId.isValid(id))
+    if (!Types.ObjectId.isValid(id)) {
       throw new BadRequestException("Invalid order ID.");
-
+    }
     const order = await this.orderModel.findById(id);
-
-    if (!order) throw new NotFoundException("No order with given ID.");
-
-    order.isDelivered = true;
-    order.deliveredAt = Date();
-
-    const updatedOrder = await order.save();
-
+    if (!order) {
+      throw new NotFoundException("No order with given ID.");
+    }
+    const updatedOrder = await this.orderModel.findByIdAndUpdate(
+      id,
+      {
+        isDelivered: true,
+        deliveredAt: new Date(),
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     return updatedOrder;
   }
 
@@ -155,7 +161,7 @@ export class OrdersService {
     const updatedOrder = await this.orderModel.findByIdAndUpdate(
       id,
       { observations },
-      { new: true, runValidators: true } 
+      { new: true, runValidators: true }
     );
     return updatedOrder;
   }

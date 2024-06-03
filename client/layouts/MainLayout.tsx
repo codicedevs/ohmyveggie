@@ -13,6 +13,7 @@ import { useTypedSelector} from '.././hooks';
 import Register from '../components/RegisterNew';
 import PasswordRecover from '../components/PasswordRecover';
 import ResetPassword from '../components/ResetPassword';
+import { ToastContainer } from 'react-toastify';
 
 
 const MainLayout: React.FC = ({ children }) => {
@@ -42,6 +43,11 @@ const MainLayout: React.FC = ({ children }) => {
       <Register visible ={uI.isRegisterVisible}/>
       <PasswordRecover visible ={uI.isPasswordRecoverVisible}/>
       <ResetPassword visible ={uI.isResetPasswordVisible}/>
+      <ToastContainer 
+        autoClose={1500}
+        position="top-center"
+        
+      />
         {children}
       <Footer />
     </>

@@ -22,7 +22,6 @@ export const productsInitialState: ProductsState = {
   loading: false,
   error: null,
   categories: [],
-  brands: [],
   data: {
     products: [],
     page: 1,
