@@ -18,8 +18,7 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
     const { addToCart, removeFromCart }  = useCartActions();
 
     const onCheckoutHandler = () => {
-      const redirect = data ? '/shipping' : '/login';    //  acá redirecciona al hacer click en Comprar ahora en funcion de data
-      
+            
       props.toggleCart();
       router.push('/shipping');
     };
