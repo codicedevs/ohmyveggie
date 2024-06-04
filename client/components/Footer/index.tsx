@@ -42,7 +42,7 @@ const Footer = () => {
                   <li className="footerlistitem" style={{marginTop:5}}>Contactate con nosotros</li>
                   <div
                     id="logos"
-                    style={{ display: "flex", justifyContent: "center", marginTop: "5px"}}
+                    style={{ display: "flex", justifyContent: "center", marginTop: "10px", scale: "130%"}}
                   >
                     <NavLink href="mailto:ohmyveggie@gmail.com">
                       <li className="footerlistitem">

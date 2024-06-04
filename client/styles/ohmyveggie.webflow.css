@@ -27,8 +27,8 @@
   position:fixed;
   bottom:50px;
   right:50px;
-  width: 5%;
-  height: 7%;
+  width: 4%;
+  height: 8%;
   z-index:100;
   color:#FFF;
   text-align:center;
@@ -646,8 +646,7 @@
   width: 100%;
   height: auto;
   justify-content: flex-end;
-  /* padding-left: 7%;
-  padding-right: 7%;  */
+  font-size: 16px;
   display: flex;
 }
 
@@ -1797,6 +1796,12 @@
 
 @media screen and (max-width: 479px) {
 
+  .aboutcolumns {
+    border: 1px solid #e4b;
+    display: flex;
+    flex-direction: column;
+  }
+
   .row{
     font-size: 11px;
   }
@@ -1806,8 +1811,8 @@
   }
 
   .btn-wsp{
-    width: 13%;
-    height: 8%;
+    width: 12%;
+    height: 6%;
   }
 
   .herolink {
