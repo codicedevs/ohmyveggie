@@ -36,14 +36,14 @@ const Shipping = () => {
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { address, postalCode, timeDeliver, zoneDeliver, stockOption } = shippingAddress;
-    console.log('data shipping', address, postalCode, timeDeliver, zoneDeliver, stockOption)
+    const { address, postalCode, timeDeliver, zoneDeliver, stockOption, phone } = shippingAddress;
     if (
       
       address.length < 1 ||
       timeDeliver.length < 1 ||
       zoneDeliver.length < 1 ||
-      stockOption.length < 1 
+      stockOption.length < 1 ||
+      phone.length < 1
     ) {
       setMessage('Debe completar todos los datos');
       
@@ -103,7 +103,8 @@ const Shipping = () => {
             </Message>
           )}
           <Form onSubmit={onSubmitHandler}>
-            <Form.Group controlId="address">
+
+            <Form.Group controlId="address" className="py-3">
               <Form.Control
                 className="shiptxtfield w-input"
                 type="text"
@@ -113,6 +114,20 @@ const Shipping = () => {
                   setShippingAddress({
                     ...shippingAddress,
                     address: e.target.value,
+                  })
+                }
+              ></Form.Control>
+            </Form.Group>
+            <Form.Group controlId="phone" className="py-3">
+              <Form.Control
+                className="shiptxtfield w-input"
+                type="text"
+                placeholder="Telefono"
+                value={shippingAddress.phone}
+                onChange={(e) =>
+                  setShippingAddress({
+                    ...shippingAddress,
+                    phone: e.target.value,
                   })
                 }
               ></Form.Control>
@@ -128,7 +143,7 @@ const Shipping = () => {
                 <option value="fisherton">Fisherton</option>
               </Form.Select>
             </Form.Group>
-            <Form.Group controlId="postalCode">
+            <Form.Group controlId="postalCode" className="py-3">
               <Form.Control
                 className="shiptxtfield w-input"
                 value={shippingAddress.postalCode}
@@ -153,7 +168,7 @@ const Shipping = () => {
               </Form.Select>
             </Form.Group>
             <div >
-              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 10 }}>
                 <Form.Check
                   inline
                   type="radio"

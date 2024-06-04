@@ -62,6 +62,7 @@ export interface ShippingDetails {
   timeDeliver: string;
   zoneDeliver: string;
   stockOption: string;
+  phone: string;
 }
 
 export interface PaymentResult {

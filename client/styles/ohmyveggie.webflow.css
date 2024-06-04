@@ -1659,7 +1659,7 @@
   }
 
   .columns-2 {
-    flex-flow: column-reverse;
+    flex-flow: column;
   }
 }
 
