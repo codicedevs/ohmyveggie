@@ -8,15 +8,15 @@ import FormContainer from '../FormContainer';
 import Loader from '../Loader';
 import Message from '../Message';
 import { Router, useRouter } from 'next/router';
+import { createProduct } from '../../state/Products/products.action-creators';
 
 
-//CREO QUE HAY QUE GENERAR ALGO MAS EN REDUX PARA QUE FUNCIONE VER MAS ADELANTE
 
 interface ProductsEditProps {
   pageId: string | string[] | undefined;
 }
 
-const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
+const ProductsCreate: React.FC<ProductsEditProps> = () => {
   useAdmin();
   const router = useRouter()
   const initialProduct = {
@@ -32,18 +32,15 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
 
   const { data, loading, error } = useTypedSelector(state => state.product);
 
-  const { fetchProduct, updateProduct } = useProductsActions();
+  // const { fetchProduct, updateProduct } = useProductsActions();
 
   const [uploading, setUploading] = useState<boolean>(false);
 
   const [productDetails, setDetails] =
     useState<Partial<ProductInterface>>(initialProduct);
+  const {createProduct} = useProductsActions();
 
-  useEffect(() => {
-    fetchProduct(pageId as string);
-  }, [fetchProduct, pageId]);
-
-  useEffect(() => {
+    useEffect(() => {
     if (data) {
       setDetails({
         name: data.name,
@@ -57,10 +54,13 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
     }
   }, [data]);
 
-  const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    try{
 
-    updateProduct(pageId as string, productDetails);
+      createProduct(productDetails);
+      
+    } catch(err){ console.log(err)}
   };
 
   const uploadFileHandler = async (e: ChangeEvent<any>) => {
@@ -199,4 +199,4 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
   );
 };
 
-export default ProductsEdit;
+export default ProductsCreate;

@@ -64,15 +64,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
   };
   
 
-  /*const addProdToCart() = {
-
-      //setQty( cartData.cartItems.length + 1)
-      addToCart({
-        product: data,
-        qty,  //----------------------------------> Verificar porque modifica el total de productos del carro <----------------------------
-      });
-  }*/
-
   return (
     <section className="section-2">
       

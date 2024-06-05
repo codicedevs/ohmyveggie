@@ -143,17 +143,19 @@ export const deleteProduct =
   };
 
 export const createProduct =
-  () => async (dispatch: Dispatch<ProductsAction>) => {
+  (productDetails) => async (dispatch: Dispatch<ProductsAction>) => {
     const config = {
       withCredentials: true,
     };
-
+    console.log('aca es')
     try {
       dispatch({
         type: ActionTypes.CREATE_PRODUCT_START,
       });
 
-      const { data } = await proshopAPI.post(`/products`, {}, config);
+      console.log('aca llega?', )
+
+      const { data } = await proshopAPI.post(`/products`, productDetails , config);
 
       dispatch({
         type: ActionTypes.CREATE_PRODUCT_SUCCESS,
@@ -166,7 +168,7 @@ export const createProduct =
         type: ActionTypes.CREATE_PRODUCT_ERROR,
         payload: error.response.data.message,
       });
-    }
+    } finally{console.log('finally')}
   };
 
 export const updateProduct =

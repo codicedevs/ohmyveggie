@@ -35,13 +35,20 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
             <SearchBoxAdmin search={search} />
           </Col>
           <Col className="text-right">
+          <Link
+                        href={`/admin/products/create/`}
+                        passHref
+                      >
             <Button
               className="my-3"
-              onClick={() => createProduct()}
               style={{ float: 'right' }}
             >
               <i className="fas fa-plus"></i>  Crear nuevo Producto
             </Button>
+                        
+                      </Link>
+            
+            
           </Col>
         </Row>
         {loading ? (

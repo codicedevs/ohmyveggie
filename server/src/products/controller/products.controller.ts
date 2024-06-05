@@ -43,8 +43,8 @@ export class ProductsController {
 
   @UseGuards(AdminGuard)
   @Post()
-  createProduct() {
-    return this.productsService.createSample();
+  createProduct(@Body() productDetails: ProductDocument) {
+    return this.productsService.createSample(productDetails);
   }
 
   @UseGuards(AdminGuard)
