@@ -7,13 +7,10 @@ import {
   Post,
   Put,
   Query,
-  Session,
   UseGuards,
 } from "@nestjs/common";
 import { AdminGuard } from "src/guards/admin.guard";
-import { AuthGuard } from "src/guards/auth.guard";
 import { CreateProductDto, ProductDto } from "../dtos/product.dto";
-import { ReviewDto } from "../dtos/review.dto";
 import { ProductsService } from "../services/products.service";
 import { FilterQuery } from "mongoose";
 import { ProductDocument } from "../schemas/product.schema";
