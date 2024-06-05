@@ -9,6 +9,7 @@ import { PaginatedProducts } from 'src/interfaces';
 import { UserDocument } from 'src/users/schemas/user.schema';
 import { sampleProduct } from '../../utils/data/product';
 import { Product, ProductDocument } from '../schemas/product.schema';
+import { ProductDto } from '../dtos/product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -66,7 +67,7 @@ export class ProductsService {
     return createdProducts;
   }
 
-  async createSample(productDetails: ProductDocument): Promise<ProductDocument> {
+  async createSample(productDetails: ProductDto): Promise<ProductDocument> {
     const createdProduct = await this.productModel.create(productDetails);
     console.log(createdProduct);
     return createdProduct;
