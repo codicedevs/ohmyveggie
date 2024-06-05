@@ -79,7 +79,7 @@ const Profile = () => {
   };
   
   return (
-    <section  style={{paddingLeft: 40, justifyContent: 'center', gap: 30 }}>
+    <section  style={{padding:"10px", justifyContent: 'center', gap: 30 }}>
 
     
     <Row style={{flexWrap: 'wrap-reverse'}}>
