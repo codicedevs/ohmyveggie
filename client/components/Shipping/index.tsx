@@ -6,6 +6,7 @@ import { useAuth, useCartActions, useTypedSelector } from "../../hooks";
 import CheckoutSteps from "../CheckoutSteps";
 import { useRouter } from "next/router";
 import Message from "../Message";
+import { validatePhone } from "../../utils";
 
 const arrayOption = [
   {
@@ -44,7 +45,7 @@ const Shipping = () => {
       timeDeliver.length < 1 ||
       zoneDeliver.length < 1 ||
       stockOption.length < 1 ||
-      telephone < 1
+      !validatePhone(telephone)
     ) {
       setMessage('Debe completar todos los datos');
       
