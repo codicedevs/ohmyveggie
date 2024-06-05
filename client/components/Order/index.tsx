@@ -130,6 +130,39 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                 </div>
               </div>
             </div>
+            <div className="orderitem">
+              <div className="txtorderitem">Items</div>
+              {data.orderItems.length === 0 ? (
+                <Message>El carro está vacío</Message>
+              ) : (
+                <ListGroup variant="flush">
+                  {data.orderItems.map((item, index) => (
+                    <ListGroup.Item key={index}>
+                      <Row style={{ fontWeight: 600 }}>
+                        <Col>
+                          <Link href={`/product/${item.productId}`} passHref>
+                            <span className="link__span">{item.name}</span>
+                          </Link>
+                        </Col>
+                        <Col style={{ textAlign: "right" }} md={4}>
+                          {item.qty} x ${item.price}
+                        </Col>
+                        <Col
+                          style={{
+                            textAlign: "right",
+                            fontSize: 18,
+                            fontWeight: 700,
+                          }}
+                          md={4}
+                        >
+                          $ {(item.qty * item.price).toFixed(2)}
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              )}
+            </div>
             <div className="orderitem" style={{ display: "flex", gap: 10 }}>
               {data.isDelivered ? (
                 <div
@@ -170,39 +203,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                 <div className="txtordersubitem">{data.paymentMethod}</div>
               </div>
             )}
-            <div className="orderitem">
-              <div className="txtorderitem">Items</div>
-              {data.orderItems.length === 0 ? (
-                <Message>El carro está vacío</Message>
-              ) : (
-                <ListGroup variant="flush">
-                  {data.orderItems.map((item, index) => (
-                    <ListGroup.Item key={index}>
-                      <Row style={{ fontWeight: 600 }}>
-                        <Col>
-                          <Link href={`/product/${item.productId}`} passHref>
-                            <span className="link__span">{item.name}</span>
-                          </Link>
-                        </Col>
-                        <Col style={{ textAlign: "right" }} md={4}>
-                          {item.qty} x ${item.price}
-                        </Col>
-                        <Col
-                          style={{
-                            textAlign: "right",
-                            fontSize: 18,
-                            fontWeight: 700,
-                          }}
-                          md={4}
-                        >
-                          $ {(item.qty * item.price).toFixed(2)}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
-              )}
-            </div>
+          
           </div>
           <div className="column-6 w-col w-col-4 ">
             <div className="ordersummary px-4 d-flex">
