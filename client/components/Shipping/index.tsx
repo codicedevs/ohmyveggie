@@ -35,15 +35,16 @@ const Shipping = () => {
   const [message, setMessage] = useState<string | null | string[]>(error);
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
-    const { address, postalCode, timeDeliver, zoneDeliver, stockOption, phone } = shippingAddress;
+    const { address, timeDeliver, zoneDeliver, stockOption, telephone } = shippingAddress;
     if (
       
       address.length < 1 ||
       timeDeliver.length < 1 ||
       zoneDeliver.length < 1 ||
       stockOption.length < 1 ||
-      phone.length < 1
+      telephone < 1
     ) {
       setMessage('Debe completar todos los datos');
       
@@ -51,6 +52,7 @@ const Shipping = () => {
     }
 
     saveShippingAddress(shippingAddress);
+    console.log("estos son los shippings", shippingAddress);
     router.push("/placeorder");
   };
 
@@ -121,13 +123,13 @@ const Shipping = () => {
             <Form.Group controlId="phone" className="py-3">
               <Form.Control
                 className="shiptxtfield w-input"
-                type="text"
+                type="number"
                 placeholder="Telefono"
-                value={shippingAddress.phone}
+                value={shippingAddress.telephone}
                 onChange={(e) =>
                   setShippingAddress({
                     ...shippingAddress,
-                    phone: e.target.value,
+                    telephone: Number(e.target.value),
                   })
                 }
               ></Form.Control>

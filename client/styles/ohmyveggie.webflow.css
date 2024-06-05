@@ -950,7 +950,7 @@
   padding-bottom: 20px ;
   display: flex;
   flex-direction: column;
-  gap: 20px
+  gap: 10px
 }
 
 .totalitems {
@@ -1302,10 +1302,11 @@
   background-color: rgba(218, 197, 197, 0);
   /* border: 1px solid #adacac;
   border-radius: 6px; */
-  padding: 10px;
+  padding: 10px 0;
   font-family: Montserrat, sans-serif;
   font-size: 18px;
   font-weight: 700;
+  margin-bottom: 20px;
 }
 
 .txtordersubitem {
@@ -1356,7 +1357,6 @@
   opacity: 1;
   color: #f8f7f7;
   border-radius: 6px;
-  margin-bottom: 20px;
   padding: 10px;
   font-family: Montserrat, sans-serif;
   font-size: 16px;

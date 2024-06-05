@@ -62,7 +62,7 @@ export interface ShippingDetails {
   timeDeliver: string;
   zoneDeliver: string;
   stockOption: string;
-  phone: string;
+  telephone: number;
 }
 
 export interface PaymentResult {

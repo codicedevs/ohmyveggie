@@ -56,6 +56,7 @@ const PlaceOrder = () => {
             <div className="txtordersubitem">Nombre: { data ? <b> {data?.name} </b> : <i style={{color: 'red'}}>Debe loguearse para completar la compra</i>}</div>
             <div className="txtordersubitem">Email: { data ? <b> {data?.email} </b> : <i style={{color: 'red'}}>Debe loguearse para completar la compra</i>}</div>
             <div className="txtordersubitem">Dirección: <b>{cart.data.shippingDetails.address} - {cart.data.shippingDetails.zoneDeliver}</b></div>
+            <div className="txtordersubitem">Teléfono: <b>{cart.data.shippingDetails.telephone} </b></div>
             <div className="txtordersubitem">Horario de entrega: <b>{cart.data.shippingDetails.timeDeliver}</b> </div>
             <div className="txtordersubitem">En caso de no existir stock: <b>{cart.data.shippingDetails.stockOption} </b></div>
             </div>
