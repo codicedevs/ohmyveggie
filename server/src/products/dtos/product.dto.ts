@@ -17,8 +17,6 @@ export class ProductDto {
   countInStock: number;
 }
 
-
-
 export class CreateProductDto {
   @IsString({ message: 'El nombre debe ser una cadena de caracteres.' })
   @IsNotEmpty({ message: 'El nombre no puede estar vacío.' })
