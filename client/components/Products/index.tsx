@@ -19,23 +19,16 @@ import { useRouter } from 'next/router';
 interface ProductsInterface {
   keyword?: query;
   pageId?: query;
-  brand?: query;
 }
 
 
-const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
+const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
 
   const Button = ({ filter }: { filter: string }) => {
 
     function handleClose(filter: string) {
 
       switch (filter) {
-        case "brand":
-          setBrandSel('')
-          setBrandSelectedId('')
-
-
-          break;
         case 'category': {
           setCatSel('')
           setCatSelectedId('')
@@ -51,18 +44,12 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
   }
   const [catSel, setCatSel] = useState('')
   const [catSelectedId, setCatSelectedId] = useState('')
-  const [brandSelectedId, setBrandSelectedId] = useState('')
-  const [brandSel, setBrandSel] = useState('')
   const [currentPage, setCurrentPage] = useState("")
 
 
 
 
-  function handleBrandSel(brand: string, id: string) {
-    setBrandSel(brand)
-    setBrandSelectedId(id)
 
-  }
   function handleCatSel(cat: string, id: string) {
     setCatSel(cat)
     setCatSelectedId(id)
@@ -90,7 +77,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId, brand }) => {
     fetchProducts({ keyword, pageId: Number(pageId?.toString()), category: catSel });
 
 
-  }, [keyword, pageId, brandSel, catSel]);
+  }, [keyword, pageId, catSel]);
 
 
   //images/logo2.png

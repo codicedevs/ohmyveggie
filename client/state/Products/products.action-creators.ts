@@ -5,14 +5,11 @@ import { proshopAPI } from '../../lib';
 import { ActionTypes } from './products.action-types';
 import { ProductsAction } from './products.actions';
 import { Interface } from 'readline';
-
-//category: string ='', brand: string ='' esto se lo saque a FetchProducts
-//y esto al endpoint &category=${category}&brand=${brand}
+import { toast } from 'react-toastify';
 
 interface FetchProductsParams {
   keyword?: query;
   pageId?: number;
-  brand?: string;
   category?: string;
   shouldScroll?: boolean;
 }
@@ -147,28 +144,26 @@ export const createProduct =
     const config = {
       withCredentials: true,
     };
-    console.log('aca es')
+
     try {
+
       dispatch({
         type: ActionTypes.CREATE_PRODUCT_START,
       });
-
-      console.log('aca llega?', )
-
       const { data } = await proshopAPI.post(`/products`, productDetails , config);
-
       dispatch({
         type: ActionTypes.CREATE_PRODUCT_SUCCESS,
         payload: data,
       });
 
-      Router.push(`/admin/products/edit/${data._id}`);
+      Router.push(`/admin/products/`);
     } catch (error: any) {
       dispatch({
         type: ActionTypes.CREATE_PRODUCT_ERROR,
         payload: error.response.data.message,
       });
-    } finally{console.log('finally')}
+      console.log(error.response.data.message)
+    } 
   };
 
 export const updateProduct =

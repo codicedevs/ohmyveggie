@@ -23,14 +23,18 @@ const ProductsCreate: React.FC<ProductsEditProps> = () => {
     name: '',
     price: 0,
     image: '',
-    brand: '',
     category: '',
     numReviews: 0,
     countInStock: 0,
     description: '',
   };
 
-  const { data, loading, error } = useTypedSelector(state => state.product);
+  const { data, loading, error   } = useTypedSelector(state => state.productCreate);
+
+  const makeErrorArray = (error) => {
+    if (!error) return [];
+    return Array.isArray(error) ? error : [error];
+  };
 
   // const { fetchProduct, updateProduct } = useProductsActions();
 
@@ -44,7 +48,6 @@ const ProductsCreate: React.FC<ProductsEditProps> = () => {
     if (data) {
       setDetails({
         name: data.name,
-        brand: data.brand,
         category: data.category,
         price: data.price,
         countInStock: data.countInStock,
@@ -57,10 +60,11 @@ const ProductsCreate: React.FC<ProductsEditProps> = () => {
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try{
-
-      createProduct(productDetails);
-      
-    } catch(err){ console.log(err)}
+      await createProduct(productDetails); 
+      console.log('en component', error)
+          
+    } catch(err)
+    { console.log('Error', err)}
   };
 
   const uploadFileHandler = async (e: ChangeEvent<any>) => {
@@ -94,11 +98,7 @@ const ProductsCreate: React.FC<ProductsEditProps> = () => {
       <FormContainer>
         <h1>Crear Producto</h1>
 
-        {loading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant="danger">{error}</Message>
-        ) : (
+        {error && <Message variant='danger'><ul style={{lineHeight: 2}}>{error.map(err=><li>{err}</li>)}</ul></Message>}        
           <Form onSubmit={onSubmitHandler}>
             <Form.Group controlId="name" className="py-2">
               <Form.Label>Nombre del producto</Form.Label>
@@ -133,18 +133,6 @@ const ProductsCreate: React.FC<ProductsEditProps> = () => {
                 <Form.Control type="file" />
               </Form.Group>
               {uploading && <Loader />}
-            </Form.Group>
-
-            <Form.Group controlId="brand" className="py-2">
-              <Form.Label>Marca</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter brand"
-                value={productDetails.brand}
-                onChange={e =>
-                  setDetails({ ...productDetails, brand: e.target.value })
-                }
-              ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="countInStock" className="py-2">
@@ -185,15 +173,17 @@ const ProductsCreate: React.FC<ProductsEditProps> = () => {
                 }
               ></Form.Control>
             </Form.Group>
-
-            <Button type="submit" variant="primary" className="mt-3">
+            <div className='d-flex column gap-3 mt-3'>
+              
+            <Button type="submit" variant="primary" >
               Crear
             </Button>
-            <Button type="button" variant="primary" className="mt-3" onClick={()=> router.back}>
+            <Button type="button" variant="primary" onClick={()=> router.replace('/admin/products')}>
               Volver
             </Button>
+              </div>    
           </Form>
-        )}
+        
       </FormContainer>
     </>
   );

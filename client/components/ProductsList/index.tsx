@@ -64,7 +64,6 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
                   <th>Nombre de producto</th>
                   <th>Precio</th>
                   <th>Categoria</th>
-                  <th>Marca</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -75,7 +74,6 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
                     <td>{_product.name}</td>
                     <td>${_product.price}</td>
                     <td>{_product.category}</td>
-                    <td>{_product.brand}</td>
                     <td>
                       <Link
                         href={`/admin/products/edit/${_product._id}`}
