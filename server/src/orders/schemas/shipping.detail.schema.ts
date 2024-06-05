@@ -12,7 +12,7 @@ export class ShippingDetails extends Document {
     @Prop({ required: true })
     postalCode: string;
 
-    @Prop({ required: true})
+    @Prop({ required: true })
     timeDeliver: string;
 
     @Prop({ required: true, enum: Zone })
@@ -20,6 +20,9 @@ export class ShippingDetails extends Document {
 
     @Prop({ required: true, enum: stockOption })
     stockOption: stockOption;
+
+    @Prop({ required: true })
+    telephone: number
 }
 
 export const shippingDetailsSchema = SchemaFactory.createForClass(ShippingDetails);

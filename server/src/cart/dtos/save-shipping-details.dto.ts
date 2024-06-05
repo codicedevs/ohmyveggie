@@ -1,4 +1,4 @@
-import { IsEnum, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsString } from 'class-validator';
 import { stockOption } from 'src/orders/enums/stock.option';
 import { Zone } from 'src/orders/enums/zone.enum';
 
@@ -17,4 +17,7 @@ export class SaveShippingDetailsDto {
 
   @IsEnum(stockOption)
   stockOption: stockOption
+
+  @IsNumber()
+  telephone: number
 }
