@@ -4,6 +4,7 @@ import { OrderDocument } from "src/orders/schemas/order.schema";
 import { EmailService } from "src/email/email.service";
 import { OrdersService } from "src/orders/services/orders.service";
 import { UsersService } from "src/users/services/users.service";
+import { mercadoPagoSettings, serverSetting } from "src/settings";
 
 
 @Injectable()
@@ -20,7 +21,7 @@ export class PaymentService {
   ) {
     this.client = new MercadoPagoConfig({
       accessToken:
-        "APP_USR-6042556589144025-040516-6efeb41201bed901b16c61782cc9a8cc-382483741", // pasar al .env
+        mercadoPagoSettings.MERCADO_PAGO_ACCESS_TOKEN, // pasar al .env
       options: { timeout: 5000 },
     });
     this.preference = new Preference(this.client);
