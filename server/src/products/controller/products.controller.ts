@@ -22,7 +22,7 @@ export class ProductsController {
   @UseGuards(AdminGuard)
   @Post()
   createProduct(@Body() productDetails: CreateProductDto) {
-    return this.productsService.createProduct(productDetails);
+    return this.productsService.createOne(productDetails);
   }
 
   @Get()
