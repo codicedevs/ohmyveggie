@@ -69,7 +69,6 @@ export class ProductsService {
 
   async createSample(productDetails: ProductDto): Promise<ProductDocument> {
     const createdProduct = await this.productModel.create(productDetails);
-    console.log(createdProduct);
     return createdProduct;
   }
 
