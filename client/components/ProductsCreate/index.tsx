@@ -61,10 +61,9 @@ const ProductsCreate: React.FC<ProductsEditProps> = () => {
     e.preventDefault();
     try{
       await createProduct(productDetails); 
-      console.log('en component', error)
           
     } catch(err)
-    { console.log('Error', err)}
+    { console.error('Error', err)}
   };
 
   const uploadFileHandler = async (e: ChangeEvent<any>) => {

@@ -53,7 +53,6 @@ const Shipping = () => {
     }
 
     saveShippingAddress(shippingAddress);
-    console.log("estos son los shippings", shippingAddress);
     router.push("/placeorder");
   };
 
