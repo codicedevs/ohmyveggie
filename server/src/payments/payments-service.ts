@@ -20,7 +20,7 @@ export class PaymentService {
   ) {
     this.client = new MercadoPagoConfig({
       accessToken:
-        "TEST-6042556589144025-040516-0cb34e8b0e12791dfbb6f6234050ddad-382483741", // token de usuario vendedor test
+        "APP_USR-6042556589144025-040516-6efeb41201bed901b16c61782cc9a8cc-382483741", // token de usuario vendedor test
       options: { timeout: 5000 },
     });
     this.preference = new Preference(this.client);
