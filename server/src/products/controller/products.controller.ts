@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { AdminGuard } from "src/guards/admin.guard";
-import { CreateProductDto, ProductDto, UpdateProductDto } from "../dtos/product.dto";
+import { CreateProductDto,UpdateProductDto } from "../dtos/product.dto";
 import { ProductsService } from "../services/products.service";
 import { FilterQuery } from "mongoose";
 import { ProductDocument } from "../schemas/product.schema";
