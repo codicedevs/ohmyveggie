@@ -35,13 +35,20 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
             <SearchBoxAdmin search={search} />
           </Col>
           <Col className="text-right">
+          <Link
+                        href={`/admin/products/create/`}
+                        passHref
+                      >
             <Button
               className="my-3"
-              onClick={() => createProduct()}
               style={{ float: 'right' }}
             >
               <i className="fas fa-plus"></i>  Crear nuevo Producto
             </Button>
+                        
+                      </Link>
+            
+            
           </Col>
         </Row>
         {loading ? (
@@ -57,7 +64,6 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
                   <th>Nombre de producto</th>
                   <th>Precio</th>
                   <th>Categoria</th>
-                  <th>Marca</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -68,7 +74,6 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
                     <td>{_product.name}</td>
                     <td>${_product.price}</td>
                     <td>{_product.category}</td>
-                    <td>{_product.brand}</td>
                     <td>
                       <Link
                         href={`/admin/products/edit/${_product._id}`}

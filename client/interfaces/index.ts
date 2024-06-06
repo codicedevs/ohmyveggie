@@ -5,7 +5,6 @@
   name: string;
   image: string;
   description: string;
-  brand: string;
   category: string;
   price: number;
   countInStock: number;
@@ -62,6 +61,7 @@ export interface ShippingDetails {
   timeDeliver: string;
   zoneDeliver: string;
   stockOption: string;
+  telephone: number;
 }
 
 export interface PaymentResult {

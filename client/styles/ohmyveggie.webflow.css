@@ -22,6 +22,22 @@
   font-weight: 400;
 }
 
+.btn-wsp{
+  
+  position:fixed;
+  bottom:50px;
+  right:50px;
+  width: 80px;
+  height: 80px;
+  z-index:100;
+  color:#FFF;
+  text-align:center;
+  transition: all 300ms ease;
+}
+.btn-wsp:hover{
+  transform: scale(110%);  
+}
+
 .txtArea {
   margin-top: 25px;
   padding-left: 10px;
@@ -357,9 +373,6 @@
   margin-right: 16px;
 }
 
-.brand {
-  margin-top: 5px;
-}
 
 .section {
   padding: 6rem 7% 2.7rem;
@@ -630,8 +643,7 @@
   width: 100%;
   height: auto;
   justify-content: flex-end;
-  /* padding-left: 7%;
-  padding-right: 7%;  */
+  font-size: 16px;
   display: flex;
 }
 
@@ -741,7 +753,7 @@
   width: 40%;
   height: 50vh;
   /* background-color: var(--orange); */
-  background-image: url('../public/images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979.png');
+  /* background-image: url('../public/images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979.png'); */
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -935,7 +947,7 @@
   padding-bottom: 20px ;
   display: flex;
   flex-direction: column;
-  gap: 20px
+  gap: 10px
 }
 
 .totalitems {
@@ -1287,10 +1299,11 @@
   background-color: rgba(218, 197, 197, 0);
   /* border: 1px solid #adacac;
   border-radius: 6px; */
-  padding: 10px;
+  padding: 10px 0;
   font-family: Montserrat, sans-serif;
   font-size: 18px;
   font-weight: 700;
+  margin-bottom: 20px;
 }
 
 .txtordersubitem {
@@ -1341,7 +1354,6 @@
   opacity: 1;
   color: #f8f7f7;
   border-radius: 6px;
-  margin-bottom: 20px;
   padding: 10px;
   font-family: Montserrat, sans-serif;
   font-size: 16px;
@@ -1644,7 +1656,7 @@
   }
 
   .columns-2 {
-    flex-flow: column-reverse;
+    flex-flow: column;
   }
 }
 
@@ -1780,6 +1792,25 @@
 }
 
 @media screen and (max-width: 479px) {
+
+  .aboutcolumns {
+    border: 1px solid #e4b;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row{
+    font-size: 11px;
+  }
+
+  .col {
+    font-size: 11px;
+  }
+
+  .btn-wsp{
+    width: 12%;
+    height: 6%;
+  }
 
   .herolink {
     line-height: 30px;

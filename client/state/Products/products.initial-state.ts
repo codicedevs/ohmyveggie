@@ -9,7 +9,6 @@ export const initialProduct = {
   name: '',
   image: '',
   description: '',
-  brand: '',
   category: '',
   price: 0,
   countInStock: 0,

@@ -9,7 +9,7 @@ const handleFileChange = (curr, prev) => {
         console.log("\nEl archivo", filePath, "fue modificado!");
         console.log("El tipo de cambio fue: change");
 
-        exec(`mongoimport --uri {mongodb+srv://agustinmacazzaga:password@ohmyveggie.4xaykot.mongodb.net/ohmyveggie} --collection external-products --type csv --headerline --file ${filePath} --upsert --upsertFields id`, (error, stdout, stderr) => {
+        exec(`mongoimport --uri {mongodb+srv://agustinmacazzaga:password@ohmyveggie.4xaykot.mongodb.net/ohmyveggie} --collection external-products --type tsv --headerline --file ${filePath} --upsert --upsertFields id`, (error, stdout, stderr) => {
             if (error) {
                 console.error(`Error al ejecutar mongoimport: ${error.message}`);
                 return;

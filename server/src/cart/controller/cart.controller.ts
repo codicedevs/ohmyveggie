@@ -14,19 +14,19 @@ import { CartService } from "../services/cart.service";
 
 @Controller("cart")
 export class CartController {
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService) { }
 
   @Post()
   addToCart(@Body() body: AddToCartDto, @Session() session: any) {
     this.cartService.cart = session.cart
       ? session.cart
       : {
-          cartItems: [],
-          shippingDetails: {
-            address: "",
-            postalCode: "",
-          },
-        };
+        cartItems: [],
+        shippingDetails: {
+          address: "",
+          postalCode: "",
+        },
+      };
 
     const cartItem = this.cartService.addCartItem({ ...body });
 
@@ -40,12 +40,12 @@ export class CartController {
     this.cartService.cart = session.cart
       ? session.cart
       : {
-          cartItems: [],
-          shippingDetails: {
-            address: "",
-            postalCode: "",
-          },
-        };
+        cartItems: [],
+        shippingDetails: {
+          address: "",
+          postalCode: "",
+        },
+      };
 
     const shippingDetails = this.cartService.saveShippingDetails(body);
 
@@ -59,12 +59,12 @@ export class CartController {
     return session.cart
       ? session.cart
       : {
-          cartItems: [],
-          shippingDetails: {
-            address: "",
-            postalCode: "",
-          },
-        };
+        cartItems: [],
+        shippingDetails: {
+          address: "",
+          postalCode: "",
+        },
+      };
   }
 
   @Delete(":id")
@@ -72,12 +72,12 @@ export class CartController {
     this.cartService.cart = session.cart
       ? session.cart
       : {
-          cartItems: [],
-          shippingDetails: {
-            address: "",
-            postalCode: "",
-          },
-        };
+        cartItems: [],
+        shippingDetails: {
+          address: "",
+          postalCode: "",
+        },
+      };
 
     const cartItems = this.cartService.removeCartItem(id);
 

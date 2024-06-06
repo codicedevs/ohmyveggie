@@ -8,46 +8,46 @@ import FormContainer from '../FormContainer';
 import Loader from '../Loader';
 import Message from '../Message';
 import { Router, useRouter } from 'next/router';
+import { createProduct } from '../../state/Products/products.action-creators';
 
 
-//CREO QUE HAY QUE GENERAR ALGO MAS EN REDUX PARA QUE FUNCIONE VER MAS ADELANTE
 
 interface ProductsEditProps {
   pageId: string | string[] | undefined;
 }
 
-const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
+const ProductsCreate: React.FC<ProductsEditProps> = () => {
   useAdmin();
   const router = useRouter()
   const initialProduct = {
     name: '',
     price: 0,
     image: '',
-    brand: '',
     category: '',
     numReviews: 0,
     countInStock: 0,
     description: '',
   };
 
-  const { data, loading, error } = useTypedSelector(state => state.product);
+  const { data, loading, error   } = useTypedSelector(state => state.productCreate);
 
-  const { fetchProduct, updateProduct } = useProductsActions();
+  const makeErrorArray = (error) => {
+    if (!error) return [];
+    return Array.isArray(error) ? error : [error];
+  };
+
+  // const { fetchProduct, updateProduct } = useProductsActions();
 
   const [uploading, setUploading] = useState<boolean>(false);
 
   const [productDetails, setDetails] =
     useState<Partial<ProductInterface>>(initialProduct);
+  const {createProduct} = useProductsActions();
 
-  useEffect(() => {
-    fetchProduct(pageId as string);
-  }, [fetchProduct, pageId]);
-
-  useEffect(() => {
+    useEffect(() => {
     if (data) {
       setDetails({
         name: data.name,
-        brand: data.brand,
         category: data.category,
         price: data.price,
         countInStock: data.countInStock,
@@ -57,10 +57,14 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
     }
   }, [data]);
 
-  const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    updateProduct(pageId as string, productDetails);
+    try{
+      await createProduct(productDetails); 
+      console.log('en component', error)
+          
+    } catch(err)
+    { console.log('Error', err)}
   };
 
   const uploadFileHandler = async (e: ChangeEvent<any>) => {
@@ -94,11 +98,7 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
       <FormContainer>
         <h1>Crear Producto</h1>
 
-        {loading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant="danger">{error}</Message>
-        ) : (
+        {error && <Message variant='danger'><ul style={{lineHeight: 2}}>{error.map(err=><li>{err}</li>)}</ul></Message>}        
           <Form onSubmit={onSubmitHandler}>
             <Form.Group controlId="name" className="py-2">
               <Form.Label>Nombre del producto</Form.Label>
@@ -133,18 +133,6 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
                 <Form.Control type="file" />
               </Form.Group>
               {uploading && <Loader />}
-            </Form.Group>
-
-            <Form.Group controlId="brand" className="py-2">
-              <Form.Label>Marca</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter brand"
-                value={productDetails.brand}
-                onChange={e =>
-                  setDetails({ ...productDetails, brand: e.target.value })
-                }
-              ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="countInStock" className="py-2">
@@ -185,18 +173,20 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
                 }
               ></Form.Control>
             </Form.Group>
-
-            <Button type="submit" variant="primary" className="mt-3">
+            <div className='d-flex column gap-3 mt-3'>
+              
+            <Button type="submit" variant="primary" >
               Crear
             </Button>
-            <Button type="button" variant="primary" className="mt-3" onClick={()=> router.back}>
+            <Button type="button" variant="primary" onClick={()=> router.replace('/admin/products')}>
               Volver
             </Button>
+              </div>    
           </Form>
-        )}
+        
       </FormContainer>
     </>
   );
 };
 
-export default ProductsEdit;
+export default ProductsCreate;

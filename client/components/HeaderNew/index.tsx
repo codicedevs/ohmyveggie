@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useTypedSelector, useUserActions } from "../../hooks";
-import { Button, Nav, NavDropdown } from "react-bootstrap";
+import { Button, Nav, NavDropdown, NavLink } from "react-bootstrap";
 import CartNew from "../CartNew";
 import { UserAction } from "../../state/User/user.actions";
 import { useDispatch } from "react-redux";
 import { ActionTypes } from "../../state/User/user.action-types";
 import { ActionTypes as AT } from "../../state/UI/ui.action-types";
-import { NavLink } from "react-router-dom";
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,7 +39,7 @@ const Navbar = () => {
     <>
       <div className="div-block-7" style={{ justifyContent: "space-arround" }}>
         <div className="socialWrapper d-flex">
-          <Link href="https://wa.me/3416666666">
+          <NavLink href="https://wa.me/5493416008824" style={{padding: 0}}>
             <div
               className="div-block-11 gap-2 "
               style={{ textDecoration: "none", cursor: "pointer" }}
@@ -52,8 +52,8 @@ const Navbar = () => {
               />
               341 6 666666
             </div>
-          </Link>
-          <Link href="mailto:ohmyveggie@gmail.com">
+          </NavLink>
+          <NavLink href="https://www.instagram.com/ohmyveggierosario/?hl=en" style={{padding: 0}}>
             <div
               className="div-block-11 gap-2"
               style={{ textDecoration: "none", cursor: "pointer" }}
@@ -66,7 +66,7 @@ const Navbar = () => {
               />
               <div className="text-block">ohmyveggierosario</div>
             </div>
-          </Link>
+          </NavLink>
         </div>
         <div
           className="text-block"

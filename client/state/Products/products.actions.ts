@@ -29,25 +29,11 @@ export type ProductsAction =
   | FetchCategoriesStart
   | FetchCategoriesSuccess
   | FetchCategoriesError
-  | FetchBrandsStart
-  | FetchBrandsSuccess
-  | FetchBrandsError
+
 
 //CREE LAS FETCH CATEGORIES
 
-export interface FetchBrandsStart {
-  type: ActionTypes.FETCH_BRANDS_START;
-}
 
-export interface FetchBrandsSuccess {
-  type: ActionTypes.FETCH_BRANDS_SUCCESS;
-  payload: string[];
-}
-
-export interface FetchBrandsError {
-  type: ActionTypes.FETCH_BRANDS_ERROR;
-  payload: string;
-}
 export interface FetchCategoriesStart {
   type: ActionTypes.FETCH_CATEGORIES_START;
 }

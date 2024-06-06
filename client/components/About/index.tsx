@@ -2,7 +2,7 @@ const About = () => {
   return (
     <section className="aboutsection">
       <h1 className="aboutheading">Nosotros</h1>
-      <div className="aboutcolumns w-row" style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+      <div className="aboutcolumns" style={{display: "flex", justifyContent: "center"}}>
         <div className="aboutcolumn1 w-col w-col-6 w-col-small-small-stack" style={{width: 350}}>
           <img
             src="/images/Imagen Nosotros.jpg"

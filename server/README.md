@@ -20,8 +20,7 @@ Con el backend de esta tienda vegana online, se busca ofrecer una experiencia de
 
 ```bash
 $ yarn install
-$ yarn add mercadopago
-$ yarn add nodemailer
+
 ```
 ## Configuración del archivo .env
 El archivo .env es crucial para configurar correctamente el entorno de desarrollo y producción de la aplicación. A continuación se detallan las variables de entorno necesarias y sus propósitos:

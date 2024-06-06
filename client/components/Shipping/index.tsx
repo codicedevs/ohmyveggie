@@ -6,6 +6,7 @@ import { useAuth, useCartActions, useTypedSelector } from "../../hooks";
 import CheckoutSteps from "../CheckoutSteps";
 import { useRouter } from "next/router";
 import Message from "../Message";
+import { validatePhone } from "../../utils";
 
 const arrayOption = [
   {
@@ -35,15 +36,16 @@ const Shipping = () => {
   const [message, setMessage] = useState<string | null | string[]>(error);
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
-    const { address, postalCode, timeDeliver, zoneDeliver, stockOption } = shippingAddress;
-    
+    const { address, timeDeliver, zoneDeliver, stockOption, telephone } = shippingAddress;
     if (
       
       address.length < 1 ||
       timeDeliver.length < 1 ||
       zoneDeliver.length < 1 ||
-      stockOption.length < 1
+      stockOption.length < 1 ||
+      !validatePhone(telephone)
     ) {
       setMessage('Debe completar todos los datos');
       
@@ -51,6 +53,7 @@ const Shipping = () => {
     }
 
     saveShippingAddress(shippingAddress);
+    console.log("estos son los shippings", shippingAddress);
     router.push("/placeorder");
   };
 
@@ -103,7 +106,8 @@ const Shipping = () => {
             </Message>
           )}
           <Form onSubmit={onSubmitHandler}>
-            <Form.Group controlId="address">
+
+            <Form.Group controlId="address" className="py-3">
               <Form.Control
                 className="shiptxtfield w-input"
                 type="text"
@@ -113,6 +117,20 @@ const Shipping = () => {
                   setShippingAddress({
                     ...shippingAddress,
                     address: e.target.value,
+                  })
+                }
+              ></Form.Control>
+            </Form.Group>
+            <Form.Group controlId="phone" className="py-3">
+              <Form.Control
+                className="shiptxtfield w-input"
+                type="number"
+                placeholder="Telefono"
+                value={shippingAddress.telephone}
+                onChange={(e) =>
+                  setShippingAddress({
+                    ...shippingAddress,
+                    telephone: Number(e.target.value),
                   })
                 }
               ></Form.Control>
@@ -128,7 +146,7 @@ const Shipping = () => {
                 <option value="fisherton">Fisherton</option>
               </Form.Select>
             </Form.Group>
-            <Form.Group controlId="postalCode">
+            <Form.Group controlId="postalCode" className="py-3">
               <Form.Control
                 className="shiptxtfield w-input"
                 value={shippingAddress.postalCode}
@@ -153,7 +171,7 @@ const Shipping = () => {
               </Form.Select>
             </Form.Group>
             <div >
-              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 10 }}>
                 <Form.Check
                   inline
                   type="radio"
@@ -168,6 +186,14 @@ const Shipping = () => {
                   label="Retira por local"
                   onClick={(e) => handlerTimeZone(e)}
                   id='Retira por local'
+                  name='timeZone'
+                />
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="A Coordinar"
+                  onClick={(e) => handlerTimeZone(e)}
+                  id='A Coordinar'
                   name='timeZone'
                 />
               </div>
