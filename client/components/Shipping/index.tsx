@@ -139,7 +139,7 @@ const Shipping = () => {
                 className="shiptxtfield w-input"
                 onChange={(e) => addressCode(e)}
               >
-                <option selected>Elija su Ciudad</option>
+                <option selected disabled hidden>Elija su Ciudad</option>
                 <option value="rosario">Rosario</option>
                 <option value="funes">Funes</option>
                 <option value="fisherton">Fisherton</option>
@@ -195,7 +195,7 @@ const Shipping = () => {
                 placeholder="Franja horaria"
                 onChange={(e) => handleStock(e)}
               >
-                <option selected>Elegir opción</option>
+                <option selected disabled hidden>Elegir opción</option>
                 {arrayOption.map((option) => <option key={option.key}>{option.description}</option>)}
               </Form.Select>
             </Form.Group>
