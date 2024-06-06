@@ -15,7 +15,7 @@ const arrayOption = [
   },
   {
     key: "option2",
-    description: "Llamada telefonica"
+    description: "Recibir llamada de Oh my Veggie"
   },
   {
     key: "option3",
@@ -53,7 +53,6 @@ const Shipping = () => {
     }
 
     saveShippingAddress(shippingAddress);
-    console.log("estos son los shippings", shippingAddress);
     router.push("/placeorder");
   };
 
@@ -140,7 +139,7 @@ const Shipping = () => {
                 className="shiptxtfield w-input"
                 onChange={(e) => addressCode(e)}
               >
-                <option selected>Elija su Ciudad</option>
+                <option selected disabled hidden>Elija su Ciudad</option>
                 <option value="rosario">Rosario</option>
                 <option value="funes">Funes</option>
                 <option value="fisherton">Fisherton</option>
@@ -160,16 +159,7 @@ const Shipping = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="timeZone" className="py-3">
-              <Form.Select
-                className="shiptxtfield w-input"
-                placeholder="Franja horaria"
-                onChange={(e) => handleStock(e)}
-              >
-                <option selected>En caso de no existir stock disponible</option>
-                {arrayOption.map((option) => <option key={option.key}>{option.description}</option>)}
-              </Form.Select>
-            </Form.Group>
+            
             <div >
               <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 10 }}>
                 <Form.Check
@@ -198,6 +188,17 @@ const Shipping = () => {
                 />
               </div>
             </div>
+            <Form.Group controlId="timeZone" className="py-3 mt-3">
+              <p style={{fontWeight: 500, color: 'red'}}>En caso de no existir stock disponible</p>
+              <Form.Select
+                className="shiptxtfield w-input"
+                placeholder="Franja horaria"
+                onChange={(e) => handleStock(e)}
+              >
+                <option selected disabled hidden>Elegir opción</option>
+                {arrayOption.map((option) => <option key={option.key}>{option.description}</option>)}
+              </Form.Select>
+            </Form.Group>
             <br />
             <Button
               type="submit"
