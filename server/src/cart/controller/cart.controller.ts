@@ -22,10 +22,8 @@ export class CartController {
       ? session.cart
       : {
         cartItems: [],
-        shippingDetails: {
-          address: "",
-          postalCode: "",
-        },
+        shippingDetails: {},
+
       };
 
     const cartItem = this.cartService.addCartItem({ ...body });
@@ -41,10 +39,7 @@ export class CartController {
       ? session.cart
       : {
         cartItems: [],
-        shippingDetails: {
-          address: "",
-          postalCode: "",
-        },
+        shippingDetails: {},
       };
 
     const shippingDetails = this.cartService.saveShippingDetails(body);
@@ -60,10 +55,7 @@ export class CartController {
       ? session.cart
       : {
         cartItems: [],
-        shippingDetails: {
-          address: "",
-          postalCode: "",
-        },
+        shippingDetails: {},
       };
   }
 
@@ -73,10 +65,7 @@ export class CartController {
       ? session.cart
       : {
         cartItems: [],
-        shippingDetails: {
-          address: "",
-          postalCode: "",
-        },
+        shippingDetails: {},
       };
 
     const cartItems = this.cartService.removeCartItem(id);

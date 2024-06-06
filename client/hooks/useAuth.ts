@@ -9,7 +9,6 @@ export const useAuth = () => {
   const { data, loading } = useTypedSelector(state => state.user);
   const router = useRouter();
   const dispath = useDispatch()
-  console.log('que pasa aca', data, loading)
 
   useEffect(() => {
     if (!data) {

@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { AdminGuard } from "src/guards/admin.guard";
-import { CreateProductDto, ProductDto } from "../dtos/product.dto";
+import { CreateProductDto,UpdateProductDto } from "../dtos/product.dto";
 import { ProductsService } from "../services/products.service";
 import { FilterQuery } from "mongoose";
 import { ProductDocument } from "../schemas/product.schema";
@@ -44,10 +44,9 @@ export class ProductsController {
     return this.productsService.deleteOne(id);
   }
 
-
   @UseGuards(AdminGuard)
   @Put(":id")
-  updateProduct(@Param("id") id: string, @Body() product: ProductDto) {
+  updateProduct(@Param("id") id: string, @Body() product: UpdateProductDto) {
     return this.productsService.update(id, product);
   }
 

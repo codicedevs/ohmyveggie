@@ -76,25 +76,22 @@ export class ProductsService {
     id: string,
     attrs: Partial<ProductDocument>
   ): Promise<ProductDocument> {
-    const { name, price, image, category, countInStock } =
-      attrs;
-    if (!Types.ObjectId.isValid(id))
+    if (!Types.ObjectId.isValid(id)) {
       throw new BadRequestException('Invalid product ID.');
-
-    const product = await this.productModel.findById(id);
-    if (!product) throw new NotFoundException('No product with given ID.');
-
-    product.name = name;
-    product.price = price;
-    product.image = image;
-    product.category = category;
-    product.countInStock = countInStock;
-
-    const updatedProduct = await product.save();
-
+    }
+  
+    const updatedProduct = await this.productModel.findByIdAndUpdate(
+      id,
+      attrs,
+      { new: true, runValidators: true }
+    );
+  
+    if (!updatedProduct) {
+      throw new NotFoundException('No product with given ID.');
+    }
+  
     return updatedProduct;
   }
-
   async deleteOne(id: string): Promise<void> {
     if (!Types.ObjectId.isValid(id))
       throw new BadRequestException('Invalid product ID.');
