@@ -44,8 +44,6 @@ export class ProductsController {
     return this.productsService.deleteOne(id);
   }
 
-
-
   @UseGuards(AdminGuard)
   @Put(":id")
   updateProduct(@Param("id") id: string, @Body() product: ProductDto) {
