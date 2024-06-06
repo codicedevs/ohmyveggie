@@ -15,7 +15,7 @@ const arrayOption = [
   },
   {
     key: "option2",
-    description: "Llamada telefonica"
+    description: "Recibir llamada de Oh my Veggie"
   },
   {
     key: "option3",
@@ -160,16 +160,7 @@ const Shipping = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="timeZone" className="py-3">
-              <Form.Select
-                className="shiptxtfield w-input"
-                placeholder="Franja horaria"
-                onChange={(e) => handleStock(e)}
-              >
-                <option selected>En caso de no existir stock disponible</option>
-                {arrayOption.map((option) => <option key={option.key}>{option.description}</option>)}
-              </Form.Select>
-            </Form.Group>
+            
             <div >
               <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 10 }}>
                 <Form.Check
@@ -198,6 +189,17 @@ const Shipping = () => {
                 />
               </div>
             </div>
+            <Form.Group controlId="timeZone" className="py-3 mt-3">
+              <p style={{fontWeight: 500, color: 'red'}}>En caso de no existir stock disponible</p>
+              <Form.Select
+                className="shiptxtfield w-input"
+                placeholder="Franja horaria"
+                onChange={(e) => handleStock(e)}
+              >
+                <option selected>Elegir opción</option>
+                {arrayOption.map((option) => <option key={option.key}>{option.description}</option>)}
+              </Form.Select>
+            </Form.Group>
             <br />
             <Button
               type="submit"
