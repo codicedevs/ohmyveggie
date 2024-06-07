@@ -22,9 +22,7 @@ const OrdersList: React.FC<OrderListProps> = ({pageId}) => {
     
     fetchOrders(pageId?.toString());
     }, [fetchOrders, pageId, user.data]);
-    
-    console.log(data)
-  
+   
 
   return (
     <>

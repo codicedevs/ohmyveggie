@@ -19,9 +19,9 @@ const PaginateOrders: React.FC<PaginateOrdersProps> = ({
   const { fetchOrders } = useOrderActions();
 
   const handleRoute = (pageId: number) => {
-    console.log('en el handler', pageId, pages)
+    
     try {
-      console.log('pageId en paginate', pageId)
+    
       fetchOrders(pageId.toString());
     } catch (err) {
       console.log(err);
@@ -62,7 +62,7 @@ const PaginateOrders: React.FC<PaginateOrdersProps> = ({
     return paginationItems;
   };
 
-  console.log(page, pages);
+  
 
   return pages > 1 ? (
     <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>

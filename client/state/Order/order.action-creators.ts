@@ -108,7 +108,7 @@ export const fetchOrders = (pageId: string) => async (dispatch: Dispatch<OrderAc
     withCredentials: true,
   };
   
-  console.log('pageId', pageId);
+  
   try {
     dispatch({
       type: ActionTypes.FETCH_ORDERS_START,
