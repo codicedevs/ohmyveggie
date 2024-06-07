@@ -27,16 +27,12 @@ export class ProductsService {
       if (!products.length) throw new NotFoundException('No products found.');
       return products;
     }
-
     const query: FilterQuery<ProductDocument> = {};
     if (filter.keyword) {
       query.name = { $regex: new RegExp(filter.keyword, 'i') }
     }
     if (filter.category) {
       query.category = filter.category
-    }
-    if (filter.brand) {
-      query.brand = filter.brand;
     }
     const count = await this.productModel.countDocuments(query);
     const products = await this.productModel
