@@ -86,7 +86,7 @@ export interface FetchProductSuccess {
 
 export interface FetchProductError {
   type: ActionTypes.FETCH_PRODUCT_ERROR;
-  payload: string;
+  payload:  [];
 }
 
 export interface FetchProductReset {

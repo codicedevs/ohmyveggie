@@ -114,7 +114,7 @@ export interface FetchUserOrdersStart {
 
 export interface FetchUserOrdersSuccess {
   type: ActionTypes.FETCH_USER_ORDERS_SUCCESS;
-  payload: OrderInterface[];
+  payload: OrdersInterface;
 }
 
 export interface FetchUserOrdersError {
