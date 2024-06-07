@@ -94,7 +94,6 @@ export interface OrderInterface {
 }
 
 export interface OrdersInterface{
-  map: any;
   orders: OrderInterface[];
   page: number;
   pages: number;
