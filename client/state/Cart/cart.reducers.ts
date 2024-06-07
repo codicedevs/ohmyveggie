@@ -4,7 +4,7 @@ import { cartInitialState } from './cart.initial-state';
 import { CartState } from './cart.state';
 
 export const cartReducer = (
-  state: CartState = cartInitialState,
+  state: any = cartInitialState,
   action: CartAction
 ): CartState => {
   switch (action.type) {

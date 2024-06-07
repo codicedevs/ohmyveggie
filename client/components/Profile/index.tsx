@@ -177,7 +177,7 @@ const Profile = () => {
               </tr>
             </thead>
             <tbody>
-              {userOrders.data.map(order => (
+              {userOrders.data.map.orders(order => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.createdAt?.substring(0, 10)}</td>

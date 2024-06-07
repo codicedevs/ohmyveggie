@@ -10,6 +10,7 @@ const order = {
     timeDeliver: '',
     zoneDeliver: '',
     stockOption: '',
+    telephone: 0,
   },
   paymentMethod: 'Mercado Pago',
   taxPrice: 0,

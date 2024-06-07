@@ -9,7 +9,7 @@ export interface ProductsState {
 
 export interface ProductState {
   loading: boolean;
-  error: string | null;
+  error: []
   data: ProductInterface;
   success?: boolean;
 }
