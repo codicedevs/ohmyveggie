@@ -50,11 +50,12 @@ export class OrdersService {
   }
 
   async findMany(pageId?: string): Promise<PaginatedOrders> {
-    const pageSize = 2;
+    const pageSize = 20;
     const page = parseInt(pageId) || 1;
 
     const orders = await this.orderModel
-      .find()
+      .find().sort({ createdAt: -1 })
+      .populate('user')
       .limit(pageSize)
       .skip(pageSize * (page - 1));
 
