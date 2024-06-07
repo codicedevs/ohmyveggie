@@ -1,4 +1,4 @@
-import { OrderInterface } from '../../interfaces';
+import { OrderInterface, OrdersInterface } from '../../interfaces';
 
 export interface OrderState {
   loading: boolean;
@@ -10,5 +10,5 @@ export interface OrderState {
 export interface OrdersState {
   loading: boolean;
   error: string | null;
-  data: OrderInterface[];
+  data: OrdersInterface;
 }

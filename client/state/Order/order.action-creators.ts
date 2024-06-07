@@ -100,20 +100,21 @@ export const fetchOrder =
     }
   };
 
-export const fetchOrders = () => async (dispatch: Dispatch<OrderAction>) => {
+export const fetchOrders = (pageId: string) => async (dispatch: Dispatch<OrderAction>) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
     withCredentials: true,
   };
-
+  
+  console.log('pageId', pageId);
   try {
     dispatch({
       type: ActionTypes.FETCH_ORDERS_START,
     });
 
-    const { data } = await proshopAPI.get('/orders', config);
+    const { data } = await proshopAPI.get(`/orders/?pageId=${pageId}`, config);
 
     dispatch({
       type: ActionTypes.FETCH_ORDERS_SUCCESS,

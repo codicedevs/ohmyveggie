@@ -1,4 +1,4 @@
-import { OrderInterface } from '../../interfaces';
+import { OrderInterface, OrdersInterface } from '../../interfaces';
 import { ActionTypes } from './order.action-types';
 
 export type OrderAction =
@@ -72,7 +72,7 @@ export interface FetchOrdersStart {
 
 export interface FetchOrdersSuccess {
   type: ActionTypes.FETCH_ORDERS_SUCCESS;
-  payload: OrderInterface[];
+  payload: OrdersInterface;
 }
 
 export interface FetchOrdersError {

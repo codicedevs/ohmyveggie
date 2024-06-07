@@ -5,20 +5,25 @@ import { useAdmin, useOrderActions, useTypedSelector } from '../../hooks';
 import Loader from '../Loader';
 import Message from '../Message';
 import { proshopAPI } from '../../lib';
-
-const OrdersList = () => {
+import Paginate from '../Paginate';
+import PaginateOrders from '../PaginateOrders';
+interface OrderListProps {
+  pageId? : query
+}
+const OrdersList: React.FC<OrderListProps> = ({pageId}) => {
   useAdmin();
 
   const { data, loading, error } = useTypedSelector(state => state.orders);
   const dataOrder = useTypedSelector(state => state.order);
-
   const { fetchOrders } = useOrderActions();
   const user = useTypedSelector(state => state.user);
   
   useEffect(() => {
-        
-    fetchOrders();
-  }, [fetchOrders, user.data]);
+    
+    fetchOrders(pageId?.toString());
+    }, [fetchOrders, pageId, user.data]);
+    
+    console.log(data)
   
 
   return (
@@ -45,7 +50,7 @@ const OrdersList = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map(_order => (
+            {data?.orders?.map(_order => (
               <tr key={_order._id}>
                 <td>{_order._id}</td>
                 <td>{_order.user?.name }</td>
@@ -77,6 +82,7 @@ const OrdersList = () => {
           </tbody>
         </Table>
       )}
+    <PaginateOrders pages={data?.pages} page={data?.page} isAdmin={true} />
       </section>
     </>
   );

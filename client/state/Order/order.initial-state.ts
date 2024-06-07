@@ -27,5 +27,5 @@ export const orderInitialState: OrderState = {
 export const ordersInitialState: OrdersState = {
   loading: false,
   error: null,
-  data: [],
+  data: null,
 };
