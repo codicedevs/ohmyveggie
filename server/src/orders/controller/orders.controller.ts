@@ -30,7 +30,7 @@ export class OrdersController {
     return this.ordersService.create(body, session.user._id);
   }
 
- // @UseGuards(AdminGuard)
+ @UseGuards(AdminGuard)
   @Get()
   async getOrders(
     @Query("pageId") pageId: string
