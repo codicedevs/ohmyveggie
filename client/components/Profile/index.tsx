@@ -26,11 +26,11 @@ const Profile = () => {
     state => state.userUpdate
   );
 
-
   const userOrders = useTypedSelector(state => state.userOrders);
   
   const { updateUser } = useUserActions();
   const { fetchUserOrders } = useOrderActions();
+  
   
   const [credentials, setCredentials] =
   useState<UserCredentials>(initialCredentials);
@@ -79,12 +79,12 @@ const Profile = () => {
   };
   
   return (
-    <section className='d-flex' style={{paddingLeft: 40, justifyContent: 'center', gap: 30}}>
+    <section  style={{padding:"10px", justifyContent: 'center', gap: 30 }}>
 
     
-    <Row>
+    <Row style={{flexWrap: 'wrap-reverse'}}>
       <Col md={3}>
-        <h2>Perfil de usuario</h2>
+        <h4>Perfil de usuario</h4>
 
         {message && (
           <Message variant="danger">
@@ -96,7 +96,7 @@ const Profile = () => {
         )}
         {loading && <Loader />}
 
-        <Form onSubmit={onSubmitHandler}>
+        <Form onSubmit={onSubmitHandler} >
           <Form.Group controlId="name">
             <Form.Label>Nombre</Form.Label>
             <Form.Control
@@ -106,6 +106,7 @@ const Profile = () => {
               onChange={e =>
                 setCredentials({ ...credentials, name: e.target.value })
               }
+              style={{fontSize: 12}}
             ></Form.Control>
           </Form.Group>
 
@@ -118,6 +119,7 @@ const Profile = () => {
               onChange={e =>
                 setCredentials({ ...credentials, email: e.target.value })
               }
+              style={{fontSize: 12}}
             ></Form.Control>
           </Form.Group>
 
@@ -130,6 +132,7 @@ const Profile = () => {
               onChange={e =>
                 setCredentials({ ...credentials, password: e.target.value })
               }
+              style={{fontSize: 12}}
             ></Form.Control>
           </Form.Group>
 
@@ -145,6 +148,7 @@ const Profile = () => {
                   confirmPassword: e.target.value,
                 })
               }
+              style={{fontSize: 12}}
             ></Form.Control>
           </Form.Group>
 
@@ -154,14 +158,14 @@ const Profile = () => {
         </Form>
       </Col>
       <Col md={9}>
-        <h2>Mis ordenes</h2>
+        <h3>Mis ordenes</h3>
 
         {userOrders.loading ? (
           <Loader />
         ) : userOrders.error ? (
           <Message variant="danger">{userOrders.error}</Message>
         ) : (
-          <Table striped bordered hover responsive className="table-sm">
+          <Table striped bordered hover responsive className="table-sm" style={{fontSize: 16}}>
             <thead>
               <tr>
                 <th>ID de Orden</th>
@@ -173,7 +177,9 @@ const Profile = () => {
               </tr>
             </thead>
             <tbody>
-              {userOrders.data.map(order => (
+              {
+                Array.isArray(userOrders.data) && userOrders.data.length > 0 ? (
+              userOrders?.data?.map(order => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.createdAt?.substring(0, 10)}</td>
@@ -200,7 +206,13 @@ const Profile = () => {
                     </Link>
                   </td>
                 </tr>
-              ))}
+              ))
+                ) : (
+                  <tr>
+                  <td colSpan={6}>No hay órdenes disponibles</td>
+                </tr>
+                )
+            }
             </tbody>
           </Table>
         )}

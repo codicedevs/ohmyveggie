@@ -12,10 +12,10 @@ export class Product {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   category: string;
 
-  @Prop({ require: true })
+  @Prop({ require: false })
   image: string;
 
   @Prop({ required: true, default: 0 })

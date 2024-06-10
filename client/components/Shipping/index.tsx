@@ -6,6 +6,7 @@ import { useAuth, useCartActions, useTypedSelector } from "../../hooks";
 import CheckoutSteps from "../CheckoutSteps";
 import { useRouter } from "next/router";
 import Message from "../Message";
+import { validatePhone } from "../../utils";
 
 const arrayOption = [
   {
@@ -14,7 +15,7 @@ const arrayOption = [
   },
   {
     key: "option2",
-    description: "Llamada telefonica"
+    description: "Recibir llamada de Oh my Veggie"
   },
   {
     key: "option3",
@@ -35,15 +36,16 @@ const Shipping = () => {
   const [message, setMessage] = useState<string | null | string[]>(error);
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
-    const { address, postalCode, timeDeliver, zoneDeliver, stockOption } = shippingAddress;
-    
+    const { address, timeDeliver, zoneDeliver, stockOption, telephone } = shippingAddress;
     if (
       
       address.length < 1 ||
       timeDeliver.length < 1 ||
       zoneDeliver.length < 1 ||
-      stockOption.length < 1
+      stockOption.length < 1 ||
+      !validatePhone(telephone)
     ) {
       setMessage('Debe completar todos los datos');
       
@@ -103,7 +105,8 @@ const Shipping = () => {
             </Message>
           )}
           <Form onSubmit={onSubmitHandler}>
-            <Form.Group controlId="address">
+
+            <Form.Group controlId="address" className="py-3">
               <Form.Control
                 className="shiptxtfield w-input"
                 type="text"
@@ -117,18 +120,32 @@ const Shipping = () => {
                 }
               ></Form.Control>
             </Form.Group>
+            <Form.Group controlId="phone" className="py-3">
+              <Form.Control
+                className="shiptxtfield w-input"
+                type="number"
+                placeholder="Telefono"
+                value={shippingAddress.telephone}
+                onChange={(e) =>
+                  setShippingAddress({
+                    ...shippingAddress,
+                    telephone: Number(e.target.value),
+                  })
+                }
+              ></Form.Control>
+            </Form.Group>
             <Form.Group controlId="city" className="py-3">
               <Form.Select
                 className="shiptxtfield w-input"
                 onChange={(e) => addressCode(e)}
               >
-                <option selected>Elija su Ciudad</option>
+                <option selected disabled hidden>Elija su Ciudad</option>
                 <option value="rosario">Rosario</option>
                 <option value="funes">Funes</option>
                 <option value="fisherton">Fisherton</option>
               </Form.Select>
             </Form.Group>
-            <Form.Group controlId="postalCode">
+            <Form.Group controlId="postalCode" className="py-3">
               <Form.Control
                 className="shiptxtfield w-input"
                 value={shippingAddress.postalCode}
@@ -142,18 +159,9 @@ const Shipping = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="timeZone" className="py-3">
-              <Form.Select
-                className="shiptxtfield w-input"
-                placeholder="Franja horaria"
-                onChange={(e) => handleStock(e)}
-              >
-                <option selected>En caso de no existir stock disponible</option>
-                {arrayOption.map((option) => <option key={option.key}>{option.description}</option>)}
-              </Form.Select>
-            </Form.Group>
+            
             <div >
-              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 10 }}>
                 <Form.Check
                   inline
                   type="radio"
@@ -170,8 +178,27 @@ const Shipping = () => {
                   id='Retira por local'
                   name='timeZone'
                 />
+                <Form.Check
+                  inline
+                  type="radio"
+                  label="A Coordinar"
+                  onClick={(e) => handlerTimeZone(e)}
+                  id='A Coordinar'
+                  name='timeZone'
+                />
               </div>
             </div>
+            <Form.Group controlId="timeZone" className="py-3 mt-3">
+              <p style={{fontWeight: 500, color: 'red'}}>En caso de no existir stock disponible</p>
+              <Form.Select
+                className="shiptxtfield w-input"
+                placeholder="Franja horaria"
+                onChange={(e) => handleStock(e)}
+              >
+                <option selected disabled hidden>Elegir opción</option>
+                {arrayOption.map((option) => <option key={option.key}>{option.description}</option>)}
+              </Form.Select>
+            </Form.Group>
             <br />
             <Button
               type="submit"

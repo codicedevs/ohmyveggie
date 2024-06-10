@@ -5,7 +5,6 @@
   name: string;
   image: string;
   description: string;
-  brand: string;
   category: string;
   price: number;
   countInStock: number;
@@ -62,6 +61,7 @@ export interface ShippingDetails {
   timeDeliver: string;
   zoneDeliver: string;
   stockOption: string;
+  telephone: number;
 }
 
 export interface PaymentResult {
@@ -91,6 +91,12 @@ export interface OrderInterface {
     email: string;
   };
   observations?: string;
+}
+
+export interface OrdersInterface{
+  orders: OrderInterface[];
+  page: number;
+  pages: number;
 }
 
 export interface Review {

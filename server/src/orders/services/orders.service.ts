@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model, Types } from "mongoose";
+import { FilterQuery, Model, Types } from "mongoose";
 import { DateRange, PaginatedOrders, PaymentResult } from "src/interfaces";
 import { Order, OrderDocument } from "../schemas/order.schema";
 
@@ -49,18 +49,21 @@ export class OrdersService {
     return orders;
   }
 
-  async findMany(pageId?: string): Promise<PaginatedOrders> {
-    const pageSize = 2;
+  async findMany(pageId: string, filter: FilterQuery<OrderDocument>): Promise<PaginatedOrders> {
+
+    const pageSize = 30;
     const page = parseInt(pageId) || 1;
+    const count = await this.orderModel.countDocuments();
 
     const orders = await this.orderModel
-      .find()
+      .find({ filter }).sort({ createdAt: -1 })
+      .populate('user')
       .limit(pageSize)
       .skip(pageSize * (page - 1));
 
     if (!orders.length) throw new NotFoundException("No orders found.");
 
-    return { orders, page, pages: Math.ceil(pageSize) };
+    return { orders, page, pages: Math.ceil(count / pageSize) };
   }
 
   async findById(id: string): Promise<OrderDocument> {

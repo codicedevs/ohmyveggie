@@ -50,8 +50,8 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   };
 
   const delivered = () => {
-    deliverOrder(data._id!)
-  }
+    deliverOrder(data._id!);
+  };
   const handleClose = () => setModalIsOpen(false);
 
   useEffect(() => {
@@ -86,7 +86,10 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       <Modal size="xl" show={modalIsOpen} onHide={handleClose}>
         <iframe src={mercadoPagoUrl} style={{ minHeight: 750 }} />
       </Modal>
-      <section className="section-4 " style={{ display: "flex", flexDirection: "column" }}>
+      <section
+        className="section-4 "
+        style={{ display: "flex", flexDirection: "column" }}
+      >
         <div style={{ width: "100%", marginBottom: 30 }}>
           {data.isDelivered && data.isPaid ? (
             <h1 className="heading-2"> Orden Finalizada nro: {data._id}</h1>
@@ -97,7 +100,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             </>
           )}
         </div>
-        <div className="columns-2 w-row"  >
+        <div className="columns-2 w-row">
           <div className="column-5 w-col w-col-8">
             <div className="orderitem">
               <div className="container-item-order">
@@ -123,6 +126,9 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   </b>
                 </div>
                 <div className="txtordersubitem">
+                  Teléfono: <b>{data?.shippingDetails.telephone}</b>
+                </div>
+                <div className="txtordersubitem">
                   Forma de entrega: <b>{data?.shippingDetails.timeDeliver}</b>
                 </div>
                 <div className="txtordersubitem">
@@ -130,47 +136,52 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                 </div>
               </div>
             </div>
-            <div className="orderitem" style={{ display: "flex", gap: 10 }}>
-              {data.isDelivered ? (
-                <div
-                  className="deliveredpaid true"
-                  style={{ width: 180, textAlign: "center", height: 60 }}
-                >
-                  Pedido enviado el {data.deliveredAt?.slice(3, 10)}
-                </div>
-              ) : (
-                <div
-                  className="deliveredpaid"
-                  style={{ width: 180, textAlign: "center" }}
-                >
-                  Pedido no enviado
-                </div>
-              )}
-              {data.isPaid ? (
-                <div>
+            <div
+              id="itemStateContainer"
+              className="orderitem"
+              style={{ display: "flex", flexDirection: "column-reverse", gap: 10, margin: "20px 0" }}
+            >
+              <div className="d-flex gap-3" id="stateOrder">
+                {data.isDelivered ? (
                   <div
                     className="deliveredpaid true"
                     style={{ width: 180, textAlign: "center", height: 60 }}
                   >
-                    Pedido pago el {data.paidAt?.slice(3, 10)}
+                    Pedido enviado el {data.deliveredAt?.slice(3, 10)}
                   </div>
-                </div>
-              ) : (
-                <div
-                  className="deliveredpaid paid"
-                  style={{ width: 180, textAlign: "center", height: 60 }}
-                >
-                  Pedido impago
-                </div>
-              )}
-            </div>
-            {data.isPaid && (
-              <div>
-                <div className="txtorderitem">Datos del pago</div>
-                <div className="txtordersubitem">{data.paymentMethod}</div>
+                ) : (
+                  <div
+                    className="deliveredpaid"
+                    style={{ width: 180, textAlign: "center" }}
+                  >
+                    Pedido no enviado
+                  </div>
+                )}
+                {data.isPaid ? (
+                  <div>
+                    <div
+                      className="deliveredpaid true"
+                      style={{ width: 180, textAlign: "center", height: 60 }}
+                    >
+                      Pedido pago el {data.paidAt?.slice(3, 10)}
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    className="deliveredpaid paid"
+                    style={{ width: 180, textAlign: "center", height: 60 }}
+                  >
+                    Pedido impago
+                  </div>
+                )}
+                {data.isPaid && (
+                  <div>
+                    <div className="txtorderitem">Datos del pago</div>
+                    <div className="txtordersubitem">{data.paymentMethod}</div>
+                  </div>
+                )}
               </div>
-            )}
-            <div className="orderitem">
+            <div className="orderitem mb-4" id="itemsOrder">
               <div className="txtorderitem">Items</div>
               {data.orderItems.length === 0 ? (
                 <Message>El carro está vacío</Message>
@@ -203,8 +214,9 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                 </ListGroup>
               )}
             </div>
+            </div>
           </div>
-          <div className="column-6 w-col w-col-4 ">
+          <div className="column-6 w-col w-col-4">
             <div className="ordersummary px-4 d-flex">
               <div className="itemordersummary d-flex col pb-2">
                 <div className="txtitemordersummary">

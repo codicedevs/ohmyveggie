@@ -6,9 +6,8 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, Types } from 'mongoose';
 import { PaginatedProducts } from 'src/interfaces';
-import { UserDocument } from 'src/users/schemas/user.schema';
-import { sampleProduct } from '../../utils/data/product';
 import { Product, ProductDocument } from '../schemas/product.schema';
+import { ProductDto } from '../dtos/product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -18,6 +17,7 @@ export class ProductsService {
 
 
   async findMany(pageId: string, filter?: FilterQuery<ProductDocument>): Promise<ProductDocument[] | PaginatedProducts> {
+
     const pageSize = 10;
     const page = parseInt(pageId) || 1; //si no se proporciona pageId entrega 1
     if (!filter) {
@@ -26,16 +26,12 @@ export class ProductsService {
       if (!products.length) throw new NotFoundException('No products found.');
       return products;
     }
-
     const query: FilterQuery<ProductDocument> = {};
     if (filter.keyword) {
       query.name = { $regex: new RegExp(filter.keyword, 'i') }
     }
     if (filter.category) {
       query.category = filter.category
-    }
-    if (filter.brand) {
-      query.brand = filter.brand;
     }
     const count = await this.productModel.countDocuments(query);
     const products = await this.productModel
@@ -44,6 +40,8 @@ export class ProductsService {
       .skip(pageSize * (page - 1));;
 
     if (!products.length) throw new NotFoundException('No products found.');
+
+    
     return { products, page, pages: Math.ceil(count / pageSize) };
   }
 
@@ -66,9 +64,8 @@ export class ProductsService {
     return createdProducts;
   }
 
-  async createSample(): Promise<ProductDocument> {
-    const createdProduct = await this.productModel.create(sampleProduct);
-
+  async createOne(productDetails: ProductDto): Promise<ProductDocument> {
+    const createdProduct = await this.productModel.create(productDetails);
     return createdProduct;
   }
 
@@ -76,25 +73,22 @@ export class ProductsService {
     id: string,
     attrs: Partial<ProductDocument>
   ): Promise<ProductDocument> {
-    const { name, price, image, category, countInStock } =
-      attrs;
-    if (!Types.ObjectId.isValid(id))
+    if (!Types.ObjectId.isValid(id)) {
       throw new BadRequestException('Invalid product ID.');
-
-    const product = await this.productModel.findById(id);
-    if (!product) throw new NotFoundException('No product with given ID.');
-
-    product.name = name;
-    product.price = price;
-    product.image = image;
-    product.category = category;
-    product.countInStock = countInStock;
-
-    const updatedProduct = await product.save();
-
+    }
+  
+    const updatedProduct = await this.productModel.findByIdAndUpdate(
+      id,
+      attrs,
+      { new: true, runValidators: true }
+    );
+  
+    if (!updatedProduct) {
+      throw new NotFoundException('No product with given ID.');
+    }
+  
     return updatedProduct;
   }
-
   async deleteOne(id: string): Promise<void> {
     if (!Types.ObjectId.isValid(id))
       throw new BadRequestException('Invalid product ID.');

@@ -348,9 +348,6 @@ z-index: 99999;
   margin-right: 16px;
 }
 
-.brand {
-  margin-top: 5px;
-}
 
 .section {
   padding: 6rem 7% 2.7rem;
@@ -1315,7 +1312,6 @@ z-index: 99999;
   opacity: 1;
   color: #f8f7f7;
   border-radius: 6px;
-  margin-bottom: 20px;
   padding: 10px;
   font-family: Open Sans, sans-serif;
   font-size: 16px;

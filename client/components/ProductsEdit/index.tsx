@@ -20,7 +20,6 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
     name: '',
     price: 0,
     image: '',
-    brand: '',
     category: '',
     numReviews: 0,
     countInStock: 0,
@@ -44,7 +43,6 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
     if (data) {
       setDetails({
         name: data.name,
-        brand: data.brand,
         category: data.category,
         price: data.price,
         countInStock: data.countInStock,
@@ -132,17 +130,7 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
               {uploading && <Loader />}
             </Form.Group>
 
-            <Form.Group controlId="brand" className="py-2">
-              <Form.Label>Marca</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Marca del producto"
-                value={productDetails.brand}
-                onChange={e =>
-                  setDetails({ ...productDetails, brand: e.target.value })
-                }
-              ></Form.Control>
-            </Form.Group>
+            
 
             <Form.Group controlId="countInStock" className="py-2">
               <Form.Label>Stock del producto</Form.Label>

@@ -10,6 +10,7 @@ const order = {
     timeDeliver: '',
     zoneDeliver: '',
     stockOption: '',
+    telephone: 0,
   },
   paymentMethod: 'Mercado Pago',
   taxPrice: 0,
@@ -27,5 +28,5 @@ export const orderInitialState: OrderState = {
 export const ordersInitialState: OrdersState = {
   loading: false,
   error: null,
-  data: [],
+  data: null,
 };

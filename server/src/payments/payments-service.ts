@@ -2,8 +2,8 @@ import { MercadoPagoConfig, Preference, Payment } from "mercadopago";
 import { Injectable } from "@nestjs/common";
 import { OrderDocument } from "src/orders/schemas/order.schema";
 import { EmailService } from "src/email/email.service";
-import { OrdersService } from "src/orders/services/orders.service";
 import { UsersService } from "src/users/services/users.service";
+import { mercadoPagoSettings } from "src/settings";
 
 
 @Injectable()
@@ -15,12 +15,11 @@ export class PaymentService {
 
   constructor(
     private readonly emailService: EmailService,
-    private readonly ordersService: OrdersService,
     private readonly usersService: UsersService
   ) {
     this.client = new MercadoPagoConfig({
       accessToken:
-        "TEST-6042556589144025-040516-0cb34e8b0e12791dfbb6f6234050ddad-382483741", // token de usuario vendedor test
+        mercadoPagoSettings.MERCADO_PAGO_ACCESS_TOKEN,
       options: { timeout: 5000 },
     });
     this.preference = new Preference(this.client);

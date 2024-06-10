@@ -14,6 +14,8 @@ import Register from '../components/RegisterNew';
 import PasswordRecover from '../components/PasswordRecover';
 import ResetPassword from '../components/ResetPassword';
 import { ToastContainer } from 'react-toastify';
+import Link from 'next/link';
+import { NavLink } from 'react-bootstrap';
 
 
 const MainLayout: React.FC = ({ children }) => {
@@ -22,6 +24,7 @@ const MainLayout: React.FC = ({ children }) => {
   const accessToken = useLocalStorage('', 'accessToken');
 
   const uI = useTypedSelector(state => state.uI);
+  const user = useTypedSelector((state) => state.user);
 
   const { getCurrentUser } = useUserActions();
   const { getCart } = useCartActions();
@@ -36,8 +39,19 @@ const MainLayout: React.FC = ({ children }) => {
     }
   }, [accessToken, getCurrentUser]);
 
+  
   return (
     <>
+      
+      { !user?.data?.isAdmin &&
+
+      <a href="https://wa.me/+5493416008824">
+      <img src="\images\whatsappF.png" alt="what" className="btn-wsp" />
+      </a>
+      
+      }
+      
+        
       <HeaderNew />
       <LoginNew visible ={uI.isLoginVisible}/>
       <Register visible ={uI.isRegisterVisible}/>

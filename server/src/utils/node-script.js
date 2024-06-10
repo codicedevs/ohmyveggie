@@ -24,7 +24,7 @@ const handleFileChange = (curr, prev) => {
     }
 };
 
-fs.watchFile(filePath, { interval: 1000 }, handleFileChange);
+fs.watchFile(filePath, { interval: 10000 }, handleFileChange);
 
 console.log(`Observando cambios en el archivo ${filePath}`);
 console.log("Presiona Ctrl+C para salir.");
