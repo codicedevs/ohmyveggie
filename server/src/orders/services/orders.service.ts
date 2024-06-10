@@ -51,7 +51,7 @@ export class OrdersService {
 
   async findMany(pageId: string): Promise<PaginatedOrders> {
     
-    const pageSize = 20;
+    const pageSize = 30;
     const page = parseInt(pageId) || 1;
     const count = await this.orderModel.countDocuments();
 
