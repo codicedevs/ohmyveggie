@@ -6,8 +6,6 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, Types } from 'mongoose';
 import { PaginatedProducts } from 'src/interfaces';
-import { UserDocument } from 'src/users/schemas/user.schema';
-import { sampleProduct } from '../../utils/data/product';
 import { Product, ProductDocument } from '../schemas/product.schema';
 import { ProductDto } from '../dtos/product.dto';
 
