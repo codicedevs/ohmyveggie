@@ -19,7 +19,7 @@ export class ProductsService {
 
 
   async findMany(pageId: string, filter?: FilterQuery<ProductDocument>): Promise<ProductDocument[] | PaginatedProducts> {
-    console.log(pageId);
+
     const pageSize = 10;
     const page = parseInt(pageId) || 1; //si no se proporciona pageId entrega 1
     if (!filter) {
@@ -42,7 +42,7 @@ export class ProductsService {
       .skip(pageSize * (page - 1));;
 
     if (!products.length) throw new NotFoundException('No products found.');
-    console.log(page)
+
     
     return { products, page, pages: Math.ceil(count / pageSize) };
   }
