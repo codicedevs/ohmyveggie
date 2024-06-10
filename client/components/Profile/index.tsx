@@ -31,7 +31,6 @@ const Profile = () => {
   const { updateUser } = useUserActions();
   const { fetchUserOrders } = useOrderActions();
   
-  console.log(userOrders)
   
   const [credentials, setCredentials] =
   useState<UserCredentials>(initialCredentials);

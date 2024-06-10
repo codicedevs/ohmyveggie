@@ -16,7 +16,7 @@ import { AuthGuard } from "src/guards/auth.guard";
 import { OrdersService } from "../services/orders.service";
 import { Order, OrderDocument } from "../schemas/order.schema";
 import { DateRange } from "src/interfaces";
-import { FilterQuery, Model } from "mongoose";
+import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 
 @Controller("orders")
@@ -30,7 +30,7 @@ export class OrdersController {
     return this.ordersService.create(body, session.user._id);
   }
 
-//  @UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @Get()
   getOrders(
     @Query("pageId") pageId: string
