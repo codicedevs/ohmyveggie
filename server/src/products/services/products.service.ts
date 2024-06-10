@@ -6,8 +6,6 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, Types } from 'mongoose';
 import { PaginatedProducts } from 'src/interfaces';
-import { UserDocument } from 'src/users/schemas/user.schema';
-import { sampleProduct } from '../../utils/data/product';
 import { Product, ProductDocument } from '../schemas/product.schema';
 import { ProductDto } from '../dtos/product.dto';
 
@@ -19,6 +17,7 @@ export class ProductsService {
 
 
   async findMany(pageId: string, filter?: FilterQuery<ProductDocument>): Promise<ProductDocument[] | PaginatedProducts> {
+
     const pageSize = 10;
     const page = parseInt(pageId) || 1; //si no se proporciona pageId entrega 1
     if (!filter) {
@@ -27,16 +26,12 @@ export class ProductsService {
       if (!products.length) throw new NotFoundException('No products found.');
       return products;
     }
-
     const query: FilterQuery<ProductDocument> = {};
     if (filter.keyword) {
       query.name = { $regex: new RegExp(filter.keyword, 'i') }
     }
     if (filter.category) {
       query.category = filter.category
-    }
-    if (filter.brand) {
-      query.brand = filter.brand;
     }
     const count = await this.productModel.countDocuments(query);
     const products = await this.productModel
@@ -45,6 +40,8 @@ export class ProductsService {
       .skip(pageSize * (page - 1));;
 
     if (!products.length) throw new NotFoundException('No products found.');
+
+    
     return { products, page, pages: Math.ceil(count / pageSize) };
   }
 

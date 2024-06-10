@@ -12,7 +12,7 @@ const AdminUserCreatePage: NextPage = () => {
     <>
       <SEO {...homeConfig} />
       <main className="wrapper py-5">
-        <ProductsCreate  />
+        <ProductsCreate pageId={id}  />
       </main>
     </>
   );

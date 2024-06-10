@@ -93,6 +93,12 @@ export interface OrderInterface {
   observations?: string;
 }
 
+export interface OrdersInterface{
+  orders: OrderInterface[];
+  page: number;
+  pages: number;
+}
+
 export interface Review {
   name?: string;
   _id?: string;

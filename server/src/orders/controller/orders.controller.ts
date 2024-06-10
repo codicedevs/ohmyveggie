@@ -16,13 +16,13 @@ import { AuthGuard } from "src/guards/auth.guard";
 import { OrdersService } from "../services/orders.service";
 import { Order, OrderDocument } from "../schemas/order.schema";
 import { DateRange } from "src/interfaces";
-import { FilterQuery, Model } from "mongoose";
+import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
 
 @Controller("orders")
 export class OrdersController {
   @InjectModel(Order.name) private orderModel: Model<OrderDocument>
-  constructor(private ordersService: OrdersService) {}
+  constructor(private ordersService: OrdersService) { }
 
   @UseGuards(AuthGuard)
   @Post()
@@ -32,21 +32,11 @@ export class OrdersController {
 
   @UseGuards(AdminGuard)
   @Get()
-  async getOrders(
-    @Query() filter: FilterQuery<OrderDocument>
+  getOrders(
+    @Query("pageId") pageId: string
   ) {
-    return this.orderModel.find(filter)
-      .populate('user').exec()
+    return this.ordersService.findMany(pageId)
   }
-
-  /* @UseGuards(AdminGuard)  este endpoint es el que debe usarse
-  esta comentado a los efectos de no romper el frontend actual
-    @Get()
-    getPaginatedOrders(
-      @Query('pageId') pageId: string
-    ) {
-      return this.ordersService.findMany(pageId);
-    }*/
 
   @UseGuards(AdminGuard)
   @Get("/find-by-day")

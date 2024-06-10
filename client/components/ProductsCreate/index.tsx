@@ -97,7 +97,17 @@ const ProductsCreate: React.FC<ProductsEditProps> = () => {
       <FormContainer>
         <h1>Crear Producto</h1>
 
-        {error && <Message variant='danger'><ul style={{lineHeight: 2}}>{error.map(err=><li>{err}</li>)}</ul></Message>}        
+        {error && <Message variant='danger'><ul style={{lineHeight: 2}}>
+          {
+          
+          Array.isArray(error) ? error.map(err=><li>{err}</li>) : <li>{error}</li>
+          
+          }
+          
+          </ul>
+          </Message>
+          
+          }        
           <Form onSubmit={onSubmitHandler}>
             <Form.Group controlId="name" className="py-2">
               <Form.Label>Nombre del producto</Form.Label>

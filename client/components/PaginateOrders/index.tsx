@@ -2,27 +2,27 @@ import { Pagination } from "react-bootstrap";
 import Link from "next/link";
 import { v4 } from "uuid";
 import { useRouter } from "next/router";
-import { useProductsActions } from "../../hooks";
+import { useOrderActions, useProductsActions } from "../../hooks";
 
-interface PaginateProps {
+interface PaginateOrdersProps {
   pages: number;
   page: number;
   isAdmin?: boolean;
-  keyword?: query;
 }
 
-const Paginate: React.FC<PaginateProps> = ({
+const PaginateOrders: React.FC<PaginateOrdersProps> = ({
   pages,
   page,
   isAdmin = false,
-  keyword = "",
 }) => {
   const showPageLimit = 3;
-  const { fetchProducts } = useProductsActions();
+  const { fetchOrders } = useOrderActions();
 
   const handleRoute = (pageId: number) => {
+    
     try {
-      fetchProducts( {pageId, keyword, shouldScroll: true} );
+    
+      fetchOrders(pageId.toString());
     } catch (err) {
       console.log(err);
     } finally {
@@ -35,11 +35,17 @@ const Paginate: React.FC<PaginateProps> = ({
   };
 
   const renderPaginationItems = () => {
+    
     const paginationItems = [];
     const orientation = page === pages ? -1 : 1;
-    const condition = orientation === 1 ? showPageLimit + page : page - showPageLimit;
-  
-    for (let i = page; orientation === 1 ? i <= condition : i >= condition; i += orientation) {
+    const condition =
+      orientation === 1 ? showPageLimit + page : page - showPageLimit;
+
+    for (
+      let i = page;
+      orientation === 1 ? i <= condition : i >= condition;
+      i += orientation
+    ) {
       if (i > 0 && i <= pages) {
         paginationItems.push(
           <Pagination.Item
@@ -52,9 +58,11 @@ const Paginate: React.FC<PaginateProps> = ({
         );
       }
     }
-  
+
     return paginationItems;
   };
+
+  
 
   return pages > 1 ? (
     <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
@@ -75,4 +83,4 @@ const Paginate: React.FC<PaginateProps> = ({
   );
 };
 
-export default Paginate;
+export default PaginateOrders;

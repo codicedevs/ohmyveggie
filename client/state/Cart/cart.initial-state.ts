@@ -11,6 +11,7 @@ export const cartInitialState = {
       timeDeliver: '',
       zoneDeliver: '',
       stockOption: '',
+      telephone:"",
     },
     paymentMethod: 'Mercado Pago',
     taxPrice: 0,
