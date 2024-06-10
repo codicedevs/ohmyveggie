@@ -26,11 +26,12 @@ const Profile = () => {
     state => state.userUpdate
   );
 
-
   const userOrders = useTypedSelector(state => state.userOrders);
   
   const { updateUser } = useUserActions();
   const { fetchUserOrders } = useOrderActions();
+  
+  console.log(userOrders)
   
   const [credentials, setCredentials] =
   useState<UserCredentials>(initialCredentials);
@@ -177,7 +178,9 @@ const Profile = () => {
               </tr>
             </thead>
             <tbody>
-              {userOrders?.data?.orders?.map(order => (
+              {
+                Array.isArray(userOrders.data) && userOrders.data.length > 0 ? (
+              userOrders?.data?.map(order => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.createdAt?.substring(0, 10)}</td>
@@ -204,7 +207,13 @@ const Profile = () => {
                     </Link>
                   </td>
                 </tr>
-              ))}
+              ))
+                ) : (
+                  <tr>
+                  <td colSpan={6}>No hay órdenes disponibles</td>
+                </tr>
+                )
+            }
             </tbody>
           </Table>
         )}
