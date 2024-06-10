@@ -19,6 +19,7 @@ const Paginate: React.FC<PaginateProps> = ({
 }) => {
   const showPageLimit = 3;
   const { fetchProducts } = useProductsActions();
+
   const handleRoute = (pageId: number) => {
     try {
       fetchProducts( {pageId, keyword, shouldScroll: true} );
@@ -63,7 +64,7 @@ const Paginate: React.FC<PaginateProps> = ({
         {renderPaginationItems()}
         <Pagination.Next
           onClick={() => {
-            page !== pages ? handleRoute(page) : "";
+            page !== pages ? handleRoute(page + 1) : "";
           }}
         />
         <Pagination.Last onClick={() => handleRoute(pages)} />

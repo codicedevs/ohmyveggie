@@ -72,7 +72,7 @@ const PaginateOrders: React.FC<PaginateOrdersProps> = ({
         {renderPaginationItems()}
         <Pagination.Next
           onClick={() => {
-            page !== pages ? handleRoute(page) : "";
+            page !== pages ? handleRoute(page + 1) : "";
           }}
         />
         <Pagination.Last onClick={() => handleRoute(pages)} />
