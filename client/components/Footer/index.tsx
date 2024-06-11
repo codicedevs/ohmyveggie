@@ -44,7 +44,7 @@ const Footer = () => {
                     id="logos"
                     style={{ display: "flex", justifyContent: "center", marginTop: "10px", scale: "130%"}}
                   >
-                    <NavLink href="mailto:ohmyveggie@gmail.com">
+                    <NavLink href="mailto:info@omvrosario.com">
                       <li className="footerlistitem">
                         <img
                           src="/images/MailFooter.png"

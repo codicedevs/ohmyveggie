@@ -162,6 +162,8 @@ const Shipping = () => {
             
             <div >
               <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 10 }}>
+                <div>
+
                 <Form.Check
                   inline
                   type="radio"
@@ -170,6 +172,8 @@ const Shipping = () => {
                   id='Envío'
                   name='timeZone'
                 />
+                <p style={{fontWeight:400}}>A coordinar</p>
+                </div>
                 <Form.Check
                   inline
                   type="radio"
@@ -178,15 +182,7 @@ const Shipping = () => {
                   id='Retira por local'
                   name='timeZone'
                 />
-                <Form.Check
-                  inline
-                  type="radio"
-                  label="A Coordinar"
-                  onClick={(e) => handlerTimeZone(e)}
-                  id='A Coordinar'
-                  name='timeZone'
-                />
-              </div>
+                </div>
             </div>
             <Form.Group controlId="timeZone" className="py-3 mt-3">
               <p style={{fontWeight: 500, color: 'red'}}>En caso de no existir stock disponible</p>
