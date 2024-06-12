@@ -3,6 +3,7 @@ import { v4 as randomID } from 'uuid';
 import Message from '../Message';
 import Loader from '../Loader';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 
 
@@ -29,7 +30,9 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
 
     function addQtyProd(item: any) {  
       if (item.qty + 1 > item.countInStock) {
-        <Message variant="danger">'No puede comprar más de ' {item.countInStock} 'productos'</Message>
+        toast.error(`El stock es insuficiente`)
+
+        console.log(item, 'no agregues mas')
         return
        }  
       addToCart({

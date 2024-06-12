@@ -922,7 +922,7 @@
 }
 
 .modalchart {
-  z-index: 100000;
+  z-index: 1000;
   width: 100%;
   height: 100vh;
   background-color: rgba(25, 25, 25, .67);

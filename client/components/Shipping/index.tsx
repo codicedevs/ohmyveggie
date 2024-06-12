@@ -162,7 +162,7 @@ const Shipping = () => {
             
             <div >
               <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 10 }}>
-                <div>
+                <div style={{display: 'flex'}}>
 
                 <Form.Check
                   inline
@@ -172,7 +172,7 @@ const Shipping = () => {
                   id='Envío'
                   name='timeZone'
                 />
-                <p style={{fontWeight:400}}>A coordinar</p>
+                <p style={{fontWeight:400}}>(A coordinar)</p>
                 </div>
                 <Form.Check
                   inline

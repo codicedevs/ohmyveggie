@@ -37,20 +37,25 @@ const Item: React.FC<ProductInterface> = (product) => {
   const quantity = cartData.cartItems.find(item => item.productId === _id)?.qty || 0
   const dispatch = useDispatch()
 
-  function addQtyProd(item: any) {
-    if (1 > countInStock) {
-      <Message variant="danger">'Stock :' {countInStock}</Message>
-      return
-    }
-
+ function addQtyProd(item: any) {
+    
+    
     const cartItemInterface = cartData.cartItems.find(function (item) { return item.productId == _id; });
+    console.log(cartItemInterface, "aca hay item inter")
+      if (countInStock <= cartItemInterface?.qty) {
+        toast.error(`El stock es insuficiente`)
+        
+        return
+      }
 
       if(cartItemInterface){
+        console.log("entra a la primera opcion")
         addToCart({
           qty: cartItemInterface.qty + 1,   // debería sumar 1 a la cant de prod en el carro
           productId: _id,
         })
       }else{
+        console.log("entra a la segunda opcion")
         addToCart({
           qty:  1,   // debería sumar 1 a la cant de prod en el carro
           product

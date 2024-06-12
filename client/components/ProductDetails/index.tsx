@@ -5,19 +5,8 @@ import {
   useTypedSelector,
 } from '../../hooks';
 import { FormEvent, useEffect, useState } from 'react';
-import {
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Card,
-  Button,
-  Form,
-  ToastContainer,
-} from 'react-bootstrap';
-import Rating from '../Rating';
-import Loader from '../Loader';
-import Message from '../Message';
+import { toast } from 'react-toastify';
+import { Button } from 'react-bootstrap';
 import Link from 'next/link';
 
 interface ProductDetailsProps {
@@ -26,42 +15,50 @@ interface ProductDetailsProps {
 
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
-  const [qty, setQty] = useState(1);
-  const [_rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
 
+  const [qty, setQty] = useState(1);
   const { fetchProduct, createProductReview } = useProductsActions();
   const { addToCart } = useCartActions();
-
-  const { loading, error, data } = useTypedSelector(state => state.product);
-  const { loading: cartLoading,data: cartData } = useTypedSelector(state => state.cart);
+  const { loading, error, data: product } = useTypedSelector(state => state.product);
+  const { loading: cartLoading, data: cartData } = useTypedSelector(state => state.cart);
   const { data: user } = useTypedSelector(state => state.user);
-  const {
-    loading: loadingReview,
-    error: errorReview,
-    success: successReview,
-  } = useTypedSelector(state => state.productCreateReview);
 
-  /*const {
-    loading,
-    error,
-    data: { cartItems },
-  } = useTypedSelector(state => state.cart);*/
-
-  const { image, name, price, countInStock, description, rating, numReviews } =
-    data;
+  const { image, name, price, countInStock, description, rating, numReviews, _id } =
+    product;
 
   useEffect(() => {
     if (!pageId) return;
 
     fetchProduct(pageId as string);
   }, [fetchProduct, pageId]);
+  
 
-  const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  function addQtyProd() {
+    
+    const cartItemInterface = cartData.cartItems.find(function (item) { return item.productId == product._id; });
 
-    createProductReview(pageId as string, { rating: _rating, comment });
-  };
+      if (countInStock <= cartItemInterface?.qty) {
+        toast.error(`El stock es insuficiente`)  
+        return
+      }
+      
+      if(cartItemInterface){
+      
+        addToCart({
+          qty: cartItemInterface?.qty + 1,   // debería sumar 1 a la cant de prod en el carro
+          productId: _id,
+        })
+      } else {
+          addToCart({
+            qty: 1,   // suma el producto por primera vez
+            product,
+          })
+        }
+      toast.info("Producto agregado al carrito", {theme: "light"})
+      }
+
+
+  
   
 
   return (
@@ -94,16 +91,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
             variant='success'
             type="button"
             className="btn btn-block"
-            onClick={() => {   // va al carro, no tiene que ir - Modificado en state/Cart/cart.actions.creators/addToCart
-              //let qutuy = qty;
-              //setQty( qutuy + 1)
-              //alert(qty);
-
-              addToCart({
-                product: data,
-                qty,  //----------------------------------> Verificar porque modifica el total de productos del carro <----------------------------
-              });
-            }}
+            onClick={addQtyProd}
           >
             Añadir al carro
           </Button>
