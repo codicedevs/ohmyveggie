@@ -32,7 +32,6 @@ const CartNew: React.FC <{toggleCart: () => void}> = (props) => {
       if (item.qty + 1 > item.countInStock) {
         toast.error(`El stock es insuficiente`)
 
-        console.log(item, 'no agregues mas')
         return
        }  
       addToCart({
