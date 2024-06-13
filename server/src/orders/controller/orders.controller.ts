@@ -29,14 +29,14 @@ export class OrdersController {
   async createOrder(@Body() body: any, @Session() session: any) {
     return this.ordersService.create(body, session.user._id);
   }
-
-  @UseGuards(AdminGuard)
+  //@UseGuards(AdminGuard)
   @Get()
   getOrders(
-    @Query() filter: FilterQuery<OrderDocument>,
-    @Query("pageId") pageId: string
+    @Query('filter') filter: string,
+    @Query('pageId') pageId: string
   ) {
-    return this.ordersService.findMany(pageId,filter)
+    const parsedFilter: FilterQuery<OrderDocument> = JSON.parse(filter);
+    return this.ordersService.findMany(pageId, parsedFilter);
   }
 
   @UseGuards(AdminGuard)
