@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader  
-//import { Carousel } from 'react-responsive-carousel'; 
 import Carousel from 'react-bootstrap/Carousel';
-//import ExampleCarouselImage from 'components/ExampleCarouselImage';
 
-
-
-//"../images/slide1.jpg"
 
 const ProductCarousel = () => {
 
@@ -16,7 +11,7 @@ const ProductCarousel = () => {
       <Carousel.Item>
         <img style={{borderRadius: '0px', objectFit: 'cover'}}
           className="d-block w-100"
-          src="/images/slide0.jpg"
+          src="/images/slider rearmado.png"
           alt="First slide"
         />
       </Carousel.Item>
@@ -24,7 +19,7 @@ const ProductCarousel = () => {
       <Carousel.Item>
         <img style={{borderRadius: '0px', objectFit: 'cover'}}
           className="d-block w-100"
-          src="/images/slide1.jpg"
+          src="/images/slider rearmado 2.png"
           alt="Second slide"
         />
       </Carousel.Item>

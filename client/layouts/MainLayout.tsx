@@ -60,7 +60,8 @@ const MainLayout: React.FC = ({ children }) => {
       <ToastContainer 
         autoClose={1500}
         position="top-center"
-        
+        hideProgressBar={true}
+        style={{fontWeight: 500}}
       />
         {children}
       <Footer />
