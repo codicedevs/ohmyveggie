@@ -40,8 +40,11 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
     setFilterSelected(prevFilter => ({...prevFilter, user: { _id} }))
   }
   function handleFilterDate(e: any) {
-    const date = '$gte: ' + e.target.value
-    setFilterSelected(prevFilter => ({...prevFilter, date}))
+    const date = e.target.value
+    const toDate = new Date(date)
+    toDate.setDate(toDate.getDate() + 1)
+
+    setFilterSelected(prevFilter => ({...prevFilter, createdAt: {$gte: date, $lte: toDate.toISOString().slice(0,10)}}))
   }
   function handleFilterPay(e: any) {
     const isPaid = e.target.value 
@@ -74,7 +77,7 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
     fetchOrders(pageId?.toString());
   }, [fetchOrders, pageId, user.data]);
 
-
+console.log(filterSelected)
   return (
     <>
       <section
