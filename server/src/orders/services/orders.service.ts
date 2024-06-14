@@ -49,7 +49,7 @@ export class OrdersService {
     return orders;
   }
 
-  async findMany(pageId: string, parsedFilter: FilterQuery<OrderDocument>): Promise<PaginatedOrders> {
+  async findMany(pageId?: string, parsedFilter?: FilterQuery<OrderDocument>): Promise<PaginatedOrders> {
     const pageSize = 30;
     const page = parseInt(pageId) || 1;
     const count = await this.orderModel.countDocuments();
