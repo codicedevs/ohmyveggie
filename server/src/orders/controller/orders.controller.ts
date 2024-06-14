@@ -35,7 +35,16 @@ export class OrdersController {
     @Query('filter') filter: string,
     @Query('pageId') pageId: string
   ) {
-    const parsedFilter: FilterQuery<OrderDocument> = JSON.parse(filter);
+    let parsedFilter: FilterQuery<OrderDocument> = {};
+
+    if (filter) {
+      try {
+        parsedFilter = JSON.parse(filter);
+      } catch (error) {
+        throw new BadRequestException('Invalid filter format');
+      }
+    }
+
     return this.ordersService.findMany(pageId, parsedFilter);
   }
 
