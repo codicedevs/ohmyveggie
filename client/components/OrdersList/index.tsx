@@ -15,7 +15,10 @@ interface OrderListProps {
 
 export interface Filter {
   user: {_id?: number};
-  date: string;
+  createdAt?: {
+    $gte?: string;
+    $lte?: string;
+  };
   isPaid?: boolean;
   isDelivered?: boolean;
 
@@ -25,7 +28,7 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
 
   useAdmin();
 
-  const [selectedClient, setSelectedClient] = useState('')
+  const [selectedClient, setSelectedClient] = useState<any[]>([])
   const { data, loading, error } = useTypedSelector((state) => state.orders);
   const {data : users} = useTypedSelector((state) => state.users)
   const dataOrder = useTypedSelector((state) => state.order);
@@ -36,9 +39,29 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
 
 
   function handleFilterName(value: any) {
-    const _id = value[0]._id
-    setFilterSelected(prevFilter => ({...prevFilter, user: { _id} }))
+    
+    if (value.length > 0) {
+      const { _id } = value[0];
+      setSelectedClient(value);
+      setFilterSelected((prevFilter) => ({
+        ...prevFilter,
+        user: { _id }
+      }));
+    } else {
+      setSelectedClient([]);
+      setFilterSelected(prevFilter => ({
+        ...prevFilter,
+        user: undefined
+      }));
+    }
+    
+    
+    
+    // const _id = value[0]._id
+    // setFilterSelected(prevFilter => ({...prevFilter, user: { _id} }))
+    
   }
+  
   function handleFilterDate(e: any) {
     const date = e.target.value
     const toDate = new Date(date)
@@ -47,11 +70,12 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
     setFilterSelected(prevFilter => ({...prevFilter, createdAt: {$gte: date, $lte: toDate.toISOString().slice(0,10)}}))
   }
   function handleFilterPay(e: any) {
-    const isPaid = e.target.value 
-    setFilterSelected(prevFilter => ({...prevFilter, isPaid}))
+    const isPaid = e.target.value === 'true' ? true : e.target.value === 'false' ? false : undefined;
+    if(isPaid!==null)  setFilterSelected(prevFilter => ({...prevFilter, isPaid}))
   }
   function handleFilterDeliver(e: any) {
-    const isDelivered = e.target.value 
+    const isDelivered = e.target.value === 'true' ? true : e.target.value === 'false' ? false : undefined;
+
     setFilterSelected(prevFilter => ({...prevFilter, isDelivered}))
   }
   
@@ -64,7 +88,7 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
 
   function clearFilter () {
     setFilterSelected(undefined);
-    setSelectedClient([]);
+    setSelectedClient(undefined);
   
     fetchOrders(pageId?.toString())
   }
@@ -107,8 +131,8 @@ console.log(filterSelected)
                     options={users}
                     labelKey="name"
                     onChange={handleFilterName}
-                    selected={selectedClient}
                     placeholder="Nombre cliente"
+                    selected={selectedClient}
                     minLength={2}
                     emptyLabel="No hay clientes con ese nombre"
                     />
@@ -125,10 +149,10 @@ console.log(filterSelected)
                   <Form.Label>Estado pago</Form.Label>
                   <Form.Select 
                       placeholder="Nombre cliente"
-                      value={filterSelected?.isPaid === 'true' ? 'true' : filterSelected?.isPaid === 'false' ? 'false' : 'Sin Filtro'}
+                      value={filterSelected?.isPaid === true ? 'true' : filterSelected?.isPaid === false ? 'false' : ''}
                       onChange={handleFilterPay}
                       >
-                    <option selected> Sin filtro </option>
+                    <option selected value=''> Sin filtro </option>
                     <option key="true" value='true'>Pagado</option>
                     <option key="false" value='false'>Pendiente de pago</option>
                   </Form.Select>
@@ -137,10 +161,10 @@ console.log(filterSelected)
                   <Form.Label>Estado envio</Form.Label>
                   <Form.Select 
                       placeholder="Nombre cliente"
-                      value={filterSelected?.isDelivered === 'true' ? 'true' : filterSelected?.isDelivered === 'false' ? 'false' : 'Sin Filtro'}
+                      value={filterSelected?.isDelivered === true ? 'true' : filterSelected?.isDelivered === false ? 'false' : ''}
                       onChange={handleFilterDeliver}
                       >
-                    <option selected> Sin filtro </option>
+                    <option selected value=''> Sin filtro </option>
                     <option key="true" value='true'>Enviado</option>
                     <option key="false" value='false'>Sin Enviar</option>
                   </Form.Select>
