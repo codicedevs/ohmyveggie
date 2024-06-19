@@ -23,3 +23,4 @@ export const smtpSettings = Object.freeze({
 export const mercadoPagoSettings = Object.freeze({
   MERCADO_PAGO_ACCESS_TOKEN: process.env.MERCADO_PAGO_ACCESS_TOKEN
 })
+

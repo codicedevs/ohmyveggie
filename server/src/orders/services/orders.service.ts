@@ -49,20 +49,16 @@ export class OrdersService {
     return orders;
   }
 
-  async findMany(pageId: string, filter: FilterQuery<OrderDocument>): Promise<PaginatedOrders> {
-
+  async findMany(pageId?: string, parsedFilter?: FilterQuery<OrderDocument>): Promise<PaginatedOrders> {
     const pageSize = 30;
     const page = parseInt(pageId) || 1;
     const count = await this.orderModel.countDocuments();
-
     const orders = await this.orderModel
-      .find({ filter }).sort({ createdAt: -1 })
+      .find(parsedFilter).sort({ createdAt: -1 })
       .populate('user')
       .limit(pageSize)
       .skip(pageSize * (page - 1));
-
-    if (!orders.length) throw new NotFoundException("No orders found.");
-
+    if (!orders.length) throw new NotFoundException("No se encontraron ordenes.");
     return { orders, page, pages: Math.ceil(count / pageSize) };
   }
 
