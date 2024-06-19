@@ -35,7 +35,7 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
   const { fetchOrders } = useOrderActions();
   const {fetchUsers} = useUserActions()
   const user = useTypedSelector((state) => state.user);
-  const [filterSelected, setFilterSelected] = useState<Filter>()
+  const [filterSelected, setFilterSelected] = useState<any>()
 
 
   function handleFilterName(value: any) {
