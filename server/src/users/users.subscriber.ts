@@ -9,6 +9,8 @@ import { serverSetting } from "src/settings";
  */
 @Injectable()
 export class UserSubscriber {
+  private emailsSent: Set<string> = new Set();
+
   constructor(private readonly emailService: EmailService) {
     this.initialize();
   }
@@ -24,10 +26,15 @@ export class UserSubscriber {
       if (event.operationType === "insert") {
         try {
           const user: User = event.fullDocument;
-          await this.emailService.sendUserRegistration(user);
-        } catch (err) { console.log(err) }
-
+          if (!this.emailsSent.has(user.email)) {
+            await this.emailService.sendUserRegistration(user);
+            this.emailsSent.add(user.email);
+          }
+        } catch (err) {
+          console.log(err);
+        }
       }
     });
   }
 }
+
