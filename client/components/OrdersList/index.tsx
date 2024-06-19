@@ -233,7 +233,7 @@ console.log(filterSelected)
                     <td>${_order.totalPrice}</td>
                     <td>
                       {_order.isPaid ? (
-                        _order.paidAt?.substring(0, 10)
+                        <i className="fa fa-check" style={{color: 'green'}}></i>
                       ) : (
                         <i
                           className="fas fa-times"
@@ -243,7 +243,7 @@ console.log(filterSelected)
                     </td>
                     <td>
                       {_order.isDelivered ? (
-                        _order.deliveredAt?.substring(0, 10)
+                        <i className="fa fa-check" style={{color: 'green'}}></i>
                       ) : (
                         <i
                           className="fas fa-times"
