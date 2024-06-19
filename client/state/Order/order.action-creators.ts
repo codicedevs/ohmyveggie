@@ -6,6 +6,7 @@ import { OrderAction } from './order.actions';
 import Router from 'next/router';
 import { ActionTypes as AT } from '../../state/UI/ui.action-types';
 import { Filter } from '../../components/OrdersList';
+import  dayjs from 'dayjs';
 
 
 export const updateOrder =
@@ -112,12 +113,13 @@ export const fetchOrders = (pageId: string, filter?: Filter) => async (dispatch:
     withCredentials: true,
   };
   
+  
+
   try {
     dispatch({
       type: ActionTypes.FETCH_ORDERS_START,
     });
     
-    console.log(filter)
     const filterSend = filter? JSON.stringify(filter) : '' 
 
     const { data } = await proshopAPI.get(`/orders/?pageId=${pageId}&filter=${filterSend}`, config);

@@ -7,6 +7,7 @@ import Message from "../Message";
 import Paginate from "../Paginate";
 import PaginateOrders from "../PaginateOrders";
 import { Typeahead } from "react-bootstrap-typeahead";
+import dayjs from "dayjs";
 
 interface OrderListProps {
   pageId?: query;
@@ -15,8 +16,8 @@ interface OrderListProps {
 export interface Filter {
   user: {_id?: number};
   createdAt?: {
-    $gte?: string | Date;
-    $lte?: string | Date;
+    $gte?:  string;
+    $lte?:  string;
   };
   isPaid?: boolean;
   isDelivered?: boolean;
@@ -59,13 +60,12 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
     
     const date = e.target.value
     if(e.target.name === 'desde'){
-      setFilterSelected(prevFilter => ({...prevFilter, createdAt: {$gte: date}}))
-    } else if(e.target.value=== 'hasta'){
-      setFilterSelected(prevFilter => ({...prevFilter, createdAt: {$lte: date}}))
+      setFilterSelected(prevFilter => ({...prevFilter, createdAt: {...prevFilter?.createdAt, $gte: date}}))
+    } else if(e.target.name=== 'hasta'){
+      setFilterSelected(prevFilter => ({...prevFilter, createdAt: {...prevFilter?.createdAt, $lte: date}}))
 
     }
-    const toDate = new Date(date)
-    toDate.setDate(toDate.getDate() + 1)
+    
     console.log('fecha', date, e.target.name)
 
   }
@@ -81,20 +81,21 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
   
   function filterForm(e: FormEvent){
     e.preventDefault()
-    setFilterSelected(prevFilter => ({...prevFilter, name: selectedClient}))
+    // setFilterSelected(prevFilter => ({...prevFilter, user: {_id: selectedClient}}))
     fetchOrders(pageId?.toString(), filterSelected)
     return {}
   }
 
   function clearFilter () {
-    setFilterSelected(prev => (
-      {
-      user: undefined,
-      createdAt: {$gte: '', $lte: ''},
-      isPaid: undefined,
-      isDelivered: undefined      
-      })
-      );
+    setFilterSelected('')
+    // setFilterSelected(prev => (
+    //   {
+    //   user: undefined,
+    //   createdAt: {$gte: '', $lte: ''},
+    //   isPaid: undefined,
+    //   isDelivered: undefined      
+    //   })
+    //   );
     setSelectedClient([]);
     fetchOrders(pageId?.toString())
   }
@@ -141,16 +142,19 @@ console.log(filterSelected)
                     selected={selectedClient}
                     minLength={2}
                     emptyLabel="No hay clientes con ese nombre"
+                    
                     />
                 </div>
+               
                 <div>
+                  
                   <Form.Label>Fecha Desde</Form.Label>
                   <Form.Control 
                       type="date" 
                       placeholder="Ingrese dia" 
                       onChange={handleFilterDate}
                       name='desde'
-                      value={filterSelected?.createdAt?.$gte}
+                      value={filterSelected?.createdAt?.$gte || '' }
                       />
                 </div>
                 <div>
@@ -160,17 +164,17 @@ console.log(filterSelected)
                       placeholder="Ingrese dia" 
                       onChange={handleFilterDate}
                       name='hasta'
-                      value={filterSelected?.createdAt?.$lte}
+                      value={filterSelected?.createdAt?.$lte || ''}
                       />
                 </div>
                 <div>
                   <Form.Label>Estado pago</Form.Label>
                   <Form.Select 
-                      placeholder="Nombre cliente"
+                      placeholder="Estado Pago"
                       value={filterSelected?.isPaid === true ? 'true' : filterSelected?.isPaid === false ? 'false' : ''}
                       onChange={handleFilterPay}
                       >
-                    <option selected value=''> Sin filtro </option>
+                    <option value=''> Sin filtro </option>
                     <option key="true" value='true'>Pagado</option>
                     <option key="false" value='false'>Pendiente de pago</option>
                   </Form.Select>
@@ -178,11 +182,11 @@ console.log(filterSelected)
                 <div>
                   <Form.Label>Estado envio</Form.Label>
                   <Form.Select 
-                      placeholder="Nombre cliente"
+                      placeholder="Estado envio"
                       value={filterSelected?.isDelivered === true ? 'true' : filterSelected?.isDelivered === false ? 'false' : ''}
                       onChange={handleFilterDeliver}
                       >
-                    <option selected value=''> Sin filtro </option>
+                    <option value=''> Sin filtro </option>
                     <option key="true" value='true'>Enviado</option>
                     <option key="false" value='false'>Sin Enviar</option>
                   </Form.Select>
@@ -192,8 +196,8 @@ console.log(filterSelected)
                 <div className="d-flex justify-content-end">
               <div className="d-flex gap-3">
 
-              <Button type="submit"> Filtrar </Button>
-              <Button type="button" onClick={clearFilter}> Borrar Filtros </Button>
+              <Button type="submit" style={{backgroundColor:'#a2cca6'}}> Filtrar </Button>
+              <Button type="button" style={{backgroundColor:'gray'}}onClick={clearFilter}> Limpiar Filtros </Button>
               </div>
                 </div>
               </Form.Group>
