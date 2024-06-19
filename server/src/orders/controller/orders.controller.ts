@@ -29,7 +29,7 @@ export class OrdersController {
   async createOrder(@Body() body: any, @Session() session: any) {
     return this.ordersService.create(body, session.user._id);
   }
-  //@UseGuards(AdminGuard)
+  @UseGuards(AdminGuard)
   @Get()
   getOrders(
     @Query('filter') filter: string,

@@ -58,7 +58,7 @@ export class OrdersService {
       .populate('user')
       .limit(pageSize)
       .skip(pageSize * (page - 1));
-    if (!orders.length) throw new NotFoundException("No orders found.");
+    if (!orders.length) throw new NotFoundException("No se encontraron ordenes.");
     return { orders, page, pages: Math.ceil(count / pageSize) };
   }
 
