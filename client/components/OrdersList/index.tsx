@@ -66,7 +66,7 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
 
     }
     
-    console.log('fecha', date, e.target.name)
+    
 
   }
   function handleFilterPay(e: any) {
@@ -108,7 +108,6 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
     fetchOrders(pageId?.toString());
   }, [fetchOrders, pageId, user.data]);
 
-console.log(filterSelected)
   return (
     <>
       <section
