@@ -4,7 +4,6 @@ import { Button, Form, Table } from "react-bootstrap";
 import { useAdmin, useOrderActions, useTypedSelector, useUserActions } from "../../hooks";
 import Loader from "../Loader";
 import Message from "../Message";
-import { proshopAPI } from "../../lib";
 import Paginate from "../Paginate";
 import PaginateOrders from "../PaginateOrders";
 import { Typeahead } from "react-bootstrap-typeahead";
@@ -16,8 +15,8 @@ interface OrderListProps {
 export interface Filter {
   user: {_id?: number};
   createdAt?: {
-    $gte?: string;
-    $lte?: string;
+    $gte?: string | Date;
+    $lte?: string | Date;
   };
   isPaid?: boolean;
   isDelivered?: boolean;
@@ -53,21 +52,22 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
         ...prevFilter,
         user: undefined
       }));
-    }
-    
-    
-    
-    // const _id = value[0]._id
-    // setFilterSelected(prevFilter => ({...prevFilter, user: { _id} }))
-    
+    }    
   }
   
   function handleFilterDate(e: any) {
+    
     const date = e.target.value
+    if(e.target.name === 'desde'){
+      setFilterSelected(prevFilter => ({...prevFilter, createdAt: {$gte: date}}))
+    } else if(e.target.value=== 'hasta'){
+      setFilterSelected(prevFilter => ({...prevFilter, createdAt: {$lte: date}}))
+
+    }
     const toDate = new Date(date)
     toDate.setDate(toDate.getDate() + 1)
+    console.log('fecha', date, e.target.name)
 
-    setFilterSelected(prevFilter => ({...prevFilter, createdAt: {$gte: date, $lte: toDate.toISOString().slice(0,10)}}))
   }
   function handleFilterPay(e: any) {
     const isPaid = e.target.value === 'true' ? true : e.target.value === 'false' ? false : undefined;
@@ -87,9 +87,15 @@ const OrdersList: React.FC<OrderListProps> = ({ pageId }) => {
   }
 
   function clearFilter () {
-    setFilterSelected(undefined);
-    setSelectedClient(undefined);
-  
+    setFilterSelected(prev => (
+      {
+      user: undefined,
+      createdAt: {$gte: '', $lte: ''},
+      isPaid: undefined,
+      isDelivered: undefined      
+      })
+      );
+    setSelectedClient([]);
     fetchOrders(pageId?.toString())
   }
 
@@ -138,11 +144,23 @@ console.log(filterSelected)
                     />
                 </div>
                 <div>
-                  <Form.Label>Fecha</Form.Label>
+                  <Form.Label>Fecha Desde</Form.Label>
                   <Form.Control 
                       type="date" 
                       placeholder="Ingrese dia" 
                       onChange={handleFilterDate}
+                      name='desde'
+                      value={filterSelected?.createdAt?.$gte}
+                      />
+                </div>
+                <div>
+                  <Form.Label>Fecha Hasta</Form.Label>
+                  <Form.Control 
+                      type="date" 
+                      placeholder="Ingrese dia" 
+                      onChange={handleFilterDate}
+                      name='hasta'
+                      value={filterSelected?.createdAt?.$lte}
                       />
                 </div>
                 <div>

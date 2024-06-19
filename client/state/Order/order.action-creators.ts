@@ -117,7 +117,7 @@ export const fetchOrders = (pageId: string, filter?: Filter) => async (dispatch:
       type: ActionTypes.FETCH_ORDERS_START,
     });
     
-    
+    console.log(filter)
     const filterSend = filter? JSON.stringify(filter) : '' 
 
     const { data } = await proshopAPI.get(`/orders/?pageId=${pageId}&filter=${filterSend}`, config);
