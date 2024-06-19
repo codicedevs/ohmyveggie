@@ -11,9 +11,9 @@ export const cartReducer = (
     case ActionTypes.ADD_CART_ITEM_START:
       return { ...state, loading: true, error: null };
     case ActionTypes.ADD_CART_ITEM_SUCCESS:
-      const item = action.payload;
-
-      const itemExists = state.data.cartItems.find(
+      
+    const item = action.payload;
+    const itemExists = state.data.cartItems.find(
         x => x.productId === item.productId
       );
 

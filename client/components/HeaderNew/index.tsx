@@ -50,7 +50,7 @@ const Navbar = () => {
                 alt=""
                 className="image-2"
               />
-              341 6 666666
+              3416-008824
             </div>
           </NavLink>
           <NavLink href="https://www.instagram.com/ohmyveggierosario/?hl=en" style={{padding: 0}}>
