@@ -29,7 +29,7 @@ const convertCsvToTsv = (csvFilePath, tsvFilePath, callback) => {
 
 const importToMongo = () => {
     const escapedFilePath = tsvFilePath.replace(/\\/g, '\\\\');
-    exec(`mongoimport --uri "mongodb+srv://agustinmacazzaga:PZuJ288k4Kyn5vW5@ohmyveggie.4xaykot.mongodb.net/ohmyveggie" --collection external-products --type tsv --headerline --file "${escapedFilePath}" --upsert --upsertFields id`, (error, stdout, stderr) => {
+    exec(`mongoimport --uri "mongodb+srv://agustinmacazzaga:{password}@ohmyveggie.4xaykot.mongodb.net/ohmyveggie" --collection external-products --type tsv --headerline --file "${escapedFilePath}" --upsert --upsertFields id`, (error, stdout, stderr) => {
         if (error) {
             console.error(`Error al ejecutar mongoimport: ${error.message}`);
             return;
