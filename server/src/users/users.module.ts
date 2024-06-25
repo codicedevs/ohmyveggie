@@ -8,7 +8,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from '../strategies/local.strategy';
 import { UsersController } from './controller/users.controller';
-import { UserSubscriber } from './users.subscriber';
 import { EmailService } from 'src/email/email.service';
 import { JwtStrategy } from 'src/strategies/jwt.strategy';
 import { jwtSetting } from 'src/settings';
@@ -29,6 +28,6 @@ import { jwtSetting } from 'src/settings';
     }),
   ],
   controllers: [AuthController, UsersController],
-  providers: [UsersService, AuthService, LocalStrategy, UserSubscriber, EmailService, JwtStrategy]
+  providers: [UsersService, AuthService, LocalStrategy,EmailService, JwtStrategy]
 })
 export class UsersModule { }
