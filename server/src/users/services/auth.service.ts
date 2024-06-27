@@ -52,6 +52,7 @@ export class AuthService {
       isAdmin: false,
       name,
     });
+    await this.emailService.sendUserRegistration(user)
 
     return user;
   }

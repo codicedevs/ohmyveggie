@@ -5,6 +5,8 @@ import { ActionTypes } from './order.action-types';
 import { OrderAction } from './order.actions';
 import Router from 'next/router';
 import { ActionTypes as AT } from '../../state/UI/ui.action-types';
+import { Filter } from '../../components/OrdersList';
+import  dayjs from 'dayjs';
 
 
 export const updateOrder =
@@ -71,6 +73,9 @@ export const updateOrder =
         } 
         
       }
+       
+      
+      
 
 export const fetchOrder =
   (id: string) => async (dispatch: Dispatch<OrderAction>) => {
@@ -100,7 +105,7 @@ export const fetchOrder =
     }
   };
 
-export const fetchOrders = (pageId: string) => async (dispatch: Dispatch<OrderAction>) => {
+export const fetchOrders = (pageId: string, filter?: Filter) => async (dispatch: Dispatch<OrderAction>) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -109,12 +114,15 @@ export const fetchOrders = (pageId: string) => async (dispatch: Dispatch<OrderAc
   };
   
   
+
   try {
     dispatch({
       type: ActionTypes.FETCH_ORDERS_START,
     });
+    
+    const filterSend = filter? JSON.stringify(filter) : '' 
 
-    const { data } = await proshopAPI.get(`/orders/?pageId=${pageId}`, config);
+    const { data } = await proshopAPI.get(`/orders/?pageId=${pageId}&filter=${filterSend}`, config);
 
     dispatch({
       type: ActionTypes.FETCH_ORDERS_SUCCESS,
