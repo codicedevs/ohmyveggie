@@ -22,13 +22,9 @@ async function bootstrap() {
   // await app.listen(serverSetting.PORT);
 
   await app.listen(serverSetting.PORT, '0.0.0.0', () => {
-    console.log(`App listening on http://0.0.0.0:${serverSetting.PORT} for IPv4`);
+    console.log(`App listening on http://0.0.0.0:${serverSetting.PORT} for IPv4/v6`);
   });
 
-  await app.listen(serverSetting.PORT, '::', () => {
-    console.log(`App listening on http://[::]:${serverSetting.PORT} for IPv6`);
-  });
-  console.log('App running on port ' + serverSetting.PORT)
 
 }
 bootstrap();
