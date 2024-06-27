@@ -20,5 +20,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   await attachTransformEventHandler() // Conecta a la base de datos MongoDB
   await app.listen(serverSetting.PORT);
+  console.log('App running on port ' + serverSetting.PORT)
+
 }
 bootstrap();
