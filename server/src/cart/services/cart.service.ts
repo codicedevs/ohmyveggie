@@ -19,7 +19,8 @@ export class CartService {
 
   addCartItem({ qty, productId, product }: AddCartItem): CartItem {
     
-    console.log(qty, 'esto estaria undefined')
+    console.log(qty, productId, product, 'esto estaria undefined')
+
     if (!productId && !product)
       throw new BadRequestException('No id or product provided.');
 
