@@ -55,7 +55,7 @@ export class CartService {
       try{
 
         cartItem.qty = qty;
-      } catch (e) { console.log(e, 'este seria el error en el back?')
+      } catch (e) { console.log(e, 'este seria el error en el back?')}
 
       return cartItem;
     }
