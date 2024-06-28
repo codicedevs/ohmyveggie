@@ -53,7 +53,7 @@ export class CartService {
     } else {
       const cartItem = this.cart.cartItems.find(x => x.productId === productId);
       try{
-
+        console.log('dentro del try', qty, cartItem)
         cartItem.qty = qty;
       } catch (e) { console.log(e, 'este seria el error en el back?')}
 
