@@ -19,8 +19,8 @@ app.prepare().then(() => {
   https.createServer(httpsOptions, (req, res) => {
     const parsedUrl = parse(req.url, true);
     handle(req, res, parsedUrl);
-  }).listen(4000, err => {
+  }).listen(3000, err => {
     if (err) throw err;
-    console.log('> Ready on https://localhost:4000');
+    console.log('> Ready on PORT: 4000');
   });
 });
