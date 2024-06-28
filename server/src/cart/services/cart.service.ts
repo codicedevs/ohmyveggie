@@ -17,7 +17,7 @@ interface AddCartItem {
 export class CartService {
   cart = new Cart().cart;
   addCartItem({ qty, productId, product }: AddCartItem): CartItem {
-    console.log("Cart Items", this.cart.cartItems)
+    
     if (!productId && !product)
       throw new BadRequestException("No id or product provided.");
 
@@ -54,12 +54,7 @@ export class CartService {
       const cartItem = this.cart.cartItems.find(
         (x) => x.productId === productId
       );
-      try {
         cartItem.qty = qty;
-      } catch (e) {
-        console.log(e, "este seria el error en el back?");
-      }
-
       return cartItem;
     }
   }

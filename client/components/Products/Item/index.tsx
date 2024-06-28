@@ -59,7 +59,7 @@ const Item: React.FC<ProductInterface> = (product) => {
           product
         })
       }
-      toast.info("Producto agregado al carrito", {theme: "light"})
+      
       
 
   }

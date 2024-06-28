@@ -8,6 +8,7 @@ import { ActionTypes } from './cart.action-types';
 import { CartAction } from './cart.actions';
 import { cartWithPrices } from '../../utils';
 import Router from 'next/router';
+import { toast } from 'react-toastify';
 
 interface AddToCart {
   qty: number;
@@ -40,11 +41,12 @@ export const addToCart =
         payload: data,
       });
 
-     
+      toast.info("Producto agregado al carrito", {theme: "light"})
+      
     } catch (error: any) {
       dispatch({
         type: ActionTypes.ADD_CART_ITEM_ERROR,
-        payload: 'este es el error',
+        payload: error.message,
       });
     }
   };
