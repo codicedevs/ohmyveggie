@@ -21,10 +21,12 @@ async function bootstrap() {
   await attachTransformEventHandler() // Conecta a la base de datos MongoDB
   // await app.listen(serverSetting.PORT);
 
+  console.log('port',serverSetting.PORT)
+
   await app.listen(serverSetting.PORT, '0.0.0.0', () => {
     console.log(`App listening on http://0.0.0.0:${serverSetting.PORT} for IPv4/v6`);
   });
-
+  
 
 }
 bootstrap();

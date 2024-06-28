@@ -11,8 +11,8 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const httpsOptions = {
-  key: fs.readFileSync(path.join("/etc/letsencrypt/live/www.codice.dev/privkey.pem")),
-  cert: fs.readFileSync(path.join("/etc/letsencrypt/live/www.codice.dev/fullchain.pem")),
+  key: fs.readFileSync(path.join("/etc/letsencrypt/live/omvrosario.com/privkey.pem")),
+  cert: fs.readFileSync(path.join("/etc/letsencrypt/live/omvrosario.com/fullchain.pem")),
 };
 
 app.prepare().then(() => {
