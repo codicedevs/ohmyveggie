@@ -18,7 +18,7 @@ export class CartService {
   cart = new Cart().cart;
 
   addCartItem({ qty, productId, product }: AddCartItem): CartItem {
-    console.log(qty, productId, product, "esto estaria undefined");
+    
 
     if (!productId && !product)
       throw new BadRequestException("No id or product provided.");
@@ -47,11 +47,12 @@ export class CartService {
         return cartItem;
       } else {
         this.cart.cartItems.push(cartItem);
+        console.log("array", this.cart.cartItems)
 
         return cartItem;
       }
     } else {
-      console.log('el carrito',this.cart.cartItems)
+      console.log('el carrito ',this.cart.cartItems)
       console.log('el producto', productId)
       const cartItem = this.cart.cartItems.find(
       (x) => x.productId === productId
