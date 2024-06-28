@@ -18,6 +18,8 @@ export class CartService {
   cart = new Cart().cart;
 
   addCartItem({ qty, productId, product }: AddCartItem): CartItem {
+    
+    console.log(qty, 'esto estaria undefined')
     if (!productId && !product)
       throw new BadRequestException('No id or product provided.');
 
@@ -50,8 +52,10 @@ export class CartService {
       }
     } else {
       const cartItem = this.cart.cartItems.find(x => x.productId === productId);
+      try{
 
-      cartItem.qty = qty;
+        cartItem.qty = qty;
+      } catch (e) { console.log(e, 'este seria el error en el back?')
 
       return cartItem;
     }

@@ -25,7 +25,7 @@ export const addToCart =
         });
       }
       console.log(qty);
-
+      
       const { data } = await proshopAPI.post(
         '/cart',
         {
