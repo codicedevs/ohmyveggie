@@ -24,7 +24,7 @@ export const addToCart =
           type: ActionTypes.ADD_CART_ITEM_START,
         });
       }
-      console.log(qty);
+      console.log(product);
       
       const { data } = await proshopAPI.post(
         '/cart',
