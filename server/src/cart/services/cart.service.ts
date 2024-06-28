@@ -2,10 +2,10 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { CartItem, ShippingDetails } from 'src/interfaces';
-import { ProductDocument } from 'src/products/schemas/product.schema';
-import { Cart } from '../schemas/cart.schema';
+} from "@nestjs/common";
+import { CartItem, ShippingDetails } from "src/interfaces";
+import { ProductDocument } from "src/products/schemas/product.schema";
+import { Cart } from "../schemas/cart.schema";
 
 interface AddCartItem {
   qty: number;
@@ -18,11 +18,10 @@ export class CartService {
   cart = new Cart().cart;
 
   addCartItem({ qty, productId, product }: AddCartItem): CartItem {
-    
-    console.log(qty, productId, product, 'esto estaria undefined')
+    console.log(qty, productId, product, "esto estaria undefined");
 
     if (!productId && !product)
-      throw new BadRequestException('No id or product provided.');
+      throw new BadRequestException("No id or product provided.");
 
     if (product) {
       const { name, image, price, _id, countInStock } = product;
@@ -37,11 +36,11 @@ export class CartService {
       };
 
       const itemExists = this.cart.cartItems.find(
-        x => x.productId === product._id
+        (x) => x.productId === product._id
       );
 
       if (itemExists) {
-        this.cart.cartItems = this.cart.cartItems.map(x =>
+        this.cart.cartItems = this.cart.cartItems.map((x) =>
           x.productId === itemExists.productId ? cartItem : x
         );
 
@@ -52,11 +51,17 @@ export class CartService {
         return cartItem;
       }
     } else {
-      const cartItem = this.cart.cartItems.find(x => x.productId === productId);
-      try{
-        console.log('dentro del try', qty, cartItem)
+      console.log('el carrito',this.cart.cartItems)
+      console.log('el producto', productId)
+      const cartItem = this.cart.cartItems.find(
+      (x) => x.productId === productId
+      );
+      try {
+        console.log("dentro del try", qty, cartItem);
         cartItem.qty = qty;
-      } catch (e) { console.log(e, 'este seria el error en el back?')}
+      } catch (e) {
+        console.log(e, "este seria el error en el back?");
+      }
 
       return cartItem;
     }
@@ -67,13 +72,12 @@ export class CartService {
     return this.cart.shippingDetails;
   }
 
-
   removeCartItem(id: string): CartItem[] {
-    const itemExists = this.cart.cartItems.find(x => x.productId === id);
+    const itemExists = this.cart.cartItems.find((x) => x.productId === id);
 
-    if (!itemExists) throw new NotFoundException('No cart item found.');
+    if (!itemExists) throw new NotFoundException("No cart item found.");
 
-    return this.cart.cartItems.filter(x => x.productId !== id);
+    return this.cart.cartItems.filter((x) => x.productId !== id);
   }
 
   findAllItems(): CartItem[] {
