@@ -21,6 +21,6 @@ app.prepare().then(() => {
     handle(req, res, parsedUrl);
   }).listen(3000, err => {
     if (err) throw err;
-    console.log('> Ready on PORT: 4000');
+    console.log('> Ready on PORT: 3000');
   });
 });
