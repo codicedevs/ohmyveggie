@@ -24,6 +24,7 @@ export const addToCart =
           type: ActionTypes.ADD_CART_ITEM_START,
         });
       }
+      console.log(qty);
 
       const { data } = await proshopAPI.post(
         '/cart',
@@ -34,7 +35,6 @@ export const addToCart =
         },
         { withCredentials: true }
       );
-
       dispatch({
         type: ActionTypes.ADD_CART_ITEM_SUCCESS,
         payload: data,
@@ -44,7 +44,7 @@ export const addToCart =
     } catch (error: any) {
       dispatch({
         type: ActionTypes.ADD_CART_ITEM_ERROR,
-        payload: error.response.data.message,
+        payload: 'este es el error',
       });
     }
   };
