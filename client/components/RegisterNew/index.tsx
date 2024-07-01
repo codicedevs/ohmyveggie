@@ -8,6 +8,7 @@ import Loader from '../Loader';
 import Message from '../Message';
 import { useDispatch } from 'react-redux';
 import { ActionTypes as AT } from '../../state/UI/ui.action-types';
+import { toast } from 'react-toastify';
 
 
 const Register = ({visible= false} ) => {
@@ -57,12 +58,14 @@ const Register = ({visible= false} ) => {
     }
 
     register(name, email, password);
+    toast.info("Usuario registrado, chequee su mail", {theme: 'colored'})
     dispatch({type: AT.CLOSE_REGISTER })
   };
 
   return (
 
     <section style={{ display: "flex" }} className="login">
+
           <div className="div-block-35">
               <img
                   src="/images/logo.png"
