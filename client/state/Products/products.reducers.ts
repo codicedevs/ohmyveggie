@@ -1,16 +1,16 @@
-import { ActionTypes } from './products.action-types';
-import { ProductsAction } from './products.actions';
+import { ActionTypes } from "./products.action-types";
+import { ProductsAction } from "./products.actions";
 import {
   initialProduct,
   productInitialState,
   productsInitialState,
   productsTopRatedInitialState,
-} from './products.initial-state';
+} from "./products.initial-state";
 import {
   ProductsState,
   ProductState,
   TopRatedProductsState,
-} from './products.state';
+} from "./products.state";
 
 export const productsReducer = (
   state: ProductsState = productsInitialState,
@@ -19,12 +19,18 @@ export const productsReducer = (
   switch (action.type) {
     case ActionTypes.FETCH_PRODUCTS_START:
       return { ...state, loading: true, error: null };
-    case ActionTypes.FETCH_PRODUCTS_SUCCESS:
-      return { loading: false, data: action.payload, error: null, categories: state.categories};
-    case ActionTypes.FETCH_PRODUCTS_ERROR:
-      return { ...state, loading: false, error: action.payload };
-    case ActionTypes.FETCH_CATEGORIES_SUCCESS:
-      return { ...state, loading: false, categories: action.payload};
+      case ActionTypes.FETCH_PRODUCTS_SUCCESS:
+        return {
+          loading: false,
+          data: action.payload,
+          error: null,
+          categories: state.categories,
+        };
+        case ActionTypes.FETCH_PRODUCTS_ERROR:
+          return { ...state, loading: false, error: action.payload };
+          case ActionTypes.FETCH_CATEGORIES_SUCCESS:
+            return { ...state, loading: false, categories: action.payload };
+               
     default:
       return state;
   }

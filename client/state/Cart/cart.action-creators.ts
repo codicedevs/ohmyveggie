@@ -9,6 +9,7 @@ import { CartAction } from './cart.actions';
 import { cartWithPrices } from '../../utils';
 import Router from 'next/router';
 import { toast } from 'react-toastify';
+import { ActionTypes as AT } from '../Products/products.action-types';
 
 interface AddToCart {
   qty: number;
@@ -18,14 +19,13 @@ interface AddToCart {
 
 export const addToCart =
   ({ qty, productId, product }: AddToCart) =>
-  async (dispatch: Dispatch<CartAction>) => {
+  async (dispatch: Dispatch<any>) => {
     try {
       if (product) {
         dispatch({
           type: ActionTypes.ADD_CART_ITEM_START,
         });
       }
-      console.log(product);
       
       const { data } = await proshopAPI.post(
         '/cart',
@@ -41,7 +41,7 @@ export const addToCart =
         payload: data,
       });
 
-      toast.info("Producto agregado al carrito", {theme: "light"})
+      // toast.info("Producto agregado al carrito", {theme: "light"})
       
     } catch (error: any) {
       dispatch({
@@ -50,6 +50,12 @@ export const addToCart =
       });
     }
   };
+
+export const deleteAllCart = () => async (dispatch: Dispatch<CartAction>) => {
+  
+  await proshopAPI.delete('cart', {withCredentials: true})
+    dispatch({type: ActionTypes.REMOVE_ALL_CART})
+}
 
 export const removeFromCart =
   (id: string) => async (dispatch: Dispatch<CartAction>) => {
@@ -113,7 +119,7 @@ export const getCart = () => async (dispatch: Dispatch<CartAction>) => {
   
     dispatch({
       type: ActionTypes.GET_CART_ERROR,
-      payload: error.response.data.message,
+      payload: error.response?.data.message,
     });
   }
 };

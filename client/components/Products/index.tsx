@@ -14,8 +14,6 @@ import Link from 'next/link';
 import SearchBox from '../SearchBox';
 import { useRouter } from 'next/router';
 
-
-
 interface ProductsInterface {
   keyword?: query;
   pageId?: query;
@@ -24,38 +22,8 @@ interface ProductsInterface {
 
 const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
 
-  const Button = ({ filter }: { filter: string }) => {
-
-    function handleClose(filter: string) {
-
-      switch (filter) {
-        case 'category': {
-          setCatSel('')
-          setCatSelectedId('')
-        }
-        default:
-
-          break
-      }
-    }
-    return (
-      <button onClick={(e) => { e.stopPropagation(); handleClose(filter) }} type="button" className="btn-close" aria-label="Close" style={{ marginLeft: 15, width: 1, alignItems: 'center', zIndex: 1000 }}></button>
-    )
-  }
   const [catSel, setCatSel] = useState('')
   const [catSelectedId, setCatSelectedId] = useState('')
-  const [currentPage, setCurrentPage] = useState("")
-
-
-
-
-
-  function handleCatSel(cat: string, id: string) {
-    setCatSel(cat)
-    setCatSelectedId(id)
-
-  }
-
   const { fetchCategories } = useProductsActions()
   const { fetchProducts } = useProductsActions();
   const {
@@ -65,22 +33,38 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
     categories,
     
   } = useTypedSelector(state => state.products);
+  const {data: cartItems} = useTypedSelector(state => state.cart)
+  
+  function handleCatSel(cat: string, id: string) {
+    setCatSel(cat);
+    setCatSelectedId(id)
+  }
+  
+  const Button = ({ filter }: { filter: string }) => {
 
-  const [cantCart, setCantCart] = useState(0);
+    function handleClose(filter: string) {
+      switch (filter) {
+        case 'category': {
+          setCatSel('')
+          setCatSelectedId('')
+        }
+        default:
+          break
+      }
+    }
+    return (
+      <button onClick={(e) => { e.stopPropagation(); handleClose(filter) }} type="button" className="btn-close" aria-label="Close" style={{ marginLeft: 15, width: 1, alignItems: 'center', zIndex: 1000 }}></button>
+    )
+  }
 
   useEffect(() => {
     fetchCategories()     
-  }
-    , [])
+  }, [])
 
   useEffect(() => {
     fetchProducts({ keyword, pageId: Number(pageId?.toString()), category: catSel });
-
-
   }, [keyword, pageId, catSel]);
 
-
-  //images/logo2.png
   return (
     <>
       <div className="div-block-8">

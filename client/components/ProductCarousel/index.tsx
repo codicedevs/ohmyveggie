@@ -11,7 +11,7 @@ const ProductCarousel = () => {
       <Carousel.Item>
         <img style={{borderRadius: '0px', objectFit: 'cover'}}
           className="d-block w-100"
-          src="/images/Carousel-Web.jpg"
+          src="/images/carrousel.jpg"
           alt="First slide"
         />
       </Carousel.Item>
@@ -19,7 +19,7 @@ const ProductCarousel = () => {
       <Carousel.Item>
         <img style={{borderRadius: '0px', objectFit: 'cover'}}
           className="d-block w-100"
-          src="/images/Carousel-Web2.jpg"
+          src="/images/carrousel1.jpg"
           alt="Second slide"
         />
       </Carousel.Item>

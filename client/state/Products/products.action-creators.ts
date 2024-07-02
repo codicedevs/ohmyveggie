@@ -59,7 +59,7 @@ export const fetchCategories = () => async(dispatch: Dispatch<ProductsAction>)=>
   } catch (error: any) {
     dispatch({
       type: ActionTypes.FETCH_CATEGORIES_ERROR,
-      payload: error.response.data.message,
+      payload: error.response?.data.message,
     });
   }
   }

@@ -74,4 +74,14 @@ export class CartController {
 
     return cartItems;
   }
+  @Delete()
+  setEmptyCart(@Session() session: any) {
+    this.cartService.cart = session.cart
+      ? session.cart
+      : {
+        cartItems: [],
+        shippingDetails: {},
+      };
+    session.cart.cartItems = [];
+  }
 }

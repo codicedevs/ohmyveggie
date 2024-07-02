@@ -1,3 +1,4 @@
+import { addCustomOption } from 'react-bootstrap-typeahead/types/utils';
 import { ActionTypes } from './cart.action-types';
 import { CartAction } from './cart.actions';
 import { cartInitialState } from './cart.initial-state';
@@ -48,6 +49,15 @@ export const cartReducer = (
           ),
         },
       };
+
+    case ActionTypes.REMOVE_ALL_CART: 
+      return{
+        ...state,
+        data: {
+          ...state.data,
+          cartItems: []
+        }
+      }
 
     case ActionTypes.SAVE_CART_SHIPPING_ADDRESS:
       

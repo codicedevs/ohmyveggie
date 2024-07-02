@@ -13,6 +13,7 @@ export type CartAction =
   | GetCartSuccess
   | GetCartError
   | RemoveCartItem
+  | RemoveAllCart
   | SaveCartShippingAddress
   | SaveCartPaymentMethod
   | CalculatePrices;
@@ -48,6 +49,10 @@ export interface GetCartError {
 export interface RemoveCartItem {
   type: ActionTypes.REMOVE_CART_ITEM;
   payload: string;
+}
+
+export interface RemoveAllCart {
+  type: ActionTypes.REMOVE_ALL_CART
 }
 
 export interface SaveCartShippingAddress {

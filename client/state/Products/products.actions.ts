@@ -31,9 +31,6 @@ export type ProductsAction =
   | FetchCategoriesError
 
 
-//CREE LAS FETCH CATEGORIES
-
-
 export interface FetchCategoriesStart {
   type: ActionTypes.FETCH_CATEGORIES_START;
 }
