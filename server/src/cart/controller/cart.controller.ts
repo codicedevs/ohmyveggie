@@ -59,6 +59,17 @@ export class CartController {
       };
   }
 
+  @Delete()
+  setEmptyCart(@Session() session: any) {
+    this.cartService.cart = session.cart
+      ? session.cart
+      : {
+        cartItems: [],
+        shippingDetails: {},
+      };
+    session.cart.cartItems = [];
+  }
+
   @Delete(":id")
   removeCartItem(@Param("id") id: string, @Session() session: any) {
     this.cartService.cart = session.cart

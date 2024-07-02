@@ -58,7 +58,7 @@ const Register = ({visible= false} ) => {
     }
 
     register(name, email, password);
-    toast.info("Usuario registrado, chequee su mail", {theme: 'colored'})
+    toast.info("Usted a creado su cuenta exitosamente", {theme: 'colored'})
     dispatch({type: AT.CLOSE_REGISTER })
   };
 
