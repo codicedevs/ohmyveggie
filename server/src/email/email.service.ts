@@ -7,7 +7,7 @@ import { passworRecoveryTemplate } from "./templates/email.recover.password.temp
 import { smtpSettings } from "src/settings";
 import { User } from "src/users/schemas/user.schema";
 import setupTransporter from "./utils/email.transporter";
-import { Order, OrderDocument } from "src/orders/schemas/order.schema";
+
 
 
 @Injectable()

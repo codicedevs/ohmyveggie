@@ -30,9 +30,9 @@ export class PaymentService {
     const preferenceResult = this.preference.create({
       body: {
         "back_urls": {
-          "success": "https://omvrosario.com:4000",
-          "failure": "https://omvrosario.com:4000",
-          "pending": "https://omvrosario.com:4000"
+          "success": "https://omvrosario.com",
+          "failure": "https://omvrosario.com",
+          "pending": "https://omvrosario.com"
         },
         external_reference: order._id,
         items: order.orderItems.map((item) => {

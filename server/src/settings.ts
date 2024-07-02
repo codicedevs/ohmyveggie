@@ -14,8 +14,8 @@ export const jwtSetting = Object.freeze({
 
 export const smtpSettings = Object.freeze({
   HOST: process.env.SMTP_SERVER!,
-  PORT: +process.env.SMTP_PORT!,
-  SECURE: false,
+  PORT: +process.env.SMTP_PORT,
+  SECURE: true,
   AUTH_USER: process.env.SMTP_USERNAME,
   AUTH_PASS: process.env.SMTP_PASSWORD,
 })
