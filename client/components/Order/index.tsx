@@ -56,7 +56,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
 
   const handleClose = () => {
     setModalIsOpen(false);
-    setRefresh(true);
+    setRefresh(true);// una vez cerrado el modal cambiamos el estado de refresh
   };
 
   useEffect(() => {
