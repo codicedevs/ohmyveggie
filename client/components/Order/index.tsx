@@ -13,6 +13,7 @@ interface OrderProps {
 }
 
 const Order: React.FC<OrderProps> = ({ pageId }) => {
+  const [refresh, setRefresh] = useState(false);// esto es una clave para refrescar el componente cuando se cierra el modal
   const [mercadoPagoUrl, setMercadoPagoUrl] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { loading, data, error, success } = useTypedSelector(
@@ -52,24 +53,30 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   const delivered = () => {
     deliverOrder(data._id!);
   };
-  const handleClose = () => setModalIsOpen(false);
+
+  const handleClose = () => {
+    setModalIsOpen(false);
+    setRefresh(true);// una vez cerrado el modal cambiamos el estado de refresh
+  };
 
   useEffect(() => {
     if (!data._id || success) {
       if (!pageId) return;
       fetchOrder(pageId as string);
     }
-
     if (data.observations) {
       setObservation(data.observations);
     }
   }, [fetchOrder, pageId, success, data]);
 
+  // refresco el componente cuando se cierra el modal (para actualizar el estado de la orden, como pago o no)
   useEffect(() => {
-    // saca el id de la orden de la url
-    const { id } = router.query;
-    fetchOrder(id as string);
-  }, [router.query]);
+    if (refresh) {
+      fetchOrder(pageId as string);
+      setRefresh(false); // Reset refresh state
+    }
+  }, [refresh, fetchOrder, pageId]);
+
 
   const items = data.orderItems;
   var totalProductos = 0;
@@ -181,39 +188,39 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   </div>
                 )}
               </div>
-            <div className="orderitem mb-4" id="itemsOrder">
-              <div className="txtorderitem">Items</div>
-              {data.orderItems.length === 0 ? (
-                <Message>El carro está vacío</Message>
-              ) : (
-                <ListGroup variant="flush">
-                  {data.orderItems.map((item, index) => (
-                    <ListGroup.Item key={index}>
-                      <Row style={{ fontWeight: 600 }}>
-                        <Col>
-                          <Link href={`/product/${item.productId}`} passHref>
-                            <span className="link__span">{item.name}</span>
-                          </Link>
-                        </Col>
-                        <Col style={{ textAlign: "right" }} md={4}>
-                          {item.qty} x ${item.price}
-                        </Col>
-                        <Col
-                          style={{
-                            textAlign: "right",
-                            fontSize: 18,
-                            fontWeight: 700,
-                          }}
-                          md={4}
-                        >
-                          $ {(item.qty * item.price).toFixed(2)}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
-              )}
-            </div>
+              <div className="orderitem mb-4" id="itemsOrder">
+                <div className="txtorderitem">Items</div>
+                {data.orderItems.length === 0 ? (
+                  <Message>El carro está vacío</Message>
+                ) : (
+                  <ListGroup variant="flush">
+                    {data.orderItems.map((item, index) => (
+                      <ListGroup.Item key={index}>
+                        <Row style={{ fontWeight: 600 }}>
+                          <Col>
+                            <Link href={`/product/${item.productId}`} passHref>
+                              <span className="link__span">{item.name}</span>
+                            </Link>
+                          </Col>
+                          <Col style={{ textAlign: "right" }} md={4}>
+                            {item.qty} x ${item.price}
+                          </Col>
+                          <Col
+                            style={{
+                              textAlign: "right",
+                              fontSize: 18,
+                              fontWeight: 700,
+                            }}
+                            md={4}
+                          >
+                            $ {(item.qty * item.price).toFixed(2)}
+                          </Col>
+                        </Row>
+                      </ListGroup.Item>
+                    ))}
+                  </ListGroup>
+                )}
+              </div>
             </div>
           </div>
           <div className="column-6 w-col w-col-4">
