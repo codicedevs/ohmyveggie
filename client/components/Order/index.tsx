@@ -13,12 +13,13 @@ interface OrderProps {
 }
 
 const Order: React.FC<OrderProps> = ({ pageId }) => {
-  const [refresh, setRefresh] = useState(false);// esto es una clave para refrescar el componente cuando se cierra el modal
+  const [refresh, setRefresh] = useState(false); // esto es una clave para refrescar el componente cuando se cierra el modal
   const [mercadoPagoUrl, setMercadoPagoUrl] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { loading, data, error, success } = useTypedSelector(
     (state) => state.order
   );
+  // console.log("la data de la orden", data);
   const { loading: loadingDeliver } = useTypedSelector(
     (state) => state.orderDeliver
   );
@@ -56,18 +57,16 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
 
   const handleClose = () => {
     setModalIsOpen(false);
-    setRefresh(true);// una vez cerrado el modal cambiamos el estado de refresh
+    setRefresh(true); // una vez cerrado el modal cambiamos el estado de refresh
   };
 
   useEffect(() => {
-    if (!data._id || success) {
-      if (!pageId) return;
-      fetchOrder(pageId as string);
-    }
+    if (pageId) fetchOrder(pageId as string);
+
     if (data.observations) {
       setObservation(data.observations);
     }
-  }, [fetchOrder, pageId, success, data]);
+  }, [fetchOrder, pageId]);
 
   // refresco el componente cuando se cierra el modal (para actualizar el estado de la orden, como pago o no)
   useEffect(() => {
@@ -76,7 +75,6 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
       setRefresh(false); // Reset refresh state
     }
   }, [refresh, fetchOrder, pageId]);
-
 
   const items = data.orderItems;
   var totalProductos = 0;
@@ -146,7 +144,12 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
             <div
               id="itemStateContainer"
               className="orderitem"
-              style={{ display: "flex", flexDirection: "column-reverse", gap: 10, margin: "20px 0" }}
+              style={{
+                display: "flex",
+                flexDirection: "column-reverse",
+                gap: 10,
+                margin: "20px 0",
+              }}
             >
               <div className="d-flex gap-3" id="stateOrder">
                 {data.isDelivered ? (
