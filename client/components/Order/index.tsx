@@ -274,16 +274,31 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
               {loading && <Loader />}
               {user.data &&
                 user.data.isAdmin &&
-                !data.isPaid &&
+                data.isPaid &&
                 !data.isDelivered && (
-                  <ListGroup.Item style={{ border: "none" }}>
-                    <Button
-                      type="button"
-                      className="btn btn-block"
-                      onClick={delivered}
+                  <ListGroup.Item
+                    style={{
+                      border: "none",
+                      display: "flex",
+                      justifyContent: "center",
+                      backgroundColor: "#bae1be11",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
                     >
-                      Marcar como entregado
-                    </Button>
+                      <Button
+                        type="button"
+                        className="btn btn-block"
+                        onClick={delivered}
+                      >
+                        Marcar como entregado
+                      </Button>
+                    </div>
                   </ListGroup.Item>
                 )}
             </div>
