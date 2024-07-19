@@ -19,10 +19,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   const { loading, data, error, success } = useTypedSelector(
     (state) => state.order
   );
-  // console.log("la data de la orden", data);
-  const { loading: loadingDeliver } = useTypedSelector(
-    (state) => state.orderDeliver
-  );
+
   const user = useTypedSelector((state) => state.user);
   const { fetchOrder, deliverOrder, updateOrder } = useOrderActions();
   const [observation, setObservation] = useState("");
@@ -62,11 +59,13 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
 
   useEffect(() => {
     if (pageId) fetchOrder(pageId as string);
+  }, [fetchOrder, pageId, success]);
 
+  useEffect(() => {
     if (data.observations) {
       setObservation(data.observations);
     }
-  }, [fetchOrder, pageId]);
+  }, [data, pageId]);
 
   // refresco el componente cuando se cierra el modal (para actualizar el estado de la orden, como pago o no)
   useEffect(() => {
@@ -272,10 +271,10 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
                   </div>
                 </ListGroup.Item>
               )}
-              {loadingDeliver && <Loader />}
+              {loading && <Loader />}
               {user.data &&
                 user.data.isAdmin &&
-                data.isPaid &&
+                !data.isPaid &&
                 !data.isDelivered && (
                   <ListGroup.Item style={{ border: "none" }}>
                     <Button

@@ -1,11 +1,10 @@
-import { combineReducers } from 'redux';
-import { cartReducer } from './Cart/cart.reducers';
+import { combineReducers } from "redux";
+import { cartReducer } from "./Cart/cart.reducers";
 import {
-  orderDeliverReducer,
   orderReducer,
   ordersReducer,
   userOrdersReducer,
-} from './Order/order.reducers';
+} from "./Order/order.reducers";
 import {
   productCreateReducer,
   productCreateReviewReducer,
@@ -14,7 +13,7 @@ import {
   productReducer,
   productsReducer,
   productsTopRatedReducer,
-} from './Products/products.reducers';
+} from "./Products/products.reducers";
 import {
   userDetailsReducer,
   userEditReducer,
@@ -23,9 +22,9 @@ import {
   userRegisterReducer,
   usersReducer,
   userUpdateReducer,
-} from './User/user.reducers';
+} from "./User/user.reducers";
 
-import { uIReducer } from './UI/ui.reducers';
+import { uIReducer } from "./UI/ui.reducers";
 
 export const reducers = combineReducers({
   products: productsReducer,
@@ -42,13 +41,11 @@ export const reducers = combineReducers({
   userUpdate: userUpdateReducer,
   userEdit: userEditReducer,
   order: orderReducer,
-  orderDeliver: orderDeliverReducer,
   orders: ordersReducer,
   userOrders: userOrdersReducer,
   users: usersReducer,
   uI: uIReducer,
   userRecoverPass: userRecoverPassword,
-  
 });
 
 export type RootState = ReturnType<typeof reducers>;
