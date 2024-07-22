@@ -13,7 +13,6 @@ interface OrderProps {
 }
 
 const Order: React.FC<OrderProps> = ({ pageId: orderId }) => {
-  const [refresh, setRefresh] = useState(false); // esto es una clave para refrescar el componente cuando se cierra el modal
   const [mercadoPagoUrl, setMercadoPagoUrl] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { loading, data, error, success } = useTypedSelector(
@@ -22,7 +21,7 @@ const Order: React.FC<OrderProps> = ({ pageId: orderId }) => {
 
   const user = useTypedSelector((state) => state.user);
   const { fetchOrder, deliverOrder, updateOrder } = useOrderActions();
-  const [observation, setObservation] = useState(null);
+  const [observation, setObservation] = useState();
   const router = useRouter();
 
   const createPaymentPreference = async (paymentData: OrderInterface) => {
@@ -53,27 +52,25 @@ const Order: React.FC<OrderProps> = ({ pageId: orderId }) => {
   };
 
   const handleClose = () => {
+    fetchOrder(orderId as string);
     setModalIsOpen(false);
-    setRefresh(true); // una vez cerrado el modal cambiamos el estado de refresh
   };
 
   useEffect(() => {
     fetchOrder(orderId as string);
   }, [orderId]);
 
-  // refresco el componente cuando se cierra el modal (para actualizar el estado de la orden, como pago o no)
-  // useEffect(() => {
-  //   if (refresh) {
-  //     fetchOrder(orderId as string);
-  //     setRefresh(false); // Reset refresh state
-  //   }
-  // }, [refresh, fetchOrder, orderId]);
+  const handleChange = (e: any) => {
+    setObservation(e.target.value);
+  };
 
   const items = data.orderItems;
   var totalProductos = 0;
   items.forEach(function (item) {
     totalProductos += item.qty;
   });
+
+  console.log();
 
   return loading ? (
     <Loader />
@@ -311,8 +308,10 @@ const Order: React.FC<OrderProps> = ({ pageId: orderId }) => {
               }}
               as="textarea"
               rows={3}
-              value={observation || data.observations}
-              onChange={(e) => setObservation(e.target.value)}
+              value={
+                observation === undefined ? data.observations : observation
+              }
+              onChange={handleChange}
             />
             <Button
               onClick={() => updateOrder(data._id!, observation)}
