@@ -12,7 +12,7 @@ interface OrderProps {
   pageId: string | string[] | undefined;
 }
 
-const Order: React.FC<OrderProps> = ({ pageId }) => {
+const Order: React.FC<OrderProps> = ({ pageId: orderId }) => {
   const [refresh, setRefresh] = useState(false); // esto es una clave para refrescar el componente cuando se cierra el modal
   const [mercadoPagoUrl, setMercadoPagoUrl] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -22,7 +22,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
 
   const user = useTypedSelector((state) => state.user);
   const { fetchOrder, deliverOrder, updateOrder } = useOrderActions();
-  const [observation, setObservation] = useState("");
+  const [observation, setObservation] = useState(null);
   const router = useRouter();
 
   const createPaymentPreference = async (paymentData: OrderInterface) => {
@@ -58,22 +58,16 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
   };
 
   useEffect(() => {
-    if (pageId) fetchOrder(pageId as string);
-  }, [fetchOrder, pageId, success]);
-
-  useEffect(() => {
-    if (data.observations) {
-      setObservation(data.observations);
-    }
-  }, [data, pageId]);
+    fetchOrder(orderId as string);
+  }, [orderId]);
 
   // refresco el componente cuando se cierra el modal (para actualizar el estado de la orden, como pago o no)
-  useEffect(() => {
-    if (refresh) {
-      fetchOrder(pageId as string);
-      setRefresh(false); // Reset refresh state
-    }
-  }, [refresh, fetchOrder, pageId]);
+  // useEffect(() => {
+  //   if (refresh) {
+  //     fetchOrder(orderId as string);
+  //     setRefresh(false); // Reset refresh state
+  //   }
+  // }, [refresh, fetchOrder, orderId]);
 
   const items = data.orderItems;
   var totalProductos = 0;
@@ -317,7 +311,7 @@ const Order: React.FC<OrderProps> = ({ pageId }) => {
               }}
               as="textarea"
               rows={3}
-              value={observation}
+              value={observation || data.observations}
               onChange={(e) => setObservation(e.target.value)}
             />
             <Button
