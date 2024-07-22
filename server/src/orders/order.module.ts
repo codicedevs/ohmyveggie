@@ -1,10 +1,13 @@
-import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-import { OrdersController } from './controller/orders.controller';
-import { Order, OrderSchema } from './schemas/order.schema';
-import { OrdersService } from './services/orders.service';
-import { ShippingDetails, shippingDetailsSchema } from './schemas/shipping.detail.schema';
-
+import { Module } from "@nestjs/common";
+import { MongooseModule } from "@nestjs/mongoose";
+import { OrdersController } from "./controller/orders.controller";
+import { Order, OrderSchema } from "./schemas/order.schema";
+import { OrdersService } from "./services/orders.service";
+import {
+  ShippingDetails,
+  shippingDetailsSchema,
+} from "./schemas/shipping.detail.schema";
+import { CartService } from "src/cart/services/cart.service";
 
 @Module({
   imports: [
@@ -15,12 +18,12 @@ import { ShippingDetails, shippingDetailsSchema } from './schemas/shipping.detai
       },
       {
         name: ShippingDetails.name,
-        schema: shippingDetailsSchema
+        schema: shippingDetailsSchema,
       },
-
     ]),
+    CartService,
   ],
   controllers: [OrdersController],
-  providers: [OrdersService],
+  providers: [OrdersService, CartService],
 })
-export class OrderModule { }
+export class OrderModule {}

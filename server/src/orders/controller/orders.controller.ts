@@ -18,30 +18,38 @@ import { Order, OrderDocument } from "../schemas/order.schema";
 import { DateRange } from "src/interfaces";
 import { FilterQuery, Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
+import { CartService } from "src/cart/services/cart.service";
 
 @Controller("orders")
 export class OrdersController {
-  @InjectModel(Order.name) private orderModel: Model<OrderDocument>
-  constructor(private ordersService: OrdersService) { }
+  @InjectModel(Order.name) private orderModel: Model<OrderDocument>;
+  constructor(
+    private ordersService: OrdersService,
+    private cartService: CartService
+  ) {}
 
   @UseGuards(AuthGuard)
   @Post()
   async createOrder(@Body() body: any, @Session() session: any) {
+    this.cartService.cart = session.cart
+      ? session.cart
+      : {
+          cartItems: [],
+          shippingDetails: {},
+        };
+    session.cart.cartItems = [];
     return this.ordersService.create(body, session.user._id);
   }
   @UseGuards(AdminGuard)
   @Get()
-  getOrders(
-    @Query('filter') filter: string,
-    @Query('pageId') pageId: string
-  ) {
+  getOrders(@Query("filter") filter: string, @Query("pageId") pageId: string) {
     let parsedFilter: FilterQuery<OrderDocument> = {};
 
     if (filter) {
       try {
         parsedFilter = JSON.parse(filter);
       } catch (error) {
-        throw new BadRequestException('Invalid filter format');
+        throw new BadRequestException("Invalid filter format");
       }
     }
 
