@@ -11,7 +11,7 @@ import setupTransporter from "./utils/email.transporter";
 @Injectable()
 export class EmailService {
   constructor() {}
-  private readonly defaultSender = "Oh My Veggie Rosario";
+  private readonly defaultSender = smtpSettings.AUTH_USER;
   private transporter = setupTransporter();
 
   async send(mailOptions: Mail.Options): Promise<SentMessageInfo> {
@@ -57,7 +57,7 @@ export class EmailService {
   ): Promise<SentMessageInfo> {
     return this.send({
       to: user.email,
-      from: this.defaultSender,
+      from: `"Oh My Veggie Rosario", <${this.defaultSender}>`,
       subject: "Recupere su contraseña en " + "Oh my veggie",
       html: passworRecoveryTemplate(user, resetKey),
     });
