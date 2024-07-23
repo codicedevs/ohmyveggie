@@ -21,7 +21,6 @@ import { CartService } from "src/cart/services/cart.service";
         schema: shippingDetailsSchema,
       },
     ]),
-    CartService,
   ],
   controllers: [OrdersController],
   providers: [OrdersService, CartService],
