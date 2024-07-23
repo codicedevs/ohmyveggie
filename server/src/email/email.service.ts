@@ -57,7 +57,7 @@ export class EmailService {
   ): Promise<SentMessageInfo> {
     return this.send({
       to: user.email,
-      from: `"Oh My Veggie Rosario", <${this.defaultSender}>`,
+      from: `"Oh My Veggie Rosario"<${this.defaultSender}>`,
       subject: "Recupere su contraseña en " + "Oh my veggie",
       html: passworRecoveryTemplate(user, resetKey),
     });
