@@ -1,7 +1,7 @@
 import { CategoriesState, CategoryState } from "./categories.state";
 
 export const initialCategory = {
-  id: "",
+  _id: "",
   name: "",
 };
 
