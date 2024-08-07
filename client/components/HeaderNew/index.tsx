@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { ActionTypes } from "../../state/User/user.action-types";
 import { ActionTypes as AT } from "../../state/UI/ui.action-types";
 
-
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const dispatch = useDispatch();
@@ -39,7 +38,7 @@ const Navbar = () => {
     <>
       <div className="div-block-7" style={{ justifyContent: "space-arround" }}>
         <div className="socialWrapper d-flex">
-          <NavLink href="https://wa.me/5493416008824" style={{padding: 0}}>
+          <NavLink href="https://wa.me/5493416008824" style={{ padding: 0 }}>
             <div
               className="div-block-11 gap-2 "
               style={{ textDecoration: "none", cursor: "pointer" }}
@@ -53,7 +52,10 @@ const Navbar = () => {
               3416-008824
             </div>
           </NavLink>
-          <NavLink href="https://www.instagram.com/ohmyveggierosario/?hl=en" style={{padding: 0}}>
+          <NavLink
+            href="https://www.instagram.com/ohmyveggierosario/?hl=en"
+            style={{ padding: 0 }}
+          >
             <div
               className="div-block-11 gap-2"
               style={{ textDecoration: "none", cursor: "pointer" }}
@@ -109,7 +111,7 @@ const Navbar = () => {
                     data-w-id="2eff27b6-1120-3c74-74f7-fc6d34090150"
                     alt=""
                     className="image-4-shop"
-                  // srcSet="/images/shopLila.png 500w, /images/shopLila.png 800w, /Simages/shopLila.png 830w"
+                    // srcSet="/images/shopLila.png 500w, /images/shopLila.png 800w, /Simages/shopLila.png 830w"
                   />
                   {cartItems.reduce((acc, item) => acc + item.qty, 0) ? (
                     <div className="div-block-30">
@@ -151,8 +153,6 @@ const Navbar = () => {
                   </NavDropdown>
                 </>
               ) : (
-              
-
                 <Nav.Link onClick={() => dispatch({ type: AT.TOGGLE_LOGIN })}>
                   Ingresar
                 </Nav.Link>
@@ -170,6 +170,11 @@ const Navbar = () => {
                   <Link href="/admin/products" passHref>
                     <NavDropdown.Item style={{ color: "black" }}>
                       Productos
+                    </NavDropdown.Item>
+                  </Link>
+                  <Link href="/admin/categories" passHref>
+                    <NavDropdown.Item style={{ color: "black" }}>
+                      Categorias
                     </NavDropdown.Item>
                   </Link>
                   <Link href="/admin/orders" passHref>
@@ -197,4 +202,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

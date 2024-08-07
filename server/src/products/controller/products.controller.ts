@@ -10,16 +10,16 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { AdminGuard } from "src/guards/admin.guard";
-import { CreateProductDto,UpdateProductDto } from "../dtos/product.dto";
+import { CreateProductDto, UpdateProductDto } from "../dtos/product.dto";
 import { ProductsService } from "../services/products.service";
 import { FilterQuery } from "mongoose";
 import { ProductDocument } from "../schemas/product.schema";
 
 @Controller("products")
 export class ProductsController {
-  constructor(private productsService: ProductsService) { }
+  constructor(private productsService: ProductsService) {}
 
-  @UseGuards(AdminGuard)
+  // @UseGuards(AdminGuard)
   @Post()
   createProduct(@Body() productDetails: CreateProductDto) {
     return this.productsService.createOne(productDetails);
@@ -44,21 +44,18 @@ export class ProductsController {
     return this.productsService.deleteOne(id);
   }
 
-  @UseGuards(AdminGuard)
+  // @UseGuards(AdminGuard)
   @Put(":id")
   updateProduct(@Param("id") id: string, @Body() product: UpdateProductDto) {
     return this.productsService.update(id, product);
   }
-
 }
 
-@Controller("categories")
+@Controller("categoriesViejo")
 export class ProductsCategoriesController {
-  constructor(private productsService: ProductsService) { }
+  constructor(private productsService: ProductsService) {}
   @Get()
   async getAllCategories(): Promise<string[]> {
     return this.productsService.getAllCategories();
   }
 }
-
-

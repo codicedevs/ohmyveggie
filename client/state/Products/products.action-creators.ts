@@ -1,39 +1,45 @@
-import Router from 'next/router';
-import { Dispatch } from 'redux';
-import { ProductInterface, Review } from '../../interfaces';
-import { proshopAPI } from '../../lib';
-import { ActionTypes } from './products.action-types';
-import { ProductsAction } from './products.actions';
-import { Interface } from 'readline';
-import { toast } from 'react-toastify';
+import Router from "next/router";
+import { Dispatch } from "redux";
+import { CategoryInterface, ProductInterface, Review } from "../../interfaces";
+import { proshopAPI } from "../../lib";
+import { ActionTypes } from "./products.action-types";
+import { ProductsAction } from "./products.actions";
+import { Interface } from "readline";
+import { toast } from "react-toastify";
 
 interface FetchProductsParams {
   keyword?: query;
   pageId?: number;
-  category?: string;
+  categories?: string;
   shouldScroll?: boolean;
 }
 
-export const fetchProducts = ({keyword= '', pageId = 1,category ='', shouldScroll = false}: FetchProductsParams ) => async (dispatch: Dispatch<ProductsAction>) => {
+export const fetchProducts =
+  ({
+    keyword = "",
+    pageId = 1,
+    categories = "",
+    shouldScroll = false,
+  }: FetchProductsParams) =>
+  async (dispatch: Dispatch<ProductsAction>) => {
     try {
       dispatch({
         type: ActionTypes.FETCH_PRODUCTS_START,
       });
 
       const { data } = await proshopAPI.get(
-        `/products?keyword=${keyword}&category=${category}&pageId=${pageId}`
+        `/products?keyword=${keyword}&categories=${categories}&pageId=${pageId}`
       );
-    setTimeout(()=>{
-
-      dispatch({
-        type: ActionTypes.FETCH_PRODUCTS_SUCCESS,
-        payload: data,
-      });
-      if (shouldScroll) {
-        const element = document.getElementById('scrollUp')
-        element?.scrollIntoView({behavior: 'smooth'})
-      }
-    }, 300)
+      setTimeout(() => {
+        dispatch({
+          type: ActionTypes.FETCH_PRODUCTS_SUCCESS,
+          payload: data,
+        });
+        if (shouldScroll) {
+          const element = document.getElementById("scrollUp");
+          element?.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 300);
     } catch (error: any) {
       dispatch({
         type: ActionTypes.FETCH_PRODUCTS_ERROR,
@@ -42,29 +48,6 @@ export const fetchProducts = ({keyword= '', pageId = 1,category ='', shouldScrol
     }
   };
 
-  //COPIE EL FETCH PRODUCT
-
-export const fetchCategories = () => async(dispatch: Dispatch<ProductsAction>)=>{
-
-    try{
-      dispatch({
-        type: ActionTypes.FETCH_PRODUCTS_START,
-      })
-      const { data } = await proshopAPI.get('/categories')
-    
-      dispatch({
-      type: ActionTypes.FETCH_CATEGORIES_SUCCESS,
-      payload: data,
-    });
-  } catch (error: any) {
-    dispatch({
-      type: ActionTypes.FETCH_CATEGORIES_ERROR,
-      payload: error.response?.data.message,
-    });
-  }
-  }
-
-
 export const fetchTopRatedProducts =
   () => async (dispatch: Dispatch<ProductsAction>) => {
     try {
@@ -72,7 +55,7 @@ export const fetchTopRatedProducts =
         type: ActionTypes.FETCH_TOP_PRODUCTS_START,
       });
 
-      const { data } = await proshopAPI.get('/products/topRated');
+      const { data } = await proshopAPI.get("/products/topRated");
 
       dispatch({
         type: ActionTypes.FETCH_TOP_PRODUCTS_SUCCESS,
@@ -146,11 +129,14 @@ export const createProduct =
     };
 
     try {
-
       dispatch({
         type: ActionTypes.CREATE_PRODUCT_START,
       });
-      const { data } = await proshopAPI.post(`/products`, productDetails , config);
+      const { data } = await proshopAPI.post(
+        `/products`,
+        productDetails,
+        config
+      );
       dispatch({
         type: ActionTypes.CREATE_PRODUCT_SUCCESS,
         payload: data,
@@ -162,13 +148,12 @@ export const createProduct =
         type: ActionTypes.CREATE_PRODUCT_ERROR,
         payload: error.response.data.message,
       });
-      console.log(error.response.data.message)
-    } 
+      console.log(error.response.data.message);
+    }
   };
 
 export const updateProduct =
-  (id: string, product: Partial<ProductInterface>) =>
-  async (dispatch: Dispatch<ProductsAction>) => {
+  (id: string, product: any) => async (dispatch: Dispatch<ProductsAction>) => {
     const config = {
       withCredentials: true,
     };
@@ -189,7 +174,7 @@ export const updateProduct =
         type: ActionTypes.UPDATE_PRODUCT_RESET,
       });
 
-      Router.push('/admin/products');
+      Router.push("/admin/products");
     } catch (error: any) {
       dispatch({
         type: ActionTypes.UPDATE_PRODUCT_ERROR,
