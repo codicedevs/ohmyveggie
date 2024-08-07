@@ -2,14 +2,14 @@ import {
   ProductsState,
   ProductState,
   TopRatedProductsState,
-} from './products.state';
+} from "./products.state";
 
 export const initialProduct = {
-  _id: '',
-  name: '',
-  image: '',
-  description: '',
-  category: '',
+  _id: "",
+  name: "",
+  image: "",
+  description: "",
+  categories: [],
   price: 0,
   countInStock: 0,
   rating: 0,

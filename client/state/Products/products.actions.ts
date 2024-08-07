@@ -1,5 +1,9 @@
-import {  PaginatedProducts, ProductInterface } from '../../interfaces';
-import { ActionTypes } from './products.action-types';
+import {
+  CategoryInterface,
+  PaginatedProducts,
+  ProductInterface,
+} from "../../interfaces";
+import { ActionTypes } from "./products.action-types";
 
 export type ProductsAction =
   | FetchProductsStart
@@ -25,25 +29,8 @@ export type ProductsAction =
   | CreateProductReviewStart
   | CreateProductReviewError
   | CreateProductReviewSuccess
-  | CreateProductReviewReset
-  | FetchCategoriesStart
-  | FetchCategoriesSuccess
-  | FetchCategoriesError
+  | CreateProductReviewReset;
 
-
-export interface FetchCategoriesStart {
-  type: ActionTypes.FETCH_CATEGORIES_START;
-}
-
-export interface FetchCategoriesSuccess {
-  type: ActionTypes.FETCH_CATEGORIES_SUCCESS;
-  payload: string[];
-}
-
-export interface FetchCategoriesError {
-  type: ActionTypes.FETCH_CATEGORIES_ERROR;
-  payload: string;
-}
 export interface FetchProductsStart {
   type: ActionTypes.FETCH_PRODUCTS_START;
 }
@@ -83,7 +70,7 @@ export interface FetchProductSuccess {
 
 export interface FetchProductError {
   type: ActionTypes.FETCH_PRODUCT_ERROR;
-  payload:  [];
+  payload: [];
 }
 
 export interface FetchProductReset {

@@ -1,11 +1,14 @@
+export interface CategoryInterface {
+  _id: string;
+  name: string;
+}
 
-
-  export interface ProductInterface {
+export interface ProductInterface {
   _id: string;
   name: string;
   image: string;
   description: string;
-  category: string;
+  categories: CategoryInterface[];
   price: number;
   countInStock: number;
   rating: number;
@@ -93,7 +96,7 @@ export interface OrderInterface {
   observations?: string;
 }
 
-export interface OrdersInterface{
+export interface OrdersInterface {
   orders: OrderInterface[];
   page: number;
   pages: number;

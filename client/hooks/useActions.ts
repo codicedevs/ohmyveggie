@@ -1,14 +1,21 @@
-import { bindActionCreators } from 'redux';
-import { useDispatch } from 'react-redux';
-import { useMemo } from 'react';
+import { bindActionCreators } from "redux";
+import { useDispatch } from "react-redux";
+import { useMemo } from "react";
 import {
   CartActionCreators,
+  CategoriesActionCreators,
   OrderActionCreators,
   ProductsActionCreators,
   UserActionCreators,
-  
-  
-} from '../state';
+} from "../state";
+
+export const useCategoriesActions = () => {
+  const dispatch = useDispatch();
+
+  return useMemo(() => {
+    return bindActionCreators(CategoriesActionCreators, dispatch);
+  }, [dispatch]);
+};
 
 export const useProductsActions = () => {
   const dispatch = useDispatch();
@@ -33,7 +40,6 @@ export const useUserActions = () => {
     return bindActionCreators(UserActionCreators, dispatch);
   }, [dispatch]);
 };
-
 
 export const useOrderActions = () => {
   const dispatch = useDispatch();

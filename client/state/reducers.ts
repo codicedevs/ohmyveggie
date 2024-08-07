@@ -25,6 +25,10 @@ import {
 } from "./User/user.reducers";
 
 import { uIReducer } from "./UI/ui.reducers";
+import {
+  categoriesReducer,
+  categoryReducer,
+} from "./Categories/categories.reducers";
 
 export const reducers = combineReducers({
   products: productsReducer,
@@ -34,6 +38,8 @@ export const reducers = combineReducers({
   productCreate: productCreateReducer,
   productEdit: productEditReducer,
   productCreateReview: productCreateReviewReducer,
+  category: categoryReducer,
+  categories: categoriesReducer,
   cart: cartReducer,
   user: userDetailsReducer,
   userLogin: userLoginReducer,

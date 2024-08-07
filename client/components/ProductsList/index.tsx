@@ -1,11 +1,11 @@
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { Row, Col, Button, Table } from 'react-bootstrap';
-import { useAdmin, useProductsActions, useTypedSelector } from '../../hooks';
-import Loader from '../Loader';
-import Message from '../Message';
-import Paginate from '../Paginate';
-import SearchBoxAdmin from '../SearchBoxAdmin';
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Row, Col, Button, Table } from "react-bootstrap";
+import { useAdmin, useProductsActions, useTypedSelector } from "../../hooks";
+import Loader from "../Loader";
+import Message from "../Message";
+import Paginate from "../Paginate";
+import SearchBoxAdmin from "../SearchBoxAdmin";
 interface ProductListProps {
   pageId?: query;
 }
@@ -16,40 +16,43 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
     loading,
     error,
     data: { products, pages, page },
-  } = useTypedSelector(state => state.products);
+  } = useTypedSelector((state) => state.products);
   const { success: successDelete } = useTypedSelector(
-    state => state.productDelete
+    (state) => state.productDelete
   );
   useEffect(() => {
     fetchProducts({ pageId: Number(pageId?.toString()) });
   }, [fetchProducts, successDelete, pageId]);
-  
+
   const search = (keyword: string) => {
     fetchProducts({ keyword, pageId: Number(pageId?.toString()) });
-  }
+  };
   return (
     <>
-      <section className='d-flex row' style={{ paddingLeft: 40, paddingRight: 40, justifyContent: 'center', gap: 30, fontWeight: 500 }}>
+      <section
+        className="d-flex row"
+        style={{
+          paddingLeft: 40,
+          paddingRight: 40,
+          justifyContent: "center",
+          gap: 30,
+          fontWeight: 500,
+        }}
+      >
         <h1>Productos</h1>
-        <Row className="align-items-center" style={{ justifyContent: 'center' }}>
+        <Row
+          className="align-items-center"
+          style={{ justifyContent: "center" }}
+        >
           <Col>
             <SearchBoxAdmin search={search} />
           </Col>
           <Col className="text-right">
-          <Link
-                        href={`/admin/products/create/`}
-                        passHref
-                      >
-            <Button
-              className="my-3"
-              style={{ float: 'right' }}
-            >
-              <i className="fas fa-plus"></i>  Crear nuevo Producto
-            </Button>
-                        
-                      </Link>
-            
-            
+            <Link href={`/admin/products/create/`} passHref>
+              <Button className="my-3" style={{ float: "right" }}>
+                <i className="fas fa-plus"></i> Crear nuevo Producto
+              </Button>
+            </Link>
           </Col>
         </Row>
         {loading ? (
@@ -69,18 +72,22 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
                 </tr>
               </thead>
               <tbody>
-                {products.map(_product => (
+                {products.map((_product) => (
                   <tr key={_product._id}>
                     <td>{_product._id}</td>
                     <td>{_product.name}</td>
                     <td>${_product.price}</td>
-                    <td>{_product.category}</td>
+                    <td>-</td>
                     <td>
                       <Link
                         href={`/admin/products/edit/${_product._id}`}
                         passHref
                       >
-                        <Button variant="light" className="btn-sm" title='Editar' >
+                        <Button
+                          variant="light"
+                          className="btn-sm"
+                          title="Editar"
+                        >
                           <i className="fas fa-edit"></i>
                         </Button>
                       </Link>
@@ -91,7 +98,7 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
                         onClick={() => {
                           if (
                             window.confirm(
-                              'Are you sure you want to delete this product?'
+                              "Are you sure you want to delete this product?"
                             )
                           ) {
                             deleteProduct(_product._id);

@@ -1,4 +1,13 @@
-import { IsString, IsNumber ,IsNotEmpty,IsOptional} from 'class-validator';
+import {
+  IsString,
+  IsNumber,
+  IsNotEmpty,
+  IsOptional,
+  IsArray,
+  ArrayNotEmpty,
+  IsMongoId,
+} from "class-validator";
+import { Category } from "src/categories/schemas/category.schema";
 
 export class ProductDto {
   @IsString()
@@ -11,7 +20,11 @@ export class ProductDto {
   image: string;
 
   @IsString()
-  category: string;
+  description: string;
+
+  @IsArray()
+  @IsMongoId()
+  categories: string[];
 
   @IsNumber()
   countInStock: number;
@@ -32,7 +45,11 @@ export class UpdateProductDto {
 
   @IsOptional()
   @IsString()
-  category?: string;
+  description?: string;
+
+  @IsOptional()
+  @IsArray()
+  categories?: Category[];
 
   @IsOptional()
   @IsNumber()
@@ -40,23 +57,25 @@ export class UpdateProductDto {
 }
 
 export class CreateProductDto {
-  @IsString({ message: 'El nombre debe ser una cadena de caracteres.' })
-  @IsNotEmpty({ message: 'El nombre no puede estar vacío.' })
+  @IsString({ message: "El nombre debe ser una cadena de caracteres." })
+  @IsNotEmpty({ message: "El nombre no puede estar vacío." })
   name: string;
 
-  @IsNumber({}, { message: 'El precio debe ser un número.' })
-  @IsNotEmpty({ message: 'El precio no puede estar vacío.' })
+  @IsNumber({}, { message: "El precio debe ser un número." })
+  @IsNotEmpty({ message: "El precio no puede estar vacío." })
   price: number;
 
-  @IsString({ message: 'La imagen debe ser una cadena de caracteres.' })
-  @IsNotEmpty({ message: 'La imagen no puede estar vacía.' })
+  @IsString({ message: "La imagen debe ser una cadena de caracteres." })
+  @IsNotEmpty({ message: "La imagen no puede estar vacía." })
   image: string;
 
-  @IsString({ message: 'La categoría debe ser una cadena de caracteres.' })
-  @IsNotEmpty({ message: 'La categoría no puede estar vacía.' })
-  category: string;
+  @IsString({ message: "La imagen debe ser una cadena de caracteres." })
+  description: string;
 
-  @IsNumber({}, { message: 'El conteo en stock debe ser un número.' })
-  @IsNotEmpty({ message: 'El conteo en stock no puede estar vacío.' })
+  @IsArray({ message: "No corresponde el tipo de datos" })
+  categories: string[];
+
+  @IsNumber({}, { message: "El conteo en stock debe ser un número." })
+  @IsNotEmpty({ message: "El conteo en stock no puede estar vacío." })
   countInStock: number;
 }

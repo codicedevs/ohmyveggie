@@ -2,56 +2,66 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { FilterQuery, Model, Types } from 'mongoose';
-import { PaginatedProducts } from 'src/interfaces';
-import { Product, ProductDocument } from '../schemas/product.schema';
-import { ProductDto } from '../dtos/product.dto';
+} from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { FilterQuery, Model, Types } from "mongoose";
+import { PaginatedProducts } from "src/interfaces";
+import { Product, ProductDocument } from "../schemas/product.schema";
+import { ProductDto } from "../dtos/product.dto";
+import {
+  Category,
+  CategoryDocument,
+} from "src/categories/schemas/category.schema";
 
 @Injectable()
 export class ProductsService {
   constructor(
-    @InjectModel(Product.name) public productModel: Model<ProductDocument>
-  ) { }
+    @InjectModel(Product.name) public productModel: Model<ProductDocument>,
+    @InjectModel(Category.name) public categoryModel: Model<CategoryDocument>
+  ) {}
 
-
-  async findMany(pageId: string, filter?: FilterQuery<ProductDocument>): Promise<ProductDocument[] | PaginatedProducts> {
-
+  async findMany(
+    pageId: string,
+    filter?: FilterQuery<ProductDocument>
+  ): Promise<ProductDocument[] | PaginatedProducts> {
     const pageSize = 10;
     const page = parseInt(pageId) || 1; //si no se proporciona pageId entrega 1
     if (!filter) {
       // Si no se proporciona un filtro busca todos los productos
       const products = await this.productModel.find();
-      if (!products.length) throw new NotFoundException('No products found.');
+      if (!products.length)
+        throw new NotFoundException("No hay productos con esos filtros");
       return products;
     }
+
+    const categ = await this.categoryModel.findOne({ name: filter.categories });
     const query: FilterQuery<ProductDocument> = {};
+
     if (filter.keyword) {
-      query.name = { $regex: new RegExp(filter.keyword, 'i') }
+      query.name = { $regex: new RegExp(filter.keyword, "i") };
     }
-    if (filter.category) {
-      query.category = filter.category
+    if (filter.categories) {
+      query.categories = categ._id;
     }
     const count = await this.productModel.countDocuments(query);
     const products = await this.productModel
       .find(query)
       .limit(pageSize)
-      .skip(pageSize * (page - 1));;
+      .skip(pageSize * (page - 1));
 
-    if (!products.length) throw new NotFoundException('No products found.');
+    if (!products.length)
+      throw new NotFoundException("No hay productos con esos filtros");
 
-    
     return { products, page, pages: Math.ceil(count / pageSize) };
   }
 
   async findById(id: string): Promise<ProductDocument> {
     if (!Types.ObjectId.isValid(id))
-      throw new BadRequestException('Invalid product ID.');
+      throw new BadRequestException("Invalid product ID.");
 
-    const product = await this.productModel.findById(id);
+    const product = await this.productModel.findById(id).populate("categories");
 
-    if (!product) throw new NotFoundException('No product with given ID.');
+    if (!product) throw new NotFoundException("No product with given ID.");
 
     return product;
   }
@@ -65,8 +75,15 @@ export class ProductsService {
   }
 
   async createOne(productDetails: ProductDto): Promise<ProductDocument> {
-    const createdProduct = await this.productModel.create(productDetails);
-    return createdProduct;
+    const categories = await this.categoryModel
+      .find({ _id: { $in: productDetails.categories } })
+      .exec();
+    console.log("back", productDetails);
+    const createdProduct = new this.productModel({
+      ...productDetails,
+      categories,
+    });
+    return this.productModel.create(createdProduct);
   }
 
   async update(
@@ -74,28 +91,38 @@ export class ProductsService {
     attrs: Partial<ProductDocument>
   ): Promise<ProductDocument> {
     if (!Types.ObjectId.isValid(id)) {
-      throw new BadRequestException('Invalid product ID.');
+      throw new BadRequestException("Invalid product ID.");
     }
-  
+
+    console.log("lo que llega para cambiar", attrs);
+
+    for (let i = 0; i < attrs.categories.length; i++) {
+      if (attrs.categories[i].customOption) {
+        const newCat = { name: attrs.categories[i].name };
+        const catToPut = await this.categoryModel.create(newCat);
+        attrs.categories[i] = catToPut;
+      }
+    }
     const updatedProduct = await this.productModel.findByIdAndUpdate(
       id,
       attrs,
       { new: true, runValidators: true }
     );
-  
+
     if (!updatedProduct) {
-      throw new NotFoundException('No product with given ID.');
+      throw new NotFoundException("No product with given ID.");
     }
-  
+
     return updatedProduct;
   }
+
   async deleteOne(id: string): Promise<void> {
     if (!Types.ObjectId.isValid(id))
-      throw new BadRequestException('Invalid product ID.');
+      throw new BadRequestException("Invalid product ID.");
 
     const product = await this.productModel.findById(id);
 
-    if (!product) throw new NotFoundException('No product with given ID.');
+    if (!product) throw new NotFoundException("No product with given ID.");
 
     await product.remove();
   }
@@ -105,8 +132,7 @@ export class ProductsService {
   }
 
   async getAllCategories(): Promise<string[]> {
-    const categories = await this.productModel.distinct('category').exec();
+    const categories = await this.productModel.distinct("category").exec();
     return categories;
   }
-
 }
