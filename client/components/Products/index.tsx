@@ -134,33 +134,6 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
           </div>
 
           <div className="div-block-17">
-            {keyword ? null : ( // si hay busqueda no muestra destacados
-              <>
-                <div className="categorie">
-                  <h2 className="heading-2">Productos destacados</h2>
-                  {/* <div className="text-block-3">Le ofrecemos una gran variedad</div> */}
-                </div>
-                <div className="prods">
-                  {loading ? (
-                    <Loader />
-                  ) : error ? (
-                    <Message variant="danger">{error}</Message>
-                  ) : (
-                    <>
-                      {products.slice(0, 3).map(
-                        (
-                          product,
-                          idx // muestra los primeros 3 prods
-                        ) => (
-                          <Item key={idx} {...product} />
-                        )
-                      )}
-                    </>
-                  )}
-                </div>
-              </>
-            )}
-
             <div className="categorie" id="scrollUp">
               {keyword ? (
                 <h2 className="heading-2">{keyword}</h2>
