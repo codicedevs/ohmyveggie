@@ -7,13 +7,15 @@ import {
 import { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Button, ListGroup } from "react-bootstrap";
-import Link from "next/link";
+import Link from "react-router-dom";
+import { useRouter } from "next/router";
 
 interface ProductDetailsProps {
   pageId: string | string[] | undefined;
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
+  const router = useRouter();
   const [qty, setQty] = useState(1);
   const { fetchProduct, createProductReview } = useProductsActions();
   const { addToCart } = useCartActions();
@@ -128,15 +130,18 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
           </Button>
         ) : null}
 
-        <Link href="/#productos" passHref>
-          <Button
-            variant="outline-dark"
-            type="button"
-            className="btn btn-block"
-          >
-            Volver
-          </Button>
-        </Link>
+        <Button
+          variant="outline-dark"
+          type="button"
+          className="btn btn-block"
+          onClick={() => router.back()}
+        >
+          Volver
+        </Button>
+
+        {/* <Link href="/#productos" passHref>
+          
+        </Link> */}
       </div>
     </section>
   );

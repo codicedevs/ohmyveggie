@@ -161,6 +161,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
                     pages={pages}
                     page={page}
                     keyword={keyword ? keyword : ""}
+                    category={catSel}
                   />
                 </>
               )}

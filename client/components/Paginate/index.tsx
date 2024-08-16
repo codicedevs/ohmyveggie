@@ -9,6 +9,7 @@ interface PaginateProps {
   page: number;
   isAdmin?: boolean;
   keyword?: query;
+  category: string;
 }
 
 const Paginate: React.FC<PaginateProps> = ({
@@ -16,13 +17,20 @@ const Paginate: React.FC<PaginateProps> = ({
   page,
   isAdmin = false,
   keyword = "",
+  category = "",
 }) => {
   const showPageLimit = 3;
   const { fetchProducts } = useProductsActions();
 
   const handleRoute = (pageId: number) => {
+    console.log("categor", category);
     try {
-      fetchProducts( {pageId, keyword, shouldScroll: true} );
+      fetchProducts({
+        pageId,
+        keyword,
+        shouldScroll: true,
+        categories: category,
+      });
     } catch (err) {
       console.log(err);
     } finally {
@@ -37,9 +45,14 @@ const Paginate: React.FC<PaginateProps> = ({
   const renderPaginationItems = () => {
     const paginationItems = [];
     const orientation = page === pages ? -1 : 1;
-    const condition = orientation === 1 ? showPageLimit + page : page - showPageLimit;
-  
-    for (let i = page; orientation === 1 ? i <= condition : i >= condition; i += orientation) {
+    const condition =
+      orientation === 1 ? showPageLimit + page : page - showPageLimit;
+
+    for (
+      let i = page;
+      orientation === 1 ? i <= condition : i >= condition;
+      i += orientation
+    ) {
       if (i > 0 && i <= pages) {
         paginationItems.push(
           <Pagination.Item
@@ -52,7 +65,7 @@ const Paginate: React.FC<PaginateProps> = ({
         );
       }
     }
-  
+
     return paginationItems;
   };
 
