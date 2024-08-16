@@ -123,7 +123,7 @@ const CartNew: React.FC<{ toggleCart: () => void }> = (props) => {
 
         {cartItems.length > 0 ? (
           <div
-            className="buybutton d-flex row gap-2"
+            className="buybutton d-flex row gap-2 pt-3"
             style={{ fontSize: "13px" }}
           >
             <button
