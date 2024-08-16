@@ -63,7 +63,6 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
 
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("estp", productDetails);
     updateProduct(pageId as string, productDetails);
   };
 
@@ -97,7 +96,6 @@ const ProductsEdit: React.FC<ProductsEditProps> = ({ pageId }) => {
   const availableCategories = categories.filter(
     (cat) => !data.categories.some((selectedCat) => selectedCat._id === cat._id)
   );
-  console.log("details", productDetails);
   return (
     <>
       <Link href="/admin/products" passHref>

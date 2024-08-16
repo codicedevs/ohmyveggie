@@ -6,9 +6,13 @@ import { ActionTypes } from "./products.action-types";
 import { ProductsAction } from "./products.actions";
 import { Interface } from "readline";
 import { toast } from "react-toastify";
+import { ThunkDispatch } from "redux-thunk";
+import { RootState } from "../reducers";
+
+export type AppDispatch = ThunkDispatch<RootState, void, ProductsAction>;
 
 interface FetchProductsParams {
-  keyword?: query;
+  keyword?: query | string;
   pageId?: number;
   categories?: string;
   shouldScroll?: boolean;
@@ -26,6 +30,7 @@ export const fetchProducts =
       dispatch({
         type: ActionTypes.FETCH_PRODUCTS_START,
       });
+      pageId = Number(pageId);
 
       const { data } = await proshopAPI.get(
         `/products?keyword=${keyword}&categories=${categories}&pageId=${pageId}`
@@ -153,8 +158,8 @@ export const createProduct =
   };
 
 export const updateProduct =
-  (id: string, product: any, pageId?: any) =>
-  async (dispatch: Dispatch<ProductsAction>) => {
+  (id: string, product: any, pageId?: number) =>
+  async (dispatch: AppDispatch, getState: () => any) => {
     const config = {
       withCredentials: true,
     };
@@ -169,16 +174,17 @@ export const updateProduct =
         type: ActionTypes.UPDATE_PRODUCT_SUCCESS,
         payload: data,
       });
-
-      if (pageId) {
-        fetchProducts(pageId);
-      }
+      pageId = Number(pageId);
 
       dispatch({
         type: ActionTypes.UPDATE_PRODUCT_RESET,
       });
 
-      Router.push("/admin/products");
+      if (pageId) {
+        dispatch(fetchProducts({ pageId }));
+      } else {
+        Router.push("/admin/products");
+      }
     } catch (error: any) {
       dispatch({
         type: ActionTypes.UPDATE_PRODUCT_ERROR,

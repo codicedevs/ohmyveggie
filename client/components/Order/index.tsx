@@ -70,8 +70,6 @@ const Order: React.FC<OrderProps> = ({ pageId: orderId }) => {
     totalProductos += item.qty;
   });
 
-  console.log();
-
   return loading ? (
     <Loader />
   ) : error ? (

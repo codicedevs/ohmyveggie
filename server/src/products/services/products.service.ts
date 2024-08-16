@@ -95,8 +95,6 @@ export class ProductsService {
       throw new BadRequestException("Invalid product ID.");
     }
 
-    console.log("lo que llega para cambiar", attrs);
-
     for (let i = 0; i < attrs.categories.length; i++) {
       if (attrs.categories[i].customOption) {
         const newCat = { name: attrs.categories[i].name };

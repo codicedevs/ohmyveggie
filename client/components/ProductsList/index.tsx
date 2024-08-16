@@ -35,22 +35,22 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
     name: "",
   });
   const { data: categories } = useTypedSelector((state) => state.categories);
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
-    fetchProducts({ pageId: Number(pageId?.toString()) });
+    fetchProducts({ keyword, pageId: Number(pageId?.toString()) });
     fetchCategories();
   }, [fetchProducts, successDelete, pageId]);
 
-  const search = (keyword: string) => {
-    fetchProducts({ keyword, pageId: Number(pageId?.toString()) });
+  const search = (searchKey: string) => {
+    setKeyword(searchKey);
+    fetchProducts({ keyword: searchKey, pageId: Number(pageId?.toString()) });
   };
-
   const handleCategs = async (productId: string, selectedCategories: any) => {
     let product = products.find((p) => p._id === productId);
     product = { ...product, categories: selectedCategories };
 
-    updateProduct(product._id as string, product, pageId);
-    console.log(selectedCategories, "a ver");
+    updateProduct(product._id as string, product, page as number);
   };
 
   const availableCategories = (selectedCategories: any) => {
@@ -58,10 +58,9 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
       (cat) =>
         !selectedCategories.some((selectedCat) => selectedCat._id === cat._id)
     );
-    console.log("las categ dispo", categoriesSel);
     return categoriesSel;
   };
-  console.log("que hay aca", products);
+
   return (
     <>
       <section
@@ -181,7 +180,12 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
                 ))}
               </tbody>
             </Table>
-            <Paginate pages={pages} page={page} isAdmin={true} />
+            <Paginate
+              pages={pages}
+              page={page}
+              isAdmin={true}
+              keyword={keyword}
+            />
           </>
         )}
       </section>
