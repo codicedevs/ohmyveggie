@@ -30,12 +30,13 @@ const Item: React.FC<ProductInterface> = (product) => {
   const quantity =
     cartData.cartItems.find((item) => item.productId === _id)?.qty || 0;
 
-  function addQtyProd(item: any) {
-    const cartItemInterface = cartData.cartItems.find(function (item) {
+  async function addQtyProd(item: any) {
+    console.log("stock", countInStock);
+    const cartItemInterface = await cartData.cartItems.find((item) => {
       return item.productId == _id;
     });
-    console.log("lo que agrego", cartItemInterface);
-    if (!cartItemInterface || countInStock <= cartItemInterface?.qty) {
+
+    if (countInStock <= cartItemInterface?.qty || countInStock <= 0) {
       toast.error(`El stock es insuficiente`);
       return;
     }
