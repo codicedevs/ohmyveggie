@@ -153,7 +153,8 @@ export const createProduct =
   };
 
 export const updateProduct =
-  (id: string, product: any) => async (dispatch: Dispatch<ProductsAction>) => {
+  (id: string, product: any, pageId?: any) =>
+  async (dispatch: Dispatch<ProductsAction>) => {
     const config = {
       withCredentials: true,
     };
@@ -162,13 +163,16 @@ export const updateProduct =
       dispatch({
         type: ActionTypes.UPDATE_PRODUCT_START,
       });
-
       const { data } = await proshopAPI.put(`/products/${id}`, product, config);
 
       dispatch({
         type: ActionTypes.UPDATE_PRODUCT_SUCCESS,
         payload: data,
       });
+
+      if (pageId) {
+        fetchProducts(pageId);
+      }
 
       dispatch({
         type: ActionTypes.UPDATE_PRODUCT_RESET,

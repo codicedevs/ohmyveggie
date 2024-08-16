@@ -28,7 +28,7 @@ export class ProductsService {
     const page = parseInt(pageId) || 1; //si no se proporciona pageId entrega 1
     if (!filter) {
       // Si no se proporciona un filtro busca todos los productos
-      const products = await this.productModel.find();
+      const products = await this.productModel.find().populate("categories");
       if (!products.length)
         throw new NotFoundException("No hay productos con esos filtros");
       return products;
@@ -46,6 +46,7 @@ export class ProductsService {
     const count = await this.productModel.countDocuments(query);
     const products = await this.productModel
       .find(query)
+      .populate("categories")
       .limit(pageSize)
       .skip(pageSize * (page - 1));
 

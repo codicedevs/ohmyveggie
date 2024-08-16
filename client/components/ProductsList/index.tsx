@@ -1,17 +1,27 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Row, Col, Button, Table } from "react-bootstrap";
-import { useAdmin, useProductsActions, useTypedSelector } from "../../hooks";
+import {
+  useAdmin,
+  useCategoriesActions,
+  useProductsActions,
+  useTypedSelector,
+} from "../../hooks";
 import Loader from "../Loader";
 import Message from "../Message";
 import Paginate from "../Paginate";
 import SearchBoxAdmin from "../SearchBoxAdmin";
+import { Typeahead } from "react-bootstrap-typeahead";
+import "react-bootstrap-typeahead/css/Typeahead.css";
+
 interface ProductListProps {
   pageId?: query;
 }
 const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
   useAdmin();
-  const { fetchProducts, deleteProduct, createProduct } = useProductsActions();
+  const { fetchProducts, deleteProduct, createProduct, updateProduct } =
+    useProductsActions();
+  const { fetchCategories } = useCategoriesActions();
   const {
     loading,
     error,
@@ -20,13 +30,38 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
   const { success: successDelete } = useTypedSelector(
     (state) => state.productDelete
   );
+  const [selectCategProd, setSelectCategProd] = useState({
+    _id: null,
+    name: "",
+  });
+  const { data: categories } = useTypedSelector((state) => state.categories);
+
   useEffect(() => {
     fetchProducts({ pageId: Number(pageId?.toString()) });
+    fetchCategories();
   }, [fetchProducts, successDelete, pageId]);
 
   const search = (keyword: string) => {
     fetchProducts({ keyword, pageId: Number(pageId?.toString()) });
   };
+
+  const handleCategs = async (productId: string, selectedCategories: any) => {
+    let product = products.find((p) => p._id === productId);
+    product = { ...product, categories: selectedCategories };
+
+    updateProduct(product._id as string, product, pageId);
+    console.log(selectedCategories, "a ver");
+  };
+
+  const availableCategories = (selectedCategories: any) => {
+    const categoriesSel = categories.filter(
+      (cat) =>
+        !selectedCategories.some((selectedCat) => selectedCat._id === cat._id)
+    );
+    console.log("las categ dispo", categoriesSel);
+    return categoriesSel;
+  };
+  console.log("que hay aca", products);
   return (
     <>
       <section
@@ -77,7 +112,22 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
                     <td>{_product._id}</td>
                     <td>{_product.name}</td>
                     <td>${_product.price}</td>
-                    <td>-</td>
+                    <td>
+                      <Typeahead
+                        allowNew
+                        id="categories-selected"
+                        multiple
+                        newSelectionPrefix="Agregar nueva categoria"
+                        options={availableCategories(_product.categories)}
+                        labelKey="name"
+                        onChange={(selected) => {
+                          handleCategs(_product._id, selected);
+                        }}
+                        selected={_product.categories}
+                        placeholder="Ingrese las categorias del producto"
+                        emptyLabel="No hay categorias con ese nombre"
+                      />
+                    </td>
                     <td>
                       <Link
                         href={`/admin/products/edit/${_product._id}`}
