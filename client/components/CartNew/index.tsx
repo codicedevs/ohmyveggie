@@ -19,7 +19,7 @@ const CartNew: React.FC<{ toggleCart: () => void }> = (props) => {
   };
 
   function eraseCart() {
-      deleteAllCart();
+    deleteAllCart();
   }
 
   function addQtyProd(item: any) {
@@ -122,7 +122,10 @@ const CartNew: React.FC<{ toggleCart: () => void }> = (props) => {
         </div>
 
         {cartItems.length > 0 ? (
-          <div className="buybutton d-flex row gap-3">
+          <div
+            className="buybutton d-flex row gap-2"
+            style={{ fontSize: "13px" }}
+          >
             <button
               className="button w-button"
               style={{ backgroundColor: "#AA3388" }}
