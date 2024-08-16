@@ -103,6 +103,7 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
                   <th>Nombre de producto</th>
                   <th>Precio</th>
                   <th>Categoria</th>
+                  <th>Foto</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -127,6 +128,24 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
                         placeholder="Ingrese las categorias del producto"
                         emptyLabel="No hay categorias con ese nombre"
                       />
+                    </td>
+                    <td style={{ width: "100px", height: "auto" }}>
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "100px",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <img
+                          src={_product.image}
+                          style={{
+                            height: "100%",
+                            width: "auto",
+                            objectFit: "cover",
+                          }}
+                        />
+                      </div>
                     </td>
                     <td>
                       <Link
