@@ -9,7 +9,7 @@ interface PaginateProps {
   page: number;
   isAdmin?: boolean;
   keyword?: query;
-  category: string;
+  category?: string;
 }
 
 const Paginate: React.FC<PaginateProps> = ({
