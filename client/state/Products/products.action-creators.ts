@@ -16,6 +16,7 @@ interface FetchProductsParams {
   pageId?: number;
   categories?: string;
   shouldScroll?: boolean;
+  isAdmin?: boolean;
 }
 
 export const fetchProducts =
@@ -24,6 +25,7 @@ export const fetchProducts =
     pageId = 1,
     categories = "",
     shouldScroll = false,
+    isAdmin = false,
   }: FetchProductsParams) =>
   async (dispatch: Dispatch<ProductsAction>) => {
     try {
@@ -31,10 +33,11 @@ export const fetchProducts =
         type: ActionTypes.FETCH_PRODUCTS_START,
       });
       pageId = Number(pageId);
-
+      console.log(isAdmin);
       const { data } = await proshopAPI.get(
-        `/products?keyword=${keyword}&categories=${categories}&pageId=${pageId}`
+        `/products?keyword=${keyword}&categories=${categories}&pageId=${pageId}&isAdmin=${isAdmin}`
       );
+
       setTimeout(() => {
         dispatch({
           type: ActionTypes.FETCH_PRODUCTS_SUCCESS,

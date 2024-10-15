@@ -90,113 +90,98 @@ const Navbar = () => {
             className="image-3"
           />
         </Link>
+        <div className="cartItemsNew">
+          <div className={`nav_items ${isOpen && "open"}`}>
+            <Link href="/">
+              <p> Inicio </p>
+            </Link>
+            <Link href="/about">
+              <p> Nosotros </p>
+            </Link>
+            <div className="buttonswrapper">
+              <div className="div-block-31">
+                {user.data ? (
+                  <>
+                    <NavDropdown title={user.data.name} id="username">
+                      <Link href="/profile" passHref>
+                        <NavDropdown.Item style={{ color: "black" }}>
+                          Perfil
+                        </NavDropdown.Item>
+                      </Link>
+                      <NavDropdown.Item
+                        style={{ color: "black" }}
+                        onClick={() => logout()}
+                      >
+                        Salir
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </>
+                ) : (
+                  <Nav.Link onClick={() => dispatch({ type: AT.TOGGLE_LOGIN })}>
+                    Ingresar
+                  </Nav.Link>
 
-        <div className={`nav_items ${isOpen && "open"}`}>
-          <Link href="/">
-            <p> Inicio </p>
-          </Link>
-          <Link href="/about">
-            <p> Nosotros </p>
-          </Link>
-          <div className="buttonswrapper">
-            <div className="div-block-31">
-              <div
-                style={{ position: "relative", width: "80px" }}
-                onClick={toggleCart}
-              >
-                <Nav.Link>
-                  <img
-                    src="/images/shopLila.png"
-                    loading="lazy"
-                    data-w-id="2eff27b6-1120-3c74-74f7-fc6d34090150"
-                    alt=""
-                    className="image-4-shop"
-                    // srcSet="/images/shopLila.png 500w, /images/shopLila.png 800w, /Simages/shopLila.png 830w"
-                  />
-                  {cartItems.reduce((acc, item) => acc + item.qty, 0) ? (
-                    <div className="div-block-30">
-                      {cartItems.reduce((acc, item) => acc + item.qty, 0)}
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </Nav.Link>
-              </div>
+                  // </Link>
+                )}
 
-              {/* <Button onClick={() => dispatch({type: AT.TOGGLE_LOGIN})}>
-                
-                </Button> */}
-
-              {user.data ? (
-                <>
-                  {/* <img
-                      src="/images/loginLila.png"
-                      loading="lazy"
-                      data-w-id="5021ecdb-f327-aca9-730b-42c1c27b6526"
-                      alt=""
-                      className="image-4"
-                      // srcSet="/images/loginLila.png 500w, images/loginLila.png 800w, images/loginLila.png 830w"
-                    /> */}
-
-                  <NavDropdown title={user.data.name} id="username">
-                    <Link href="/profile" passHref>
+                {user.data && user.data.isAdmin && (
+                  <NavDropdown title="Menu administrador" id="username">
+                    <Link href="/admin/users" passHref>
                       <NavDropdown.Item style={{ color: "black" }}>
-                        Perfil
+                        Usuarios
                       </NavDropdown.Item>
                     </Link>
-                    <NavDropdown.Item
-                      style={{ color: "black" }}
-                      onClick={() => logout()}
-                    >
-                      Salir
-                    </NavDropdown.Item>
+                    <Link href="/admin/products" passHref>
+                      <NavDropdown.Item style={{ color: "black" }}>
+                        Productos
+                      </NavDropdown.Item>
+                    </Link>
+                    <Link href="/admin/categories" passHref>
+                      <NavDropdown.Item style={{ color: "black" }}>
+                        Categorias
+                      </NavDropdown.Item>
+                    </Link>
+                    <Link href="/admin/orders" passHref>
+                      <NavDropdown.Item style={{ color: "black" }}>
+                        Ordenes
+                      </NavDropdown.Item>
+                    </Link>
                   </NavDropdown>
-                </>
-              ) : (
-                <Nav.Link onClick={() => dispatch({ type: AT.TOGGLE_LOGIN })}>
-                  Ingresar
-                </Nav.Link>
-
-                // </Link>
-              )}
-
-              {user.data && user.data.isAdmin && (
-                <NavDropdown title="Menu administrador" id="username">
-                  <Link href="/admin/users" passHref>
-                    <NavDropdown.Item style={{ color: "black" }}>
-                      Usuarios
-                    </NavDropdown.Item>
-                  </Link>
-                  <Link href="/admin/products" passHref>
-                    <NavDropdown.Item style={{ color: "black" }}>
-                      Productos
-                    </NavDropdown.Item>
-                  </Link>
-                  <Link href="/admin/categories" passHref>
-                    <NavDropdown.Item style={{ color: "black" }}>
-                      Categorias
-                    </NavDropdown.Item>
-                  </Link>
-                  <Link href="/admin/orders" passHref>
-                    <NavDropdown.Item style={{ color: "black" }}>
-                      Ordenes
-                    </NavDropdown.Item>
-                  </Link>
-                </NavDropdown>
-              )}
+                )}
+              </div>
             </div>
+            <div className="cartIcon"></div>
           </div>
+          <div
+            className={`nav_toggle ${isOpen && "open"}`}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <Nav.Link>
+            <div onClick={toggleCart}>
+              {cartItems.reduce((acc, item) => acc + item.qty, 0) ? (
+                <div className="div-block-30">
+                  {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                </div>
+              ) : (
+                ""
+              )}
+              <img
+                src="/images/shopLila.png"
+                loading="lazy"
+                data-w-id="2eff27b6-1120-3c74-74f7-fc6d34090150"
+                alt=""
+                className="image-4-shop"
+                // srcSet="/images/shopLila.png 500w, /images/shopLila.png 800w, /Simages/shopLila.png 830w"
+              />
+            </div>
+          </Nav.Link>
         </div>
-        <div
-          className={`nav_toggle ${isOpen && "open"}`}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        {isVisibleCart && <CartNew toggleCart={toggleCart} />}
       </div>
-      {isVisibleCart && <CartNew toggleCart={toggleCart} />}
     </>
   );
 };

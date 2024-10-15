@@ -38,13 +38,21 @@ const ProductsList: React.FC<ProductListProps> = ({ pageId }) => {
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
-    fetchProducts({ keyword, pageId: Number(pageId?.toString()) });
+    fetchProducts({
+      keyword,
+      pageId: Number(pageId?.toString()),
+      isAdmin: true,
+    });
     fetchCategories();
   }, [fetchProducts, successDelete, pageId]);
 
   const search = (searchKey: string) => {
     setKeyword(searchKey);
-    fetchProducts({ keyword: searchKey, pageId: Number(pageId?.toString()) });
+    fetchProducts({
+      keyword: searchKey,
+      pageId: Number(pageId?.toString()),
+      isAdmin: true,
+    });
   };
   const handleCategs = async (productId: string, selectedCategories: any) => {
     let product = products.find((p) => p._id === productId);

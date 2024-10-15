@@ -26,9 +26,12 @@ export class ProductsService {
   ): Promise<ProductDocument[] | PaginatedProducts> {
     const pageSize = 10;
     const page = parseInt(pageId) || 1; //si no se proporciona pageId entrega 1
+
     if (!filter) {
       // Si no se proporciona un filtro busca todos los productos
-      const products = await this.productModel.find().populate("categories");
+      const products = await this.productModel.find({
+        countInStock: { $gt: 0 },
+      });
       if (!products.length)
         throw new NotFoundException("No hay productos con esos filtros");
       return products;
@@ -36,6 +39,10 @@ export class ProductsService {
 
     const categ = await this.categoryModel.findOne({ name: filter.categories });
     const query: FilterQuery<ProductDocument> = {};
+
+    if (filter.isAdmin === "false") {
+      query.countInStock = { $gt: 0 };
+    }
 
     if (filter.keyword) {
       query.name = { $regex: new RegExp(filter.keyword, "i") };
