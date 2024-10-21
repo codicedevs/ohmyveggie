@@ -26,8 +26,9 @@ export class ProductsService {
   ): Promise<ProductDocument[] | PaginatedProducts> {
     const pageSize = 10;
     const page = parseInt(pageId) || 1; //si no se proporciona pageId entrega 1
+    const { isAdmin, ...restFilter } = filter;
 
-    if (filter.isAdmin === "false") {
+    if (filter.isAdmin === "false" && !restFilter) {
       const products = await this.productModel.find({
         countInStock: { $gt: 0 },
       });
