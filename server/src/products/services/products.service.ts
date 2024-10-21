@@ -28,7 +28,7 @@ export class ProductsService {
     const page = parseInt(pageId) || 1; //si no se proporciona pageId entrega 1
     const { isAdmin, ...restFilter } = filter;
 
-    if (filter.isAdmin === "false" && !restFilter) {
+    if (isAdmin === "false" && !restFilter.keyword && !restFilter.categories) {
       const products = await this.productModel.find({
         countInStock: { $gt: 0 },
       });
