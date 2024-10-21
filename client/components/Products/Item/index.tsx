@@ -31,7 +31,6 @@ const Item: React.FC<ProductInterface> = (product) => {
     cartData.cartItems.find((item) => item.productId === _id)?.qty || 0;
 
   async function addQtyProd(item: any) {
-    console.log("stock", countInStock);
     const cartItemInterface = await cartData.cartItems.find((item) => {
       return item.productId == _id;
     });

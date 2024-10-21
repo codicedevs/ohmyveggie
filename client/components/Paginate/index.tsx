@@ -15,7 +15,7 @@ interface PaginateProps {
 const Paginate: React.FC<PaginateProps> = ({
   pages,
   page,
-  isAdmin = false,
+  isAdmin,
   keyword = "",
   category = "",
 }) => {
@@ -23,13 +23,13 @@ const Paginate: React.FC<PaginateProps> = ({
   const { fetchProducts } = useProductsActions();
 
   const handleRoute = (pageId: number) => {
-    console.log("categor", category);
     try {
       fetchProducts({
         pageId,
         keyword,
         shouldScroll: true,
         categories: category,
+        isAdmin,
       });
     } catch (err) {
       console.log(err);

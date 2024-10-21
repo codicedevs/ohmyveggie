@@ -75,6 +75,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
       keyword,
       pageId: Number(pageId?.toString()),
       categories: catSel,
+      isAdmin: false,
     });
   }, [keyword, pageId, catSel]);
 
@@ -162,6 +163,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
                     page={page}
                     keyword={keyword ? keyword : ""}
                     category={catSel}
+                    isAdmin={false}
                   />
                 </>
               )}

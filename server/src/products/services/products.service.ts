@@ -27,20 +27,21 @@ export class ProductsService {
     const pageSize = 10;
     const page = parseInt(pageId) || 1; //si no se proporciona pageId entrega 1
 
-    if (!filter) {
-      // Si no se proporciona un filtro busca todos los productos
+    if (filter.isAdmin === "false") {
       const products = await this.productModel.find({
         countInStock: { $gt: 0 },
       });
       if (!products.length)
         throw new NotFoundException("No hay productos con esos filtros");
-      return products;
+      const count = await this.productModel.countDocuments();
+
+      return { products, page, pages: Math.ceil(count / pageSize) };
     }
 
     const categ = await this.categoryModel.findOne({ name: filter.categories });
     const query: FilterQuery<ProductDocument> = {};
 
-    if (filter.isAdmin === "false") {
+    if (filter.isAdmin === undefined) {
       query.countInStock = { $gt: 0 };
     }
 
@@ -50,6 +51,7 @@ export class ProductsService {
     if (filter.categories) {
       query.categories = categ._id;
     }
+
     const count = await this.productModel.countDocuments(query);
     const products = await this.productModel
       .find(query)
@@ -86,7 +88,6 @@ export class ProductsService {
     const categories = await this.categoryModel
       .find({ _id: { $in: productDetails.categories } })
       .exec();
-    console.log("back", productDetails);
     const createdProduct = new this.productModel({
       ...productDetails,
       categories,
