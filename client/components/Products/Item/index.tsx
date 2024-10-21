@@ -86,14 +86,7 @@ const Item: React.FC<ProductInterface> = (product) => {
           <a>
             <>
               <div className="picture" title="Ver detalle de producto">
-                <img
-                  src={
-                    image
-                      ? image
-                      : "/images/90656_VIVERA_UK_PACKSHOT_VEGGIE-BURGER-768x979-p-500.png"
-                  }
-                  loading="lazy"
-                />
+                <img src={image ? image : "/images/1.png"} loading="lazy" />
               </div>
             </>
           </a>
