@@ -39,17 +39,10 @@ const Footer = () => {
                   <NavLink href="/about">
                     <li className="footerlistitem">Nosotros</li>
                   </NavLink>
-                  <li className="footerlistitem" style={{ marginTop: 5 }}>
-                    Contactate con nosotros
-                  </li>
+                  <li className="footerlistitem" style={{marginTop:5}}>Contactate con nosotros</li>
                   <div
                     id="logos"
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "10px",
-                      scale: "130%",
-                    }}
+                    style={{ display: "flex", justifyContent: "center", marginTop: "10px", scale: "130%"}}
                   >
                     <NavLink href="mailto:info@omvrosario.com">
                       <li className="footerlistitem">
@@ -98,7 +91,7 @@ const Footer = () => {
                   className="text-block-7"
                   style={{ fontSize: 12, fontWeight: 400, textAlign: "center" }}
                 >
-                  Todos los derechos reservados
+                  Todos los rerechos reservados
                 </p>
                 <img src="/images/logo2.png" loading="lazy" width={70} alt="" />
               </div>
