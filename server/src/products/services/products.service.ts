@@ -29,12 +29,20 @@ export class ProductsService {
     const { isAdmin, ...restFilter } = filter;
 
     if (isAdmin === "false" && !restFilter.keyword && !restFilter.categories) {
-      const products = await this.productModel.find({
-        countInStock: { $gt: 0 },
-      });
+      const products = await this.productModel
+        .find({
+          countInStock: { $gt: 0 },
+        })
+        .populate("categories")
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
       if (!products.length)
         throw new NotFoundException("No hay productos con esos filtros");
-      const count = await this.productModel.countDocuments();
+      const count = await this.productModel
+        .find({
+          countInStock: { $gt: 0 },
+        })
+        .countDocuments();
 
       return { products, page, pages: Math.ceil(count / pageSize) };
     }
