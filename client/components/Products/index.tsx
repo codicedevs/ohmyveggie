@@ -24,6 +24,8 @@ interface ProductsInterface {
 }
 
 const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
+  const params = useRouter();
+  console.log(params.query);
   const [catSel, setCatSel] = useState("");
   const [catSelectedId, setCatSelectedId] = useState("");
   const { fetchCategories } = useCategoriesActions();
@@ -35,10 +37,22 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
   } = useTypedSelector((state) => state.products);
   const { data: categories } = useTypedSelector((state) => state.categories);
   const { data: cartItems } = useTypedSelector((state) => state.cart);
+  const router = useRouter();
+
+  const addQueryParam = (arg) => {
+    const params = new URLSearchParams();
+    params.set("filter", arg);
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}?${params.toString()}`
+    );
+  };
 
   function handleCatSel(cat: string, id: string) {
     setCatSel(cat);
     setCatSelectedId(id);
+    addQueryParam(cat);
   }
 
   const Button = ({ filter }: { filter: string }) => {
@@ -67,17 +81,16 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
   };
 
   useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
     fetchProducts({
       keyword,
       pageId: Number(pageId?.toString()),
       categories: catSel,
       isAdmin: false,
     });
-  }, [keyword, pageId, catSel]);
+    fetchCategories();
+  }, [keyword, pageId, catSel, router.query]);
+
+  console.log(catSelectedId);
 
   return (
     <>
@@ -115,7 +128,8 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
                   <li
                     key={idx}
                     className={
-                      catSelectedId === idx.toString()
+                      catSelectedId === idx.toString() ||
+                      router.query.filter === idx.toString()
                         ? "listitem listitemselected"
                         : "listitem"
                     }

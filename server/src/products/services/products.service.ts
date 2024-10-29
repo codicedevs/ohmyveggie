@@ -50,7 +50,7 @@ export class ProductsService {
     const categ = await this.categoryModel.findOne({ name: filter.categories });
     const query: FilterQuery<ProductDocument> = {};
 
-    if (filter.isAdmin === undefined) {
+    if (filter.isAdmin === "false") {
       query.countInStock = { $gt: 0 };
     }
 
