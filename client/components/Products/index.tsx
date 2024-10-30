@@ -81,20 +81,25 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
   };
 
   useEffect(() => {
-    if (router.query && router.isReady) {
-      setCatSel(String(router.query.category));
-      setCatSelectedId(String(router.query.id));
+    if (router.query && !catSel) {
+      if (router.isReady && router.query.category) {
+        fetchProducts({
+          keyword,
+          pageId: Number(pageId?.toString()),
+          categories: router.query.category as string,
+          isAdmin: false,
+          shouldScroll: true,
+        });
+      }
+    } else {
+      fetchProducts({
+        keyword,
+        pageId: Number(pageId?.toString()),
+        categories: catSel,
+        isAdmin: false,
+        shouldScroll: true,
+      });
     }
-  }, [router.isReady]);
-
-  useEffect(() => {
-    fetchProducts({
-      keyword,
-      pageId: Number(pageId?.toString()),
-      categories: catSel,
-      isAdmin: false,
-      shouldScroll: true,
-    });
 
     fetchCategories();
   }, [keyword, pageId, catSel, router.query]);
@@ -160,8 +165,10 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
                 <h2 className="heading-2">{keyword}</h2>
               ) : (
                 <>
-                  {catSel ? (
-                    <h2 className="heading-2">{catSel}</h2>
+                  {catSel || router.query.category ? (
+                    <h2 className="heading-2">
+                      {catSel || router.query.category}
+                    </h2>
                   ) : (
                     <h2 className="heading-2">TODOS LOS PRODUCTOS</h2>
                   )}
