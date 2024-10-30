@@ -37,10 +37,13 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
   const { data: cartItems } = useTypedSelector((state) => state.cart);
   const router = useRouter();
   //
-  const addQueryParam = (cat, id) => {
-    const params = new URLSearchParams();
-    params.set("category", cat);
-    params.set("id", id);
+  console.log("codigodepagina", router.query);
+  const params = new URLSearchParams();
+
+  const addQueryParam = (cat?, id?) => {
+    cat && params.set("category", cat);
+    id && params.set("id", id);
+
     window.history.replaceState(
       null,
       "",
@@ -52,19 +55,21 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
     setCatSel(cat);
     setCatSelectedId(id);
     addQueryParam(cat, id);
+    params.set("page", "1");
+    router.query.page = "1";
   }
-
   const Button = ({ filter }: { filter: string }) => {
     function handleClose(filter: string) {
       switch (filter) {
         case "category": {
           setCatSel("");
           setCatSelectedId("");
-          window.history.replaceState(null, "", `${window.location.pathname}`);
+          window.history.replaceState(null, "", "/");
         }
         default:
           break;
       }
+      console.log(catSel, "lacate");
     }
     return (
       <button
@@ -84,7 +89,6 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
     if (!router.query.category && !catSel && router.isReady) {
       fetchProducts({
         keyword,
-        pageId: Number(pageId?.toString()),
         categories: "",
         isAdmin: false,
         shouldScroll: true,
@@ -94,7 +98,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
       if (router.isReady && router.query.category) {
         fetchProducts({
           keyword,
-          pageId: Number(pageId?.toString()),
+          pageId: Number(router.query.page),
           categories: router.query.category as string,
           isAdmin: false,
           shouldScroll: true,
@@ -103,7 +107,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
     } else {
       fetchProducts({
         keyword,
-        pageId: Number(pageId?.toString()),
+        pageId: Number(router.query.page),
         categories: catSel,
         isAdmin: false,
         shouldScroll: true,
@@ -111,7 +115,14 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
     }
 
     fetchCategories();
-  }, [keyword, pageId, catSel, router.query.category, router.isReady]);
+  }, [
+    keyword,
+    pageId,
+    catSel,
+    router.query.category,
+    router.isReady,
+    router.query.page,
+  ]);
 
   return (
     <>

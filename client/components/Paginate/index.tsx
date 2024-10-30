@@ -3,6 +3,7 @@ import Link from "next/link";
 import { v4 } from "uuid";
 import { useRouter } from "next/router";
 import { useProductsActions } from "../../hooks";
+import { useEffect } from "react";
 
 interface PaginateProps {
   pages: number;
@@ -21,6 +22,7 @@ const Paginate: React.FC<PaginateProps> = ({
 }) => {
   const showPageLimit = 3;
   const { fetchProducts } = useProductsActions();
+  const route = useRouter();
 
   const handleRoute = (pageId: number) => {
     try {
@@ -68,6 +70,18 @@ const Paginate: React.FC<PaginateProps> = ({
 
     return paginationItems;
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      page && params.set("page", String(page));
+      window.history.replaceState(
+        null,
+        "",
+        `${window.location.pathname}?${params.toString()}`
+      );
+    }
+  }, [page]);
 
   return pages > 1 ? (
     <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
