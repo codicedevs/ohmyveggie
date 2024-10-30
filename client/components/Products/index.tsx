@@ -24,8 +24,6 @@ interface ProductsInterface {
 }
 
 const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
-  const params = useRouter();
-  console.log(params.query);
   const [catSel, setCatSel] = useState("");
   const [catSelectedId, setCatSelectedId] = useState("");
   const { fetchCategories } = useCategoriesActions();
@@ -38,10 +36,11 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
   const { data: categories } = useTypedSelector((state) => state.categories);
   const { data: cartItems } = useTypedSelector((state) => state.cart);
   const router = useRouter();
-
-  const addQueryParam = (arg) => {
+  //
+  const addQueryParam = (cat, id) => {
     const params = new URLSearchParams();
-    params.set("filter", arg);
+    params.set("category", cat);
+    params.set("id", id);
     window.history.replaceState(
       null,
       "",
@@ -52,7 +51,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
   function handleCatSel(cat: string, id: string) {
     setCatSel(cat);
     setCatSelectedId(id);
-    addQueryParam(cat);
+    addQueryParam(cat, id);
   }
 
   const Button = ({ filter }: { filter: string }) => {
@@ -61,6 +60,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
         case "category": {
           setCatSel("");
           setCatSelectedId("");
+          window.history.replaceState(null, "", `${window.location.pathname}`);
         }
         default:
           break;
@@ -81,16 +81,23 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
   };
 
   useEffect(() => {
+    if (router.query && router.isReady) {
+      setCatSel(String(router.query.category));
+      setCatSelectedId(String(router.query.id));
+    }
+  }, [router.isReady]);
+
+  useEffect(() => {
     fetchProducts({
       keyword,
       pageId: Number(pageId?.toString()),
       categories: catSel,
       isAdmin: false,
+      shouldScroll: true,
     });
+
     fetchCategories();
   }, [keyword, pageId, catSel, router.query]);
-
-  console.log(catSelectedId);
 
   return (
     <>
@@ -112,7 +119,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
           </a>
         </div>
       </div>
-
+      <div id="scrollUp" />
       <section id="productos" className="section">
         <div id="products" className="wrapperprods">
           <div className="wrapperstyckymenu">
@@ -128,8 +135,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
                   <li
                     key={idx}
                     className={
-                      catSelectedId === idx.toString() ||
-                      router.query.filter === idx.toString()
+                      catSelectedId === idx.toString()
                         ? "listitem listitemselected"
                         : "listitem"
                     }
@@ -149,12 +155,16 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
           </div>
 
           <div className="div-block-17">
-            <div className="categorie" id="scrollUp">
+            <div className="categorie">
               {keyword ? (
                 <h2 className="heading-2">{keyword}</h2>
               ) : (
                 <>
-                  <h2 className="heading-2">TODOS LOS PRODUCTOS</h2>
+                  {catSel ? (
+                    <h2 className="heading-2">{catSel}</h2>
+                  ) : (
+                    <h2 className="heading-2">TODOS LOS PRODUCTOS</h2>
+                  )}
                   <div className="text-block-3">
                     La mejor elección para usted
                   </div>
