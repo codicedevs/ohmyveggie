@@ -81,7 +81,16 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
   };
 
   useEffect(() => {
-    if (router.query && !catSel) {
+    if (!router.query.category && !catSel && router.isReady) {
+      fetchProducts({
+        keyword,
+        pageId: Number(pageId?.toString()),
+        categories: "",
+        isAdmin: false,
+        shouldScroll: true,
+      });
+    }
+    if (router.query.category && !catSel) {
       if (router.isReady && router.query.category) {
         fetchProducts({
           keyword,
@@ -102,7 +111,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
     }
 
     fetchCategories();
-  }, [keyword, pageId, catSel, router.query]);
+  }, [keyword, pageId, catSel, router.query.category, router.isReady]);
 
   return (
     <>
