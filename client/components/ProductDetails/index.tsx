@@ -7,7 +7,6 @@ import {
 import { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Button, ListGroup } from "react-bootstrap";
-import Link from "react-router-dom";
 import { useRouter } from "next/router";
 
 interface ProductDetailsProps {
@@ -39,6 +38,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
     numReviews,
     _id,
   } = product;
+
+  console.log("que esto", pageId, "mama", router);
 
   useEffect(() => {
     if (!pageId) return;
@@ -127,14 +128,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ pageId }) => {
           variant="outline-dark"
           type="button"
           className="btn btn-block"
-          onClick={() => router.back()}
+          onClick={() => router.push("/")}
         >
           Volver
         </Button>
-
-        {/* <Link href="/#productos" passHref>
-          
-        </Link> */}
       </div>
     </section>
   );

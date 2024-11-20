@@ -156,25 +156,28 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
                 <div className="div-block-15" />
               </div>
               <ul role="list" className="list w-list-unstyled">
-                {categories.map((cat, idx) => (
-                  <li
-                    key={idx}
-                    className={
-                      catSelectedId === idx.toString()
-                        ? "listitem listitemselected"
-                        : "listitem"
-                    }
-                    style={{ fontSize: "0.8rem" }}
-                    onClick={() => {
-                      handleCatSel(cat.name, idx.toString());
-                    }}
-                  >
-                    {cat.name.slice(0, 20)}
-                    {catSelectedId === idx.toString() && (
-                      <Button filter="category" />
-                    )}
-                  </li>
-                ))}
+                {categories
+                  .slice()
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((cat, idx) => (
+                    <li
+                      key={idx}
+                      className={
+                        catSelectedId === idx.toString()
+                          ? "listitem listitemselected"
+                          : "listitem"
+                      }
+                      style={{ fontSize: "0.8rem" }}
+                      onClick={() => {
+                        handleCatSel(cat.name, idx.toString());
+                      }}
+                    >
+                      {cat.name.slice(0, 20)}
+                      {catSelectedId === idx.toString() && (
+                        <Button filter="category" />
+                      )}
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
