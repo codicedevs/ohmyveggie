@@ -41,7 +41,7 @@ export class EmailService {
     return this.send({
       to: user.email,
       from: `"Oh My Veggie Rosario" <${this.defaultSender}>`,
-      subject: "Gracias por su compra en" + "Oh my veggie",
+      subject: "Gracias por su compra en" + " Oh My Veggie",
       html: purchaseSuccessTemplate(user, orderId),
     });
   }

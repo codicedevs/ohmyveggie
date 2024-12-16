@@ -3,10 +3,9 @@ import { User } from "src/users/schemas/user.schema";
 
 export const purchaseSuccessTemplate = (user: User, orderId: string) => `
     <!DOCTYPE html>
-    <html>
-    
+    <html>    
     <head>
-      <title>Gracias por su compra en ${"Oh my vegie"}</title>
+      <title>Gracias por su compra en <b>Oh my veggie</b></title>
       <style>
         body {
           font-family: Arial, sans-serif;
@@ -65,12 +64,18 @@ export const purchaseSuccessTemplate = (user: User, orderId: string) => `
 
     <body>
       <div class="container">
-        <p>Estimade ${user.name} ,</p>
-        <p>Nos complace informarle que su compra ha sido exitosa a traves de nuestra pagina!: es la numero : ${orderId} </p>
-        <p>Usted puede consultar su historial de compras directamente desde su perfil de usuario en Ohmyveggie</>
-        <ul>
-          <li>Saludos cordiales.</li> 
+        <h6>Estimado/a <b>${user.name}</b>,</h6>
+        <p>Nos complace informarle que hemos recibido su compra a traves de nuestra pagina!
+        <p>Su orden es la numero: ${orderId} </p>
+        <p>Usted puede consultar su historial de compras directamente desde su perfil de usuario en <b>Ohmyveggie</b></>
+        <br>
+        <p>Saludos cordiales</p> 
+        <img src="logo-p-500.png" style="max-width: 200px; display: block; margin: 20px auto;">
       </div>
-    </body>
+      <footer style="margin-top: 20px; font-size: 0.8em; color: #666;">
+      <p>Oh my veggie - Todos los derechos reservados.</p>
+      <p><a href="mailto:contacto@ohmyveggie.com">contacto@ohmyveggie.com</a></p>
+      </footer>
+      </body>
     </html>
-    `
+    `;

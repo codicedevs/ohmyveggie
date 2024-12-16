@@ -151,4 +151,20 @@ export class ProductsService {
     const categories = await this.productModel.distinct("category").exec();
     return categories;
   }
+
+  async importCSVProducts(products: any): Promise<string> {
+    await Promise.all(
+      products.map((product: Product) =>
+        this.productModel.updateMany(
+          { externalId: product.externalId },
+          { $set: product },
+          { upsert: true }
+        )
+      )
+    );
+    const activeIds = products.map((product) => product.externalId);
+    // Eliminar productos inactivos
+    await this.productModel.deleteMany({ externalId: { $nin: activeIds } });
+    return "ok";
+  }
 }
