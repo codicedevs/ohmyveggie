@@ -54,7 +54,6 @@ export class ProductsController {
   @Public()
   @Post("script/add")
   async addCSVProducts(@Body() products) {
-    console.log("cuantos products", products);
     await this.productsService.importCSVProducts(products);
   }
 }
