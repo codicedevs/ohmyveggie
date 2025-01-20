@@ -12,6 +12,8 @@ import {
   Category,
   CategoryDocument,
 } from "src/categories/schemas/category.schema";
+import { match } from "assert";
+import { showCompletionScript } from "yargs";
 
 @Injectable()
 export class ProductsService {
@@ -153,18 +155,124 @@ export class ProductsService {
   }
 
   async importCSVProducts(products: any): Promise<string> {
-    await Promise.all(
-      products.map((product: Product) =>
-        this.productModel.updateMany(
-          { externalId: product.externalId },
-          { $set: product },
-          { upsert: true }
-        )
-      )
+    const productsDB = await this.productModel.find({});
+
+    const changedProducts = getModifiedProducts(
+      productsDB,
+      products,
+      compareFields
     );
-    const activeIds = products.map((product) => product.externalId);
-    // Eliminar productos inactivos
-    await this.productModel.deleteMany({ externalId: { $nin: activeIds } });
+    const newProducts = getNewProducts(productsDB, products);
+    const deletedProducts = getDeletedProducts(productsDB, products);
+
+    const bulkOperations = [];
+
+    changedProducts.forEach((product) => {
+      bulkOperations.push({
+        updateOne: {
+          filter: { externalId: product.externalId },
+          update: { $set: product },
+          upsert: true,
+        },
+      });
+    });
+
+    newProducts.forEach((product) => {
+      bulkOperations.push({
+        insertOne: {
+          document: product,
+        },
+      });
+    });
+
+    deletedProducts.forEach((product) => {
+      bulkOperations.push({
+        deleteOne: {
+          filter: { externalId: product.externalId },
+        },
+      });
+    });
+
+    if (bulkOperations.length > 0) {
+      await this.productModel
+        .bulkWrite(bulkOperations)
+        .then((response) => console.log("funciono", response))
+        .catch((err) => console.log("no funciono", err));
+    }
+
+    // if (changedProducts.length > 0) {
+    //   await Promise.all(
+    //     changedProducts.map((product: Product) =>
+    //       this.productModel.updateMany(
+    //         { externalId: product.externalId },
+    //         { $set: product },
+    //         { upsert: true }
+    //       )
+    //     )
+    //   );
+    // }
+
+    // if (newProducts.length > 0) {
+    //   await Promise.all(
+    //     newProducts.map((product: Product) => this.productModel.create(product))
+    //   );
+    // }
+
+    // if (deletedProducts.length > 0) {
+    //   await Promise.all(
+    //     deletedProducts.map((product: Product) =>
+    //       this.productModel.deleteOne({ externalId: product.externalId })
+    //     )
+    //   );
+    // }
+
+    // const activeIds = products.map((product) => product.externalId);
+    // // Eliminar productos inactivos
+
+    // await this.productModel.deleteMany({ externalId: { $nin: activeIds } });
+
     return "ok";
   }
 }
+function getModifiedProducts(prodDB, prodExtCsv, keysToCompare) {
+  const idKey = "externalId";
+  const result = prodExtCsv.filter((itemNew) => {
+    const itemMatchDB = prodDB.find((itemOld) => {
+      return itemOld[idKey] === itemNew[idKey];
+    });
+
+    if (itemMatchDB) {
+      const hasDifference = keysToCompare.some((key) => {
+        return itemNew[key] !== itemMatchDB[key];
+      });
+      if (hasDifference) console.log("se cambio", itemMatchDB);
+      return hasDifference;
+    }
+    return false;
+  });
+
+  return result;
+}
+
+function getNewProducts(prodDB, prodExtCsv) {
+  const idsInDB = new Set(prodDB.map((item) => item.externalId));
+  return prodExtCsv.filter((item) => !idsInDB.has(String(item.externalId)));
+}
+function getDeletedProducts(prodDB, prodExtCsv) {
+  const idsInCsv = new Set(prodExtCsv.map((item) => String(item.externalId)));
+  const result = prodDB.filter((item) => {
+    if (!idsInCsv.has(item.externalId)) {
+      console.log("hay que borrar este", item);
+      console.log("el producto a borrar que esta en el CSV");
+      return true;
+    }
+  });
+
+  //los que se borraron son los items que no estan en el CSV y si estan en la DB
+
+  console.log("los que se borraron", result.length);
+
+  return result;
+}
+
+const compareFields = ["name", "price", "countInStock", "activo"];
