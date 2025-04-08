@@ -6,6 +6,7 @@ import {
   useCategoriesActions,
   useProductsActions,
   useTypedSelector,
+  useUIActions,
 } from "../../hooks";
 //importing components
 import { Row, Col, Button } from "react-bootstrap";
@@ -17,6 +18,7 @@ import ProductCarousel from "../ProductCarousel";
 import Link from "next/link";
 import SearchBox from "../SearchBox";
 import { useRouter } from "next/router";
+import UnderConstruction from "../../pages/underConstruction";
 
 interface ProductsInterface {
   keyword?: query;
@@ -36,8 +38,10 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
   const { data: categories } = useTypedSelector((state) => state.categories);
   const { data: cartItems } = useTypedSelector((state) => state.cart);
   const router = useRouter();
+  const { isUnderConstruction } = useTypedSelector((state) => state.uI);
+  const { getUnderConstruction } = useUIActions();
   //
-  console.log("codigodepagina", router.query);
+
   const params = new URLSearchParams();
 
   const addQueryParam = (cat?, id?) => {
@@ -115,6 +119,7 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
     }
 
     fetchCategories();
+    getUnderConstruction();
   }, [
     keyword,
     pageId,
@@ -126,109 +131,127 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
 
   return (
     <>
-      <div className="div-block-8">
-        <div className="div-block-16">
-          <img
-            src="images/logo2.png"
-            loading="lazy"
-            width={185}
-            alt=""
-            className="image-5"
-          />
-          <h1 className="heading">Comprá Online</h1>
-
-          <SearchBox />
-
-          <a href="#productos" className="herolink">
-            ¡Hacé tu pedido por la web y te lo enviamos a domicilio!
-          </a>
+      {isUnderConstruction ? (
+        <div className="div-block-8">
+          <div className="div-block-16">
+            <img
+              src="images/logo2.png"
+              loading="lazy"
+              width={185}
+              alt=""
+              className="image-5"
+            />
+            <h1 className="heading">Comprá Online</h1>
+            <UnderConstruction />
+          </div>
         </div>
-      </div>
-      <div id="scrollUp" />
-      <section id="productos" className="section">
-        <div id="products" className="wrapperprods">
-          <div className="wrapperstyckymenu">
-            <div className="stickymenu">
-              <div className="div-block-14">
-                <div className="div-block-13">
-                  <div className="text-block-2">Categorías</div>
-                </div>
-                <div className="div-block-15" />
-              </div>
-              <ul role="list" className="list w-list-unstyled">
-                {categories
-                  .slice()
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((cat, idx) => (
-                    <li
-                      key={idx}
-                      className={
-                        catSelectedId === idx.toString()
-                          ? "listitem listitemselected"
-                          : "listitem"
-                      }
-                      style={{ fontSize: "0.8rem" }}
-                      onClick={() => {
-                        handleCatSel(cat.name, idx.toString());
-                      }}
-                    >
-                      {cat.name.slice(0, 20)}
-                      {catSelectedId === idx.toString() && (
-                        <Button filter="category" />
-                      )}
-                    </li>
-                  ))}
-              </ul>
+      ) : (
+        <>
+          <div className="div-block-8">
+            <div className="div-block-16">
+              <img
+                src="images/logo2.png"
+                loading="lazy"
+                width={185}
+                alt=""
+                className="image-5"
+              />
+              <h1 className="heading">Comprá Online</h1>
+              <SearchBox />
+              <a href="#productos" className="herolink">
+                ¡Hacé tu pedido por la web y te lo enviamos a domicilio!
+              </a>
             </div>
           </div>
 
-          <div className="div-block-17">
-            <div className="categorie">
-              {keyword ? (
-                <h2 className="heading-2">{keyword}</h2>
-              ) : (
-                <>
-                  {catSel || router.query.category ? (
-                    <h2 className="heading-2">
-                      {catSel || router.query.category}
-                    </h2>
-                  ) : (
-                    <h2 className="heading-2">TODOS LOS PRODUCTOS</h2>
-                  )}
-                  <div className="text-block-3">
-                    La mejor elección para usted
+          <div id="scrollUp" />
+          <section id="productos" className="section">
+            <div id="products" className="wrapperprods">
+              <div className="wrapperstyckymenu">
+                <div className="stickymenu">
+                  <div className="div-block-14">
+                    <div className="div-block-13">
+                      <div className="text-block-2">Categorías</div>
+                    </div>
+                    <div className="div-block-15" />
                   </div>
-                </>
-              )}
-            </div>
-            <div className="prods">
-              {loading ? (
-                <Loader />
-              ) : error ? (
-                <Message variant="danger">{error}</Message>
-              ) : (
-                <>
-                  {products.map((product, idx) => (
-                    <Item key={idx} {...product} />
-                  ))}
+                  <ul role="list" className="list w-list-unstyled">
+                    {categories
+                      .slice()
+                      .sort((a, b) => a.name.localeCompare(b.name))
+                      .map((cat, idx) => (
+                        <li
+                          key={idx}
+                          className={
+                            catSelectedId === idx.toString()
+                              ? "listitem listitemselected"
+                              : "listitem"
+                          }
+                          style={{ fontSize: "0.8rem" }}
+                          onClick={() => {
+                            handleCatSel(cat.name, idx.toString());
+                          }}
+                        >
+                          {cat.name.slice(0, 20)}
+                          {catSelectedId === idx.toString() && (
+                            <Button filter="category" />
+                          )}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              </div>
 
-                  <Paginate
-                    pages={pages}
-                    page={page}
-                    keyword={keyword ? keyword : ""}
-                    category={catSel}
-                    isAdmin={false}
-                  />
-                </>
-              )}
-            </div>
+              <div className="div-block-17">
+                <div className="categorie">
+                  {keyword ? (
+                    <h2 className="heading-2">{keyword}</h2>
+                  ) : (
+                    <>
+                      {catSel || router.query.category ? (
+                        <h2 className="heading-2">
+                          {catSel || router.query.category}
+                        </h2>
+                      ) : (
+                        <h2 className="heading-2">TODOS LOS PRODUCTOS</h2>
+                      )}
+                      <div className="text-block-3">
+                        La mejor elección para usted
+                      </div>
+                    </>
+                  )}
+                </div>
 
-            <div className="categorie">
-              <ProductCarousel />
+                <div className="prods">
+                  {loading ? (
+                    <Loader />
+                  ) : error ? (
+                    <Message variant="danger">{error}</Message>
+                  ) : (
+                    <>
+                      {products.map((product, idx) => (
+                        <Item key={idx} {...product} />
+                      ))}
+
+                      <Paginate
+                        pages={pages}
+                        page={page}
+                        keyword={keyword ? keyword : ""}
+                        category={catSel}
+                        isAdmin={false}
+                      />
+                    </>
+                  )}
+                </div>
+
+                <div className="categorie">
+                  <ProductCarousel />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        </>
+      )}
     </>
   );
 };

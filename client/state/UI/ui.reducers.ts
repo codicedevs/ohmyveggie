@@ -11,6 +11,25 @@ export const uIReducer = (
     case ActionTypes.TOGGLE_LOGIN:
       return { ...state, isLoginVisible: !state.isLoginVisible };
 
+    case ActionTypes.TOGGLE_UNDER_CONSTRUCTION:
+      return {
+        ...state,
+        isUnderConstruction: !state.isUnderConstruction,
+      };
+
+    case ActionTypes.TOGGLE_UNDER_CONSTRUCTION_REQUEST:
+      return { ...state, loading: true, error: null };
+
+    case ActionTypes.TOGGLE_UNDER_CONSTRUCTION_SUCCESS:
+      return {
+        ...state,
+        isUnderConstruction: action.payload.status,
+        loading: false,
+      };
+
+    case ActionTypes.TOGGLE_UNDER_CONSTRUCTION_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+
     case ActionTypes.OPEN_LOGIN:
       return { ...state, isLoginVisible: true };
 
@@ -46,7 +65,7 @@ export const uIReducer = (
 
     case ActionTypes.EMAIL_UPDATE_RECOVER:
       return { ...state, emailForRecover: action.payload };
-  
+
     default:
       return state;
   }

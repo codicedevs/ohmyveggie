@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
-import { useTypedSelector, useUserActions } from "../../hooks";
-import { Button, Nav, NavDropdown, NavLink } from "react-bootstrap";
+import { useTypedSelector, useUIActions, useUserActions } from "../../hooks";
+import { Button, Form, Nav, NavDropdown, NavLink } from "react-bootstrap";
 import CartNew from "../CartNew";
 import { UserAction } from "../../state/User/user.actions";
 import { useDispatch } from "react-redux";
@@ -14,13 +14,16 @@ const Navbar = () => {
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
   };
-
   const user = useTypedSelector((state) => state.user);
 
-  const uI = useTypedSelector((state) => state.uI);
+  const {
+    isUnderConstruction,
+    loading: isUnderConstructionLoading,
+    error: isUnderConstructionError,
+  } = useTypedSelector((state) => state.uI);
 
+  const { toggleUnderConstruction } = useUIActions();
   const { logout } = useUserActions();
-
   const [isVisibleCart, setIsVisibleCart] = useState(false);
 
   const {
@@ -34,6 +37,10 @@ const Navbar = () => {
   }
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleUnderConstruction = async () => {
+    await toggleUnderConstruction();
+  };
   return (
     <>
       <div className="div-block-7" style={{ justifyContent: "space-arround" }}>
@@ -125,28 +132,30 @@ const Navbar = () => {
                 )}
 
                 {user.data && user.data.isAdmin && (
-                  <NavDropdown title="Menu administrador" id="username">
-                    <Link href="/admin/users" passHref>
-                      <NavDropdown.Item style={{ color: "black" }}>
-                        Usuarios
-                      </NavDropdown.Item>
-                    </Link>
-                    <Link href="/admin/products" passHref>
-                      <NavDropdown.Item style={{ color: "black" }}>
-                        Productos
-                      </NavDropdown.Item>
-                    </Link>
-                    <Link href="/admin/categories" passHref>
-                      <NavDropdown.Item style={{ color: "black" }}>
-                        Categorias
-                      </NavDropdown.Item>
-                    </Link>
-                    <Link href="/admin/orders" passHref>
-                      <NavDropdown.Item style={{ color: "black" }}>
-                        Ordenes
-                      </NavDropdown.Item>
-                    </Link>
-                  </NavDropdown>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <NavDropdown title="Menu administrador" id="username">
+                      <Link href="/admin/users" passHref>
+                        <NavDropdown.Item style={{ color: "black" }}>
+                          Usuarios
+                        </NavDropdown.Item>
+                      </Link>
+                      <Link href="/admin/products" passHref>
+                        <NavDropdown.Item style={{ color: "black" }}>
+                          Productos
+                        </NavDropdown.Item>
+                      </Link>
+                      <Link href="/admin/categories" passHref>
+                        <NavDropdown.Item style={{ color: "black" }}>
+                          Categorias
+                        </NavDropdown.Item>
+                      </Link>
+                      <Link href="/admin/orders" passHref>
+                        <NavDropdown.Item style={{ color: "black" }}>
+                          Ordenes
+                        </NavDropdown.Item>
+                      </Link>
+                    </NavDropdown>
+                  </div>
                 )}
               </div>
             </div>
@@ -179,6 +188,47 @@ const Navbar = () => {
               />
             </div>
           </Nav.Link>
+          {user.data && user.data.isAdmin && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "10px",
+                maxWidth: "60px",
+                maxHeight: "40px",
+              }}
+            >
+              <Form.Check
+                type="switch"
+                style={{ transform: "rotate(90deg)" }}
+                checked={isUnderConstruction}
+                onChange={() => {
+                  const message = isUnderConstruction
+                    ? "¿Seguro que querés desactivar el modo mantenimiento?"
+                    : "¿Seguro que querés activar el modo mantenimiento?";
+                  if (window.confirm(message)) {
+                    handleUnderConstruction();
+                  }
+                }}
+              />
+              <label
+                style={{
+                  fontSize: "0.7rem",
+                  fontWeight: 500,
+                  color: "white",
+                  lineHeight: 1,
+                  textAlign: "center",
+                  margin: 0,
+                  minHeight: "20px",
+                  minWidth: "40px",
+                }}
+              >
+                {isUnderConstruction && "En mantenimiento"}
+              </label>
+            </div>
+          )}
         </div>
         {isVisibleCart && <CartNew toggleCart={toggleCart} />}
       </div>

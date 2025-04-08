@@ -55,6 +55,16 @@
   text-align: center;
 }
 
+.form-check-input[type="checkbox"] {
+  align-items: center;
+  padding-left: 0;
+  border-radius: 10px;
+  background-color: #ccc;
+  transition: background-color 0.3s ease;
+}
+.form-check-input:checked {
+  background-color: #6f42c1;
+}
 .addRestButton {
   width: 20%;
   text-align: center;

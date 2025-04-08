@@ -6,6 +6,7 @@ import {
   CategoriesActionCreators,
   OrderActionCreators,
   ProductsActionCreators,
+  UIActionCreators,
   UserActionCreators,
 } from "../state";
 
@@ -30,6 +31,13 @@ export const useCartActions = () => {
 
   return useMemo(() => {
     return bindActionCreators(CartActionCreators, dispatch);
+  }, [dispatch]);
+};
+
+export const useUIActions = () => {
+  const dispatch = useDispatch();
+  return useMemo(() => {
+    return bindActionCreators(UIActionCreators, dispatch);
   }, [dispatch]);
 };
 
