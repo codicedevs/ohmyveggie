@@ -14,17 +14,12 @@ export type UIAction =
   | OpenResetPassword
   | CloseResetPassword
   | EmailUpdateRecover
-  | ToggleUnderConstruction
   | ToggleUnderConstructionRequestAction
   | ToggleUnderConstructionSuccessAction
   | ToggleUnderConstructionFailureAction;
 
 export interface ToggleLogin {
   type: ActionTypes.TOGGLE_LOGIN;
-}
-
-export interface ToggleUnderConstruction {
-  type: ActionTypes.TOGGLE_UNDER_CONSTRUCTION;
 }
 
 interface ToggleUnderConstructionRequestAction {

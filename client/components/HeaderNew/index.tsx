@@ -41,6 +41,7 @@ const Navbar = () => {
   const handleUnderConstruction = async () => {
     await toggleUnderConstruction();
   };
+
   return (
     <>
       <div className="div-block-7" style={{ justifyContent: "space-arround" }}>

@@ -22,7 +22,6 @@ export const toggleUnderConstruction = () => {
         type: ActionTypes.TOGGLE_UNDER_CONSTRUCTION_SUCCESS,
         payload: data,
       });
-      console.log(data, "data");
     } catch (err: any) {
       dispatch({
         type: ActionTypes.TOGGLE_UNDER_CONSTRUCTION_FAILURE,
@@ -36,10 +35,9 @@ export const getUnderConstruction = () => {
   return async (dispatch: Dispatch<UIAction>, getState: any) => {
     try {
       const { data } = await proshopAPI.get("/is-under-construction");
-
       dispatch({
-        type: ActionTypes.TOGGLE_UNDER_CONSTRUCTION,
-        payload: data.status,
+        type: ActionTypes.TOGGLE_UNDER_CONSTRUCTION_SUCCESS,
+        payload: data,
       });
     } catch (err: any) {
       dispatch({

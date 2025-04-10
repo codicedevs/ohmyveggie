@@ -11,12 +11,6 @@ export const uIReducer = (
     case ActionTypes.TOGGLE_LOGIN:
       return { ...state, isLoginVisible: !state.isLoginVisible };
 
-    case ActionTypes.TOGGLE_UNDER_CONSTRUCTION:
-      return {
-        ...state,
-        isUnderConstruction: !state.isUnderConstruction,
-      };
-
     case ActionTypes.TOGGLE_UNDER_CONSTRUCTION_REQUEST:
       return { ...state, loading: true, error: null };
 

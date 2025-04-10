@@ -119,7 +119,6 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
     }
 
     fetchCategories();
-    getUnderConstruction();
   }, [
     keyword,
     pageId,
@@ -128,6 +127,10 @@ const Products: React.FC<ProductsInterface> = ({ keyword, pageId }) => {
     router.isReady,
     router.query.page,
   ]);
+
+  useEffect(() => {
+    getUnderConstruction();
+  }, [isUnderConstruction, getUnderConstruction]);
 
   return (
     <>
