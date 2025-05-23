@@ -1,21 +1,38 @@
-import { Controller, Post, Body, HttpException, HttpStatus, Session } from "@nestjs/common";
+import {
+  Controller,
+  Post,
+  Body,
+  HttpException,
+  HttpStatus,
+  Session,
+  Headers,
+  Req,
+  Get,
+} from "@nestjs/common";
 import { PaymentService } from "./payments-service";
 import { OrderDocument } from "src/orders/schemas/order.schema";
 import { NotificationData } from "src/interfaces";
 import { OrdersService } from "src/orders/services/orders.service";
+import { Request } from "express";
 
 @Controller("payments")
 export class PaymentController {
-  constructor(private readonly paymentService: PaymentService) { }
+  constructor(private readonly paymentService: PaymentService) {}
 
   @Post("preference")
-  async createPreference(@Body() order: OrderDocument, @Session() session: any) {
+  async createPreference(
+    @Body() order: OrderDocument,
+    @Session() session: any
+  ) {
     try {
       const preference = await this.paymentService.createPreference(order);
-      session.cart.cartItems = []
+      session.cart.cartItems = [];
       return { preference };
     } catch (error) {
-      throw new HttpException('Error al crear preference', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        "Error al crear preference",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
     }
   }
 }
@@ -24,7 +41,7 @@ export class NotificationController {
   constructor(
     private readonly paymentService: PaymentService,
     private readonly ordersService: OrdersService
-  ) { }
+  ) {}
   /**
    *
    * @param notification esta funcion toma la notificacion, que envia mercado pago como parametro (web-hook), dentro de ella
@@ -33,9 +50,20 @@ export class NotificationController {
    * @returns
    */
   @Post("mercado-pago")
-  async handleNotification(@Body() notification: NotificationData) {
+  async handleNotification(
+    @Body() notification: NotificationData,
+    @Headers() headers: any,
+    @Req() req: Request
+  ) {
+    console.log("🔔 Notificación recibida de Mercado Pago");
+    console.log("🧾 Body:", notification);
+    console.log("🧠 Headers:", headers);
+    console.log("🌐 IP:", req.ip);
+
     try {
-      const payment = await this.paymentService.getPayment(notification.data.id);
+      const payment = await this.paymentService.getPayment(
+        notification.data.id
+      );
       const id = payment.external_reference;
       const orderUpdated = await this.ordersService.updatePaid(id);
 
@@ -48,8 +76,10 @@ export class NotificationController {
       return { payment };
     } catch (paymentError) {
       console.error("Error al procesar el pago:", paymentError);
-      throw new HttpException('Error al procesar el pago', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        "Error al procesar el pago",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
     }
   }
 }
-

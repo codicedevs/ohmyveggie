@@ -36,13 +36,14 @@ export class EmailService {
    */
   async sendUserPurchaseSuccessEmail(
     user: User,
-    orderId: string
+    orderId: string,
+    date: string
   ): Promise<SentMessageInfo> {
     return this.send({
       to: user.email,
       from: `"Oh My Veggie Rosario" <${this.defaultSender}>`,
       subject: "Gracias por su compra en" + " Oh My Veggie",
-      html: purchaseSuccessTemplate(user, orderId),
+      html: purchaseSuccessTemplate(user, orderId, date),
     });
   }
   /**

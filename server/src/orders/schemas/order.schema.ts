@@ -11,6 +11,9 @@ export class Order {
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" })
   user: User;
 
+  @Prop()
+  createdAt: Date;
+
   @Prop({
     required: true,
     type: [

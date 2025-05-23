@@ -1,7 +1,11 @@
 import { OrderDocument } from "src/orders/schemas/order.schema";
 import { User } from "src/users/schemas/user.schema";
 
-export const purchaseSuccessTemplate = (user: User, orderId: string) => `
+export const purchaseSuccessTemplate = (
+  user: User,
+  orderId: string,
+  date: string
+) => `
     <!DOCTYPE html>
     <html>    
     <head>
@@ -67,6 +71,7 @@ export const purchaseSuccessTemplate = (user: User, orderId: string) => `
         <h6>Estimado/a <b>${user.name}</b>,</h6>
         <p>Nos complace informarle que hemos recibido su compra a traves de nuestra pagina!
         <p>Su orden es la numero: ${orderId} </p>
+        <p>La misma fue realizada el dia: ${date} </p>
         <p>Usted puede consultar su historial de compras directamente desde su perfil de usuario en <b>Ohmyveggie</b></>
         <br>
         <p>Saludos cordiales</p> 

@@ -5,7 +5,6 @@ import { EmailService } from "src/email/email.service";
 import { UsersService } from "src/users/services/users.service";
 import { mercadoPagoSettings } from "src/settings";
 
-
 @Injectable()
 export class PaymentService {
   /**las dependencias externas no se inyectan directamente en el constructor */
@@ -18,8 +17,7 @@ export class PaymentService {
     private readonly usersService: UsersService
   ) {
     this.client = new MercadoPagoConfig({
-      accessToken:
-        mercadoPagoSettings.MERCADO_PAGO_ACCESS_TOKEN,
+      accessToken: mercadoPagoSettings.MERCADO_PAGO_ACCESS_TOKEN,
       options: { timeout: 5000 },
     });
     this.preference = new Preference(this.client);
@@ -29,10 +27,10 @@ export class PaymentService {
   async createPreference(order: OrderDocument) {
     const preferenceResult = this.preference.create({
       body: {
-        "back_urls": {
-          "success": "https://omvrosario.com",
-          "failure": "https://omvrosario.com",
-          "pending": "https://omvrosario.com"
+        back_urls: {
+          success: "https://omvrosario.com",
+          failure: "https://omvrosario.com",
+          pending: "https://omvrosario.com",
         },
         external_reference: order._id,
         items: order.orderItems.map((item) => {
@@ -54,9 +52,21 @@ export class PaymentService {
   }
 
   async sendEmailConfirmation(order: OrderDocument) {
-    const orderId = order._id.toString()
+    const orderId = order._id.toString();
     const userId = order.user.toString();
+
+    const date = new Date(order.createdAt).toLocaleString("es-AR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
     const userToSendEmail = await this.usersService.findById(userId);
-    await this.emailService.sendUserPurchaseSuccessEmail(userToSendEmail, orderId)
+    await this.emailService.sendUserPurchaseSuccessEmail(
+      userToSendEmail,
+      orderId,
+      date
+    );
   }
 }
